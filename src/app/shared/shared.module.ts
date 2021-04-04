@@ -9,6 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent],
-  exports: [FooterComponent, NavbarComponent, SidebarComponent],
+  exports: [ FooterComponent, NavbarComponent, SidebarComponent],
 })
 export class SharedModule {}
