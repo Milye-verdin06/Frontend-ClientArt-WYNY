@@ -1,11 +1,7 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-  <div class="container-fluid">
-    <!-- Brand -->
-    <a
-      class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-      routerLinkActive="active"
-      [routerLink]="['/dashboard']"
-      >{{ getTitle() }}</a
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">{{ getTitle() }}</a
     >
     <!-- Form -->
     <form
@@ -43,10 +39,10 @@
           </div>
         </a>
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
-          <div class="dropdown-header noti-title">
-            <h6 class="text-overflow m-0">Welcome!</h6>
-          </div>
-          <a
+            <div class="dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Bienvenido</h6>
+            </div>
+            <!-- <a
             routerLinkActive="active"
             [routerLink]="['/user-profile']"
             class="dropdown-item"
@@ -77,14 +73,14 @@
           >
             <i class="ni ni-support-16"></i>
             <span>Support</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#!" class="dropdown-item">
-            <i class="ni ni-user-run"></i>
-            <span>Logout</span>
-          </a>
+          </a> -->
+            <div class="dropdown-divider"></div>
+            <a href="#!" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>Cerrar sesión</span>
+            </a>
         </div>
-      </li>
-    </ul>
-  </div>
+        </li>
+        </ul>
+    </div>
 </nav>
