@@ -10,7 +10,7 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   {
     path: '/articulos-cliente',
-    title: 'Articulos',
+    title: 'Artículos',
     icon: 'ni-bullet-list-67 text-dark',
     class: '',
   },

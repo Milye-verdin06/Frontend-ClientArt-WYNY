@@ -1,12 +1,12 @@
-<div class=" container-fluid mt-4">
+<!-- <div class=" container-fluid mt-4">
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="col-lg-12 col-md-12 col-xs-12">
-                        <div class="col-lg-4 col-md-4 col-xs-4">
-                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                <!-- <div class="form-group mb-0"> -->
+                     <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="col-lg-4 col-md-4 col-xs-4">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <div class="form-group mb-0">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-search"></i> Buscar Cliente</span>
@@ -16,11 +16,87 @@
                                     <input class="form-control" autofocus="autofocus" type="text" />
 
                                 </div>
-                                <!-- </div> -->
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-xs-4">
+                        <input class="form-control" autofocus="autofocus" type="text" />
+                    </div>
+
+                    <div>
+
                         <div class="col-lg-4 col-md-4 col-xs-4">
                             <input class="form-control" autofocus="autofocus" type="text" />
+                        </div>
+
+                    </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ -->
+
+<div class=" container-fluid mt-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <div class="form-group mb-0">
+                                            <div class="input-group input-group-alternative">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-search"></i> Buscar Cliente</span>
+
+                                                </div>
+
+                                                <input class="form-control" autofocus="autofocus" type="text" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <div class="form-group mb-0">
+                                            <div class="input-group input-group-alternative">
+
+                                                <select name="select" class="form-control input-lg">
+                                                    <option value="value1" selected>Kilos</option>
+                                                    <option value="value2" >Pies cuadrados</option>
+                                                    <option value="value3">Decimetros</option>
+                                                    <option value="value4">Libras</option>
+                                                    <option value="value5">Pares</option>
+                                                    <option value="value6">Unidades</option>
+                                                    <option value="value7">Metros cuadrados</option>
+            
+                                                  </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <div class="form-group mb-0">
+                                            <div class="input-group input-group-alternative">
+
+                                                <select name="select" class="form-control input-lg"> 
+                                                    <option value="value1">1</option>
+                                                    <option value="value2" >2</option>
+                                                    <option value="value3">3</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -29,6 +105,8 @@
     </div>
 </div>
 
+
+
 <div class=" container-fluid mt-4">
     <div class="row">
         <div class="col-lg-12">
@@ -36,7 +114,7 @@
                 <div class="card-body text-center">
                     <h1>Listado de Articulos&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-light float-end" routerLink="/agregar-articulos">Agregar articulo<i class='ni ni-fat-add'></i> </button></h1>
-                    <!--   <button class="btn btn-light float-end" routerLink="/agregar-articulos">Nuevo Articulo</button> -->
+
                     <div class="table-responsive">
                         <table class="table align-items-center table-dark table-flush">
                             <thead class="thead-white">
@@ -60,18 +138,87 @@
                                     <td>23</td>
                                     <td>e</td>
                                     <td>40</td>
-                                    <td><i class="fa fa-edit text-primary"></i>
-                                        <i class="fa fa-trash text-danger"></i>
+
+                                    <td _ngcontent-c2="" class="text-right">
+                                        <div _ngcontent-c2="" ngbdropdown="" placement="bottom-right" class="show dropdown">
+                                            <a _ngcontent-c2="" aria-haspopup="true" class="btn btn-sm btn-icon-only text-light dropdown-toggle" ngbdropdowntoggle="" aria-expanded="true">
+                                                <i _ngcontent-c2="" class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div _ngcontent-c2="" class="dropdown-menu-right dropdown-menu-arrow dropdown-menu show" ngbdropdownmenu="" x-placement="bottom-right" style="top: 39px; left: -160px;">
+                                                <button data-toggle="modal" data-target="#modalEditarUsuario">Editar
+
+                                                </button>
+                                                <a _ngcontent-c2="" class="dropdown-item" href="#">Eliminar
+
+                                                </a>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                    Launch demo modal
+                                                  </button>
+
+                                            </div>
+                                        </div>
+
+
+
+
                                     </td>
+
+
                                 </tr>
+
 
                             </tbody>
                         </table>
                     </div>
-
-
-
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalEditarUsuario" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form" method="post" enctype="multipart/form-data">
+                <div class="modal-header" style="background:#3c8dbc; color:white">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Editar usuario</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+                    <button type="submit" class="btn btn-primary">Modificar usuario</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
