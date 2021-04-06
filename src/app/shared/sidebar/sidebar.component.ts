@@ -21,6 +21,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'ni-single-copy-04 text-dark',
     class: '',
   },
+  
   /* { path: '/icons', title: 'Icons', icon: 'ni-planet text-blue', class: '' },
   { path: '/maps', title: 'Maps', icon: 'ni-pin-3 text-orange', class: '' },
   {
