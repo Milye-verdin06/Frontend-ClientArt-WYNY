@@ -1,57 +1,78 @@
-<script>
-    $(document).ready(function() {
-        $('.example').DataTable();
-    });
-</script>
-<div class="content-wrapper">
-    <section class="content">
-        <div class="box">
-            <div class=" container-fluid ">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <h1 class="display-4">Listado de Articulos&nbsp;&nbsp;&nbsp;
-                                    <button class="btn btn-light float-end" routerLink="/agregar-articulos">Agregar articulo<i class='ni ni-fat-add'></i> </button></h1>
-                                <!--   <button class="btn btn-light float-end" routerLink="/agregar-articulos">Nuevo Articulo</button> -->
-                                <table class="table table-striped table-bordered table-responsive dt-responsive example">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Cliente</th>
-                                            <th scope="col">Articulo</th>
-                                            <th scope="col">Grosor</th>
-                                            <th scope="col">Acabado</th>
-                                            <th scope="col">Color</th>
-                                            <th scope="col">clasificacion</th>
-                                            <th scope="col">Tarifa</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><i class="fa fa-edit text-primary"></i>
-                                                <i class="fa fa-trash text-danger"></i>
+<div class=" container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <div class="col-lg-4 col-md-4 col-xs-4">
+                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                <!-- <div class="form-group mb-0"> -->
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-search"></i> Buscar Cliente</span>
 
+                                    </div>
 
-                                            </td>
-                                        </tr>
+                                    <input class="form-control" autofocus="autofocus" type="text" />
 
-
-                                    </tbody>
-                                </table>
+                                </div>
+                                <!-- </div> -->
                             </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xs-4">
+                            <input class="form-control" autofocus="autofocus" type="text" />
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </section>
+    </div>
+</div>
+
+<div class=" container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1>Listado de Articulos&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-light float-end" routerLink="/agregar-articulos">Agregar articulo<i class='ni ni-fat-add'></i> </button></h1>
+                    <!--   <button class="btn btn-light float-end" routerLink="/agregar-articulos">Nuevo Articulo</button> -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-dark table-flush">
+                            <thead class="thead-white">
+                                <tr>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Articulo</th>
+                                    <th scope="col">Grosor</th>
+                                    <th scope="col">Acabado</th>
+                                    <th scope="col">Color</th>
+                                    <th scope="col">clasificacion</th>
+                                    <th scope="col">Tarifa</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+                                    <td>hsds</td>
+                                    <td>hdd</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>23</td>
+                                    <td>e</td>
+                                    <td>40</td>
+                                    <td><i class="fa fa-edit text-primary"></i>
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
