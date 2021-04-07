@@ -9,27 +9,20 @@
 
                             <h4>Cliente </h4>
 
-
-
-
-
                             <mat-form-field appearance="fill">
                                 <mat-label>Seleccionar divisa</mat-label>
-                                <mat-select [(ngModel)]="selectedValue" name="food">
-                                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                                <mat-select [(value)]="selectedValue">
+                                    <mat-option *ngFor="let food of foods" [value]="food">
                                         {{food.viewValue}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <p> Divisa seleccionada: {{selectedValue}} </p>
+                            <p> Divisa seleccionada: {{selectedValue.viewValue}} </p>
                             <mat-form-field appearance="fill">
                             </mat-form-field>
 
                         </div>
                     </div>
-
-
-
 
                 </div>
             </div>

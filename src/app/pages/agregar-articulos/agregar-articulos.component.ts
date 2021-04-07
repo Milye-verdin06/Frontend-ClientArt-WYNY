@@ -14,21 +14,21 @@ interface Food {
 })
 export class AgregarArticulosComponent implements OnInit {
   
-  selectedValue: string 
-
-  foods: Food[] = [
+  
+  foods = [
     {value: '1', viewValue: 'Pesos'},
     {value: '2', viewValue: 'Dolares'},
     {value: '3', viewValue: 'Euros'}
   ];
+  
+  selectedValue= this.foods[1];
 
-
-  constructor( ) {this.selectedValue='';
+  constructor( ) {
     
 
    }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    console.log(this.selectedValue);
   }
-
 }
