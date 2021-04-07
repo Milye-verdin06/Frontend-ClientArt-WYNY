@@ -67,6 +67,18 @@
                                         <div class="form-group mb-0">
                                             <div class="input-group input-group-alternative">
 
+                                                <!-- <mat-form-field appearance="fill">
+                                                    <mat-label>Seleccionar divisa</mat-label>
+                                                    <mat-select [(ngModel)] ="selectedValue" name="food">
+                                                      <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                        {{food.viewValue}}
+                                                      </mat-option>
+                                                    </mat-select>
+                                                  </mat-form-field>
+                                                  <p> Divisa seleccionada: {{selectedValue}} </p>
+                                                  <mat-form-field appearance="fill">
+                                                </mat-form-field> -->
+
                                                 <select name="select" class="form-control input-lg">
                                                     
                                                     <option value="value1" >Kilos</option>
@@ -86,6 +98,18 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <div class="form-group mb-0">
                                             <div class="input-group input-group-alternative">
+
+                                                <!--  <mat-form-field appearance="fill">
+                                                    <mat-label>Seleccionar divisa</mat-label>
+                                                    <mat-select [(ngModel)]="selectedValue" name="food">
+                                                        <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                            {{food.viewValue}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                                <p> Divisa seleccionada: {{selectedValue}} </p>
+                                                <mat-form-field appearance="fill">
+                                                </mat-form-field> -->
 
                                                 <select name="select" class="form-control input-lg"> 
                                                     <option value="value1">1</option>
@@ -114,6 +138,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h1>Listado de Articulos&nbsp;&nbsp;&nbsp;
+
                         <button class="btn btn-light float-end" routerLink="/agregar-articulos">Agregar articulo<i class='ni ni-fat-add'></i> </button></h1>
 
                     <div class="table-responsive">
@@ -132,48 +157,61 @@
                             </thead>
                             <tbody>
                                 <tr style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-                                    <td>hsds</td>
-                                    <td>hdd</td>
+                                    <td>HSHS</td>
+                                    <td>J2ML</td>
                                     <td>1</td>
-                                    <td>2</td>
+                                    <td>AR</td>
                                     <td>23</td>
-                                    <td>e</td>
+                                    <td>TR</td>
                                     <td>40</td>
+                                    <td>
+                                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                                            <mat-icon>more_vert</mat-icon>
+                                          </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)=open(mymodal)>
+                                              <mat-icon> mode_edit</mat-icon>
+                                              <span>Editar</span>
+                                            </button>
 
-                                    <td _ngcontent-c2="" class="text-right">
-                                        <div _ngcontent-c2="" ngbdropdown="" placement="bottom-right" class="show dropdown">
-                                            <a _ngcontent-c2="" aria-haspopup="true" class="btn btn-sm btn-icon-only text-light dropdown-toggle" ngbdropdowntoggle="" aria-expanded="true">
-                                                <i _ngcontent-c2="" class="fas fa-ellipsis-v">
-
-                                                </i>
-                                            </a>
-                                            <div _ngcontent-c2="" class="dropdown-menu-right dropdown-menu-arrow dropdown-menu show" ngbdropdownmenu="" x-placement="bottom-right" style="top: 39px; left: -160px;">
-                                                <a _ngcontent-c2="" class="dropdown-item" href="#">Editar</a>
-                                                <a _ngcontent-c2="" class="dropdown-item" href="#">Eliminar</a>
-
-                                            </div>
-                                        </div>
+                                            <button mat-menu-item>
+                                              <mat-icon>delete_forever</mat-icon> 
+                                                <span > Eliminar  </span>
+                                            </button>
+                                        </mat-menu>
                                     </td>
 
 
 
-                                    <!-- <button mat-icon-button [ matMenuTriggerFor ]="menu" aria-label="Example icon-button with a menu">
-                                        <mat-icon> more_vert </mat-icon >
-                                      </button>
-                                    <mat-menu # menu = "matMenu">
-                                        <button mat-menu-item>
-                                          <mat-icon>dialpad</mat-icon>
-                                          <span>Editar</span>
-                                        </button>
-                                        <button mat-menu-item>
-                                          <mat-icon>voicemail</mat-icon>
-                                          <span>Eliminar</span>
-                                        </button>
+                                </tr>
+                                <tr>
+                                    <td>HSHS</td>
+                                    <td>J2ML</td>
+                                    <td>1</td>
+                                    <td>AR</td>
+                                    <td>23</td>
+                                    <td>TR</td>
+                                    <td>40</td>
+                                    <td>
+                                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                                            <mat-icon>more_vert</mat-icon>
+                                          </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)=open(mymodal)>
+                                              <mat-icon> mode_edit</mat-icon>
+                                              <span>Editar</span>
+                                            </button>
 
-                                    </mat-menu> -->
+                                            <button mat-menu-item>
+                                              <mat-icon>delete_forever</mat-icon> 
+                                                <span > Eliminar  </span>
+                                            </button>
+                                        </mat-menu>
+                                    </td>
+
+
 
                                 </tr>
-
 
                             </tbody>
                         </table>
@@ -184,7 +222,41 @@
     </div>
 </div>
 
-<div id="modalEditarUsuario" class="modal fade" role="dialog">
+
+
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title" id="modal-basic-title">Editar artículo</h1>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        Cuerpo del articulo
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar</button>
+
+    </div>
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="modalEditarUsuario" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <form role="form" method="post" enctype="multipart/form-data">
@@ -230,5 +302,4 @@
             </div>
         </div>
     </div>
-</div>
-l
+</div -->>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatMenuModule} from '@angular/material/menu';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-articulos-cliente',
@@ -7,11 +8,17 @@ import { MatMenuModule} from '@angular/material/menu';
   styles: [
   ]
 })
-export class ArticulosClienteComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+export class ArticulosClienteComponent  {
+  
+  constructor(private modalService: NgbModal) {
+  
+   }
+   open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+     
+    });
   }
+
+ 
 
 }
