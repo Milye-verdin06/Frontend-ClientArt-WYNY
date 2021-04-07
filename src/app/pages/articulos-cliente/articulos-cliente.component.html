@@ -62,24 +62,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm">
+                                <div class="col">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                        <div class="form-group mb-0">
-                                            <div class="input-group input-group-alternative">
 
-                                                <!-- <mat-form-field appearance="fill">
-                                                    <mat-label>Seleccionar divisa</mat-label>
-                                                    <mat-select [(ngModel)] ="selectedValue" name="food">
-                                                      <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                        {{food.viewValue}}
-                                                      </mat-option>
-                                                    </mat-select>
-                                                  </mat-form-field>
-                                                  <p> Divisa seleccionada: {{selectedValue}} </p>
-                                                  <mat-form-field appearance="fill">
-                                                </mat-form-field> -->
-
-                                                <select name="select" class="form-control input-lg">
+                                        <!--  <select name="select" class="form-control input-lg">
                                                     
                                                     <option value="value1" >Kilos</option>
                                                     <option value="value2" >Pies cuadrados</option>
@@ -89,35 +75,38 @@
                                                     <option value="value6">Unidades</option>
                                                     <option value="value7">Metros cuadrados</option>
             
-                                                  </select>
-                                            </div>
-                                        </div>
+                                                  </select> -->
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar unidad de medida</mat-label>
+                                            <mat-select [(value)]="selectedUnidad">
+                                                <mat-option *ngFor="let unidad of unidades" [value]="unidad.value">
+                                                    {{unidad.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <p> Unidad de medida seleccionada: {{selectedUnidad}} </p>
                                     </div>
                                 </div>
-                                <div class="col-sm">
+
+                                <div class="col">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                        <div class="form-group mb-0">
-                                            <div class="input-group input-group-alternative">
 
-                                                <!--  <mat-form-field appearance="fill">
-                                                    <mat-label>Seleccionar divisa</mat-label>
-                                                    <mat-select [(ngModel)]="selectedValue" name="food">
-                                                        <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                            {{food.viewValue}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                                <p> Divisa seleccionada: {{selectedValue}} </p>
-                                                <mat-form-field appearance="fill">
-                                                </mat-form-field> -->
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar divisa</mat-label>
+                                            <mat-select [(value)]="selectedValue">
+                                                <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                    {{food.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <p> Divisa seleccionada: {{selectedValue}} </p>
 
-                                                <select name="select" class="form-control input-lg"> 
+                                        <!-- <select name="select" class="form-control input-lg"> 
                                                     <option value="value1">1</option>
                                                     <option value="value2" >2</option>
                                                     <option value="value3">3</option>
-                                                  </select>
-                                            </div>
-                                        </div>
+                                                  </select> -->
+
                                     </div>
                                 </div>
 
@@ -233,10 +222,21 @@
     </button>
     </div>
     <div class="modal-body">
-        Cuerpo del articulo
+        <div class="box-body">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+                </div>
+            </div>
+        </div>
+
+
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar</button>
+
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar
+        </button>
 
     </div>
 </ng-template>
@@ -302,4 +302,4 @@
             </div>
         </div>
     </div>
-</div -->>
+</div -->

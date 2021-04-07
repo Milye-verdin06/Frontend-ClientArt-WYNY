@@ -6,6 +6,9 @@ import { MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatListModule} from '@angular/material/list';
+
 
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
 import { SharedModule } from '../shared/shared.module';
@@ -16,7 +19,7 @@ import { EspecificacionesComponent } from './especificaciones/especificaciones.c
 @NgModule({
   declarations: [PagesComponent, ArticulosClienteComponent, AgregarArticulosComponent, EspecificacionesComponent],
   imports: [CommonModule,FormsModule, SharedModule, RouterModule,MatMenuModule,MatIconModule,
-    MatSelectModule,MatButtonModule],
+    MatSelectModule,MatButtonModule, MatBottomSheetModule,MatListModule,],
   exports: [PagesComponent, ArticulosClienteComponent],
 })
 export class PagesModule {}
