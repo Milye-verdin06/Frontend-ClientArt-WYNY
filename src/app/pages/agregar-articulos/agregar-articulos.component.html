@@ -4,26 +4,111 @@
             <div class="card">
                 <div class="card-body text-center">
                     <div class="col-lg-12 col-md-12 col-xs-12">
+                        <h1>Agregar Artículo</h1>
+
+                        <h4>Cliente </h4>
                         <div class="container">
-                            <h1>Agregar Artículo</h1>
+                            <div class="row">
 
-                            <h4>Cliente </h4>
+                                <div class="col-sm">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar Linea</mat-label>
+                                            <mat-select [(value)]="selectedLinea">
+                                                <mat-option *ngFor="let linea of lineas" [value]="linea.value">
+                                                    {{linea.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <p> Linea seleccionada: {{selectedLinea}} </p>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>Seleccionar divisa</mat-label>
-                                <mat-select [(value)]="selectedValue">
-                                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                                        {{food.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <p> Divisa seleccionada: {{selectedValue}} </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar Tambor</mat-label>
+                                            <mat-select [(value)]="selectedTambor">
+                                                <mat-option *ngFor="let tambor of tambor" [value]="tambor.value">
+                                                    {{tambor.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <p> Tambor seleccionado: {{selectedTambor}} </p>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar Formato</mat-label>
+                                            <mat-select [(value)]="selectedFormato">
+                                                <mat-option *ngFor="let formato of formato" [value]="formato.value">
+                                                    {{formato.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <p> Formato seleccionado: {{selectedFormato}} </p>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar Tamaño</mat-label>
+                                            <mat-select [(value)]="selectedTamano" (selectionChange)="onChange()">
+                                                <mat-option *ngFor="let tamano of tamano" [value]="tamano.value">
+                                                    {{tamano.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <p> Tamaño seleccionado: {{selectedTamano}} </p>
+
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
 
                         </div>
-                    </div>
+                        <div class="container-fluid mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
 
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+
+                                        <div class="col-md-auto">
+                                            <h3>Codigo:
+                                                <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor}}{{selectedFormato}} {{selectedTamano}}">
+                                            </h3>
+                                        </div>
+
+                                        <div class="col-md-auto">
+                                            <h3>Descripcion:
+                                                <input class="input-group-text" placeholder=" ">
+                                                <!-- <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor.viewValue}}{{selectedFormato}} {{selectedTamano}}"> -->
+                                            </h3>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

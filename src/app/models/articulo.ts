@@ -1,4 +1,4 @@
-export class articulo{
+export class Articulo{
             _id?: number;
             ta_codi: string;
             ta_clta: number;

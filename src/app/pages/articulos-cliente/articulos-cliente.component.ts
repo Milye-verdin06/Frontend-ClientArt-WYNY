@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { ArticuloService } from 'src/app/services/articulo.service';
+import { UsuarioService} from 'src/app/services/usuario.service';
+import { Usuario } from 'src/app/models/usuario';
+
 
 interface Food {
   value: string;
@@ -18,6 +20,7 @@ interface Unidad {
   ]
 })
 export class ArticulosClienteComponent implements OnInit  {
+  
  
   foods: Food[] = [
     { value: '1', viewValue: 'Pesos' },
@@ -39,28 +42,29 @@ export class ArticulosClienteComponent implements OnInit  {
 
   selectedValue: Food;
   selectedUnidad: Unidad;
+
+  usuarios: Usuario[];
  
-  articles: any
-  constructor(private modalService: NgbModal, private articuloService: ArticuloService) {
+ 
+  constructor(private modalService: NgbModal, private usuarioService: UsuarioService) {
     this.selectedValue = this.foods[1];
     this.selectedUnidad = this.unidades [1];
-
+    this.usuarios = [];
     
   
    }
    open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-     
+      
     });
+    
   }
   ngOnInit() {
-    this.articuloService.getArticulos().subscribe((data)=>{
-      console.log(data);
-      //this.articles = data ['articles'];
-    });
-
- 
-
+    this.usuarioService.getUsuariosWithHeaders().subscribe((response: any) => {
+      console.log(response);
+      this.usuarios = response.body
+    }, error => console.error(error));
+    
+    }
 }
 
-}
