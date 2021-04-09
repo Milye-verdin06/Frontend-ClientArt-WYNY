@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:15222/marroquineria'
+  apiUrl: 'http://localhost:15222/marroquineria',
+  token:'iZ5GClqtqEpXlSMEv2ZuFcw7qN9T7tJyobr-Nzv4E9Mb0vKSYSUBPu60lCbF6SEaeSLgeCoGZKbhrrRv_723wjLXIQ7AdnJK0H4JZmXSuJ3N_rONAaBDm4lXNfdHSRbZGWOc1Or3kUIibP5T9SJ-zgcvcMBiKqbjM4si3w19PZ8Pz3bWHrza2frDjWfoC1tyQYKQipZye-EvJZfCPyeQLlJwaCyaS0OCcqW5Hk8nT2Cnmy69_cTKLDy8k7Gq-Hcf-hCoIy5AAEICkYs41uIehHs_H6U2yRqreECNM7RLd_HLcfGfxpHwcHSkYBab7BhDi8sc1Rpq18Pof2B5UuKcKA' 
 };
 
 /*

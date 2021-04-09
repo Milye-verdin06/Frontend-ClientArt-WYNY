@@ -18,5 +18,18 @@ body {
     margin-left: 0px !important;
     margin-right: 0px !important;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mod-class .modal-dialog {
+    max-width: 1000px;
+    max-height: 1000px;
+}

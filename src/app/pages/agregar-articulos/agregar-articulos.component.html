@@ -56,11 +56,12 @@
 
                                     </div>
                                 </div>
+
                                 <div class="col-sm">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Tamaño</mat-label>
-                                            <mat-select [(value)]="selectedTamano" (selectionChange)="onChange()">
+                                            <mat-select [(value)]="selectedTamano">
                                                 <mat-option *ngFor="let tamano of tamano" [value]="tamano.value">
                                                     {{tamano.viewValue}}
                                                 </mat-option>
@@ -69,46 +70,66 @@
                                         <p> Tamaño seleccionado: {{selectedTamano}} </p>
 
 
+                                    </div>
 
+                                </div>
 
+                                <div class="col-sm">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar Clasificado</mat-label>
+                                            <mat-select [(value)]="selectedClasificado">
+                                                <mat-option *ngFor="let clasificado of clasificado" [value]="clasificado.value">
+                                                    {{clasificado.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <p> Clasificado seleccionado: {{selectedClasificado}} </p>
                                     </div>
                                 </div>
 
-                            </div>
 
-                        </div>
-                        <div class="container-fluid mt-4">
-                            <div class="row">
-                                <div class="col-lg-12">
-
+                                <div class="col-sm">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
 
-                                        <div class="col-md-auto">
-                                            <h3>Codigo:
-                                                <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor}}{{selectedFormato}} {{selectedTamano}}">
-                                            </h3>
-                                        </div>
-
-                                        <div class="col-md-auto">
-                                            <h3>Descripcion:
-                                                <input class="input-group-text" placeholder=" ">
-                                                <!-- <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor.viewValue}}{{selectedFormato}} {{selectedTamano}}"> -->
-                                            </h3>
-                                        </div>
-
                                     </div>
-
-
                                 </div>
 
 
+
+
+                                <div class="container-fluid mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+
+                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+
+                                                <div class="col-md-auto">
+                                                    <h3>Codigo:
+                                                        <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor}}{{selectedFormato}} {{selectedTamano}}">
+                                                    </h3>
+                                                </div>
+
+                                                <div class="col-md-auto">
+                                                    <h3>Descripcion:
+                                                        <input class="input-group-text" placeholder=" ">
+                                                        <!-- <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor.viewValue}}{{selectedFormato}} {{selectedTamano}}"> -->
+                                                    </h3>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
                     </div>
                 </div>
+
             </div>
         </div>
-
-    </div>
-</div>

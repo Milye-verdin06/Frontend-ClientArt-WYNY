@@ -16,7 +16,10 @@ interface Tamano {
   value: string;
   viewValue: string;
 }
-
+interface Clasificado {
+  value: string;
+  
+}
 
 
 @Component({
@@ -25,7 +28,7 @@ interface Tamano {
 })
 export class AgregarArticulosComponent implements OnInit {
   descripcion: string= ''
-descripcions: string [] = ['liso','azul']
+ descripcions: string [] = ['liso','azul']
 
 
   lineas: Linea[] = [];
@@ -37,8 +40,17 @@ descripcions: string [] = ['liso','azul']
   ];
 
   formato: Formato[] = [];
+
   tamano: Tamano[] = [
     { value: 'M', viewValue: 'Muy tamboreado' },
+  ];
+
+  clasificado: Clasificado[]=[
+    { value: 'A' },
+    { value: 'B'},
+    { value: 'C'},
+    { value: 'D' },
+
   ];
   
 
@@ -46,6 +58,7 @@ descripcions: string [] = ['liso','azul']
   selectedTambor: Tambor;
   selectedFormato: Formato;
   selectedTamano: Tamano;
+  selectedClasificado: Clasificado; 
   
   
 
@@ -54,11 +67,12 @@ descripcions: string [] = ['liso','azul']
     this.selectedTambor = this.tambor[1];
     this.selectedFormato = this.formato[1];
     this.selectedTamano = this.tamano[1];
+    this.selectedClasificado = this.clasificado[1];
     
   }
   ngOnInit() {}
 
   onChange(){
-    this.selectedTamano.viewValue
+    
   }
 }

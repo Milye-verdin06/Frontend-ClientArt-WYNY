@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Articulo } from '../models/articulo';
+import { Articulo } from '../models/Articulo';
+import { PeticionesService } from './peticiones.service';
+import { map } from 'rxjs/operators';
 
-//verificar este servicio
+//funciona
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticuloService {
  
- baseUrl = environment.apiUrl + '/articulos';
 
-  constructor(private http: HttpClient) { }
+  constructor(private peticion: PeticionesService) { }
 
-getArticulo(articuloId: string): Observable<Articulo>{
- const url = this.baseUrl + articuloId;
-  return this.http.get<Articulo>(url);
-}
-getarticulos(): Observable<Articulo[]>{
-  return this.http.get<Articulo[]>(this.baseUrl);
+
+getArticulos(body:any): Observable<any>{
+  return this.peticion.postQuery('articulos','getall',body)
+  .pipe(
+    map(response=>{
+      console.log(response);
+      return response;
+    })
+  )
 }
 
-getUsersWithHeaders(): Observable<any>{
-  return this.http.get(this.baseUrl, {observe: 'response'});
-}
 
  }

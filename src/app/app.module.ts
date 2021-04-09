@@ -11,13 +11,15 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule} from '@angular/material/button';
 
 
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthInterceptorService } from './services/auth-interceptor.service';
+
 
 @NgModule({
   imports: [
@@ -36,11 +38,9 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     BrowserAnimationsModule
     
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptorService,
-    multi: true
-  }],
+  providers: [
+   
+  ],
   
   declarations: [AppComponent],
   bootstrap: [AppComponent],

@@ -1,0 +1,7 @@
+{
+    "/marroquineria/": {
+        "target": "http://localhost:15222",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

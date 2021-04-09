@@ -126,7 +126,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body text-center">
-                    <h1>Listado de Articulos&nbsp;&nbsp;&nbsp;
+                    <h1 class="display-4">Listado de Articulos&nbsp;&nbsp;&nbsp;
 
                         <button class="btn btn-light float-end" routerLink="/agregar-articulos">Agregar articulo<i class='ni ni-fat-add'></i> </button></h1>
 
@@ -163,7 +163,7 @@
                                               <span>Editar</span>
                                             </button>
 
-                                            <button mat-menu-item>
+                                            <button mat-menu-item (click)="clickMethod('name')">
                                               <mat-icon>delete_forever</mat-icon> 
                                                 <span > Eliminar  </span>
                                             </button>
@@ -191,7 +191,7 @@
                                               <span>Editar</span>
                                             </button>
 
-                                            <button mat-menu-item>
+                                            <button mat-menu-item (click)="clickMethod('name')">
                                               <mat-icon>delete_forever</mat-icon> 
                                                 <span > Eliminar  </span>
                                                
@@ -215,7 +215,6 @@
 
 <ng-template #mymodal let-modal>
     <div class="modal-header">
-
         <h1 class="modal-title" id="modal-basic-titlee">Editar artículo</h1>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
@@ -225,68 +224,72 @@
         <div class="box-body">
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
-
-
+                    <div class="col">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-
     </div>
+
     <div class="modal-footer">
 
         <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar
+            <span class="material-icons">
+                save
+                </span>
         </button>
 
     </div>
 </ng-template>
 
-< <!-- <div id="modalEditarUsuario" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form role="form" method="post" enctype="multipart/form-data">
-                <div class="modal-header" style="background:#3c8dbc; color:white">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Editar usuario</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
-                            </div>
+
+<ng-template #mymodaldelete let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title" id="modal-basic-titlee">Editar artículo</h1>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+        <div class="box-body">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="col">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-                    <button type="submit" class="btn btn-primary">Modificar usuario</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
-    </div -->
+
+    </div>
+
+    <div class="modal-footer">
+
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar
+            <span class="material-icons">
+                save
+                </span>
+        </button>
+
+    </div>
+</ng-template>
