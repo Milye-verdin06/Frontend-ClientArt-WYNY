@@ -8,8 +8,16 @@ import { Articulo } from '../../models/Articulo';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 
+export interface cliente {
+  c_nom: string;
+  c_codi: string;
+  name: string;
+}
 interface Food {
   value: string;
   viewValue: string;
@@ -23,8 +31,10 @@ interface Unidad {
   selector: 'app-articulos-cliente',
   templateUrl: './articulos-cliente.component.html',
   styles: [
-  ]
+  ],
+  providers:[]
 })
+
 export class ArticulosClienteComponent implements OnInit  {
   
  
@@ -52,7 +62,13 @@ export class ArticulosClienteComponent implements OnInit  {
   
   articulos: Articulo [];
   clientes: Cliente[];
+
  
+  myControl = new FormControl();
+  listclientes: cliente[] = [
+   
+  ];
+  filteredOptions: Observable<cliente[]> | undefined;
  
   constructor(private modalService: NgbModal, private articuloService: ArticuloService,private clienteService: ClienteService, private http:HttpClient) {
     this.selectedValue = this.foods[1];
@@ -81,7 +97,8 @@ export class ArticulosClienteComponent implements OnInit  {
 
     this.clienteService.getClientes(fds).subscribe((response: any) =>{
       console.log(response.fds);
-      this.clientes = response.fds
+      this.clientes = response.fds;
+      
     }, error => console.log(error));
     // const body = {
     //   c_codi:  "107211", 
@@ -93,7 +110,26 @@ export class ArticulosClienteComponent implements OnInit  {
     //   console.log(response.body);
     //   this.articulos = response.body
     // }, error => console.error(error));
+
+
+    this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.name),
+      map(name => name ? this._filter(name) : this.listclientes.slice())
+    );
+
+   
     
+    }
+    displayFn(user: cliente): string {
+      return user && user.c_nom ? user.c_nom : '';
+    }
+  
+    private _filter(name: string): cliente[] {
+      const filterValue = name.toLowerCase();
+  
+      return this.listclientes.filter(option => option.c_nom.toLowerCase().indexOf(filterValue) === 0);
     }
 
     clickMethod(name: string) {

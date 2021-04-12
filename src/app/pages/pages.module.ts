@@ -9,6 +9,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule, } from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+
 
 
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
@@ -19,8 +26,26 @@ import { EspecificacionesComponent } from './especificaciones/especificaciones.c
 
 @NgModule({
   declarations: [PagesComponent, ArticulosClienteComponent, AgregarArticulosComponent, EspecificacionesComponent],
-  imports: [CommonModule,FormsModule, SharedModule, RouterModule,MatMenuModule,MatIconModule,
-    MatSelectModule,MatButtonModule, MatBottomSheetModule,MatListModule,],
+  imports: [CommonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  SharedModule,
+  RouterModule,
+  MatMenuModule,
+  MatIconModule,
+  MatSelectModule,
+  MatButtonModule,
+  MatBottomSheetModule,
+  MatListModule,
+  MatInputModule,
+  ReactiveFormsModule,
+  MatCardModule,
+  MatAutocompleteModule,
+  
+  MatSlideToggleModule
+ 
+ ],
+
   exports: [PagesComponent, ArticulosClienteComponent,MatDialogModule ],
 })
 export class PagesModule {}

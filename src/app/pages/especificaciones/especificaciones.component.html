@@ -1,1 +1,28 @@
-<p>especificaciones works!</p>
+<ng-template #mymodaladdEsp let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title" id="modal-basic-titlee">Editar artículo</h1>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+        <div class="box-body">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="col">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

@@ -1,44 +1,3 @@
-<!-- <div class=" container-fluid mt-4">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body text-center">
-                     <div class="col-lg-12 col-md-12 col-xs-12">
-                    <div class="col-lg-4 col-md-4 col-xs-4">
-                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                            <div class="form-group mb-0">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-search"></i> Buscar Cliente</span>
-
-                                    </div>
-
-                                    <input class="form-control" autofocus="autofocus" type="text" />
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input class="form-control" autofocus="autofocus" type="text" />
-                    </div>
-
-                    <div>
-
-                        <div class="col-lg-4 col-md-4 col-xs-4">
-                            <input class="form-control" autofocus="autofocus" type="text" />
-                        </div>
-
-                    </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
- -->
-
 <div class=" container-fluid mt-3">
     <div class="row">
         <div class="col-lg-12">
@@ -50,7 +9,18 @@
                                 <div class="col-md-auto">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <div class="form-group mb-0">
-                                            <div class="input-group input-group-alternative">
+
+                                            <!--   <mat-form-field class="example-full-width">
+                                                <mat-label>Buscar cliente</mat-label>
+                                                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                    {{option.name}}
+                                                  </mat-option>
+                                                </mat-autocomplete>
+                                              </mat-form-field> -->
+
+                                            <!--  <div class="input-group input-group-alternative">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-search"></i> Buscar Cliente</span>
 
@@ -58,6 +28,23 @@
 
                                                 <input class="form-control" autofocus="autofocus" type="text" />
 
+                                            </div> -->
+                                            <div class="col-md-auto">
+                                                <div class="navbar-search form-inline mr-5 d-none d-md-flex ml-lg-auto">
+
+                                                    <h2> Autocomplete</h2>
+                                                    <mat-form-field>
+                                                        <mat-label>Buscar Cliente</mat-label>
+                                                        <input type="text" autofocus="autofocus" matInput [formControl]="myControl" [matAutocomplete]="auto">
+
+                                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                                            <mat-option *ngFor="let listclientes of filteredOptions | async" [value]="listclientes">
+                                                                {{listclientes.name}}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -65,17 +52,7 @@
                                 <div class="col">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
 
-                                        <!--  <select name="select" class="form-control input-lg">
-                                                    
-                                                    <option value="value1" >Kilos</option>
-                                                    <option value="value2" >Pies cuadrados</option>
-                                                    <option value="value3">Decimetros</option>
-                                                    <option value="value4">Libras</option>
-                                                    <option value="value5">Pares</option>
-                                                    <option value="value6">Unidades</option>
-                                                    <option value="value7">Metros cuadrados</option>
-            
-                                                  </select> -->
+
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar unidad de medida</mat-label>
                                             <mat-select [(value)]="selectedUnidad">
@@ -101,11 +78,7 @@
                                         </mat-form-field>
                                         <p> Divisa seleccionada: {{selectedValue}} </p>
 
-                                        <!-- <select name="select" class="form-control input-lg"> 
-                                                    <option value="value1">1</option>
-                                                    <option value="value2" >2</option>
-                                                    <option value="value3">3</option>
-                                                  </select> -->
+
 
                                     </div>
                                 </div>
@@ -158,6 +131,12 @@
                                             <mat-icon>more_vert</mat-icon>
                                           </button>
                                         <mat-menu #menu="matMenu">
+                                            <button mat-menu-item>
+                                                <mat-icon> view_headline</mat-icon>
+                                                <span>Ver especificación
+                                                    </span>
+                                                   
+                                              </button>
                                             <button mat-menu-item (click)=open(mymodal)>
                                               <mat-icon> mode_edit</mat-icon>
                                               <span>Editar</span>
@@ -214,47 +193,6 @@
 
 
 <ng-template #mymodal let-modal>
-    <div class="modal-header">
-        <h1 class="modal-title" id="modal-basic-titlee">Editar artículo</h1>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-     </button>
-    </div>
-    <div class="modal-body">
-        <div class="box-body">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="col">
-                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="modal-footer">
-
-        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar
-            <span class="material-icons">
-                save
-                </span>
-        </button>
-
-    </div>
-</ng-template>
-
-
-<ng-template #mymodaldelete let-modal>
     <div class="modal-header">
         <h1 class="modal-title" id="modal-basic-titlee">Editar artículo</h1>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
