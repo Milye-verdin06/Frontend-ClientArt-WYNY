@@ -64,8 +64,8 @@
 
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de negocio</mat-label>
-                                            <mat-select [(value)]="selectedUnidad">
-                                                <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.value">
+                                            <mat-select [(value)]="selectedUnidadN">
+                                                <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.viewValue">
                                                     {{unidadnegocio.viewValue}}
                                                 </mat-option>
                                             </mat-select>

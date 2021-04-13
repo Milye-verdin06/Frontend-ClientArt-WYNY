@@ -26,7 +26,7 @@ interface Unidad {
   viewValue: string;
 }
 interface UnidadNegocio {
-  value: string;
+ 
   viewValue: string;
 }
 @Component({
@@ -58,12 +58,12 @@ export class ArticulosClienteComponent implements OnInit  {
   ];
 
   unidadesN: UnidadNegocio[] = [
-    { value: 'P', viewValue: 'Marroquineria' },
-    { value: 'K', viewValue: 'Suela' },
-    { value: 'D', viewValue: 'Piel' },
-    { value: 'L', viewValue: 'Tiras' },
-    { value: 'P', viewValue: 'Cintos' },
-    { value: 'U', viewValue: 'Suajado' },
+    {  viewValue: 'Marroquineria' },
+    {  viewValue: 'Suela' },
+    {  viewValue: 'Piel' },
+    {  viewValue: 'Tiras' },
+    {  viewValue: 'Cintos' },
+    {  viewValue: 'Suajado' },
     
   ];
   selectedValue: Food;
