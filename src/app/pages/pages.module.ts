@@ -23,9 +23,11 @@ import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
+import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
+
 
 @NgModule({
-  declarations: [PagesComponent, ArticulosClienteComponent, AgregarArticulosComponent, EspecificacionesComponent],
+  declarations: [PagesComponent, ArticulosClienteComponent, AgregarArticulosComponent, EspecificacionesComponent, AgregarEspecificacionesComponent],
   imports: [CommonModule,
   FormsModule,
   ReactiveFormsModule,

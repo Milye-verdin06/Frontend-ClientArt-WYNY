@@ -4,6 +4,8 @@ import { PagesComponent } from './pages.component';
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
 import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
+import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
+
 
 const routes: Routes = [
   {
@@ -12,7 +14,8 @@ const routes: Routes = [
     children: [
       { path: 'articulos-cliente', component: ArticulosClienteComponent },
       { path: 'agregar-articulos', component: AgregarArticulosComponent },
-      { path: 'agregar-especificacion', component: EspecificacionesComponent },
+      { path: 'agregar-especificacion', component:AgregarEspecificacionesComponent  },
+      { path: 'get-especificacion', component: EspecificacionesComponent },
       { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },
     ],
   },

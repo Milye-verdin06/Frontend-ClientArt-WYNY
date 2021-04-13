@@ -32,17 +32,26 @@
                                             <div class="col-md-auto">
                                                 <div class="navbar-search form-inline mr-5 d-none d-md-flex ml-lg-auto">
 
-                                                    <h2> Autocomplete</h2>
-                                                    <mat-form-field>
+
+                                                    <!--  <mat-form-field>
                                                         <mat-label>Buscar Cliente</mat-label>
                                                         <input type="text" autofocus="autofocus" matInput [formControl]="myControl" [matAutocomplete]="auto">
-
-                                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                                            <mat-option *ngFor="let listclientes of filteredOptions | async" [value]="listclientes">
-                                                                {{listclientes.name}}
+ -->
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-label>clientes</mat-label>
+                                                        <mat-select [(value)]="selectedUnidad">
+                                                            <mat-option *ngFor="let cliente of clientes">
+                                                                <p> {{cliente.c_nom}}</p>
                                                             </mat-option>
-                                                        </mat-autocomplete>
+                                                        </mat-select>
                                                     </mat-form-field>
+
+                                                    <!--  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                                            <mat-option *ngFor="let cliente of clientes | async" [value]="listclientes">
+                                                                {{listcliente.c_nom}}
+                                                            </mat-option>
+                                                        </mat-autocomplete> -->
+                                                    <!-- </mat-form-field> -->
 
                                                 </div>
                                             </div>
@@ -54,14 +63,30 @@
 
 
                                         <mat-form-field appearance="fill">
-                                            <mat-label>Seleccionar unidad de medida</mat-label>
+                                            <mat-label>Unidad de negocio</mat-label>
+                                            <mat-select [(value)]="selectedUnidad">
+                                                <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.value">
+                                                    {{unidadnegocio.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+
+
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+
+
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Unidad de medida</mat-label>
                                             <mat-select [(value)]="selectedUnidad">
                                                 <mat-option *ngFor="let unidad of unidades" [value]="unidad.value">
                                                     {{unidad.viewValue}}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
-                                        <p> Unidad de medida seleccionada: {{selectedUnidad}} </p>
+
                                     </div>
                                 </div>
 
@@ -69,14 +94,14 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
 
                                         <mat-form-field appearance="fill">
-                                            <mat-label>Seleccionar divisa</mat-label>
+                                            <mat-label>Divisa</mat-label>
                                             <mat-select [(value)]="selectedValue">
                                                 <mat-option *ngFor="let food of foods" [value]="food.value">
                                                     {{food.viewValue}}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
-                                        <p> Divisa seleccionada: {{selectedValue}} </p>
+
 
 
 
@@ -133,7 +158,7 @@
                                         <mat-menu #menu="matMenu">
                                             <button mat-menu-item>
                                                 <mat-icon> view_headline</mat-icon>
-                                                <span>Ver especificación
+                                                <span>Especificaciones
                                                     </span>
                                                    
                                               </button>
@@ -193,6 +218,7 @@
 
 
 <ng-template #mymodal let-modal>
+
     <div class="modal-header">
         <h1 class="modal-title" id="modal-basic-titlee">Editar artículo</h1>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -218,8 +244,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
 
     <div class="modal-footer">
 
@@ -230,4 +256,5 @@
         </button>
 
     </div>
+
 </ng-template>

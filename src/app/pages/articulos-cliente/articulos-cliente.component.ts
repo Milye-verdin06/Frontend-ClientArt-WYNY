@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService} from 'src/app/services/usuario.service';
-import { Cliente } from 'src/app/models/Cliente';
-import { AbstractWebDriver } from 'protractor/built/browser';
+import { listaCliente,  } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
 import { Articulo } from '../../models/Articulo';
 import { HttpClient } from '@angular/common/http';
@@ -11,19 +10,22 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
-export interface cliente {
-  c_nom: string;
-  c_codi: string;
-  name: string;
-}
+
+
+
 interface Food {
   value: string;
   viewValue: string;
 }
 
 interface Unidad {
+  value: string;
+  viewValue: string;
+}
+interface UnidadNegocio {
   value: string;
   viewValue: string;
 }
@@ -55,24 +57,39 @@ export class ArticulosClienteComponent implements OnInit  {
     { value: 'M', viewValue: 'Metros cuadrados' },
   ];
 
-
+  unidadesN: UnidadNegocio[] = [
+    { value: 'P', viewValue: 'Marroquineria' },
+    { value: 'K', viewValue: 'Suela' },
+    { value: 'D', viewValue: 'Piel' },
+    { value: 'L', viewValue: 'Tiras' },
+    { value: 'P', viewValue: 'Cintos' },
+    { value: 'U', viewValue: 'Suajado' },
+    
+  ];
   selectedValue: Food;
   selectedUnidad: Unidad;
+  selectedUnidadN: UnidadNegocio;
 
   
   articulos: Articulo [];
-  clientes: Cliente[];
+  clientes: listaCliente[];
 
  
   myControl = new FormControl();
-  listclientes: cliente[] = [
+  listclientes: listaCliente[] = [
    
   ];
-  filteredOptions: Observable<cliente[]> | undefined;
+  filteredOptions: Observable<listaCliente[]> | undefined;
  
-  constructor(private modalService: NgbModal, private articuloService: ArticuloService,private clienteService: ClienteService, private http:HttpClient) {
+  constructor(private modalService: NgbModal, 
+    private articuloService: ArticuloService,
+    private clienteService: ClienteService,
+     private http:HttpClient, private router:Router) {
+
+
     this.selectedValue = this.foods[1];
     this.selectedUnidad = this.unidades [1];
+    this.selectedUnidadN = this.unidadesN [1];
     this.articulos = [];
     this.clientes =[];
     
@@ -85,16 +102,15 @@ export class ArticulosClienteComponent implements OnInit  {
        }, (reason) => {
           
 });
-
-   
-    
+  
   }
+  
   ngOnInit() {
 
     const fds = {
       fds: "'126', '125'"
     } 
-
+   
     this.clienteService.getClientes(fds).subscribe((response: any) =>{
       console.log(response.fds);
       this.clientes = response.fds;
@@ -122,18 +138,18 @@ export class ArticulosClienteComponent implements OnInit  {
    
     
     }
-    displayFn(user: cliente): string {
+    displayFn(user: listaCliente): string {
       return user && user.c_nom ? user.c_nom : '';
     }
   
-    private _filter(name: string): cliente[] {
+    private _filter(name: string): listaCliente[] {
       const filterValue = name.toLowerCase();
   
       return this.listclientes.filter(option => option.c_nom.toLowerCase().indexOf(filterValue) === 0);
     }
 
     clickMethod(name: string) {
-      if(confirm("Confirmar para eliminar el articulo" +name)) {
+      if(confirm("Confirmar para eliminar el articulo" +name )) {
        
       }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cliente } from '../models/Cliente';
+import { listaCliente } from 'src/app/models/Cliente';
 import { PeticionesService } from './peticiones.service';
 import { map } from 'rxjs/operators';
 

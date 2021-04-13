@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 interface Linea {
   value: string;
   viewValue: string;
@@ -51,7 +52,7 @@ export class AgregarArticulosComponent implements OnInit {
   formato: Formato[] = [];
 
   tamano: Tamano[] = [
-    { value: 'M', viewValue: 'Muy tamboreado' },
+    
   ];
 
   clasificado: Clasificado[]=[
@@ -73,7 +74,7 @@ export class AgregarArticulosComponent implements OnInit {
   
   
 
-  constructor() {
+  constructor(private modalService: NgbModal) {
     this.selectedLinea = this.lineas[1];
     this.selectedTambor = this.tambor[1];
     this.selectedFormato = this.formato[1];
@@ -81,6 +82,16 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedClasificado = this.clasificado[1];
     this.selectedGrosor = this.grosor [1];
     
+  }
+
+  open(content: any) {
+    this.modalService.open(content, { windowClass: 'mod-class' }).result.then(
+      (result) => {
+         
+       }, (reason) => {
+          
+});
+  
   }
   ngOnInit() {}
 

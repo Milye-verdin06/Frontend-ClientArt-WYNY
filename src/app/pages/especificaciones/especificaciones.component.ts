@@ -13,16 +13,22 @@ export class EspecificacionesComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.open;
+   
     
   }
-
   open(content: any) {
     this.modalService.open(content, { windowClass: 'mod-class' }).result.then(
       (result) => {
          
        }, (reason) => {
-      });
+          
+});
+
+   
+    
+  }
+
+ 
 
 }
-}
+
