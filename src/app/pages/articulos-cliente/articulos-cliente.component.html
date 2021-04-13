@@ -33,25 +33,17 @@
                                                 <div class="navbar-search form-inline mr-5 d-none d-md-flex ml-lg-auto">
 
 
-                                                    <!--  <mat-form-field>
+                                                    <mat-form-field>
                                                         <mat-label>Buscar Cliente</mat-label>
                                                         <input type="text" autofocus="autofocus" matInput [formControl]="myControl" [matAutocomplete]="auto">
- -->
-                                                    <mat-form-field appearance="fill">
-                                                        <mat-label>clientes</mat-label>
-                                                        <mat-select [(value)]="selectedUnidad">
-                                                            <mat-option *ngFor="let cliente of clientes">
-                                                                <p> {{cliente.c_nom}}</p>
-                                                            </mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
 
-                                                    <!--  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                                            <mat-option *ngFor="let cliente of clientes | async" [value]="listclientes">
-                                                                {{listcliente.c_nom}}
+
+                                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                                            <mat-option *ngFor="let cliente of clientes" [value]="cliente.c_nom">
+                                                                {{cliente.c_nom}}
                                                             </mat-option>
-                                                        </mat-autocomplete> -->
-                                                    <!-- </mat-form-field> -->
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
 
                                                 </div>
                                             </div>

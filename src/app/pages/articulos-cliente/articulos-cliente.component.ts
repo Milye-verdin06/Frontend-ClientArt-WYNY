@@ -38,7 +38,8 @@ interface UnidadNegocio {
 })
 
 export class ArticulosClienteComponent implements OnInit  {
-  
+  titulo: string = "lista de clientes";
+  prueba: string ="esto es una prueba";
  
   foods: Food[] = [
     { value: '1', viewValue: 'Pesos' },
@@ -111,11 +112,9 @@ export class ArticulosClienteComponent implements OnInit  {
       fds: "'126', '125'"
     } 
    
-    this.clienteService.getClientes(fds).subscribe((response: any) =>{
-      console.log(response.fds);
-      this.clientes = response.fds;
-      
-    }, error => console.log(error));
+    this.clienteService.getClientes(fds).subscribe(
+      e => this.listclientes = e
+    );
     // const body = {
     //   c_codi:  "107211", 
 	  //   ta_unifa: "D",
