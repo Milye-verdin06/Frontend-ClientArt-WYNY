@@ -32,19 +32,15 @@
                                             <div class="col-md-auto">
                                                 <div class="navbar-search form-inline mr-5 d-none d-md-flex ml-lg-auto">
 
-
-                                                    <mat-form-field>
-                                                        <mat-label>Buscar Cliente</mat-label>
-                                                        <input type="text" autofocus="autofocus" matInput [formControl]="myControl" [matAutocomplete]="auto">
-
-
+                                                    <mat-form-field class="example-full-width">
+                                                        <mat-label>Buscar clientes</mat-label>
+                                                        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
                                                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                                            <mat-option *ngFor="let cliente of clientes" [value]="cliente.c_nom">
-                                                                {{cliente.c_nom}}
+                                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                                {{option.name}}
                                                             </mat-option>
                                                         </mat-autocomplete>
                                                     </mat-form-field>
-
                                                 </div>
                                             </div>
                                         </div>

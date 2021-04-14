@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService} from 'src/app/services/usuario.service';
-import { listaCliente,  } from 'src/app/models/Cliente';
+import { clientRespons,  } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
 import { Articulo } from '../../models/Articulo';
 import { HttpClient } from '@angular/common/http';
@@ -15,7 +15,9 @@ import { Router } from '@angular/router';
 
 
 
-
+export interface User {
+  name: string;
+}
 interface Food {
   value: string;
   viewValue: string;
@@ -26,7 +28,7 @@ interface Unidad {
   viewValue: string;
 }
 interface UnidadNegocio {
- 
+  
   viewValue: string;
 }
 @Component({
@@ -38,8 +40,7 @@ interface UnidadNegocio {
 })
 
 export class ArticulosClienteComponent implements OnInit  {
-  titulo: string = "lista de clientes";
-  prueba: string ="esto es una prueba";
+  
  
   foods: Food[] = [
     { value: '1', viewValue: 'Pesos' },
@@ -73,14 +74,17 @@ export class ArticulosClienteComponent implements OnInit  {
 
   
   articulos: Articulo [];
-  clientes: listaCliente[];
+  Clientes: clientRespons[]=[]
 
- 
-  myControl = new FormControl();
-  listclientes: listaCliente[] = [
-   
+
+ myControl = new FormControl();
+  options: User[] = [
+    {name: 'Mary'},
+    {name: 'Shelley'},
+    {name: 'Igor'}
   ];
-  filteredOptions: Observable<listaCliente[]> | undefined;
+  filteredOptions: Observable<User[]> | undefined;
+
  
   constructor(private modalService: NgbModal, 
     private articuloService: ArticuloService,
@@ -92,7 +96,7 @@ export class ArticulosClienteComponent implements OnInit  {
     this.selectedUnidad = this.unidades [1];
     this.selectedUnidadN = this.unidadesN [1];
     this.articulos = [];
-    this.clientes =[];
+    this.Clientes =[];
     
   
    }
@@ -111,10 +115,15 @@ export class ArticulosClienteComponent implements OnInit  {
     const fds = {
       fds: "'126', '125'"
     } 
+    
    
-    this.clienteService.getClientes(fds).subscribe(
-      e => this.listclientes = e
-    );
+   this.clienteService.getClientes(fds).subscribe((response: any) =>{
+      console.log(response.fds);
+      this.Clientes = response.fds;
+      
+    }, error => console.log(error)); 
+ 
+    
     // const body = {
     //   c_codi:  "107211", 
 	  //   ta_unifa: "D",
@@ -128,23 +137,23 @@ export class ArticulosClienteComponent implements OnInit  {
 
 
     this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => typeof value === 'string' ? value : value.name),
-      map(name => name ? this._filter(name) : this.listclientes.slice())
-    );
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.options.slice())
+      );
 
    
     
     }
-    displayFn(user: listaCliente): string {
-      return user && user.c_nom ? user.c_nom : '';
+    displayFn(user: User): string {
+      return user && user.name ? user.name : '';
     }
   
-    private _filter(name: string): listaCliente[] {
+    private _filter(name: string): User[] {
       const filterValue = name.toLowerCase();
   
-      return this.listclientes.filter(option => option.c_nom.toLowerCase().indexOf(filterValue) === 0);
+      return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
     }
 
     clickMethod(name: string) {
