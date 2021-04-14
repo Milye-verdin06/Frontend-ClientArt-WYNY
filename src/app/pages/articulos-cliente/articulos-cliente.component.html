@@ -10,50 +10,17 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <div class="form-group mb-0">
 
-                                            <!--   <mat-form-field class="example-full-width">
+                                            <mat-form-field class="">
                                                 <mat-label>Buscar cliente</mat-label>
                                                 <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
                                                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                                    {{option.name}}
-                                                  </mat-option>
+                                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                        {{option.name}}
+                                                    </mat-option>
                                                 </mat-autocomplete>
-                                              </mat-form-field> -->
-
-                                            <!--  <div class="input-group input-group-alternative">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-search"></i> Buscar Cliente</span>
-
-                                                </div>
-
-                                                <input class="form-control" autofocus="autofocus" type="text" />
-
-                                            </div> -->
-
-                                            <div class="col-md-auto">
-                                                <div class="navbar-search form-inline mr-5 d-none d-md-flex ml-lg-auto">
-
-                                                    <mat-form-field appearance="fill">
-                                                        <mat-label>Buscar clientes</mat-label>
-                                                        <mat-select [(value)]="selectedUnidadN">
-                                                            <mat-option *ngFor="let cliente of Clientes " [value]="cliente.data">
-                                                                {{cliente.data}}
-                                                            </mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
+                                            </mat-form-field>
 
 
-                                                    <!-- <mat-form-field class="example-full-width">
-                                                        <mat-label>Buscar clientes</mat-label>
-                                                        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-                                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                                            <mat-option *ngFor="let cliente of Clientes " [value]="cliente.data">
-                                                                {{cliente.data}}
-                                                            </mat-option>
-                                                        </mat-autocomplete>
-                                                    </mat-form-field> -->
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +258,7 @@
 <ng-template #mymodalgetEsp let-modal>
 
     <div class="modal-header">
-        <h1 class="modal-title" id="modal-basic-titlee">Especificaciones</h1>
+        <h1 class="modal-title " id="modal-basic-titlee">Especificaciones</h1>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
      </button>

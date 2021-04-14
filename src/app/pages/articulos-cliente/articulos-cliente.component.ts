@@ -15,7 +15,9 @@ import { Router } from '@angular/router';
 
 
 
-
+export interface User {
+  name: string;
+}
 interface Food {
   value: string;
   viewValue: string;
@@ -76,8 +78,12 @@ export class ArticulosClienteComponent implements OnInit  {
 
 
  myControl = new FormControl();
- 
-  filteredOptions: Observable<listaCliente[]> | undefined;
+  options: User[] = [
+    {name: 'Mary'},
+    {name: 'Shelley'},
+    {name: 'Igor'}
+  ];
+  filteredOptions: Observable<User[]> | undefined;
 
  
   constructor(private modalService: NgbModal, 
@@ -129,25 +135,24 @@ export class ArticulosClienteComponent implements OnInit  {
     //   this.articulos = response.body
     // }, error => console.error(error));
 
+    this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.name),
+      map(name => name ? this._filter(name) : this.options.slice())
+    );
+}
 
-    /* this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.c_nom),
-        map(c_nom => c_nom ? this._filter(c_nom) : this.options.slice())
-      );
+displayFn(user: User): string {
+  return user && user.name ? user.name : '';
+}
 
-   
+private _filter(name: string): User[] {
+  const filterValue = name.toLowerCase();
+
+  return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+
     
-    }
-    displayFn(client: listaCliente ): string {
-      return client && client.c_nom ? client.c_nom: '';
-    }
-  
-    private _filter(c_nom: string):listaCliente[] {
-      const filterValue = c_nom.toLowerCase();
-  
-      return this.options.filter(option => option. c_nom .toLowerCase().indexOf(filterValue) === 0); */
     }
 
     clickMethod(name: string) {
