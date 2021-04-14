@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService} from 'src/app/services/usuario.service';
-import { clientRespons,  } from 'src/app/models/Cliente';
+import { clientRespons,listaCliente  } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
 import { Articulo } from '../../models/Articulo';
 import { HttpClient } from '@angular/common/http';
@@ -15,9 +15,7 @@ import { Router } from '@angular/router';
 
 
 
-export interface User {
-  name: string;
-}
+
 interface Food {
   value: string;
   viewValue: string;
@@ -74,16 +72,12 @@ export class ArticulosClienteComponent implements OnInit  {
 
   
   articulos: Articulo [];
-  Clientes: clientRespons[]=[]
+ public Clientes: clientRespons[]=[]
 
 
  myControl = new FormControl();
-  options: User[] = [
-    {name: 'Mary'},
-    {name: 'Shelley'},
-    {name: 'Igor'}
-  ];
-  filteredOptions: Observable<User[]> | undefined;
+ 
+  filteredOptions: Observable<listaCliente[]> | undefined;
 
  
   constructor(private modalService: NgbModal, 
@@ -118,8 +112,8 @@ export class ArticulosClienteComponent implements OnInit  {
     
    
    this.clienteService.getClientes(fds).subscribe((response: any) =>{
-      console.log(response.fds);
-      this.Clientes = response.fds;
+      console.log(response);
+      this.Clientes = response.data;
       
     }, error => console.log(error)); 
  
@@ -136,24 +130,24 @@ export class ArticulosClienteComponent implements OnInit  {
     // }, error => console.error(error));
 
 
-    this.filteredOptions = this.myControl.valueChanges
+    /* this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
+        map(value => typeof value === 'string' ? value : value.c_nom),
+        map(c_nom => c_nom ? this._filter(c_nom) : this.options.slice())
       );
 
    
     
     }
-    displayFn(user: User): string {
-      return user && user.name ? user.name : '';
+    displayFn(client: listaCliente ): string {
+      return client && client.c_nom ? client.c_nom: '';
     }
   
-    private _filter(name: string): User[] {
-      const filterValue = name.toLowerCase();
+    private _filter(c_nom: string):listaCliente[] {
+      const filterValue = c_nom.toLowerCase();
   
-      return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+      return this.options.filter(option => option. c_nom .toLowerCase().indexOf(filterValue) === 0); */
     }
 
     clickMethod(name: string) {

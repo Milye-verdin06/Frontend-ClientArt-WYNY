@@ -14,6 +14,7 @@ import { ReactiveFormsModule, } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -43,7 +44,7 @@ import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agr
   ReactiveFormsModule,
   MatCardModule,
   MatAutocompleteModule,
-  
+  MatTooltipModule,
   MatSlideToggleModule
  
  ],

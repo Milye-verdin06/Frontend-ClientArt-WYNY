@@ -15,7 +15,7 @@ export class ClienteService {
 
   constructor(private peticion: PeticionesService) { }
 
-  getClientes(fds:any): Observable<any>{
+  getClientes(fds:any): Observable<clientRespons>{
     return this.peticion.postQuery('clientes','getall',fds)
     .pipe(
       map(response=>{

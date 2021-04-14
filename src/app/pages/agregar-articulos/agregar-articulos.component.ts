@@ -32,6 +32,7 @@ interface Clasificado {
 @Component({
   selector: 'app-agregar-articulos',
   templateUrl: './agregar-articulos.component.html',
+ 
 })
 export class AgregarArticulosComponent implements OnInit {
   emailFormControl = new FormControl('', [

@@ -29,18 +29,29 @@
                                                 <input class="form-control" autofocus="autofocus" type="text" />
 
                                             </div> -->
+
                                             <div class="col-md-auto">
                                                 <div class="navbar-search form-inline mr-5 d-none d-md-flex ml-lg-auto">
 
-                                                    <mat-form-field class="example-full-width">
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-label>Buscar clientes</mat-label>
+                                                        <mat-select [(value)]="selectedUnidadN">
+                                                            <mat-option *ngFor="let cliente of Clientes " [value]="cliente.data">
+                                                                {{cliente.data}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+
+                                                    <!-- <mat-form-field class="example-full-width">
                                                         <mat-label>Buscar clientes</mat-label>
                                                         <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
                                                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                                                {{option.name}}
+                                                            <mat-option *ngFor="let cliente of Clientes " [value]="cliente.data">
+                                                                {{cliente.data}}
                                                             </mat-option>
                                                         </mat-autocomplete>
-                                                    </mat-form-field>
+                                                    </mat-form-field> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -144,13 +155,13 @@
                                             <mat-icon>more_vert</mat-icon>
                                           </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item>
+                                            <button mat-menu-item (click)=open(mymodalgetEsp)>
                                                 <mat-icon> view_headline</mat-icon>
                                                 <span>Especificaciones
                                                     </span>
                                                    
                                               </button>
-                                            <button mat-menu-item (click)=open(mymodal)>
+                                            <button mat-menu-item (click)=open(mymodaleditarArt)>
                                               <mat-icon> mode_edit</mat-icon>
                                               <span>Editar</span>
                                             </button>
@@ -178,7 +189,7 @@
                                             <mat-icon>more_vert</mat-icon>
                                           </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item (click)=open(mymodal)>
+                                            <button mat-menu-item (click)=open(mymodaleditarArt)>
                                               <mat-icon> mode_edit</mat-icon>
                                               <span>Editar</span>
                                             </button>
@@ -205,7 +216,7 @@
 
 
 
-<ng-template #mymodal let-modal>
+<ng-template #mymodaleditarArt let-modal>
 
     <div class="modal-header">
         <h1 class="modal-title" id="modal-basic-titlee">Editar artículo</h1>
@@ -214,29 +225,137 @@
      </button>
     </div>
     <div class="modal-body">
-        <div class="box-body">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="col">
-                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
-                        </div>
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_cliente"> <i class="ni ni-circle-08"> </i> Cliente: </h3>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_articulo"> Artículo:</h3>
+                    </div>
+                </div>
+
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_grosor"> Grosor: </h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_acabado"> Acabado:</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_color"> Color:</h3>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_clasificacion"> Clasificacion:</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group has-success">
+                        <i> Precio de venta  <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="Precio de venta" class="form-control is-valid" required> </i>
+                    </div>
+                </div>
+
+            </div>
+        </form>
     </div>
 
 
     <div class="modal-footer">
 
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar
+            <span class="material-icons">
+                save
+                </span>
+        </button>
+
+    </div>
+
+</ng-template>
+
+
+<ng-template #mymodalgetEsp let-modal>
+
+    <div class="modal-header">
+        <h1 class="modal-title" id="modal-basic-titlee">Especificaciones</h1>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="Regular" class="form-control" disabled="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Search" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-4">
+                            <input class="form-control" placeholder="Birthday" type="text">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group has-success">
+                        <input type="text" placeholder="Success" class="form-control is-valid">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <input type="email" placeholder="Error Input" class="form-control is-invalid">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Editar
+            <span class="material-icons">
+                mode_edit
+                </span>
+        </button>
         <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar
             <span class="material-icons">
                 save
