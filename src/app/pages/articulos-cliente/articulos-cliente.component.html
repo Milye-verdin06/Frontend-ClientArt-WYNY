@@ -39,12 +39,13 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de medida</mat-label>
-                                            <mat-select [(value)]="selectedUnidad">
+                                            <mat-select [(value)]="selectedUnidad" id="unidadM" [(ngModel)]="selectedUnidad">
                                                 <mat-option *ngFor="let unidad of unidades" [value]="unidad.value">
                                                     {{ unidad.viewValue }}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                        <!--  <p> Selected food: {{selectedUnidad}} </p> -->
                                     </div>
                                 </div>
 
@@ -58,7 +59,17 @@
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                        <p> Selected food: {{selectedUnidad.value}} </p>
                                     </div>
+
+                                </div>
+                                <div class="col">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <button class="btn btn-light float-end" id="buscarArticulos" ng-onclick="buscarArticulos()">
+                                    Buscar 
+                                  </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

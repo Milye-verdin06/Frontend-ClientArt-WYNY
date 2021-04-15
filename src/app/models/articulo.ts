@@ -1,4 +1,35 @@
-export class Articulo{
+export interface ListaArticulos {
+    status:  boolean;
+    message: string;
+    data:    articulos[];
+}
+
+export interface articulos {
+    ta_codi:      string;
+    ta_clta:      number;
+    ta_artic:     string;
+    ta_gruix:     number;
+    ta_acaba:     string;
+    ta_color:     number;
+    ta_clas:      string;
+    ta_unifa:     string;
+    ta_divis:     number;
+    ta_tarif_001: number;
+    ta_tarif_002: number;
+    ta_tarif_003: number;
+    ta_tarif_004: number;
+    ta_listar:    string;
+    ef_clta:      number;
+    ef_gruix:     number;
+    ef_color:     number;
+    ef_divis:     number;
+}
+
+
+
+
+
+/* export class Articulo{
             _id?: number;
             ta_codi: string;
             ta_clta: number;
@@ -49,3 +80,4 @@ export class Articulo{
 
 }
 
+ */
