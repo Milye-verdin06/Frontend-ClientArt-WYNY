@@ -67,9 +67,11 @@ export class ArticulosClienteComponent implements OnInit {
 
   myControl = new FormControl();
   options: User[] = [{ name: 'Mary' }, { name: 'Shelley' }, { name: 'Igor' }];
+
   optionsClientes: listaCliente[] = [
-    { c_nom: 'Mily <3', c_codi: '001' },
-    { c_nom: 'Paco <3', c_codi: '002' },
+  
+  /*   { c_nom: 'Mily <3', c_codi: '001' },
+    { c_nom: 'Paco <3', c_codi: '002' }, */
   ];
   filteredOptions: Observable<User[]> | undefined;
   filteredOptionsClientes: Observable<listaCliente[]> | undefined;
@@ -100,13 +102,22 @@ export class ArticulosClienteComponent implements OnInit {
     };
 
     this.clienteService.getClientes(fds).subscribe(
+      resp => {
+        console.log(resp);
+        this.optionsClientes = resp.data;
+      })
+
+      
+     
+    
+
+    /* this.clienteService.getClientes(fds).subscribe(
       (response: any) => {
         console.log(response);
         this.Clientes = response.data;
       },
       (error) => console.log(error)
-    );
-
+    ); */
     // const body = {
     //   c_codi:  "107211",
     //   ta_unifa: "D",
