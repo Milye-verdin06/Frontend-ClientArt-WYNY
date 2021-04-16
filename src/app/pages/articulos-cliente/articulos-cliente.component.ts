@@ -3,7 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
-import { ListaArticulos } from 'src/app/models/articulo';
+import { articuloRespons} from 'src/app/models/articulo';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -54,13 +54,8 @@ export class ArticulosClienteComponent implements OnInit {
     { id:7,value: 'M', viewValue: 'Metros cuadrados' },
   ];
   
-   selectedOptionUnidad = this.unidades[1] 
-
    
-  
-  
-  
-
+   
   unidadesN: UnidadNegocio[] = [
     { viewValue: 'Marroquineria' },
     { viewValue: 'Suela' },
@@ -73,7 +68,9 @@ export class ArticulosClienteComponent implements OnInit {
   selectedUnidad: Unidad;
   selectedUnidadN: UnidadNegocio;
 
-  articulos: ListaArticulos[];
+   public Articulos: any = []
+  
+
   public Clientes: clientRespons[] = [
     //ya se llena automaticamente
   ];
@@ -87,6 +84,7 @@ export class ArticulosClienteComponent implements OnInit {
  
   filteredOptionsClientes: Observable<listaCliente[]> | undefined;
 
+
   constructor(
     private modalService: NgbModal,
     private articuloService: ArticuloService,
@@ -97,7 +95,7 @@ export class ArticulosClienteComponent implements OnInit {
     this.selectedValue = this.foods[1];
     this.selectedUnidad = this.unidades[1];
     this.selectedUnidadN = this.unidadesN[1];
-    this.articulos = [];
+    this.Articulos = [];
     this.Clientes = [];
   }
   open(content: any) {
@@ -108,16 +106,17 @@ export class ArticulosClienteComponent implements OnInit {
   }
 
   ngOnInit() {
+ 
 
     console.log(this.selectedUnidad.value);
     const fds = {
       fds: "'126', '125'",
     };
     
-    const body = {
+  /*   const body = {
       c_codi:  "107211",
      ta_unifa: "D",
-     ta_divis: 1}
+     ta_divis: 1} */
      
     this.clienteService.getClientes(fds).subscribe(
       resp => {
@@ -179,17 +178,30 @@ export class ArticulosClienteComponent implements OnInit {
     );
   }
 
-  clickMethod(name: string) {
-    if (confirm('Confirmar para eliminar el articulo' + name)) {
-    }
+    
+
+  botonbuscarArticulos(){
+    const body = {
+     c_codi:  "701039",
+     ta_unifa: "P",
+     ta_divis: 2}
+
+   this.articuloService.getArticulos(body).subscribe(
+    resp => {
+      this.Articulos = resp.data
+      
+    }, (error) => console.log(error)
+    )
+   
+
   }
 
 
-   
 
-  buscarArticulos(){
-
-
+//para eliminar el articulo
+  clickMethod(name: string) {
+    if (confirm('Confirmar para eliminar el articulo' + name)) {
+    }
   }
   
 }

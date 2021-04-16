@@ -1,10 +1,10 @@
-export interface ListaArticulos {
+export interface articuloRespons {
     status:  boolean;
     message: string;
-    data:    articulos[];
+    data:    ReqArticulos[];
 }
 
-export interface articulos {
+ interface ReqArticulos {
     ta_codi:      string;
     ta_clta:      number;
     ta_artic:     string;

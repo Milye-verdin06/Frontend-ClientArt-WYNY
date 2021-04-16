@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                        <button class="btn btn-light float-end" id="buscarArticulos" ng-onclick="buscarArticulos()">
+                                        <button class="btn btn-light float-end" id="buscarArticulos" (click)="botonbuscarArticulos()">
                                     Buscar 
                                   </button>
                                     </div>
@@ -108,17 +108,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="
+                                <tr *ngFor="let articulo of Articulos" style="
                     color: rgb(0, 0, 0);
                     background-color: rgb(255, 255, 255);
                   ">
-                                    <td>HSHS</td>
-                                    <td>J2ML</td>
-                                    <td>1</td>
-                                    <td>AR</td>
-                                    <td>23</td>
-                                    <td>TR</td>
-                                    <td>40</td>
+                                    <td>{{ articulo.ta_clta }}</td>
+                                    <td>{{ articulo.ta_artic }}</td>
+                                    <td>{{ articulo.ta_gruix }}</td>
+                                    <td>{{ articulo.ta_color }}</td>
+                                    <td>{{ articulo.ta_clta }}</td>
+                                    <td>{{ articulo.ta_clas }}</td>
+                                    <td>{{ articulo.ta_tarif_001 }}</td>
                                     <td>
                                         <button mat-icon-button [matMenuTriggerFor]="menu">
                       <mat-icon>more_vert</mat-icon>
@@ -140,34 +140,7 @@
                                         </mat-menu>
                                     </td>
                                 </tr>
-                                <tr style="
-                    color: rgb(0, 0, 0);
-                    background-color: rgb(255, 255, 255);
-                  ">
-                                    <td>HSHS</td>
-                                    <td>J2ML</td>
-                                    <td>1</td>
-                                    <td>AR</td>
-                                    <td>23</td>
-                                    <td>TR</td>
-                                    <td>40</td>
-                                    <td>
-                                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                                        <mat-menu #menu="matMenu">
-                                            <button mat-menu-item (click)="open(mymodaleditarArt)">
-                        <mat-icon> mode_edit</mat-icon>
-                        <span>Editar</span>
-                      </button>
 
-                                            <button mat-menu-item (click)="clickMethod('name')">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span> Eliminar </span>
-                      </button>
-                                        </mat-menu>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
