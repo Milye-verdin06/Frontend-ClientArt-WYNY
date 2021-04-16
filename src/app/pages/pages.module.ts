@@ -15,6 +15,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTableModule} from '@angular/material/table';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -37,6 +39,7 @@ import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agr
   MatMenuModule,
   MatIconModule,
   MatSelectModule,
+  DataTablesModule,
   MatButtonModule,
   MatBottomSheetModule,
   MatListModule,
@@ -45,7 +48,9 @@ import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agr
   MatCardModule,
   MatAutocompleteModule,
   MatTooltipModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatTableModule,
+  
  
  ],
 

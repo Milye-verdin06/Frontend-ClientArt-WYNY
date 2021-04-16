@@ -4,7 +4,7 @@ export interface articuloRespons {
     data:    ReqArticulos[];
 }
 
- interface ReqArticulos {
+ export interface ReqArticulos {
     ta_codi:      string;
     ta_clta:      number;
     ta_artic:     string;

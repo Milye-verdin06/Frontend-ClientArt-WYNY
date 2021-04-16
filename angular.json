@@ -31,10 +31,15 @@
                         "aot": true,
                         "allowedCommonJsDependencies": ["chart.js"],
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.css", "src/assets/scss/argon.scss"],
+                        "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "src/styles.css",
+                            "src/assets/scss/argon.scss",
+                            "./node_modules/datatables.net-dt/css/jquery.dataTables.css"
+                        ],
                         "scripts": [
                             "node_modules/chart.js/dist/Chart.min.js",
-                            "node_modules/clipboard/dist/clipboard.min.js"
+                            "node_modules/clipboard/dist/clipboard.min.js",
+                            "./node_modules/datatables.net/js/jquery.dataTables.js"
                         ]
                     },
                     "configurations": {

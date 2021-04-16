@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
-import { articuloRespons} from 'src/app/models/articulo';
+import { articuloRespons, ReqArticulos} from 'src/app/models/articulo';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
@@ -21,7 +21,7 @@ interface Food {
 }
 
 interface Unidad {
-  id: number;
+  
   value: string;
   viewValue: string;
 }
@@ -34,7 +34,10 @@ interface UnidadNegocio {
   styles: [],
   providers: [],
 })
-export class ArticulosClienteComponent implements OnInit {
+export class ArticulosClienteComponent implements OnInit, OnDestroy {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
+ 
   
 
  
@@ -45,13 +48,13 @@ export class ArticulosClienteComponent implements OnInit {
   ];
 
   unidades: Unidad[] = [
-    { id:1, value: 'P', viewValue: 'Pies cuadrados' }, 
-    { id:2,value: 'K', viewValue: 'Kilos' },
-    { id:3,value: 'D', viewValue: 'Decimetros' },
-    { id:4, value: 'L', viewValue: 'Libras' },
-    { id:5, value: 'P', viewValue: 'Pares' },
-    { id:6,value: 'U', viewValue: 'Unidades' },
-    { id:7,value: 'M', viewValue: 'Metros cuadrados' },
+    {  value: 'P', viewValue: 'Pies cuadrados' }, 
+    { value: 'K', viewValue: 'Kilos' },
+    { value: 'D', viewValue: 'Decimetros' },
+    {  value: 'L', viewValue: 'Libras' },
+    {  value: 'P', viewValue: 'Pares' },
+    { value: 'U', viewValue: 'Unidades' },
+    { value: 'M', viewValue: 'Metros cuadrados' },
   ];
   
    
@@ -67,9 +70,12 @@ export class ArticulosClienteComponent implements OnInit {
   selectedValue: Food;
   selectedUnidad: Unidad;
   selectedUnidadN: UnidadNegocio;
+  selectedCliente: string;
 
    public Articulos: any = []
-  
+  datos_articulo: ReqArticulos [] =[
+
+  ]
 
   public Clientes: clientRespons[] = [
     //ya se llena automaticamente
@@ -94,9 +100,15 @@ export class ArticulosClienteComponent implements OnInit {
   ) {
     this.selectedValue = this.foods[1];
     this.selectedUnidad = this.unidades[1];
-    this.selectedUnidadN = this.unidadesN[1];
+    this.selectedUnidadN = this.unidadesN[1]; 
+    this. selectedCliente = "";
+   
     this.Articulos = [];
     this.Clientes = [];
+  }
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+    
   }
   open(content: any) {
     this.modalService.open(content, { windowClass: 'mod-class' }).result.then(
@@ -121,12 +133,11 @@ export class ArticulosClienteComponent implements OnInit {
     this.clienteService.getClientes(fds).subscribe(
       resp => {
         this.optionsClientes = resp.data;
+         
       }, (error) => console.log(error)
       )
 
       
-     
-    
 
     /* this.clienteService.getClientes(fds).subscribe(
       (response: any) => {
@@ -137,7 +148,6 @@ export class ArticulosClienteComponent implements OnInit {
     ); */
     
 
-    
     // this.articuloService.getArticulos(body).subscribe((response: any) => {
     //   console.log(response.body);
     //   this.articulos = response.body
@@ -154,6 +164,19 @@ export class ArticulosClienteComponent implements OnInit {
         
       )
     );
+
+    
+
+   this.dtOptions = {
+     pagingType: 'full_members',
+     pageLength: 5,
+     /* language: {
+       ur: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish_Mexico.json'
+     } */
+     lengthMenu: [5, 10, 15],
+     processing: true
+   };
+    
   }
 
  
@@ -182,21 +205,25 @@ export class ArticulosClienteComponent implements OnInit {
 
   botonbuscarArticulos(){
     const body = {
-     c_codi:  "701039",
-     ta_unifa: "P",
-     ta_divis: 2}
+     c_codi:  this.selectedCliente,
+     ta_unifa: this.selectedUnidad,
+     ta_divis: this.selectedValue}
 
    this.articuloService.getArticulos(body).subscribe(
     resp => {
-      this.Articulos = resp.data
+
+      this.datos_articulo = resp.data;
+      this.dtTrigger.next();
+      
       
     }, (error) => console.log(error)
     )
-   
-
+  
   }
-
-
+  codSelected(codigo: listaCliente){
+    this.selectedCliente= codigo.c_codi;
+    
+  }
 
 //para eliminar el articulo
   clickMethod(name: string) {
