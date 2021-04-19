@@ -13,6 +13,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { NumberFormatStyle } from '@angular/common';
 
 
 interface Food {
@@ -26,8 +27,12 @@ interface Unidad {
   viewValue: string;
 }
 interface UnidadNegocio {
+  value: string;
   viewValue: string;
 }
+
+
+
 @Component({
   selector: 'app-articulos-cliente',
   templateUrl: './articulos-cliente.component.html',
@@ -48,24 +53,24 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   ];
 
   unidades: Unidad[] = [
-    {  value: 'P', viewValue: 'Pies cuadrados' }, 
+    { value: 'P', viewValue: 'Pies cuadrados' }, 
     { value: 'K', viewValue: 'Kilos' },
     { value: 'D', viewValue: 'Decimetros' },
-    {  value: 'L', viewValue: 'Libras' },
-    {  value: 'P', viewValue: 'Pares' },
+    { value: 'L', viewValue: 'Libras' },
+    { value: 'P', viewValue: 'Pares' },
     { value: 'U', viewValue: 'Unidades' },
     { value: 'M', viewValue: 'Metros cuadrados' },
   ];
   
-   
+  
    
   unidadesN: UnidadNegocio[] = [
-    { viewValue: 'Marroquineria' },
-    { viewValue: 'Suela' },
-    { viewValue: 'Piel' },
-    { viewValue: 'Tiras' },
-    { viewValue: 'Cintos' },
-    { viewValue: 'Suajado' },
+    { value: 'SI', viewValue: 'Marroquineria' },
+    { value: 'SU', viewValue: 'Suela' },
+    { value: 'PI',viewValue: 'Piel' },
+    { value: 'CI',viewValue: 'Tiras' },
+    { value: 'CT',viewValue: 'Cintos' },
+    { value: 'SS',viewValue: 'Suajado' },
   ];
   selectedValue: Food;
   selectedUnidad: Unidad;
@@ -137,23 +142,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       }, (error) => console.log(error)
       )
 
-      
-
-    /* this.clienteService.getClientes(fds).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.Clientes = response.data;
-      },
-      (error) => console.log(error)
-    ); */
-    
-
-    // this.articuloService.getArticulos(body).subscribe((response: any) => {
-    //   console.log(response.body);
-    //   this.articulos = response.body
-    // }, error => console.error(error));
-
-    
+     
 
     this.filteredOptionsClientes = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -207,7 +196,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     const body = {
      c_codi:  this.selectedCliente,
      ta_unifa: this.selectedUnidad,
-     ta_divis: this.selectedValue}
+     ta_divis: this.selectedValue,
+     ar_tpiel: this.selectedUnidadN}
 
    this.articuloService.getArticulos(body).subscribe(
     resp => {

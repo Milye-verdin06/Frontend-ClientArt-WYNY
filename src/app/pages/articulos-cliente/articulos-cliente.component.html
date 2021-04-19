@@ -27,8 +27,8 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de negocio</mat-label>
-                                            <mat-select [(value)]="selectedUnidadN">
-                                                <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.viewValue">
+                                            <mat-select [(value)]="selectedUnidadN" id="unidadNegocio" [(ngModel)]="selectedUnidadN">
+                                                <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.value">
                                                     {{ unidadnegocio.viewValue }}
                                                 </mat-option>
                                             </mat-select>
@@ -45,7 +45,6 @@
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
-
                                     </div>
                                 </div>
 
@@ -106,6 +105,7 @@
                                     <th scope="col">Color</th>
                                     <th scope="col">clasificacion</th>
                                     <th scope="col">Tarifa</th>
+                                    <th scope="col">UnidadN</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -121,6 +121,7 @@
                                     <td>{{ articulo.ta_clta }}</td>
                                     <td>{{ articulo.ta_clas }}</td>
                                     <td>{{ articulo.ta_tarif_001 }}</td>
+                                    <td>{{ articulo.ar_tpiel }}</td>
                                     <td>
                                         <button mat-icon-button [matMenuTriggerFor]="menu">
                       <mat-icon>more_vert</mat-icon>

@@ -23,6 +23,7 @@ export interface articuloRespons {
     ef_gruix:     number;
     ef_color:     number;
     ef_divis:     number;
+    ar_tpiel: string;
 }
 
 
