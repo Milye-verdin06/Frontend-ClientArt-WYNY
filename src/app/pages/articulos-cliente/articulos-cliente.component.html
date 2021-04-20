@@ -88,7 +88,7 @@
                     <h1 class="display-4">
                         Listado de Articulos&nbsp;&nbsp;&nbsp;
 
-                        <button class="btn btn-light float-end" routerLink="/agregar-articulos">
+                        <button class="btn btn-light float-end" routerLink="/agregar-articulos" id="agregarArticulos">
               Agregar articulo<i class="ni ni-fat-add"></i>
             </button>
                     </h1>
@@ -110,10 +110,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let articulo of datos_articulo" style="
-                    color: rgb(0, 0, 0);
-                    background-color: rgb(255, 255, 255);
-                  ">
+                                <tr *ngFor="let articulo of datos_articulo | paginate: {itemsPerPage: 5, currentPage: pageActual };" style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
                                     <td>{{ articulo.ta_clta }}</td>
                                     <td>{{ articulo.ta_artic }}</td>
                                     <td>{{ articulo.ta_gruix }}</td>
@@ -146,6 +143,9 @@
 
                             </tbody>
                         </table>
+                        <pagination-controls (pageChange)="pageActual=$event" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+
+                        </pagination-controls>
                     </div>
                 </div>
             </div>

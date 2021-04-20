@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class ArticuloService {
  
 
-  constructor(private peticion: PeticionesService) { }
+  constructor(private peticion: PeticionesService, private http:HttpClient) { }
 
 
 getArticulos(body:any): Observable<articuloRespons>{
@@ -24,6 +24,10 @@ getArticulos(body:any): Observable<articuloRespons>{
       return response;
     })
   )
+}
+
+obtenerProducto(id:string): Observable<any> {
+  return this.http.get<any>(this.getArticulos +id);
 }
 
 

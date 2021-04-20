@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
 interface Linea {
   value: string;
   viewValue: string;
@@ -35,6 +38,8 @@ interface Clasificado {
  
 })
 export class AgregarArticulosComponent implements OnInit {
+  
+  articuloForm: FormGroup;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -75,13 +80,27 @@ export class AgregarArticulosComponent implements OnInit {
   
   
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, private fb:FormBuilder, private aRouter:ActivatedRoute) {
     this.selectedLinea = this.lineas[1];
     this.selectedTambor = this.tambor[1];
     this.selectedFormato = this.formato[1];
     this.selectedTamano = this.tamano[1];
     this.selectedClasificado = this.clasificado[1];
     this.selectedGrosor = this.grosor [1];
+    this.articuloForm= this.fb.group({
+      linea: ['', Validators.required],
+      tambor: ['', Validators.required],
+      formato: ['', Validators.required],
+      tamaño: ['', Validators.required],
+      clasificado: ['', Validators.required],
+      grosor: ['', Validators.required],
+      color: ['', Validators.required],
+      acabado: ['', Validators.required],
+      tarifa: ['', Validators.required],
+      //listar: ['', Validators.required], duda
+
+    })
+    
     
   }
 

@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule} from '@angular/material/button';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -35,7 +36,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+ 
     
   ],
   providers: [

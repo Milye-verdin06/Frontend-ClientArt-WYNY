@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { NumberFormatStyle } from '@angular/common';
+import {Pipe} from "@angular/core";
 
 
 interface Food {
@@ -40,8 +41,10 @@ interface UnidadNegocio {
   providers: [],
 })
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
+
+public pageActual: number =1;
+ 
+
  
   
 
@@ -93,7 +96,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   
   ];
  
-  filteredOptionsClientes: Observable<listaCliente[]> | undefined;
+  public filteredOptionsClientes: Observable<listaCliente[]> | undefined;
 
 
   constructor(
@@ -112,7 +115,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.Clientes = [];
   }
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+    
     
   }
   open(content: any) {
@@ -156,21 +159,13 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     
 
-   this.dtOptions = {
-     pagingType: 'full_members',
-     pageLength: 5,
-     /* language: {
-       ur: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish_Mexico.json'
-     } */
-     lengthMenu: [5, 10, 15],
-     processing: true
-   };
+  
     
   }
 
  
 
-  displayFnClientes(cliente: listaCliente): string {
+  public displayFnClientes(cliente: listaCliente): string {
     return cliente && cliente.c_nom ? cliente.c_nom : '' 
     
   }
@@ -203,7 +198,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     resp => {
 
       this.datos_articulo = resp.data;
-      this.dtTrigger.next();
+     ;
       
       
     }, (error) => console.log(error)
@@ -213,6 +208,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   codSelected(codigo: listaCliente){
     this.selectedCliente= codigo.c_codi;
     
+  }
+
+  UpdateArticulo(articulo: ReqArticulos): void{
+    
+   
   }
 
 //para eliminar el articulo
