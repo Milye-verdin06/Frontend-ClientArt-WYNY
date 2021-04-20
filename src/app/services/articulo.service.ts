@@ -26,8 +26,14 @@ getArticulos(body:any): Observable<articuloRespons>{
   )
 }
 
-obtenerProducto(id:string): Observable<any> {
-  return this.http.get<any>(this.getArticulos +id);
+putArticulos(body:any): Observable<articuloRespons> {
+ return this.peticion.putQuery('articulos','put',body)
+  .pipe(
+    map(response=>{
+      console.log(response);
+      return response;
+    })
+  )
 }
 
 

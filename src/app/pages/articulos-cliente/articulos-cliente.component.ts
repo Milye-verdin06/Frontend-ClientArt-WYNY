@@ -43,7 +43,7 @@ interface UnidadNegocio {
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
 public pageActual: number =1;
- 
+ renglonSelected: any;
 
  
   
@@ -83,7 +83,7 @@ public pageActual: number =1;
    public Articulos: any = []
   datos_articulo: ReqArticulos [] =[
 
-  ]
+  ];
 
   public Clientes: clientRespons[] = [
     //ya se llena automaticamente
@@ -113,12 +113,14 @@ public pageActual: number =1;
    
     this.Articulos = [];
     this.Clientes = [];
+    this.renglonSelected = null;
   }
   ngOnDestroy(): void {
     
     
   }
-  open(content: any) {
+  open(content: any, selectedItem?: any) {
+    this.renglonSelected = selectedItem;
     this.modalService.open(content, { windowClass: 'mod-class' }).result.then(
       (result) => {},
       (reason) => {}
@@ -210,8 +212,16 @@ public pageActual: number =1;
     
   }
 
-  UpdateArticulo(articulo: ReqArticulos): void{
-    
+  botonUpdateArticulo(){
+    this.articuloService.putArticulos(this.renglonSelected).subscribe(
+      resp => {
+       console.log (resp)
+       ;
+        
+        
+      }, (error) => console.log(error)
+      )
+
    
   }
 
@@ -220,5 +230,7 @@ public pageActual: number =1;
     if (confirm('Confirmar para eliminar el articulo' + name)) {
     }
   }
+
+
   
 }

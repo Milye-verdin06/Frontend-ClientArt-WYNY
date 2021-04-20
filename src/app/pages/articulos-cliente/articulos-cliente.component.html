@@ -110,7 +110,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let articulo of datos_articulo | paginate: {itemsPerPage: 5, currentPage: pageActual };" style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+                                <tr *ngFor="let articulo of datos_articulo | paginate: {itemsPerPage: 5, currentPage: pageActual };">
                                     <td>{{ articulo.ta_clta }}</td>
                                     <td>{{ articulo.ta_artic }}</td>
                                     <td>{{ articulo.ta_gruix }}</td>
@@ -128,7 +128,7 @@
                         <mat-icon> view_headline</mat-icon>
                         <span>Especificaciones </span>
                       </button>
-                                            <button mat-menu-item (click)="open(mymodaleditarArt)">
+                                            <button mat-menu-item (click)="open(mymodaleditarArt,articulo)">
                         <mat-icon> mode_edit</mat-icon>
                         <span>Editar</span>
                       </button>
@@ -166,14 +166,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <h3 type="text" class="form-control" id="cod_cliente">
-                            <i class="ni ni-circle-08"> </i> Cliente:
+                            <i class="ni ni-circle-08"> </i> Cliente: {{renglonSelected.ta_clta}}
                         </h3>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <h3 type="text" class="form-control" id="cod_articulo">
-                            Artículo:
+                            Artículo: {{renglonSelected.ta_artic}}
                         </h3>
                     </div>
                 </div>
@@ -181,17 +181,17 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <h3 type="text" class="form-control" id="cod_grosor">Grosor:</h3>
+                        <h3 type="text" class="form-control" id="cod_grosor">Grosor: {{renglonSelected.ta_gruix}} </h3>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <h3 type="text" class="form-control" id="cod_acabado">Acabado:</h3>
+                        <h3 type="text" class="form-control" id="cod_acabado">Acabado: {{renglonSelected.ta_acaba}} </h3>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <h3 type="text" class="form-control" id="cod_color">Color:</h3>
+                        <h3 type="text" class="form-control" id="cod_color">Color: {{renglonSelected.ta_color}}</h3>
                     </div>
                 </div>
             </div>
@@ -199,14 +199,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <h3 type="text" class="form-control" id="cod_clasificacion">
-                            Clasificacion:
+                            Clasificacion: {{renglonSelected.ta_clas}}
                         </h3>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group has-success">
 
-                        <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="Precio de venta" class="form-control is-valid" required />
+                        <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="Precio de venta" class="form-control is-valid" required [(ngModel)]="renglonSelected.ta_tarif_001" />
 
 
                     </div>
@@ -216,12 +216,13 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">
+        <button type="button" class="btn btn-outline-success" (click)="botonbuscarArticulos()">
       Guardar
       <span class="material-icons"> save </span>
     </button>
     </div>
 </ng-template>
+
 
 <ng-template #mymodalgetEsp let-modal>
     <div class="modal-header">

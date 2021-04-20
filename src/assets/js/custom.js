@@ -7,8 +7,6 @@ function unidad() {
 } */
 
 
-$('.openBtn').on('click', function() {
-    $('.modal-body').load('content.html', function() {
-        $('#mymodaleditarArt').modal({ show: true });
-    })
+$(document).ready(function() {
+    console.log("ready!");
 });
