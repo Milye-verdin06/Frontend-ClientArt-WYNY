@@ -17,6 +17,7 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { NumberFormatStyle } from '@angular/common';
 import { Pipe } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ReqEspecificaciones } from '../../models/especificacion';
 
 interface Food {
@@ -186,29 +187,17 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.selectedCliente = codigo.c_codi;
   }
 
-  /* botonEspecificacion() {
-    console.log(this.renglonSelected);
-
-     const body = {
-      ta_clta: this.renglonSelected.ta_clta,
-      ta_artic: this.renglonSelected.ta_artic,
-      ta_gruix: this.renglonSelected.ta_gruix,
-      ta_acaba: this.renglonSelected.ta_acaba,
-      ta_color: this.renglonSelected.ta_color,
-      ta_clas: this.renglonSelected.ta_clas,
-      ta_unifa: this.renglonSelected.ta_unifa,
-      ta_divis: this.renglonSelected.ta_divis,
-    };
-    this.especificacionService.getEspecificacion(body).subscribe(
+  botonUpdateArticulo() {
+    this.articuloService.putArticulos(this.renglonSelected).subscribe(
       (resp) => {
         console.log(resp);
       },
       (error) => console.log(error)
     );
-  } */
+  }
 
-  botonUpdateArticulo() {
-    this.articuloService.putArticulos(this.renglonSelected).subscribe(
+  botonUpdateEspecificacion() {
+    this.especificacionService.putEspecificaon(this.renglonSelected).subscribe(
       (resp) => {
         console.log(resp);
       },
