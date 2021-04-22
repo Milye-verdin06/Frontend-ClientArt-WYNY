@@ -41,6 +41,8 @@ interface UnidadNegocio {
   providers: [],
 })
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
+  isDisabled = true; //deshabilitar TextArea de especificacones
+
   public pageActual: number = 1;
   renglonSelected: any;
 
@@ -197,6 +199,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   botonUpdateEspecificacion() {
+    this.isDisabled = true;
+
     this.especificacionService.putEspecificaon(this.renglonSelected).subscribe(
       (resp) => {
         console.log(resp);
