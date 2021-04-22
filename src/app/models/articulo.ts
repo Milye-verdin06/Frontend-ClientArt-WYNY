@@ -1,34 +1,32 @@
 export interface articuloRespons {
-    status:  boolean;
-    message: string;
-    data:    ReqArticulos[];
+  status: boolean;
+  message: string;
+  data: ReqArticulos[];
 }
 
- export interface ReqArticulos {
-    ta_codi:      string;
-    ta_clta:      number;
-    ta_artic:     string;
-    ta_gruix:     number;
-    ta_acaba:     string;
-    ta_color:     number;
-    ta_clas:      string;
-    ta_unifa:     string;
-    ta_divis:     number;
-    ta_tarif_001: number;
-    ta_tarif_002: number;
-    ta_tarif_003: number;
-    ta_tarif_004: number;
-    ta_listar:    string;
-    ef_clta:      number;
-    ef_gruix:     number;
-    ef_color:     number;
-    ef_divis:     number;
-    ar_tpiel: string;
+export interface ReqArticulos {
+  ta_codi: string;
+  ta_clta: number;
+  ta_artic: string;
+  ta_gruix: number;
+  ta_acaba: string;
+  ta_color: number;
+  ta_clas: string;
+  ta_unifa: string;
+  ta_divis: number;
+  ta_tarif_001: number;
+  ta_tarif_002: number;
+  ta_tarif_003: number;
+  ta_tarif_004: number;
+  ta_listar: string;
+  ef_clta: number;
+  ef_gruix: number;
+  ef_color: number;
+  ef_divis: number;
+  ar_tpiel: string;
+  ar_codigo: string;
+  ar_descripcion: string;
 }
-
-
-
-
 
 /* export class Articulo{
             _id?: number;
@@ -54,8 +52,8 @@ export interface articuloRespons {
 
     constructor (ta_codi: string, ta_clta: number, ta_artic: string, ta_gruix: number, ta_acaba: string,ta_color: number,ta_clas: string,ta_unifa:string, ta_divis: number,
         ta_tarif_001: number,  ta_tarif_002: number, ta_tarif_003: number, ta_tarif_004: number, ta_listar: string,ef_clta :number,ef_gruix: number, ef_color: number, ef_divis: number )
-        
-        
+
+
         {
         this.ta_codi = ta_codi;
         this. ta_clta =  ta_clta;
@@ -75,7 +73,7 @@ export interface articuloRespons {
         this.ef_gruix = ef_gruix;
         this.ef_color = ef_color;
         this.ef_divis = ef_divis;
-        
+
     }
 
 

@@ -94,13 +94,13 @@
                         <table class="table align-items-center table-dark table-flush">
                             <thead class="thead-white">
                                 <tr>
-                                    <th scope="col">Cliente</th>
-                                    <th scope="col">Articulo</th>
-                                    <th scope="col">Grosor</th>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Artículo</th>
+                                    <!--  <th scope="col">Grosor</th>
                                     <th scope="col">Acabado</th>
                                     <th scope="col">Color</th>
-                                    <th scope="col">clasificacion</th>
-                                    <th scope="col">Tarifa</th>
+                                    <th scope="col">clasificacion</th>-->
+                                    <th scope="col">Precio de venta</th>
                                     <th scope="col">UnidadN</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -115,14 +115,14 @@
                   "> -->
                                 <tr *ngFor="
                     let articulo of datos_articulo
-                      | paginate: { itemsPerPage: 5, currentPage: pageActual }
+                      | paginate: { itemsPerPage: 7, currentPage: pageActual }
                   ">
-                                    <td>{{ articulo.ta_clta }}</td>
-                                    <td>{{ articulo.ta_artic }}</td>
-                                    <td>{{ articulo.ta_gruix }}</td>
+                                    <td>{{ articulo.ar_codigo }}</td>
+                                    <td>{{ articulo.ar_descripcion }}</td>
+                                    <!--  <td>{{ articulo.ta_gruix }}</td>
+                                    <td>{{ articulo.ta_acaba }}</td>
                                     <td>{{ articulo.ta_color }}</td>
-                                    <td>{{ articulo.ta_clta }}</td>
-                                    <td>{{ articulo.ta_clas }}</td>
+                                    <td>{{ articulo.ta_clas }}</td>  -->
                                     <td>{{ articulo.ta_tarif_001 }}</td>
                                     <td>{{ articulo.ar_tpiel }}</td>
                                     <td>
@@ -160,7 +160,7 @@
 <ng-template #mymodaleditarArt let-modal>
     <div class="modal-header">
         <h1 class="modal-title" id="modal-basic-titlee">
-            Editar artículo: {{ renglonSelected.ta_artic }}
+            Editar artículo: {{ renglonSelected.ar_descripcion }}
         </h1>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
@@ -237,9 +237,16 @@
 
 <ng-template #mymodalgetEsp let-modal>
     <div class="modal-header">
-        <h1 class="modal-title" id="modal-basic-titlee">
-            Especificaciones del artículo: {{ renglonSelected.ta_artic }}
-        </h1>
+        <div class="form-group">
+            <div class="col">
+                <div type="text" class="form-control">
+                    <h1 class="modal-title" id="modal-basic-titlee">Especificaciones</h1>
+                    <h3>Artículo: {{ renglonSelected.ar_descripcion }}</h3>
+                    <h3>Código: {{ renglonSelected.ta_artic }}</h3>
+                </div>
+            </div>
+        </div>
+
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
     </button>
@@ -251,39 +258,39 @@
                     <div class="col">
                         <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 1 </mat-label>
+                                <!--  <mat-label>Especificación 1 </mat-label> -->
                                 <textarea matInput placeholder=" " name="especi1" [(ngModel)]="datos_especificacion.ef_espe1"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 2</mat-label>
+                                <!--  <mat-label>Especificación 2</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi2" [(ngModel)]="datos_especificacion.ef_espe2"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 3</mat-label>
+                                <!--  <mat-label>Especificación 3</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi3" [(ngModel)]="datos_especificacion.ef_espe3"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 4</mat-label>
+                                <!--  <mat-label>Especificación 4</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi4" [(ngModel)]="datos_especificacion.ef_espe4"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 5</mat-label>
+                                <!-- <mat-label>Especificación 5</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi5" [(ngModel)]="datos_especificacion.ef_espe5"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 6</mat-label>
+                                <!--  <mat-label>Especificación 6</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi6" [(ngModel)]="datos_especificacion.ef_espe6"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 7</mat-label>
+                                <!-- <mat-label>Especificación 7</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi7" [(ngModel)]="datos_especificacion.ef_espe7"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 8</mat-label>
+                                <!-- <mat-label>Especificación 8</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi8" [(ngModel)]="datos_especificacion.ef_espe8"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Especificación 9</mat-label>
+                                <!--  <mat-label>Especificación 9</mat-label> -->
                                 <textarea matInput placeholder=" " name="especi9" [(ngModel)]="datos_especificacion.ef_espe9"></textarea>
                             </mat-form-field>
 
