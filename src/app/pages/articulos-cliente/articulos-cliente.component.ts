@@ -42,6 +42,7 @@ interface UnidadNegocio {
 })
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificacones
+  isDisabledButton = false; //deshabilitar el botton de agregar articulos
 
   public pageActual: number = 1;
   renglonSelected: any;
@@ -135,6 +136,13 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
   }
 
+  selectedUnidadNChange(values: string) {
+    console.log('hola');
+
+    /* if ((this.selectedUnidadN.value = 'SI')) {
+    } */
+  }
+
   ngOnInit() {
     console.log(this.selectedUnidad.value);
     const fds = {
@@ -184,7 +192,12 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       },
       (error) => console.log(error)
     );
+
+    if (this.datos_articulo === []) {
+      this.isDisabled = true;
+    } else this.isDisabled = false;
   }
+
   codSelected(codigo: listaCliente) {
     this.selectedCliente = codigo.c_codi;
   }
@@ -208,6 +221,14 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     );
   }
+
+  botonAddArticulo() {
+    /* if ((this.selectedUnidadN.value = 'SI')) {
+      this.isDisabled = true;
+    } */
+  }
+
+  filterArticulo = '';
 
   //para eliminar el articulo
   clickMethod(name: string) {

@@ -1,480 +1,322 @@
 <div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body text-center">
-          <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-auto">
-                  <div
-                    class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto"
-                  >
-                    <div class="form-group mb-0">
-                      <mat-form-field class="example-buscarcliente-width">
-                        <mat-label>Buscar cliente</mat-label>
-                        <input
-                          type="text"
-                          matInput
-                          [formControl]="myControl"
-                          [matAutocomplete]="auto"
-                        />
-                        <mat-autocomplete
-                          #auto="matAutocomplete"
-                          [displayWith]="displayFnClientes"
-                          (optionSelected)="codSelected($event.option.value)"
-                        >
-                          <mat-option
-                            *ngFor="
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <div class="form-group mb-0">
+                                            <mat-form-field class="example-buscarcliente-width">
+                                                <mat-label>Buscar cliente</mat-label>
+                                                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" />
+                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnClientes" (optionSelected)="codSelected($event.option.value)">
+                                                    <mat-option *ngFor="
                               let option of filteredOptionsClientes | async
-                            "
-                            [value]="option"
-                            id="clienteS"
-                          >
-                            {{ option.c_nom }}
-                          </mat-option>
-                        </mat-autocomplete>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div
-                    class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto"
-                  >
-                    <mat-form-field appearance="fill">
-                      <mat-label>Unidad de negocio</mat-label>
-                      <mat-select
-                        [(value)]="selectedUnidadN"
-                        id="unidadNegocio"
-                        [(ngModel)]="selectedUnidadN"
-                      >
-                        <mat-option
-                          *ngFor="let unidadnegocio of unidadesN"
-                          [value]="unidadnegocio.value"
-                        >
-                          {{ unidadnegocio.viewValue }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col">
-                  <div
-                    class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto"
-                  >
-                    <mat-form-field appearance="fill">
-                      <mat-label>Unidad de medida</mat-label>
-                      <mat-select
-                        [(value)]="selectedUnidad"
-                        id="unidadM"
-                        [(ngModel)]="selectedUnidad"
-                      >
-                        <mat-option
-                          *ngFor="let unidad of unidades"
-                          [value]="unidad.value"
-                        >
-                          {{ unidad.viewValue }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
+                            " [value]="option" id="clienteS">
+                                                        {{ option.c_nom }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Unidad de negocio</mat-label>
+                                            <mat-select [(value)]="selectedUnidadN" id="unidadNegocio" [(ngModel)]="selectedUnidadN" (ngModelChange)="selectedUnidadNChange($event)">
+                                                <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.value">
+                                                    {{ unidadnegocio.viewValue }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Unidad de medida</mat-label>
+                                            <mat-select [(value)]="selectedUnidad" id="unidadM" [(ngModel)]="selectedUnidad">
+                                                <mat-option *ngFor="let unidad of unidades" [value]="unidad.value">
+                                                    {{ unidad.viewValue }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
 
-                <div class="col">
-                  <div
-                    class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto"
-                  >
-                    <mat-form-field appearance="fill">
-                      <mat-label>Divisa</mat-label>
-                      <mat-select
-                        [(value)]="selectedValue"
-                        id="divisaS"
-                        [(ngModel)]="selectedValue"
-                      >
-                        <mat-option
-                          *ngFor="let food of foods"
-                          [value]="food.value"
-                        >
-                          {{ food.viewValue }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col">
-                  <div
-                    class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto"
-                  >
-                    <button
-                      class="btn btn-light float-end"
-                      id="buscarArticulos"
-                      (click)="botonbuscarArticulos()"
-                    >
+                                <div class="col">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Divisa</mat-label>
+                                            <mat-select [(value)]="selectedValue" id="divisaS" [(ngModel)]="selectedValue">
+                                                <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                    {{ food.viewValue }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <button class="btn btn-light float-end" id="buscarArticulos" (click)="botonbuscarArticulos()">
                       Buscar
                     </button>
-                  </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="container-fluid mt-4">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body text-center">
-          <h1 class="display-4">
-            Listado de Articulos&nbsp;&nbsp;&nbsp;
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="display-4">
+                        Listado de Articulos&nbsp;&nbsp;&nbsp;
 
-            <button
-              class="btn btn-light float-end"
-              routerLink="/agregar-articulos"
-              id="agregarArticulos"
-              disabled=""
-            >
-              Agregar articulo<i class="ni ni-fat-add"></i>
+                        <button class="btn btn-light float-end" routerLink="/agregar-articulos" id="agregarArticulos" *ngIf="isDisabledButton" (click)="botonAddArticulo()">
+              Agregar artículo<i class="ni ni-fat-add"></i>
             </button>
-          </h1>
+                    </h1>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [disabled]="isDisabled" placeholder="Buscar artículo por descripción" name="filterArticulo" [(ngModel)]="filterArticulo" />
+                        </div>
+                    </div>
 
-          <div class="table-responsive">
-            <!--  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-items-center table-flush"> -->
-            <table class="table align-items-center table-dark table-flush">
-              <thead class="thead-white">
-                <tr>
-                  <th scope="col">Código</th>
-                  <th scope="col">Descripción Artículo</th>
-                  <!--  <th scope="col">Grosor</th>
+                    <div class="table-responsive">
+                        <!--  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-items-center table-flush"> -->
+                        <table class="table align-items-center table-dark table-flush">
+                            <thead class="thead-white">
+                                <tr>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Descripción Artículo</th>
+                                    <!--  <th scope="col">Grosor</th>
                                     <th scope="col">Acabado</th>
                                     <th scope="col">Color</th>
                                     <th scope="col">clasificacion</th>-->
-                  <th scope="col">Precio de venta</th>
-                  <th scope="col">Línea</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <!--   <tr *ngFor="
+                                    <th scope="col">Precio de venta</th>
+                                    <th scope="col">Línea</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--   <tr *ngFor="
                     let articulo of datos_articulo
                       | paginate: { itemsPerPage: 5, currentPage: pageActual }
                   " style="
                     color: rgb(0, 0, 0);
                     background-color: rgb(255, 255, 255);
                   "> -->
-                <tr
-                  *ngFor="
+                                <tr *ngFor="
                     let articulo of datos_articulo
+                      | pipeFilter: filterArticulo
                       | paginate: { itemsPerPage: 7, currentPage: pageActual }
-                  "
-                >
-                  <td>{{ articulo.ar_codigo }}</td>
-                  <td>{{ articulo.ar_descripcion }}</td>
-                  <!--  <td>{{ articulo.ta_gruix }}</td>
+                  ">
+                                    <td>{{ articulo.ar_codigo }}</td>
+                                    <td>{{ articulo.ar_descripcion }}</td>
+                                    <!--  <td>{{ articulo.ta_gruix }}</td>
                                     <td>{{ articulo.ta_acaba }}</td>
                                     <td>{{ articulo.ta_color }}</td>
                                     <td>{{ articulo.ta_clas }}</td>  -->
-                  <td>{{ articulo.ta_tarif_001 }}</td>
-                  <td>{{ articulo.ar_tpiel }}</td>
-                  <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <td>{{ articulo.ta_tarif_001 }}</td>
+                                    <td>{{ articulo.ar_tpiel }}</td>
+                                    <td>
+                                        <button mat-icon-button [matMenuTriggerFor]="menu">
                       <mat-icon>more_vert</mat-icon>
                     </button>
-                    <mat-menu #menu="matMenu">
-                      <button
-                        mat-menu-item
-                        (click)="open(mymodalgetEsp, articulo)"
-                      >
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="open(mymodalgetEsp, articulo)">
                         <mat-icon> view_headline</mat-icon>
                         <span>Especificaciones </span>
                       </button>
-                      <button
-                        mat-menu-item
-                        (click)="open(mymodaleditarArt, articulo)"
-                      >
+                                            <button mat-menu-item (click)="open(mymodaleditarArt, articulo)">
                         <mat-icon> mode_edit</mat-icon>
                         <span>Editar</span>
                       </button>
 
-                      <button mat-menu-item (click)="clickMethod('name')">
+                                            <button mat-menu-item (click)="clickMethod('name')">
                         <mat-icon>delete_forever</mat-icon>
                         <span> Eliminar </span>
                       </button>
-                    </mat-menu>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <pagination-controls
-              (pageChange)="pageActual = $event"
-              previousLabel="Anterior"
-              nextLabel="Siguiente"
-              screenReaderPaginationLabel="Pagination"
-              screenReaderPageLabel="page"
-              screenReaderCurrentLabel="You're on page"
-            >
-            </pagination-controls>
-          </div>
+                                        </mat-menu>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="pageActual = $event" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <ng-template #mymodaleditarArt let-modal>
-  <div class="modal-header">
-    <div type="text" class="form-control" style="background-color: #adb5bd">
-      <h1>Editar artículo: {{ renglonSelected.ar_descripcion }}</h1>
-    </div>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
+    <div class="modal-header">
+        <div type="text" class="form-control" style="background-color: #adb5bd">
+            <h1>Editar artículo: {{ renglonSelected.ar_descripcion }}</h1>
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
     </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <h3 type="text" class="form-control" id="cod_cliente">
-              <i class="ni ni-circle-08"> </i> Cliente:
-              {{ renglonSelected.ta_clta }}
-            </h3>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <h3 type="text" class="form-control" id="cod_articulo">
-              Artículo: {{ renglonSelected.ta_artic }}
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <h3 type="text" class="form-control" id="cod_grosor">
-              Grosor: {{ renglonSelected.ta_gruix }}
-            </h3>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <h3 type="text" class="form-control" id="cod_acabado">
-              Acabado: {{ renglonSelected.ta_acaba }}
-            </h3>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <h3 type="text" class="form-control" id="cod_color">
-              Color: {{ renglonSelected.ta_color }}
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <h3 type="text" class="form-control" id="cod_clasificacion">
-              Clasificacion: {{ renglonSelected.ta_clas }}
-            </h3>
-          </div>
-        </div>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_cliente">
+                            <i class="ni ni-circle-08"> </i> Cliente: {{ renglonSelected.ta_clta }}
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_articulo">
+                            Artículo: {{ renglonSelected.ta_artic }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_grosor">
+                            Grosor: {{ renglonSelected.ta_gruix }}
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_acabado">
+                            Acabado: {{ renglonSelected.ta_acaba }}
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_color">
+                            Color: {{ renglonSelected.ta_color }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_clasificacion">
+                            Clasificacion: {{ renglonSelected.ta_clas }}
+                        </h3>
+                    </div>
+                </div>
 
-        <span class="input-group-addon">Precio de venta:</span>
+                <span class="input-group-addon">Precio de venta:</span>
 
-        <div class="col-md-4">
-          <div class="form-group has-success">
-            <input
-              type="number"
-              id="agregartarifa"
-              name="agregartarifa"
-              min="0"
-              placeholder="Precio de venta"
-              class="form-control is-valid"
-              text="mm"
-              required
-              [(ngModel)]="renglonSelected.ta_tarif_001"
-            />
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+                <div class="col-md-4">
+                    <div class="form-group has-success">
+                        <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="Precio de venta" class="form-control is-valid" text="mm" required [(ngModel)]="renglonSelected.ta_tarif_001" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-success"
-      (click)="botonUpdateArticulo()"
-    >
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="botonUpdateArticulo()">
       Guardar
       <span class="material-icons"> save </span>
     </button>
-  </div>
+    </div>
 </ng-template>
 
 <ng-template #mymodalgetEsp let-modal>
-  <div class="modal-header">
-    <div class="form-group">
-      <div class="col">
-        <div type="text" class="form-control" style="background-color: #adb5bd">
-          <h2>Artículo: {{ renglonSelected.ar_descripcion }}</h2>
+    <div class="modal-header">
+        <div class="form-group">
+            <div class="col">
+                <div type="text" class="form-control" style="background-color: #adb5bd">
+                    <h2>Artículo: {{ renglonSelected.ar_descripcion }}</h2>
+                </div>
+                <div type="text" class="form-control" style="background-color: #adb5bd">
+                    <h2>Código: {{ renglonSelected.ar_codigo }}</h2>
+                </div>
+            </div>
         </div>
-        <div type="text" class="form-control" style="background-color: #adb5bd">
-          <h2>Código: {{ renglonSelected.ar_codigo }}</h2>
-        </div>
-      </div>
-    </div>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss((isDisabled = true))"
-    >
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss((isDisabled = true))">
       <span aria-hidden="true">×</span>
     </button>
-  </div>
-  <div class="modal-body">
-    <div class="container">
-      <h3 class="modal-title" id="modal-basic-titlee">Especificaciones</h3>
-      <mat-form-field class="example-medium-width">
-        <!--  <mat-label>Especificación 1 </mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi1"
-          [(ngModel)]="datos_especificacion.ef_espe1"
-          id="especi1"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!--  <mat-label>Especificación 2</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi2"
-          [(ngModel)]="datos_especificacion.ef_espe2"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!--  <mat-label>Especificación 3</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi3"
-          [(ngModel)]="datos_especificacion.ef_espe3"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!--  <mat-label>Especificación 4</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi4"
-          [(ngModel)]="datos_especificacion.ef_espe4"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!-- <mat-label>Especificación 5</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi5"
-          [(ngModel)]="datos_especificacion.ef_espe5"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!--  <mat-label>Especificación 6</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi6"
-          [(ngModel)]="datos_especificacion.ef_espe6"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!-- <mat-label>Especificación 7</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi7"
-          [(ngModel)]="datos_especificacion.ef_espe7"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!-- <mat-label>Especificación 8</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi8"
-          [(ngModel)]="datos_especificacion.ef_espe8"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-medium-width">
-        <!--  <mat-label>Especificación 9</mat-label> -->
-        <textarea
-          matInput
-          placeholder=" "
-          name="especi9"
-          [(ngModel)]="datos_especificacion.ef_espe9"
-          [disabled]="isDisabled"
-        ></textarea>
-      </mat-form-field>
-      <div class="example-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="example-full-width">
-              <mat-label>Código cliente</mat-label>
-              <input
-                matInput
-                placeholder=""
-                name="especi10"
-                [(ngModel)]="datos_especificacion.ef_espe10"
-                [disabled]="isDisabled"
-              />
-            </mat-form-field>
-          </td>
-        </tr>
-      </div>
     </div>
-  </div>
+    <div class="modal-body">
+        <div class="container">
+            <h3 class="modal-title" id="modal-basic-titlee">Especificaciones</h3>
+            <mat-form-field class="example-medium-width">
+                <!--  <mat-label>Especificación 1 </mat-label> -->
+                <textarea matInput placeholder=" " name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!--  <mat-label>Especificación 2</mat-label> -->
+                <textarea matInput placeholder=" " name="especi2" [(ngModel)]="datos_especificacion.ef_espe2" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!--  <mat-label>Especificación 3</mat-label> -->
+                <textarea matInput placeholder=" " name="especi3" [(ngModel)]="datos_especificacion.ef_espe3" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!--  <mat-label>Especificación 4</mat-label> -->
+                <textarea matInput placeholder=" " name="especi4" [(ngModel)]="datos_especificacion.ef_espe4" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!-- <mat-label>Especificación 5</mat-label> -->
+                <textarea matInput placeholder=" " name="especi5" [(ngModel)]="datos_especificacion.ef_espe5" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!--  <mat-label>Especificación 6</mat-label> -->
+                <textarea matInput placeholder=" " name="especi6" [(ngModel)]="datos_especificacion.ef_espe6" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!-- <mat-label>Especificación 7</mat-label> -->
+                <textarea matInput placeholder=" " name="especi7" [(ngModel)]="datos_especificacion.ef_espe7" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!-- <mat-label>Especificación 8</mat-label> -->
+                <textarea matInput placeholder=" " name="especi8" [(ngModel)]="datos_especificacion.ef_espe8" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-medium-width">
+                <!--  <mat-label>Especificación 9</mat-label> -->
+                <textarea matInput placeholder=" " name="especi9" [(ngModel)]="datos_especificacion.ef_espe9" [disabled]="isDisabled"></textarea>
+            </mat-form-field>
+            <div class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Código cliente</mat-label>
+                            <input matInput placeholder="" name="especi10" [(ngModel)]="datos_especificacion.ef_espe10" [disabled]="isDisabled" />
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </div>
+        </div>
+    </div>
 
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-primary"
-      value="activar textArea"
-      *ngIf="isDisabled"
-      (click)="isDisabled = false"
-    >
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" value="activar textArea" *ngIf="isDisabled" (click)="isDisabled = false">
       Editar
       <span class="material-icons"> mode_edit </span>
     </button>
-    <button
-      type="button"
-      class="btn btn-outline-success"
-      (click)="modal.dismiss(botonUpdateEspecificacion())"
-    >
+        <button type="button" class="btn btn-outline-success" (click)="modal.dismiss(botonUpdateEspecificacion())">
       Guardar
       <span class="material-icons"> save </span>
     </button>
-  </div>
+    </div>
 </ng-template>
