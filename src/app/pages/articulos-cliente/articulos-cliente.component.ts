@@ -43,6 +43,7 @@ interface UnidadNegocio {
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificacones
   isDisabledButton = false; //deshabilitar el botton de agregar articulos
+  isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
 
   public pageActual: number = 1;
   renglonSelected: any;
@@ -136,8 +137,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
   }
 
-  selectedUnidadNChange(values: string) {
-    console.log('hola');
+  selectedUnidadNChange(values: any) {
+    this.selectedUnidadN = values;
+    if (values === 'SI') {
+      this.isDisabledButton = true;
+    } else this.isDisabledButton = false;
 
     /* if ((this.selectedUnidadN.value = 'SI')) {
     } */
@@ -194,8 +198,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
 
     if (this.datos_articulo === []) {
-      this.isDisabled = true;
-    } else this.isDisabled = false;
+      this.isDisabledadd = true;
+    } else this.isDisabledadd = false;
   }
 
   codSelected(codigo: listaCliente) {

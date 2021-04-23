@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -6,8 +7,10 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ReqLineas } from 'src/app/models/articulo';
+import { ArticuloService } from 'src/app/services/articulo.service';
 
 interface Linea {
   value: string;
@@ -39,6 +42,7 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
+  datos_linea: ReqLineas[] = [];
   articuloForm: FormGroup;
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -73,9 +77,12 @@ export class AgregarArticulosComponent implements OnInit {
   selectedClasificado: Clasificado;
 
   constructor(
+    private articuloService: ArticuloService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private aRouter: ActivatedRoute
+    private aRouter: ActivatedRoute,
+    private http: HttpClient,
+    private router: Router
   ) {
     this.selectedLinea = this.lineas[1];
     this.selectedTambor = this.tambor[1];
@@ -103,7 +110,16 @@ export class AgregarArticulosComponent implements OnInit {
       (reason) => {}
     );
   }
-  ngOnInit() {}
+  body: any;
+  ngOnInit() {
+    this.articuloService.getlinea(this.body).subscribe(
+      (resp) => {
+        this.datos_linea = resp.data;
+        console.log(this.datos_linea);
+      },
+      (error) => console.log(error)
+    );
+  }
 
   onChange() {}
   public useDefault = false;
