@@ -9,15 +9,16 @@ import {
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ReqLineas } from 'src/app/models/articulo';
+import {
+  ReqLineas,
+  ReqFormatos,
+  ReqTamanos,
+  ReqGrosores,
+  ReqColores,
+} from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ClienteService } from '../../services/cliente.service';
 import { LineaRespons } from '../../models/articulo';
-/*
-interface Linea {
-  value: string;
-  viewValue: string;
-} */
 
 interface Tambor {
   value: string;
@@ -47,16 +48,16 @@ interface Clasificado {
 export class AgregarArticulosComponent implements OnInit {
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
+  public datos_formato: ReqFormatos[] = [];
+  public datos_tamano: ReqTamanos[] = [];
+  public datos_grosor: ReqGrosores[] = [];
+  public datos_color: ReqColores[] = [];
 
   articuloForm: FormGroup;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
-
-  /*   lineas: datos_linea[] = [
-  
-  ]; */
 
   tambor: Tambor[] = [
     { value: 'L', viewValue: 'Liso' },
@@ -78,9 +79,9 @@ export class AgregarArticulosComponent implements OnInit {
 
   selectedLinea: ReqLineas;
   selectedTambor: Tambor;
-  selectedFormato: Formato;
-  selectedTamano: Tamano;
-  selectedGrosor: Grosor;
+  selectedFormato: ReqFormatos;
+  selectedTamano: ReqTamanos;
+  selectedGrosor: ReqGrosores;
   selectedClasificado: Clasificado;
 
   constructor(
@@ -94,10 +95,10 @@ export class AgregarArticulosComponent implements OnInit {
   ) {
     this.selectedLinea = this.datos_linea[1];
     this.selectedTambor = this.tambor[1];
-    this.selectedFormato = this.formato[1];
-    this.selectedTamano = this.tamano[1];
+    this.selectedFormato = this.datos_formato[1];
+    this.selectedTamano = this.datos_tamano[1];
     this.selectedClasificado = this.clasificado[1];
-    this.selectedGrosor = this.grosor[1];
+    this.selectedGrosor = this.datos_grosor[1];
     this.articuloForm = this.fb.group({
       linea: ['', Validators.required],
       tambor: ['', Validators.required],
@@ -108,7 +109,7 @@ export class AgregarArticulosComponent implements OnInit {
       color: ['', Validators.required],
       acabado: ['', Validators.required],
       tarifa: ['', Validators.required],
-      //listar: ['', Validators.required], duda
+      listar: ['', Validators.required], //duda
     });
   }
 
@@ -126,7 +127,36 @@ export class AgregarArticulosComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+
+    this.articuloService.getformato().subscribe(
+      (resp) => {
+        this.datos_formato = resp.data;
+      },
+      (error) => console.log(error)
+    );
+
+    this.articuloService.gettamano().subscribe(
+      (resp) => {
+        this.datos_tamano = resp.data;
+      },
+      (error) => console.log(error)
+    );
+
+    this.articuloService.getgrosor().subscribe(
+      (resp) => {
+        this.datos_grosor = resp.data;
+      },
+      (error) => console.log(error)
+    );
+
+    this.articuloService.getcolor().subscribe(
+      (resp) => {
+        this.datos_color = resp.data;
+      },
+      (error) => console.log(error)
+    );
   }
+  selectedLineaNChange(values: any) {}
 
   onChange() {}
   public useDefault = false;

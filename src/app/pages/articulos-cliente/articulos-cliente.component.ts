@@ -147,9 +147,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     if (values === 'SI') {
       this.isDisabledButton = true;
     } else this.isDisabledButton = false;
-
-    /* if ((this.selectedUnidadN.value = 'SI')) {
-    } */
   }
 
   ngOnInit() {

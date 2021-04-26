@@ -17,6 +17,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
 import { SharedModule } from '../shared/shared.module';
@@ -55,6 +56,7 @@ import { PipeFilterPipe } from './pipes/pipe-filter.pipe';
     MatSlideToggleModule,
     MatTableModule,
     NgxPaginationModule,
+    MatRadioModule,
   ],
   /*  providers: [
   NgxPaginationModule

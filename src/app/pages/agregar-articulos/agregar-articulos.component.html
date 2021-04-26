@@ -13,7 +13,7 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Linea</mat-label>
-                                            <mat-select [(value)]="selectedLinea">
+                                            <mat-select [(value)]="selectedLinea" [(ngModel)]="selectedLinea" (ngModelChange)="selectedLineaNChange($event)">
                                                 <mat-option *ngFor="let linea of datos_linea" [value]="linea.tp_codi">
                                                     {{ linea.tp_desc }}
                                                 </mat-option>
@@ -41,8 +41,8 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Formato</mat-label>
                                             <mat-select [(value)]="selectedFormato">
-                                                <mat-option *ngFor="let formato of formato" [value]="formato.value">
-                                                    {{ formato.viewValue }}
+                                                <mat-option *ngFor="let formato of datos_formato" [value]="formato.ft_codi">
+                                                    {{ formato.ft_desc }}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -55,8 +55,8 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Tamaño</mat-label>
                                             <mat-select [(value)]="selectedTamano">
-                                                <mat-option *ngFor="let tamano of tamano" [value]="tamano.value">
-                                                    {{ tamano.viewValue }}
+                                                <mat-option *ngFor="let tamano of datos_tamano" [value]="tamano.tm_codi">
+                                                    {{ tamano.tm_desc }}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -69,8 +69,8 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Grosor</mat-label>
                                             <mat-select [(value)]="selectedGrosor">
-                                                <mat-option *ngFor="let grosor of grosor" [value]="grosor.value">
-                                                    {{ grosor.value }}
+                                                <mat-option *ngFor="let grosor of datos_grosor" [value]="grosor.gl_codi">
+                                                    {{ grosor.gl_desc }}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -118,7 +118,8 @@
                                             <button mat-menu-item [matMenuTriggerFor]="color">
                         Color
                       </button>
-                                            <span mat-menu-item> Eliminar </span>
+
+                                            <!-- <span mat-menu-item> Eliminar </span> -->
                                             <!-- <button mat-menu-item>Insects</button>
                                             <button mat-menu-item>Molluscs</button> -->
                                         </mat-menu>
@@ -134,9 +135,7 @@
                                             <button mat-menu-item>Mammals</button> -->
                                         </mat-menu>
 
-                                        <mat-menu #color="matMenu">
-                                            <!-- Incluir consulta de select colores -->
-                                        </mat-menu>
+                                        <mat-menu #color="matMenu"> </mat-menu>
 
                                         <mat-menu #selectacabado="matMenu">
                                             <!-- <button mat-menu-item>Sonoran desert toad</button>
@@ -179,7 +178,7 @@
                                                         Código:
                                                         <input class="input-group-text" placeholder="{{ selectedLinea }}{{
                                 selectedTambor
-                              }}{{ selectedFormato }} {{ selectedTamano }}" />
+                              }}{{ selectedFormato }} {{ selectedTamano }} " />
                                                     </h3>
                                                 </div>
 
@@ -227,39 +226,39 @@
                             <div class="col">
                                 <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 1</mat-label>
+                                        <mat-label>1:</mat-label>
                                         <textarea matInput placeholder=" " name="especi1"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 2</mat-label>
+                                        <mat-label>2:</mat-label>
                                         <textarea matInput placeholder=" " name="especi2"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 3</mat-label>
+                                        <mat-label>3:</mat-label>
                                         <textarea matInput placeholder=" " name="especi3"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 4</mat-label>
+                                        <mat-label>4:</mat-label>
                                         <textarea matInput placeholder=" " name="especi4"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 5</mat-label>
+                                        <mat-label>5:</mat-label>
                                         <textarea matInput placeholder=" " name="especi5"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 6</mat-label>
+                                        <mat-label>6:</mat-label>
                                         <textarea matInput placeholder=" " name="especi6"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 7</mat-label>
+                                        <mat-label>7:</mat-label>
                                         <textarea matInput placeholder=" " name="especi7"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 8</mat-label>
+                                        <mat-label>8:</mat-label>
                                         <textarea matInput placeholder=" " name="especi8"></textarea>
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Introducir especificación 9</mat-label>
+                                        <mat-label>9:</mat-label>
                                         <textarea matInput placeholder=" " name="especi9"></textarea>
                                     </mat-form-field>
 
