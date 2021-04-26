@@ -1,66 +1,74 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-export class PeticionesService{
-    private baseUrl: string = environment.apiUrl;
+export class PeticionesService {
+  private baseUrl: string = environment.apiUrl;
 
-    constructor(private http:HttpClient){
+  constructor(private http: HttpClient) {}
 
+  postQuery(tipo: string, accion: string, body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${environment.token}`,
+    });
+
+    const url = `${this.baseUrl}/${tipo}/${accion}`;
+
+    return this.http.post<any>(url, body, { headers });
+  }
+
+  getQuery(tipo: string, accion?: string, id?: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${environment.token}`,
+    });
+
+    let url = '';
+    if (!accion) {
+      url = `${this.baseUrl}/${tipo}`;
+    } else if (id) {
+      url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
+    } else {
+      url = `${this.baseUrl}/${tipo}/${accion}`;
     }
 
-    postQuery(tipo: string, accion:string,body:any):Observable<any>{
-        const headers =  new HttpHeaders({
-            'Authorization': `Bearer ${environment.token}` 
-        });
+    return this.http.get<any>(url, { headers });
+  }
 
-        const url = `${this.baseUrl}/${tipo}/${accion}`;
+  putQuery(
+    tipo: string,
+    accion: string,
+    body: any,
+    id?: number
+  ): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${environment.token}`,
+    });
 
-        return this.http.post<any>(url,body,{headers});
+    let url = '';
+    if (!id) {
+      url = `${this.baseUrl}/${tipo}/${accion}`;
+    } else {
+      url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
     }
 
-    getQuery(tipo: string, accion?:string,id?:number):Observable<any>{
-        const headers =  new HttpHeaders({
-            'Authorization': `Bearer ${environment.token}` 
-        });
+    return this.http.put<any>(url, body, { headers });
+  }
 
-        let url = '';
-        if(!accion){
-            url = `${this.baseUrl}/${tipo}`;
-        }else
-        {
-            url = `${this.baseUrl}/${tipo}/${id}`;
-        }
-
-        return this.http.get<any>(url,{headers});
-    }
-
-    putQuery(tipo: string, accion:string, body: any, id?:number):Observable<any>{
-        const headers =  new HttpHeaders({
-            'Authorization': `Bearer ${environment.token}` 
-        });
-
-        let url = '';
-        if(!id){
-            url = `${this.baseUrl}/${tipo}/${accion}`;
-        }else
-        {
-            url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
-        }
-
-        return this.http.put<any>(url,body,{headers});
-    }
-
-    deleteQuery(tipo: string, accion: string, id_p?: any,  id?: number): Observable<any> {
-        const headers =  new HttpHeaders({
-            'Authorization': `Bearer ${environment.token}` 
-        });
-        const url = `${this.baseUrl}/${tipo}/${accion}/${id_p}/${id}`;
-        return this.http.delete<any>(url, { headers })
-    }
+  deleteQuery(
+    tipo: string,
+    accion: string,
+    id_p?: any,
+    id?: number
+  ): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${environment.token}`,
+    });
+    const url = `${this.baseUrl}/${tipo}/${accion}/${id_p}/${id}`;
+    return this.http.delete<any>(url, { headers });
+  }
 }

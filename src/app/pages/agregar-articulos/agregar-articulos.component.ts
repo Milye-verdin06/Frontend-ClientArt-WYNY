@@ -11,11 +11,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReqLineas } from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
-
+import { ClienteService } from '../../services/cliente.service';
+import { LineaRespons } from '../../models/articulo';
+/*
 interface Linea {
   value: string;
   viewValue: string;
-}
+} */
+
 interface Tambor {
   value: string;
   viewValue: string;
@@ -42,14 +45,18 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
-  datos_linea: ReqLineas[] = [];
+  public Articulos: any = [];
+  public datos_linea: ReqLineas[] = [];
+
   articuloForm: FormGroup;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
 
-  lineas: Linea[] = [];
+  /*   lineas: datos_linea[] = [
+  
+  ]; */
 
   tambor: Tambor[] = [
     { value: 'L', viewValue: 'Liso' },
@@ -69,7 +76,7 @@ export class AgregarArticulosComponent implements OnInit {
   ];
   grosor: Grosor[] = [];
 
-  selectedLinea: Linea;
+  selectedLinea: ReqLineas;
   selectedTambor: Tambor;
   selectedFormato: Formato;
   selectedTamano: Tamano;
@@ -78,13 +85,14 @@ export class AgregarArticulosComponent implements OnInit {
 
   constructor(
     private articuloService: ArticuloService,
+    private ClienteService: ClienteService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private aRouter: ActivatedRoute,
     private http: HttpClient,
     private router: Router
   ) {
-    this.selectedLinea = this.lineas[1];
+    this.selectedLinea = this.datos_linea[1];
     this.selectedTambor = this.tambor[1];
     this.selectedFormato = this.formato[1];
     this.selectedTamano = this.tamano[1];
@@ -110,12 +118,11 @@ export class AgregarArticulosComponent implements OnInit {
       (reason) => {}
     );
   }
-  body: any;
+
   ngOnInit() {
-    this.articuloService.getlinea(this.body).subscribe(
+    this.articuloService.getlinea().subscribe(
       (resp) => {
         this.datos_linea = resp.data;
-        console.log(this.datos_linea);
       },
       (error) => console.log(error)
     );
@@ -127,4 +134,7 @@ export class AgregarArticulosComponent implements OnInit {
     console.log('Toggle fired');
     this.useDefault = event.checked;
   }
+}
+function tp_codi(tp_codi: any): any {
+  throw new Error('Function not implemented.');
 }

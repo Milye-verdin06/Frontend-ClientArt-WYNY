@@ -3,7 +3,11 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
-import { articuloRespons, ReqArticulos } from 'src/app/models/articulo';
+import {
+  articuloRespons,
+  ReqArticulos,
+  ReqLineas,
+} from 'src/app/models/articulo';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -75,10 +79,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   selectedValue: Food;
   selectedUnidad: Unidad;
   selectedUnidadN: UnidadNegocio;
-  selectedCliente: string;
+  public selectedCliente: string;
 
   public Articulos: any = [];
   datos_articulo: ReqArticulos[] = [];
+  datos_linea: ReqLineas[] = [];
 
   public Especificacion: any = [];
   datos_especificacion: any;
@@ -226,11 +231,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
   }
 
-  botonAddArticulo() {
-    /* if ((this.selectedUnidadN.value = 'SI')) {
-      this.isDisabled = true;
-    } */
-  }
+  botonAddArticulo() {}
 
   filterArticulo = '';
 

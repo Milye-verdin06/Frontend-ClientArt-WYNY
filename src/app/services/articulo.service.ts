@@ -32,8 +32,8 @@ export class ArticuloService {
     );
   }
 
-  getlinea(body: any): Observable<LineaRespons> {
-    return this.peticion.getQuery('lineas', 'getall', body).pipe(
+  getlinea(): Observable<LineaRespons> {
+    return this.peticion.getQuery('lineas', 'getall').pipe(
       map((response) => {
         console.log(response);
         return response;
