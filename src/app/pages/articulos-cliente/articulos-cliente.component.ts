@@ -48,6 +48,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificacones
   isDisabledButton = false; //deshabilitar el botton de agregar articulos
   isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
+  isDisabledradioButton = true; //mantiene inhabilitado el radioButton de los articulos activos
 
   public pageActual: number = 1;
   renglonSelected: any;
@@ -147,6 +148,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     if (values === 'SI') {
       this.isDisabledButton = true;
     } else this.isDisabledButton = false;
+  }
+
+  verInactivosChange(event: any) {
+    this.isDisabledradioButton = false;
   }
 
   ngOnInit() {
