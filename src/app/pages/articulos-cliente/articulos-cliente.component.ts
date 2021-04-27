@@ -53,8 +53,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificacones
   isDisabledButton = false; //deshabilitar el botton de agregar articulos
   isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
-  isDisabledradioButton = true; //mantiene inhabilitado el radioButton de los articulos activos //mantiene los mat-select inactivos hasta que van seleccionando de una en uno
-  /*  isDisabledSelected = true; */ public pageActual: number = 1;
+
+  public pageActual: number = 1;
   renglonSelected: any;
   radioButtonSelected: any;
 
@@ -224,10 +224,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     /* console.log(this.unidadesF); */
   }
 
-  verInactivosChange(event: any) {
-    this.isDisabledradioButton = false;
-  }
-
   ngOnInit() {
     console.log(this.selectedUnidad.value);
     const fds = {
@@ -279,7 +275,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     );
 
-    if (this.datos_articulo === []) {
+    if (this.datos_articulo == []) {
       this.isDisabledadd = true;
     } else this.isDisabledadd = false;
   }
@@ -321,7 +317,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   filterArticulo = '';
 
   //para eliminar el articulo
-  clickMethod(name: string) {
+  clickMethod(name: any) {
+    name = this.renglonSelected.ta_artic;
+
     if (confirm('Confirmar para eliminar el articulo' + name)) {
     }
   }

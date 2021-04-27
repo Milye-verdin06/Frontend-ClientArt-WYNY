@@ -88,20 +88,20 @@
               Agregar artículo<i class="ni ni-fat-add"></i>
             </button>
                     </h1>
-
-                    <div class="col-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" [disabled]="isDisabledadd" placeholder="Buscar artículo por descripción" name="filterArticulo" [(ngModel)]="filterArticulo" />
-
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [disabled]="isDisabledadd" placeholder="Buscar artículo por descripción" name="filterArticulo" [(ngModel)]="filterArticulo" />
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-8">
                             <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedRadio">
                                 <mat-radio-button [value]="true" (change)="mostrarInactivos($event)">Ver activos</mat-radio-button>
-                                <!--  [disabled]="isDisabledradioButton" -->
+
                                 <mat-radio-button [value]="false" (change)="mostrarInactivos($event)">Ver inactivos</mat-radio-button>
-                                <!-- *ngIf="isDisabledradioButton" (ngModelChange)="verInactivosChange($event)" -->
                             </mat-radio-group>
                         </div>
                     </div>
-
                     <div class="table-responsive">
                         <!--  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-items-center table-flush"> -->
                         <table class="table align-items-center table-dark table-flush">
