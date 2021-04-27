@@ -29,6 +29,15 @@ export class ArticuloService {
     );
   }
 
+  getArticulosInactivos(body: any): Observable<articuloRespons> {
+    return this.peticion.postQuery('articulos', 'getallinactivos', body).pipe(
+      map((response) => {
+        console.log(response);
+        return response;
+      })
+    );
+  }
+
   putArticulos(body: any): Observable<articuloRespons> {
     return this.peticion.putQuery('articulos', 'put', body).pipe(
       map((response) => {

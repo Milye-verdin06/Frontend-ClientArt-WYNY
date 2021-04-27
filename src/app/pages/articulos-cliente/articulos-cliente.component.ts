@@ -32,6 +32,8 @@ interface Food {
 interface Unidad {
   value: string;
   viewValue: string;
+  unidadN: string;
+  unidadN2: string;
 }
 interface UnidadNegocio {
   value: string;
@@ -48,26 +50,28 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificacones
   isDisabledButton = false; //deshabilitar el botton de agregar articulos
   isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
-  isDisabledradioButton = true; //mantiene inhabilitado el radioButton de los articulos activos
-
-  public pageActual: number = 1;
+  isDisabledradioButton = true; //mantiene inhabilitado el radioButton de los articulos activos //mantiene los mat-select inactivos hasta que van seleccionando de una en uno
+  /*  isDisabledSelected = true; */ public pageActual: number = 1;
   renglonSelected: any;
+  radioButtonSelected: any;
 
   foods: Food[] = [
+    //divisas
     { value: '1', viewValue: 'Pesos' },
     { value: '2', viewValue: 'Dolares' },
     { value: '3', viewValue: 'Euros' },
   ];
 
   unidades: Unidad[] = [
-    { value: 'P', viewValue: 'Pies cuadrados' },
-    { value: 'K', viewValue: 'Kilos' },
-    { value: 'D', viewValue: 'Decimetros' },
-    { value: 'L', viewValue: 'Libras' },
-    { value: 'P', viewValue: 'Pares' },
-    { value: 'U', viewValue: 'Unidades' },
-    { value: 'M', viewValue: 'Metros cuadrados' },
+    { value: 'P', viewValue: 'Pies cuadrados', unidadN: 'SI', unidadN2: '' },
+    { value: 'K', viewValue: 'Kilos', unidadN: 'SU', unidadN2: 'PI' },
+    { value: 'D', viewValue: 'Decimetros', unidadN: 'SI', unidadN2: '' },
+    { value: 'L', viewValue: 'Libras', unidadN: 'SI', unidadN2: '' },
+    { value: 'P', viewValue: 'Pares', unidadN: 'SI', unidadN2: '' },
+    { value: 'U', viewValue: 'Unidades', unidadN: 'SI', unidadN2: '' },
+    { value: 'M', viewValue: 'Metros cuadrados', unidadN: 'SI', unidadN2: '' },
   ];
+  unidadesF: Unidad[] = [];
 
   unidadesN: UnidadNegocio[] = [
     { value: 'SI', viewValue: 'Marroquineria' },
@@ -84,6 +88,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   public Articulos: any = [];
   datos_articulo: ReqArticulos[] = [];
+  selectedArticulos: string;
+
   datos_linea: ReqLineas[] = [];
 
   public Especificacion: any = [];
@@ -111,8 +117,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.selectedUnidad = this.unidades[1];
     this.selectedUnidadN = this.unidadesN[1];
     this.selectedCliente = '';
+    this.selectedArticulos = 's';
 
-    this.Articulos = [];
     this.Clientes = [];
     this.Especificacion = [];
     this.renglonSelected = null;
@@ -148,6 +154,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     if (values === 'SI') {
       this.isDisabledButton = true;
     } else this.isDisabledButton = false;
+
+    this.unidadesF = this.unidades.filter((u) => u.unidadN == values);
+    /* console.log(this.unidadesF); */
   }
 
   verInactivosChange(event: any) {
@@ -195,6 +204,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       ta_unifa: this.selectedUnidad,
       ta_divis: this.selectedValue,
       ar_tpiel: this.selectedUnidadN,
+      ta_listar: this.selectedRadio ? 'S' : 'N',
     };
 
     this.articuloService.getArticulos(body).subscribe(
@@ -207,6 +217,14 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     if (this.datos_articulo === []) {
       this.isDisabledadd = true;
     } else this.isDisabledadd = false;
+  }
+
+  selectedRadio: boolean = true;
+  mostrarInactivos(e: any) {
+    this.selectedRadio = e.value;
+    /* console.log(e);
+    console.log(this.selectedRadio); */
+    this.botonbuscarArticulos();
   }
 
   codSelected(codigo: listaCliente) {
