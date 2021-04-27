@@ -34,6 +34,9 @@ interface Unidad {
   viewValue: string;
   unidadN: string;
   unidadN2: string;
+  unidadN3: string;
+  unidadN4: string;
+  unidadN5: string;
 }
 interface UnidadNegocio {
   value: string;
@@ -63,13 +66,69 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   ];
 
   unidades: Unidad[] = [
-    { value: 'P', viewValue: 'Pies cuadrados', unidadN: 'SI', unidadN2: '' },
-    { value: 'K', viewValue: 'Kilos', unidadN: 'SU', unidadN2: 'PI' },
-    { value: 'D', viewValue: 'Decimetros', unidadN: 'SI', unidadN2: '' },
-    { value: 'L', viewValue: 'Libras', unidadN: 'SI', unidadN2: '' },
-    { value: 'P', viewValue: 'Pares', unidadN: 'SI', unidadN2: '' },
-    { value: 'U', viewValue: 'Unidades', unidadN: 'SI', unidadN2: '' },
-    { value: 'M', viewValue: 'Metros cuadrados', unidadN: 'SI', unidadN2: '' },
+    {
+      value: 'P',
+      viewValue: 'Pies cuadrados',
+      unidadN: 'SI',
+      unidadN2: 'PI',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    },
+    {
+      value: 'K',
+      viewValue: 'Kilos',
+      unidadN: 'SU',
+      unidadN2: 'SS',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    },
+    {
+      value: 'D',
+      viewValue: 'Decimetros',
+      unidadN: 'SI',
+      unidadN2: 'PI',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    },
+    {
+      value: 'L',
+      viewValue: 'Libras',
+      unidadN: 'SU',
+      unidadN2: '',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    },
+    {
+      value: 'P',
+      viewValue: 'Pares',
+      unidadN: 'SS',
+      unidadN2: '',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    },
+    {
+      value: 'U',
+      viewValue: 'Unidades',
+      unidadN: 'SI',
+      unidadN2: 'PI',
+      unidadN3: 'CI',
+      unidadN4: 'CT',
+      unidadN5: 'SS',
+    },
+    {
+      value: 'M',
+      viewValue: 'Metros cuadrados',
+      unidadN: 'SS',
+      unidadN2: '',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    },
   ];
   unidadesF: Unidad[] = [];
 
@@ -88,7 +147,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   public Articulos: any = [];
   datos_articulo: ReqArticulos[] = [];
-  selectedArticulos: string;
 
   datos_linea: ReqLineas[] = [];
 
@@ -117,7 +175,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.selectedUnidad = this.unidades[1];
     this.selectedUnidadN = this.unidadesN[1];
     this.selectedCliente = '';
-    this.selectedArticulos = 's';
 
     this.Clientes = [];
     this.Especificacion = [];
@@ -155,7 +212,15 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.isDisabledButton = true;
     } else this.isDisabledButton = false;
 
-    this.unidadesF = this.unidades.filter((u) => u.unidadN == values);
+    this.unidadesF = this.unidades.filter(
+      (u) =>
+        u.unidadN == values ||
+        u.unidadN2 == values ||
+        u.unidadN3 == values ||
+        u.unidadN4 == values ||
+        u.unidadN5 == values
+    );
+
     /* console.log(this.unidadesF); */
   }
 
