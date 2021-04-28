@@ -3,11 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
-import {
-  articuloRespons,
-  ReqArticulos,
-  ReqLineas,
-} from 'src/app/models/articulo';
+import { ReqArticulos, ReqLineas } from 'src/app/models/articulo';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -23,6 +19,7 @@ import { NumberFormatStyle } from '@angular/common';
 import { Pipe } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ReqEspecificaciones } from '../../models/especificacion';
+import Swal from 'sweetalert2';
 
 interface Food {
   value: string;
@@ -53,7 +50,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificacones
   isDisabledButton = false; //deshabilitar el botton de agregar articulos
   isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
-
+  isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
+  isDisableunidadM = true; // deshabilitar la unidad de medida y habilitar hasta que seleccione la unidad de negocio
+  alert = false;
   public pageActual: number = 1;
   renglonSelected: any;
   radioButtonSelected: any;
@@ -220,6 +219,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         u.unidadN4 == values ||
         u.unidadN5 == values
     );
+    this.isDisableunidadM = false;
 
     /* console.log(this.unidadesF); */
   }
@@ -275,9 +275,17 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     );
 
-    if (this.datos_articulo == []) {
-      this.isDisabledadd = true;
-    } else this.isDisabledadd = false;
+    if (this.datos_articulo.length == 0) {
+      this.isDisabledadd = false;
+    } else this.isDisabledadd = true;
+
+    if (this.datos_articulo.length == 0) {
+      this.alert = false;
+    } else this.alert = true;
+  }
+
+  closealert() {
+    this.alert = false;
   }
 
   selectedRadio: boolean = true;
@@ -285,11 +293,15 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.selectedRadio = e.value;
     /* console.log(e);
     console.log(this.selectedRadio); */
+    if (this.datos_articulo.length == 0) {
+      this.alert = false;
+    } else this.alert = true;
     this.botonbuscarArticulos();
   }
 
   codSelected(codigo: listaCliente) {
     this.selectedCliente = codigo.c_codi;
+    this.isDisableunidadN = false;
   }
 
   botonUpdateArticulo() {
@@ -322,5 +334,24 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     if (confirm('Confirmar para eliminar el articulo' + name)) {
     }
+  }
+
+  opensweetalertdeletArticulo() {
+    Swal.fire({
+      title: 'Eliminar el artículo',
+
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Confirmar`,
+      denyButtonText: `No confirmar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        //codigo del servicio de update activo del codigo
+        Swal.fire('Eliminado', '', 'success');
+      } else if (result.isDenied) {
+        Swal.fire('Operación no realizada', '', 'info');
+      }
+    });
   }
 }

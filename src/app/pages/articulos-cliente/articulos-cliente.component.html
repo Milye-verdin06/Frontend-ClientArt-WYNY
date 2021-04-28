@@ -27,7 +27,7 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de negocio</mat-label>
-                                            <mat-select [(value)]="selectedUnidadN" id="unidadNegocio" [(ngModel)]="selectedUnidadN" (ngModelChange)="selectedUnidadNChange($event)">
+                                            <mat-select [(value)]="selectedUnidadN" id="unidadNegocio" [disabled]="isDisableunidadN" [(ngModel)]="selectedUnidadN" (ngModelChange)="selectedUnidadNChange($event)">
                                                 <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.value">
                                                     {{ unidadnegocio.viewValue }}
                                                 </mat-option>
@@ -39,7 +39,7 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de medida</mat-label>
-                                            <mat-select [(value)]="selectedUnidad" id="unidadM" [(ngModel)]="selectedUnidad">
+                                            <mat-select [(value)]="selectedUnidad" id="unidadM" [disabled]="isDisableunidadM" [(ngModel)]="selectedUnidad">
                                                 <mat-option *ngFor="let unidad of unidadesF" [value]="unidad.value">
                                                     {{ unidad.viewValue }}
                                                 </mat-option>
@@ -155,7 +155,7 @@
                         <span>Editar</span>
                       </button>
 
-                                            <button mat-menu-item (click)="clickMethod('name')">
+                                            <button mat-menu-item (click)="opensweetalertdeletArticulo()">
                         <mat-icon>delete_forever</mat-icon>
                         <span> Eliminar </span>
                       </button>
@@ -164,10 +164,18 @@
                                 </tr>
                             </tbody>
                         </table>
+
                         <pagination-controls (pageChange)="pageActual = $event" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
                         </pagination-controls>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="alert" class="alert alert-light alert-dismissible fade show" role="alert">
+                <strong>Info</strong> no se encontraron articulos con esos datos.
+
+                <button (click)="closealert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
             </div>
         </div>
     </div>

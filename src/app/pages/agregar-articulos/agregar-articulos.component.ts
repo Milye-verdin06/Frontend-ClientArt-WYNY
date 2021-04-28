@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   FormControl,
   Validators,
@@ -19,6 +19,8 @@ import {
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ClienteService } from '../../services/cliente.service';
 import { LineaRespons } from '../../models/articulo';
+import { ArticulosClienteComponent } from '../articulos-cliente/articulos-cliente.component';
+import { NgbPaginationNumberContext } from '@ng-bootstrap/ng-bootstrap/pagination/pagination';
 
 interface Tambor {
   value: string;
@@ -46,6 +48,7 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
+  @Input('entrada') entrada = 'default';
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
@@ -121,6 +124,8 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ClienteService.getClientes;
+
     this.articuloService.getlinea().subscribe(
       (resp) => {
         this.datos_linea = resp.data;
@@ -164,7 +169,4 @@ export class AgregarArticulosComponent implements OnInit {
     console.log('Toggle fired');
     this.useDefault = event.checked;
   }
-}
-function tp_codi(tp_codi: any): any {
-  throw new Error('Function not implemented.');
 }
