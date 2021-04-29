@@ -26,6 +26,7 @@ import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
 import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
 import { PipeFilterPipe } from './pipes/pipe-filter.pipe';
+import { PeticionesService } from '../services/peticiones.service';
 
 @NgModule({
   declarations: [
@@ -58,9 +59,7 @@ import { PipeFilterPipe } from './pipes/pipe-filter.pipe';
     NgxPaginationModule,
     MatRadioModule,
   ],
-  /*  providers: [
-  NgxPaginationModule
-], */
+  providers: [PeticionesService],
 
   exports: [PagesComponent, ArticulosClienteComponent, MatDialogModule],
 })

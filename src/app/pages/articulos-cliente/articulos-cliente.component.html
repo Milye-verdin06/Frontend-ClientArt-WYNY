@@ -278,10 +278,19 @@
     <div class="modal-body">
         <div class="container">
             <h3 class="modal-title" id="modal-basic-titlee">Especificaciones</h3>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Código cliente</mat-label>
+                        <input matInput placeholder="" name="especi10" [(ngModel)]="datos_especificacion.ef_espe10" [disabled]="isDisabled" />
+                    </mat-form-field>
+                </td>
+            </tr>
             <mat-form-field class="example-medium-width">
                 <!--  <mat-label>Especificación 1 </mat-label> -->
                 <textarea matInput placeholder=" " name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
             </mat-form-field>
+
             <mat-form-field class="example-medium-width">
                 <!--  <mat-label>Especificación 2</mat-label> -->
                 <textarea matInput placeholder=" " name="especi2" [(ngModel)]="datos_especificacion.ef_espe2" [disabled]="isDisabled"></textarea>
@@ -314,16 +323,7 @@
                 <!--  <mat-label>Especificación 9</mat-label> -->
                 <textarea matInput placeholder=" " name="especi9" [(ngModel)]="datos_especificacion.ef_espe9" [disabled]="isDisabled"></textarea>
             </mat-form-field>
-            <div class="example-full-width" cellspacing="0">
-                <tr>
-                    <td>
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Código cliente</mat-label>
-                            <input matInput placeholder="" name="especi10" [(ngModel)]="datos_especificacion.ef_espe10" [disabled]="isDisabled" />
-                        </mat-form-field>
-                    </td>
-                </tr>
-            </div>
+            <div class="example-full-width" cellspacing="0"></div>
         </div>
     </div>
 
@@ -338,3 +338,5 @@
     </button>
     </div>
 </ng-template>
+
+<!-- <app-agregar-articulos [nomCliente]="selectedCliente"></app-agregar-articulos> -->

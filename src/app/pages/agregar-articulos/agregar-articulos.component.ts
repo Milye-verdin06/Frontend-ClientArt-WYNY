@@ -18,9 +18,7 @@ import {
 } from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ClienteService } from '../../services/cliente.service';
-import { LineaRespons } from '../../models/articulo';
-import { ArticulosClienteComponent } from '../articulos-cliente/articulos-cliente.component';
-import { NgbPaginationNumberContext } from '@ng-bootstrap/ng-bootstrap/pagination/pagination';
+import { AprobationService } from 'src/app/services/aprobation.service';
 
 interface Tambor {
   value: string;
@@ -48,13 +46,13 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
-  @Input('entrada') entrada = 'default';
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
   public datos_tamano: ReqTamanos[] = [];
   public datos_grosor: ReqGrosores[] = [];
   public datos_color: ReqColores[] = [];
+  nomCliente: any;
 
   articuloForm: FormGroup;
   emailFormControl = new FormControl('', [
@@ -90,6 +88,7 @@ export class AgregarArticulosComponent implements OnInit {
   constructor(
     private articuloService: ArticuloService,
     private ClienteService: ClienteService,
+    private aprobationService: AprobationService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private aRouter: ActivatedRoute,
@@ -124,6 +123,9 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.aprobationService.getNombreCliente().subscribe((d) => {
+      this.nomCliente = d;
+    });
     this.ClienteService.getClientes;
 
     this.articuloService.getlinea().subscribe(

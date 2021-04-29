@@ -1,24 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { AprobationService } from 'src/app/services/aprobation.service';
 import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
 import { ReqArticulos, ReqLineas } from 'src/app/models/articulo';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+
 import { ClienteService } from 'src/app/services/cliente.service';
 import { EspecificacionService } from 'src/app/services/especificacion.service';
-import { especificacionRespons } from 'src/app/models/especificacion';
+
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { NumberFormatStyle } from '@angular/common';
-import { Pipe } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ReqEspecificaciones } from '../../models/especificacion';
+
 import Swal from 'sweetalert2';
 
 interface Food {
@@ -143,6 +138,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   selectedUnidad: Unidad;
   selectedUnidadN: UnidadNegocio;
   public selectedCliente: string;
+  public selectedClienteName: string;
 
   public Articulos: any = [];
   datos_articulo: ReqArticulos[] = [];
@@ -167,6 +163,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     private articuloService: ArticuloService,
     private clienteService: ClienteService,
     private especificacionService: EspecificacionService,
+    private aprobationService: AprobationService,
     private http: HttpClient,
     private router: Router
   ) {
@@ -174,11 +171,13 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.selectedUnidad = this.unidades[1];
     this.selectedUnidadN = this.unidadesN[1];
     this.selectedCliente = '';
+    this.selectedClienteName = '';
 
     this.Clientes = [];
     this.Especificacion = [];
     this.renglonSelected = null;
   }
+
   ngOnDestroy(): void {}
   open(content: any, selectedItem?: any) {
     this.renglonSelected = selectedItem;
@@ -302,6 +301,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   codSelected(codigo: listaCliente) {
     this.selectedCliente = codigo.c_codi;
     this.isDisableunidadN = false;
+    this.selectedClienteName = codigo.c_nom;
+    this.aprobationService.setNombreClinte(this.selectedClienteName);
   }
 
   botonUpdateArticulo() {
