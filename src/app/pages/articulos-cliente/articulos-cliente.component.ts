@@ -47,6 +47,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
   isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
   isDisableunidadM = true; // deshabilitar la unidad de medida y habilitar hasta que seleccione la unidad de negocio
+  isDisableDivis = true;
   alert = false;
   public pageActual: number = 1;
   renglonSelected: any;
@@ -219,8 +220,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         u.unidadN5 == values
     );
     this.isDisableunidadM = false;
-
-    /* console.log(this.unidadesF); */
+  }
+  selectedUnidadMChange(values: any) {
+    this.isDisableDivis = false;
   }
 
   ngOnInit() {
@@ -316,8 +318,27 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   botonUpdateEspecificacion() {
     this.isDisabled = true;
-
-    this.especificacionService.putEspecificaon(this.renglonSelected).subscribe(
+    const body = {
+      ef_clta: this.renglonSelected.ta_clta,
+      ef_artic: this.renglonSelected.ta_artic,
+      ef_gruix: this.renglonSelected.ta_gruix,
+      ef_acaba: this.renglonSelected.ta_acaba,
+      ef_color: this.renglonSelected.ta_color,
+      ef_clas: this.renglonSelected.ta_clas,
+      ef_unifa: this.renglonSelected.ta_unifa,
+      ef_divis: this.renglonSelected.ta_divis,
+      ef_espe1: this.datos_especificacion.ef_espe1,
+      ef_espe2: this.datos_especificacion.ef_espe2,
+      ef_espe3: this.datos_especificacion.ef_espe3,
+      ef_espe4: this.datos_especificacion.ef_espe4,
+      ef_espe5: this.datos_especificacion.ef_espe5,
+      ef_espe6: this.datos_especificacion.ef_espe6,
+      ef_espe7: this.datos_especificacion.ef_espe7,
+      ef_espe8: this.datos_especificacion.ef_espe8,
+      ef_espe9: this.datos_especificacion.ef_espe9,
+      ef_espe10: this.datos_especificacion.ef_espe10,
+    };
+    this.especificacionService.putEspecificion(body).subscribe(
       (resp) => {
         console.log(resp);
       },
@@ -355,4 +376,5 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       }
     });
   }
+  editarArtForm = new FormGroup({});
 }

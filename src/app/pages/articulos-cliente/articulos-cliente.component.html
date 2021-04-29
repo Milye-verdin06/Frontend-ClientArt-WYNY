@@ -39,7 +39,7 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de medida</mat-label>
-                                            <mat-select [(value)]="selectedUnidad" id="unidadM" [disabled]="isDisableunidadM" [(ngModel)]="selectedUnidad">
+                                            <mat-select [(value)]="selectedUnidad" id="unidadM" [disabled]="isDisableunidadM" [(ngModel)]="selectedUnidad" (ngModelChange)="selectedUnidadMChange($event)">
                                                 <mat-option *ngFor="let unidad of unidadesF" [value]="unidad.value">
                                                     {{ unidad.viewValue }}
                                                 </mat-option>
@@ -52,7 +52,7 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Divisa</mat-label>
-                                            <mat-select [(value)]="selectedValue" id="divisaS" [(ngModel)]="selectedValue">
+                                            <mat-select [(value)]="selectedValue" id="divisaS" [disabled]="isDisableDivis" [(ngModel)]="selectedValue">
                                                 <mat-option *ngFor="let food of foods" [value]="food.value">
                                                     {{ food.viewValue }}
                                                 </mat-option>
@@ -191,7 +191,7 @@
     </button>
     </div>
     <div class="modal-body">
-        <form>
+        <form [formGroup]="editarArtForm">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">

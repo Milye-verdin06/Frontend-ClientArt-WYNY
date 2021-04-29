@@ -20,7 +20,7 @@ export class EspecificacionService {
     );
   }
 
-  putEspecificaon(body: any): Observable<especificacionRespons> {
+  putEspecificion(body: any): Observable<especificacionRespons> {
     return this.peticion.putQuery('especificaciones', 'put', body).pipe(
       map((response) => {
         console.log(response);
