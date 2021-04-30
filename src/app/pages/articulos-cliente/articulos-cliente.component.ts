@@ -42,7 +42,7 @@ interface UnidadNegocio {
   providers: [],
 })
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
-  isDisabled = true; //deshabilitar TextArea de especificacones
+  isDisabled = true; //deshabilitar TextArea de especificaciones
   isDisabledButton = false; //deshabilitar el botton de agregar articulos
   isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
   isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
@@ -179,6 +179,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.Clientes = [];
     this.Especificacion = [];
     this.renglonSelected = null;
+
+    /* this.grabar_localstorage(); */
   }
 
   ngOnDestroy(): void {}
@@ -221,6 +223,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         u.unidadN4 == values ||
         u.unidadN5 == values
     );
+
     this.isDisableunidadM = false;
   }
   selectedUnidadMChange(values: any) {
@@ -318,6 +321,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   botonUpdateArticulo() {
+    /* console.log(this.renglonSelected); */
     const body = {
       ta_codi: 'C',
       ta_clta: this.renglonSelected.ta_clta,
@@ -328,9 +332,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       ta_clas: this.renglonSelected.ta_clas,
       ta_unifa: this.renglonSelected.ta_unifa,
       ta_divis: this.renglonSelected.ta_divis,
+      ta_tarif_001: this.renglonSelected.ta_tarif_001,
     };
 
-    this.articuloService.putArticulos(this.renglonSelected).subscribe(
+    this.articuloService.putArticulos(body).subscribe(
       (resp) => {
         console.log(resp);
       },
@@ -376,7 +381,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   opensweetalertdeletArticulo(selectedItem?: any) {
     this.renglonSelected = selectedItem;
-    console.log(this.renglonSelected);
+    /* console.log(this.renglonSelected); */
 
     Swal.fire({
       title: 'Dar de baja el artículo',
@@ -416,7 +421,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   opensweetalertActivarArticulo(selectedItem?: any) {
     this.renglonSelected = selectedItem;
-    console.log(this.renglonSelected);
+    /* console.log(this.renglonSelected); */
 
     Swal.fire({
       title: 'Reactivar el artículo',
@@ -454,5 +459,17 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     });
   }
 
-  editarArtForm = new FormGroup({});
+  /*
+  grabar_localstorage(selectedItem?: any) {
+    this.renglonSelected = selectedItem;
+
+    let articulo = {
+      c_codi: this.selectedCliente,
+      ta_unifa: this.selectedUnidad.value,
+      ta_divis: this.selectedValue.value,
+      ar_tpiel: this.selectedUnidadN.value,
+    };
+
+    localStorage.setItem('articulo', JSON.stringify(articulo));
+  } */
 }

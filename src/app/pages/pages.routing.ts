@@ -18,7 +18,7 @@ const routes: Routes = [
         component: AgregarEspecificacionesComponent,
       },
       { path: 'get-especificacion', component: EspecificacionesComponent },
-      { path: '', redirectTo: 'articulos-cliente', pathMatch: 'full' },
+      { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },
     ],
   },
 ];

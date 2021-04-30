@@ -25,10 +25,7 @@ interface Tambor {
   value: string;
   viewValue: string;
 }
-interface Formato {
-  value: string;
-  viewValue: string;
-}
+
 interface Tamano {
   value: string;
   viewValue: string;
@@ -47,6 +44,12 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
+  isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
+  isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
+  isDisabledTamano = true; //deshabilitar el select de tamano hasta que seleccionen el formato
+  isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
+  isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
+
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
@@ -66,8 +69,7 @@ export class AgregarArticulosComponent implements OnInit {
     { value: 'T', viewValue: 'Tamboreado' },
     { value: 'M', viewValue: 'Muy tamboreado' },
   ];
-
-  formato: Formato[] = [];
+  formatos: ReqFormatos[] = [];
 
   tamano: Tamano[] = [];
 
@@ -113,7 +115,7 @@ export class AgregarArticulosComponent implements OnInit {
       color: ['', Validators.required],
       acabado: ['', Validators.required],
       tarifa: ['', Validators.required],
-      listar: ['', Validators.required], //duda
+      listar: ['', Validators.required],
     });
   }
 
@@ -165,7 +167,19 @@ export class AgregarArticulosComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-  selectedLineaNChange(values: any) {}
+  selectedLineaNChange(values: any) {
+    /* console.log(String(values).trim()); */
+    this.formatos = this.datos_formato.filter(
+      (u) => u.ft_tpiel == String(values).trim()
+    );
+    this.isDisabledTambor = false;
+  }
+  selectTamborChangue(values: any) {
+    this.isDisabledFormato = false;
+  }
+  selectFormatoChangue(values: any) {
+    this.isDisabledTamano = false;
+  }
 
   onChange() {}
   public useDefault = false;
