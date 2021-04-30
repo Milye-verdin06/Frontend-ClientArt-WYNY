@@ -82,4 +82,22 @@ export class ArticuloService {
       })
     );
   }
+
+  putInactivarArticulos(body: any): Observable<articuloRespons> {
+    return this.peticion.putQuery('articulos', 'delete', body).pipe(
+      map((response) => {
+        console.log(response);
+        return response;
+      })
+    );
+  }
+
+  putActivarctivarArticulos(body: any): Observable<articuloRespons> {
+    return this.peticion.putQuery('articulos', 'activararticulo', body).pipe(
+      map((response) => {
+        console.log(response);
+        return response;
+      })
+    );
+  }
 }

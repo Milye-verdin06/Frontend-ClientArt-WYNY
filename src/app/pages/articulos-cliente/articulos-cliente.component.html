@@ -146,18 +146,23 @@
                       <mat-icon>more_vert</mat-icon>
                     </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item (click)="open(mymodalgetEsp, articulo)">
+                                            <button mat-menu-item (click)="open(mymodalgetEsp, articulo)" *ngIf="articulo.ta_listar == 'S'">
                         <mat-icon> view_headline</mat-icon>
                         <span>Especificaciones </span>
                       </button>
-                                            <button mat-menu-item (click)="open(mymodaleditarArt, articulo)">
+                                            <button mat-menu-item (click)="open(mymodaleditarArt, articulo)" *ngIf="articulo.ta_listar == 'S'">
                         <mat-icon> mode_edit</mat-icon>
                         <span>Editar</span>
                       </button>
 
-                                            <button mat-menu-item (click)="opensweetalertdeletArticulo()">
+                                            <button mat-menu-item (click)="opensweetalertdeletArticulo(articulo)" *ngIf="articulo.ta_listar == 'S'">
                         <mat-icon>delete_forever</mat-icon>
                         <span> Eliminar </span>
+                      </button>
+
+                                            <button mat-menu-item (click)="opensweetalertActivarArticulo(articulo)" *ngIf="articulo.ta_listar == 'N'">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span> Reactivar </span>
                       </button>
                                         </mat-menu>
                                     </td>

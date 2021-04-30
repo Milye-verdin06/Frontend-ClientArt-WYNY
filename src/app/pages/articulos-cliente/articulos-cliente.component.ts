@@ -308,6 +308,18 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   botonUpdateArticulo() {
+    const body = {
+      ta_codi: 'C',
+      ta_clta: this.renglonSelected.ta_clta,
+      ta_artic: this.renglonSelected.ta_artic,
+      ta_gruix: this.renglonSelected.ta_gruix,
+      ta_acaba: this.renglonSelected.ta_acaba,
+      ta_color: this.renglonSelected.ta_color,
+      ta_clas: this.renglonSelected.ta_clas,
+      ta_unifa: this.renglonSelected.ta_unifa,
+      ta_divis: this.renglonSelected.ta_divis,
+    };
+
     this.articuloService.putArticulos(this.renglonSelected).subscribe(
       (resp) => {
         console.log(resp);
@@ -346,21 +358,18 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
   }
 
-  botonAddArticulo() {}
+  botonAddArticulo() {
+    //codigo que necesita el servicio para agregar un articulo
+  }
 
   filterArticulo = '';
 
-  //para eliminar el articulo
-  clickMethod(name: any) {
-    name = this.renglonSelected.ta_artic;
+  opensweetalertdeletArticulo(selectedItem?: any) {
+    this.renglonSelected = selectedItem;
+    console.log(this.renglonSelected);
 
-    if (confirm('Confirmar para eliminar el articulo' + name)) {
-    }
-  }
-
-  opensweetalertdeletArticulo() {
     Swal.fire({
-      title: 'Eliminar el artículo',
+      title: 'Dar de baja el artículo',
 
       showDenyButton: true,
       showCancelButton: true,
@@ -369,12 +378,71 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        //codigo del servicio de update activo del codigo
+        const body = {
+          ta_codi: 'C',
+          ta_clta: this.renglonSelected.ta_clta,
+          ta_artic: this.renglonSelected.ta_artic,
+          ta_gruix: this.renglonSelected.ta_gruix,
+          ta_acaba: this.renglonSelected.ta_acaba,
+          ta_color: this.renglonSelected.ta_color,
+          ta_clas: this.renglonSelected.ta_clas,
+          ta_unifa: this.renglonSelected.ta_unifa,
+          ta_divis: this.renglonSelected.ta_divis,
+        };
+
+        this.articuloService.putInactivarArticulos(body).subscribe(
+          (resp) => {
+            console.log(resp);
+          },
+          (error) => console.log(error)
+        );
+
         Swal.fire('Eliminado', '', 'success');
       } else if (result.isDenied) {
         Swal.fire('Operación no realizada', '', 'info');
       }
     });
   }
+
+  opensweetalertActivarArticulo(selectedItem?: any) {
+    this.renglonSelected = selectedItem;
+    console.log(this.renglonSelected);
+
+    Swal.fire({
+      title: 'Reactivar el artículo',
+
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Confirmar`,
+      denyButtonText: `No confirmar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const body = {
+          ta_codi: 'C',
+          ta_clta: this.renglonSelected.ta_clta,
+          ta_artic: this.renglonSelected.ta_artic,
+          ta_gruix: this.renglonSelected.ta_gruix,
+          ta_acaba: this.renglonSelected.ta_acaba,
+          ta_color: this.renglonSelected.ta_color,
+          ta_clas: this.renglonSelected.ta_clas,
+          ta_unifa: this.renglonSelected.ta_unifa,
+          ta_divis: this.renglonSelected.ta_divis,
+        };
+
+        this.articuloService.putActivarctivarArticulos(body).subscribe(
+          (resp) => {
+            console.log(resp);
+          },
+          (error) => console.log(error)
+        );
+
+        Swal.fire('Activado', '', 'success');
+      } else if (result.isDenied) {
+        Swal.fire('Operación no realizada', '', 'info');
+      }
+    });
+  }
+
   editarArtForm = new FormGroup({});
 }
