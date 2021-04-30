@@ -19,6 +19,7 @@ import {
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/aprobation.service';
+import { Location } from '@angular/common';
 
 interface Tambor {
   value: string;
@@ -86,6 +87,7 @@ export class AgregarArticulosComponent implements OnInit {
   selectedClasificado: Clasificado;
 
   constructor(
+    private location: Location,
     private articuloService: ArticuloService,
     private ClienteService: ClienteService,
     private aprobationService: AprobationService,

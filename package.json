@@ -34,6 +34,7 @@
     "clipboard": "^2.0.8",
     "core-js": "^3.10.0",
     "datatables.net-dt": "^1.10.24",
+    "ionic-angular": "^3.9.10",
     "jquery": "^3.6.0",
     "jshint": "^2.12.0",
     "ngx-clipboard": "^14.0.1",

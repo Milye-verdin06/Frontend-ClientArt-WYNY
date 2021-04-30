@@ -48,6 +48,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
   isDisableunidadM = true; // deshabilitar la unidad de medida y habilitar hasta que seleccione la unidad de negocio
   isDisableDivis = true;
+  isDisabledButtonAdd = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros
   alert = false;
   public pageActual: number = 1;
   renglonSelected: any;
@@ -158,6 +159,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   optionsClientes: listaCliente[] = [];
 
   public filteredOptionsClientes: Observable<listaCliente[]> | undefined;
+  nomCliente: any;
 
   constructor(
     private modalService: NgbModal,
@@ -225,7 +227,15 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.isDisableDivis = false;
   }
 
+  selectedDivisChange(values: any) {
+    this.isDisabledButtonAdd = false;
+  }
+
   ngOnInit() {
+    this.aprobationService.getNombreCliente().subscribe((d) => {
+      this.nomCliente = d;
+    });
+
     console.log(this.selectedUnidad.value);
     const fds = {
       fds: "'126', '125'",
