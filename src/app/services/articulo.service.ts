@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
+  AcabadosRespons,
   articuloRespons,
   ColorRespons,
   FormatoRespons,
@@ -82,7 +83,14 @@ export class ArticuloService {
       })
     );
   }
-
+  getAcabado(): Observable<AcabadosRespons> {
+    return this.peticion.getQuery('acabados', 'getall').pipe(
+      map((response) => {
+        console.log(response);
+        return response;
+      })
+    );
+  }
   putInactivarArticulos(body: any): Observable<articuloRespons> {
     return this.peticion.putQuery('articulos', 'delete', body).pipe(
       map((response) => {

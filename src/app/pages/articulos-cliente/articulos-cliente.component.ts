@@ -338,8 +338,24 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.articuloService.putArticulos(body).subscribe(
       (resp) => {
         console.log(resp);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Acción realizada',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Acción  no realizada',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     );
   }
 
@@ -368,8 +384,24 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.especificacionService.putEspecificion(body).subscribe(
       (resp) => {
         console.log(resp);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Acción realizada',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Acción  no realizada',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     );
   }
 

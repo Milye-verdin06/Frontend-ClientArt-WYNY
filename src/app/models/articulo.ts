@@ -104,3 +104,14 @@ export interface ReqColores {
   co_codi: string;
   co_desce: string;
 }
+
+export interface AcabadosRespons {
+  status: boolean;
+  message: string;
+  data: ReqAcabados[];
+}
+
+export interface ReqAcabados {
+  ac_codi: string;
+  ac_desce: string;
+}

@@ -2,69 +2,73 @@
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .headernavbar {
-    background-color: #172b4d;
+  background-color: #172b4d;
 }
 
 .row {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .mod-class .modal-dialog {
-    max-width: 1000px;
-    max-height: 1000px;
+  max-width: 1000px;
+  max-height: 1000px;
 }
 
 .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }
 
 .example-full-width {
-    width: 100%;
+  width: 100%;
 }
 
 .example-medium-width {
-    width: 60%;
+  width: 60%;
 }
 
 .example-litle-width {
-    width: 30%;
+  width: 30%;
+}
+
+.example-litle-width_min {
+  width: 40%;
 }
 
 .example-buscarcliente-width {
-    width: 200%;
+  width: 200%;
 }
 
 .Mily {
-    background: #e0e0e0;
-    margin: 0 0 1rem;
-    height: 10rem;
-    display: flex;
-    /* align-items por defecto tiene el valor `stretch` */
-    align-items: start;
+  background: #e0e0e0;
+  margin: 0 0 1rem;
+  height: 10rem;
+  display: flex;
+  /* align-items por defecto tiene el valor `stretch` */
+  align-items: start;
 }
 
-.mat-radio-button~.mat-radio-button {
-    margin-left: 16px;
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
 }

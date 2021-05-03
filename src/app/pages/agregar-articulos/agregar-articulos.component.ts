@@ -1,11 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormControl,
-  Validators,
-  FormGroup,
-  FormBuilder,
-} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,13 +10,23 @@ import {
   ReqTamanos,
   ReqGrosores,
   ReqColores,
+  ReqAcabados,
+  AcabadosRespons,
 } from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/aprobation.service';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { ColorRespons } from '../../models/articulo';
 
 interface Tambor {
+  value: string;
+  viewValue: string;
+}
+interface Acabado {
   value: string;
   viewValue: string;
 }
@@ -31,10 +36,6 @@ interface Tamano {
   viewValue: string;
 }
 
-interface Grosor {
-  value: string;
-  viewValue: string;
-}
 interface Clasificado {
   value: string;
 }
@@ -44,18 +45,21 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
+  myControl = new FormControl();
+
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
   isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
-  isDisabledTamano = true; //deshabilitar el select de tamano hasta que seleccionen el formato
+  isDisabledTamano = false; //deshabilitar el select de tamano hasta que seleccionen el formato
   isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
-
+  isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
   public datos_tamano: ReqTamanos[] = [];
   public datos_grosor: ReqGrosores[] = [];
   public datos_color: ReqColores[] = [];
+  public datos_acabados: ReqAcabados[] = [];
   nomCliente: any;
 
   articuloForm: FormGroup;
@@ -69,9 +73,15 @@ export class AgregarArticulosComponent implements OnInit {
     { value: 'T', viewValue: 'Tamboreado' },
     { value: 'M', viewValue: 'Muy tamboreado' },
   ];
+
+  acabado: Acabado[] = [
+    { value: 'N', viewValue: 'Natural' },
+    { value: 'T', viewValue: 'Tenido' },
+    { value: 'A', viewValue: 'Acabado' },
+  ];
   formatos: ReqFormatos[] = [];
 
-  tamano: Tamano[] = [];
+  tamanos: ReqTamanos[] = [];
 
   clasificado: Clasificado[] = [
     { value: 'A' },
@@ -79,7 +89,19 @@ export class AgregarArticulosComponent implements OnInit {
     { value: 'C' },
     { value: 'D' },
   ];
-  grosor: Grosor[] = [];
+  grosores: ReqGrosores[] = [];
+  public Acabados: AcabadosRespons[] = [];
+  optionsAcabados: ReqAcabados[] = [];
+  public filteredOptions: Observable<ReqAcabados[]> | undefined;
+
+  public Colores: ColorRespons[] = [];
+  optionsColores: ReqColores[] = [];
+  public filteredOptionsColores: Observable<ReqColores[]> | undefined;
+
+  public selectedAcabados: string;
+  public selectedAcabadoName: string;
+  public selectedColores: string;
+  public selectedColorName: string;
 
   selectedLinea: ReqLineas;
   selectedTambor: Tambor;
@@ -87,6 +109,8 @@ export class AgregarArticulosComponent implements OnInit {
   selectedTamano: ReqTamanos;
   selectedGrosor: ReqGrosores;
   selectedClasificado: Clasificado;
+
+  selectedAcabado: Acabado;
 
   constructor(
     private location: Location,
@@ -105,6 +129,14 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedTamano = this.datos_tamano[1];
     this.selectedClasificado = this.clasificado[1];
     this.selectedGrosor = this.datos_grosor[1];
+    this.selectedAcabado = this.acabado[1];
+    this.selectedAcabados = '';
+    this.selectedAcabadoName = '';
+    this.Acabados = [];
+    this.selectedColores = '';
+    this.selectedColorName = '';
+    this.Colores = [];
+
     this.articuloForm = this.fb.group({
       linea: ['', Validators.required],
       tambor: ['', Validators.required],
@@ -160,26 +192,118 @@ export class AgregarArticulosComponent implements OnInit {
       (error) => console.log(error)
     );
 
-    this.articuloService.getcolor().subscribe(
+    this.articuloService.getAcabado().subscribe(
       (resp) => {
-        this.datos_color = resp.data;
+        this.optionsAcabados = resp.data;
       },
       (error) => console.log(error)
     );
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => (typeof value === 'string' ? value : value.ac_codi)),
+      map((name) =>
+        name ? this._filterAcabados(name) : this.optionsAcabados.slice()
+      )
+    );
+
+    this.articuloService.getcolor().subscribe(
+      (resp) => {
+        this.optionsColores = resp.data;
+      },
+      (error) => console.log(error)
+    );
+    this.filteredOptionsColores = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => (typeof value === 'string' ? value : value.co_codi)),
+      map((name) =>
+        name ? this._filterColores(name) : this.optionsColores.slice()
+      )
+    );
   }
+
+  public displayFnAcabados(acabado: ReqAcabados): string {
+    return acabado && acabado.ac_desce ? acabado.ac_desce : '';
+  }
+
+  private _filterAcabados(ac_desce: string): ReqAcabados[] {
+    const filterValue = ac_desce.toLowerCase();
+
+    return this.optionsAcabados.filter(
+      (option) => option.ac_desce.toLowerCase().indexOf(filterValue) === 0
+    );
+  }
+
+  codSelected(codigo: ReqAcabados) {
+    this.selectedAcabados = codigo.ac_codi;
+
+    this.selectedAcabadoName = codigo.ac_codi;
+  }
+  public displayFnColores(color: ReqColores): string {
+    return color && color.co_desce ? color.co_desce : '';
+  }
+
+  private _filterColores(co_desce: string): ReqColores[] {
+    const filterValue = co_desce.toLowerCase();
+
+    return this.optionsColores.filter(
+      (option) => option.co_desce.toLowerCase().indexOf(filterValue) === 0
+    );
+  }
+  codSelectedColores(codigo: ReqColores) {
+    this.selectedColores = codigo.co_codi;
+
+    this.selectedColorName = codigo.co_codi;
+  }
+
   selectedLineaNChange(values: any) {
     /* console.log(String(values).trim()); */
     this.formatos = this.datos_formato.filter(
       (u) => u.ft_tpiel == String(values).trim()
     );
     this.isDisabledTambor = false;
+
+    this.tamanos = this.datos_tamano.filter(
+      (u) => u.tm_tpiel == String(values).trim()
+    );
+
+    this.grosores = this.datos_grosor.filter(
+      (u) => u.gl_linea == String(values).trim()
+    );
   }
   selectTamborChangue(values: any) {
     this.isDisabledFormato = false;
   }
+  formatoSeleccionado: any;
   selectFormatoChangue(values: any) {
+    this.formatoSeleccionado = values;
+    console.log(this.formatoSeleccionado);
+    /*  this.formatoSeleccionado = values;
+
+    if (this.selectedFormato.ft_codi == 'P') {
+      console.log(this.selectedFormato);
+    }  else console.log('else', this.selectedFormato);
+
+    /* this.tamanos = this.datos_tamano.filter(
+      (u) =>
+        u.tm_sts == String(values).trim() &&
+        u.tm_tpiel == String(this.selectedLinea.tp_codi).trim()
+    ); */
+
     this.isDisabledTamano = false;
   }
+  selectTamanoChangue(values: any) {
+    this.isDisabledGrosor = false;
+  }
+
+  selectGrosorChangue(values: any) {
+    this.isDisabledClasificado = false;
+  }
+
+  selectClasificadoChangue(values: any) {
+    this.isDisabledAcabado = false;
+  }
+  selectAcabadoChangue(values: any) {}
 
   onChange() {}
   public useDefault = false;

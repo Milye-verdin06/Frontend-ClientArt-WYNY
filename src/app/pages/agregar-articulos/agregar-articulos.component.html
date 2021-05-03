@@ -42,8 +42,8 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Formato</mat-label>
-                                            <mat-select [(value)]="selectedFormato" [disabled]="isDisabledFormato" [(ngModel)]="selectedFormato" (ngModelChange)="selectFormatoChangue($event)">
-                                                <mat-option *ngFor="let formato of formatos" [value]="formato.ft_tpiel">
+                                            <mat-select [(value)]="selectedFormato" [(ngModel)]="selectedFormato" [disabled]="isDisabledFormato" (ngModelChange)="selectFormatoChangue($event)">
+                                                <mat-option *ngFor="let formato of formatos" [value]="formato.ft_sts">
                                                     {{ formato.ft_desc }}
                                                 </mat-option>
                                             </mat-select>
@@ -56,8 +56,8 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Tamaño</mat-label>
-                                            <mat-select [(value)]="selectedTamano" [disabled]="isDisabledTamano" [(ngModel)]="selectedTamano">
-                                                <mat-option *ngFor="let tamano of datos_tamano" [value]="tamano.tm_codi">
+                                            <mat-select [(value)]="selectedTamano" [disabled]="isDisabledTamano" [(ngModel)]="selectedTamano" (ngModelChange)="selectTamanoChangue($event)">
+                                                <mat-option *ngFor="let tamano of tamanos" [value]="tamano.tm_sts">
                                                     {{ tamano.tm_desc }}
                                                 </mat-option>
                                             </mat-select>
@@ -70,8 +70,8 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Grosor</mat-label>
-                                            <mat-select [(value)]="selectedGrosor" [disabled]="isDisabledGrosor" [(ngModel)]="selectedGrosor">
-                                                <mat-option *ngFor="let grosor of datos_grosor" [value]="grosor.gl_codi">
+                                            <mat-select [(value)]="selectedGrosor" [disabled]="isDisabledGrosor" [(ngModel)]="selectedGrosor" (ngModelChange)="selectGrosorChangue($event)">
+                                                <mat-option *ngFor="let grosor of grosores" [value]="grosor.gl_linea">
                                                     {{ grosor.gl_desc }}
                                                 </mat-option>
                                             </mat-select>
@@ -84,7 +84,7 @@
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Clasificado</mat-label>
-                                            <mat-select [(value)]="selectedClasificado" [disabled]="isDisabledClasificado" [(ngModel)]="selectedClasificado">
+                                            <mat-select [(value)]="selectedClasificado" [disabled]="isDisabledClasificado" [(ngModel)]="selectedClasificado" (ngModelChange)="selectClasificadoChangue($event)">
                                                 <mat-option *ngFor="let clasificado of clasificado" [value]="clasificado.value">
                                                     {{ clasificado.value }}
                                                 </mat-option>
@@ -93,81 +93,59 @@
                                         <!--   <p> Clasificado seleccionado: {{selectedClasificado}} </p> -->
                                     </div>
                                 </div>
-                                <div class="col-md-auto">
-                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                        <button mat-raised-button [matMenuTriggerFor]="Acabado">
-                      Seleccionar acabado
-                    </button>
-                                        <mat-menu #Acabado="matMenu">
-                                            <button mat-menu-item>Natural</button>
-                                            <button mat-menu-item [matMenuTriggerFor]="tenido">
-                        Teñido
-                      </button>
-                                            <button mat-menu-item [matMenuTriggerFor]="acabado">
-                        Acabado
-                      </button>
-                                        </mat-menu>
-
-                                        <!--   <mat-menu #natural="matMenu">
-                                            <button mat-menu-item [matMenuTriggerFor]="fish">Fishes</button>
-                                            <button mat-menu-item [matMenuTriggerFor]="amphibians">Amphibians</button>
-                                            <button mat-menu-item [matMenuTriggerFor]="reptiles">Reptiles</button>
-                                            <button mat-menu-item>Birds</button>
-                                            <button mat-menu-item>Mammals</button>
-                                        </mat-menu> -->
-
-                                        <mat-menu #tenido="matMenu">
-                                            <button mat-menu-item [matMenuTriggerFor]="color">
-                        Color
-                      </button>
-
-                                            <!-- <span mat-menu-item> Eliminar </span> -->
-                                            <!-- <button mat-menu-item>Insects</button>
-                                            <button mat-menu-item>Molluscs</button> -->
-                                        </mat-menu>
-
-                                        <mat-menu #acabado="matMenu">
-                                            <button mat-menu-item [matMenuTriggerFor]="selectacabado">
-                        Acabado
-                      </button>
-                                            <button mat-menu-item [matMenuTriggerFor]="color">
-                        Color
-                      </button>
-                                            <!--  <button mat-menu-item>Birds</button>
-                                            <button mat-menu-item>Mammals</button> -->
-                                        </mat-menu>
-
-                                        <mat-menu #color="matMenu"> </mat-menu>
-
-                                        <mat-menu #selectacabado="matMenu">
-                                            <!-- <button mat-menu-item>Sonoran desert toad</button>
-                                            incluir select de los acabados -->
-                                        </mat-menu>
-
-                                        <!-- <mat-menu #reptiles="matMenu">
-                                            <button mat-menu-item>Banded Day Gecko</button>
-                                            <button mat-menu-item>Banded Gila Monster</button>
-                                            <button mat-menu-item>Black Tree Monitor</button>
-                                            <button mat-menu-item>Blue Spiny Lizard</button>
-                                            <button mat-menu-item disabled>Velociraptor</button>
-                                        </mat-menu> -->
-                                    </div>
-                                </div>
-
                                 <div class="col-sm">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Precio de venta</mat-label>
-                                            <input matInput type="number" id="agregartarifa" name="agregartarifa" min="0" required />
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar Acabado</mat-label>
+                                            <mat-select [(value)]="selectedAcabado" [(ngModel)]="selectedAcabado" [disabled]="isDisabledAcabado" (ngModelChange)="selectAcabadoChangue($event)">
+                                                <mat-option *ngFor="let acabado of acabado" [value]="acabado.value">
+                                                    {{ acabado.viewValue }}
+                                                </mat-option>
+                                            </mat-select>
                                         </mat-form-field>
+                                        <!-- <p> Tambor seleccionado: {{selectedTambor}} </p> -->
                                     </div>
                                 </div>
+                                <div class="col-sm">
+                                    <mat-form-field class=".example-litle-width_min">
+                                        <mat-label>Buscar color</mat-label>
+                                        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" />
+                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="codSelectedColores($event.option.value)">
+                                            <mat-option *ngFor="let option of filteredOptionsColores | async" [value]="option">
+                                                {{ option.co_desce }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
 
-                                <div class="col-sm-8 mt-4">
-                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                        <button mat-raised-button (click)="open(addespecificacion)">
-                      Especificación
-                    </button>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                <mat-form-field class=".example-litle-width">
+                                                    <mat-label>Precio de venta</mat-label>
+                                                    <input matInput type="number" id="agregartarifa" name="agregartarifa" min="0" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-ml-3">
+                                            <mat-form-field class=".example-litle-width_min">
+                                                <mat-label>Buscar acabado</mat-label>
+                                                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" />
+                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="codSelected($event.option.value)">
+                                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                        {{ option.ac_desce }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-8 mt-4">
+                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                <button mat-raised-button (click)="open(addespecificacion)">
+                          Especificación
+                        </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
