@@ -10,7 +10,6 @@ import {
   ReqTamanos,
   ReqGrosores,
   ReqColores,
-  ReqAcabados,
   AcabadosRespons,
 } from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
@@ -20,7 +19,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { ColorRespons } from '../../models/articulo';
+import { ColorRespons, ReqAcabados } from '../../models/articulo';
 
 interface Tambor {
   value: string;
@@ -45,7 +44,7 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
-  myControl = new FormControl();
+  myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
   isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
@@ -53,6 +52,7 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
+  isDisabledButton = false; //deshabilitar el select de colores y acabados
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
@@ -90,13 +90,14 @@ export class AgregarArticulosComponent implements OnInit {
     { value: 'D' },
   ];
   grosores: ReqGrosores[] = [];
+
   public Acabados: AcabadosRespons[] = [];
   optionsAcabados: ReqAcabados[] = [];
-  public filteredOptions: Observable<ReqAcabados[]> | undefined;
+  public filteredOptionsAcabados: Observable<ReqAcabados[]>[] = [];
 
   public Colores: ColorRespons[] = [];
   optionsColores: ReqColores[] = [];
-  public filteredOptionsColores: Observable<ReqColores[]> | undefined;
+  public filteredOptionsColores: Observable<ReqColores[]>[] = [];
 
   public selectedAcabados: string;
   public selectedAcabadoName: string;
@@ -199,11 +200,13 @@ export class AgregarArticulosComponent implements OnInit {
       (error) => console.log(error)
     );
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => (typeof value === 'string' ? value : value.ac_codi)),
-      map((name) =>
-        name ? this._filterAcabados(name) : this.optionsAcabados.slice()
+    this.filteredOptionsAcabados.push(
+      this.myControls[0].valueChanges.pipe(
+        startWith(''),
+        map((value) => (typeof value === 'string' ? value : value.ac_codi)),
+        map((name) =>
+          name ? this._filterAcabados(name) : this.optionsAcabados.slice()
+        )
       )
     );
 
@@ -213,11 +216,13 @@ export class AgregarArticulosComponent implements OnInit {
       },
       (error) => console.log(error)
     );
-    this.filteredOptionsColores = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => (typeof value === 'string' ? value : value.co_codi)),
-      map((name) =>
-        name ? this._filterColores(name) : this.optionsColores.slice()
+    this.filteredOptionsColores.push(
+      this.myControls[0].valueChanges.pipe(
+        startWith(''),
+        map((value) => (typeof value === 'string' ? value : value.co_codi)),
+        map((name) =>
+          name ? this._filterColores(name) : this.optionsColores.slice()
+        )
       )
     );
   }
@@ -234,20 +239,20 @@ export class AgregarArticulosComponent implements OnInit {
     );
   }
 
-  codSelected(codigo: ReqAcabados) {
-    this.selectedAcabados = codigo.ac_codi;
+  codSelected(codigoA: ReqAcabados) {
+    this.selectedAcabados = codigoA.ac_codi;
 
-    this.selectedAcabadoName = codigo.ac_codi;
+    this.selectedAcabadoName = codigoA.ac_codi;
   }
   public displayFnColores(color: ReqColores): string {
     return color && color.co_desce ? color.co_desce : '';
   }
 
   private _filterColores(co_desce: string): ReqColores[] {
-    const filterValue = co_desce.toLowerCase();
+    const filterValueC = co_desce.toLowerCase();
 
     return this.optionsColores.filter(
-      (option) => option.co_desce.toLowerCase().indexOf(filterValue) === 0
+      (option) => option.co_desce.toLowerCase().indexOf(filterValueC) === 0
     );
   }
   codSelectedColores(codigo: ReqColores) {

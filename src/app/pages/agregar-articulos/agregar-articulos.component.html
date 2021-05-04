@@ -107,15 +107,21 @@
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    <mat-form-field class=".example-litle-width_min">
-                                        <mat-label>Buscar color</mat-label>
-                                        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" />
-                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="codSelectedColores($event.option.value)">
-                                            <mat-option *ngFor="let option of filteredOptionsColores | async" [value]="option">
-                                                {{ option.co_desce }}
-                                            </mat-option>
-                                        </mat-autocomplete>
-                                    </mat-form-field>
+                                    <div *ngFor="let control of myControls; let index = index">
+                                        <mat-form-field class=".example-litle-width_min">
+                                            <mat-label>Buscar color</mat-label>
+                                            <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
+                                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="
+                          codSelectedColores($event.option.value)
+                        ">
+                                                <mat-option *ngFor="
+                            let option of filteredOptionsColores[index] | async
+                          " [value]="option">
+                                                    {{ option.co_desce }}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
 
                                 <div class="container">
@@ -128,17 +134,23 @@
                                                 </mat-form-field>
                                             </div>
                                         </div>
-                                        <div class="col-sm-ml-3">
-                                            <mat-form-field class=".example-litle-width_min">
-                                                <mat-label>Buscar acabado</mat-label>
-                                                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" />
-                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="codSelected($event.option.value)">
-                                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                                        {{ option.ac_desce }}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-                                            </mat-form-field>
+                                        <div class="col-sm-ml-2">
+                                            <div *ngFor="let control of myControls; let index = index">
+                                                <mat-form-field class=".example-litle-width_min">
+                                                    <mat-label>Buscar acabado</mat-label>
+                                                    <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
+                                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="codSelected($event.option.value)">
+                                                        <mat-option *ngFor="
+                                let option of filteredOptionsAcabados[index]
+                                  | async
+                              " [value]="option">
+                                                            {{ option.ac_desce }}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                </mat-form-field>
+                                            </div>
                                         </div>
+
                                         <div class="col-sm-8 mt-4">
                                             <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                                 <button mat-raised-button (click)="open(addespecificacion)">

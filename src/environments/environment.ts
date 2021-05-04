@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:15222/marroquineria',
   token:
-    'rrc0EajZOhWEK8gJU0bKuwZ-l43lSwgOpO1wqfQuOPCnBzQr0Hi47EpbtIDO-2smeKA4MIO2qDFIbDFUkJFIoDZq1VEw3pKgWaCwnO3momS-9oUYChqTQLXWHOg5po2QKeNSV5hi5AvIfAOrcsxekyU3AsCYDXjvwm_yqW3kqgmxWx7nzX-GvnX_Qx8IHNVBNTXHKGc5OqsWebBWNeWY6qGP3atodIWFUVlP46bzlJ2Sj0myf8nsgHXxxetKgpr-RMc3jqBbiMD41SsoMnnY-rg8KE4jnXBIKBUqtbqGjNqFSTUi4RzdA_hnmQNq-lVY',
+    'rij-CHEV6AucbBPzHhWqlEcfAXFhx_2ulICLCrGV_zwfP3YesOhNKWDKuPA1e4FANBASyY8zn5Qgu9-AKOpPsZsWuGZgR6ZqbCxxj6JYRh2sKOAkxNASyHMNBOfrpfJWBZVSeEQN4j_iXYYoMC7Ye7pKBTIOrLTfwdY48I0Y5qYRCD9M3lL5dql2Xc84X0fWmYYOz59ANMTzpKbuQOyMmKUzShUIm8oPii_cAJA-zB_n7nDo-FCV6q-twwDBx76ZlOXD4NdZTX6QnJ4VIKhmsChpWOEUUCYa33n6ywOw9LrdcxwN36wIEOTlQnJ0E_Rv',
 };
 
 /*
