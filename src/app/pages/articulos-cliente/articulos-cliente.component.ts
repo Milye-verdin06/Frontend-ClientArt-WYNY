@@ -160,6 +160,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   public filteredOptionsClientes: Observable<listaCliente[]> | undefined;
   nomCliente: any;
+  unidadSelecc: any;
+  divisaSelecc: any;
 
   constructor(
     private modalService: NgbModal,
@@ -237,6 +239,12 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.aprobationService.getNombreCliente().subscribe((d) => {
       this.nomCliente = d;
+    });
+    this.aprobationService.getUnidadMedidda().subscribe((d) => {
+      this.unidadSelecc = d;
+    });
+    this.aprobationService.getDivisa().subscribe((d) => {
+      this.divisaSelecc = d;
     });
 
     console.log(this.selectedUnidad.value);
@@ -406,6 +414,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   botonAddArticulo() {
+    this.aprobationService.setUnidadMedida(this.selectedUnidad);
+    this.aprobationService.setDivisa(this.selectedValue);
     //codigo que necesita el servicio para agregar un articulo
   }
 

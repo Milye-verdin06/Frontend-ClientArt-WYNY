@@ -30,7 +30,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Tambor</mat-label>
                                             <mat-select [(value)]="selectedTambor" [(ngModel)]="selectedTambor" [disabled]="isDisabledTambor" (ngModelChange)="selectTamborChangue($event)">
-                                                <mat-option *ngFor="let tambor of tambor" [value]="tambor.value">
+                                                <mat-option *ngFor="let tambor of tambor" [value]="tambor.viewValue">
                                                     {{ tambor.viewValue }}
                                                 </mat-option>
                                             </mat-select>
@@ -43,7 +43,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Formato</mat-label>
                                             <mat-select [(value)]="selectedFormato" [(ngModel)]="selectedFormato" [disabled]="isDisabledFormato" (ngModelChange)="selectFormatoChangue($event)">
-                                                <mat-option *ngFor="let formato of formatos" [value]="formato.ft_sts">
+                                                <mat-option *ngFor="let formato of formatos" [value]="formato.ft_codi">
                                                     {{ formato.ft_desc }}
                                                 </mat-option>
                                             </mat-select>
@@ -166,10 +166,17 @@
                                         <div class="col-12">
                                             <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                                 <div class="col-md-auto">
+                                                    <h2>Descripción:</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                <div class="col-md-auto">
                                                     <h3>
-                                                        Descripción:
-                                                        <input class="input-group-text" placeholder=" " />
-                                                        <!-- <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor.viewValue}}{{selectedFormato}} {{selectedTamano}}"> -->
+                                                        {{ infoCodi }}
                                                     </h3>
                                                 </div>
                                             </div>
@@ -179,25 +186,30 @@
                                         <div class="col-sm-8">
                                             <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                                 <div class="col-md-auto">
-                                                    <h3>
-                                                        Código:
-                                                        <input class="input-group-text" placeholder="{{ selectedLinea }}
-                                                      {{ selectedTambor }} {{
-                              selectedFormato
-                            }} {{ selectedTamano }} " />
-                                                    </h3>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" (click)="('Save click')">
-                          <mat-icon>save</mat-icon>
-                        </button>
-                                                </div>
-                                                <div>
-                                                    <button mat-fab color="warn" matTooltip="Cancelar registro" matTooltipClass="example-tooltip-red" routerLink="/articulos-cliente">
-                          <mat-icon>close</mat-icon>
-                        </button>
+                                                    <h2>Código:</h2>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                <div class="col-md-auto">
+                                                    <h3>
+                                                        {{ infoCodi }}
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" (click)="('Save click')">
+                        <mat-icon>save</mat-icon>
+                      </button>
+                                        </div>
+                                        <div>
+                                            <button mat-fab color="warn" matTooltip="Cancelar registro" matTooltipClass="example-tooltip-red" routerLink="/articulos-cliente">
+                        <mat-icon>close</mat-icon>
+                      </button>
                                         </div>
                                     </div>
                                 </div>
@@ -207,82 +219,82 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <ng-template #addespecificacion let-modal>
-            <div class="modal-header">
-                <h1 class="modal-title" id="modal-basic-titlee">
-                    Agregar especificación al articulo
-                </h1>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">×</span>
-        </button>
-            </div>
-            <div class="modal-body">
-                <div class="box-body">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="col">
-                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>1:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi1"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>2:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi2"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>3:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi3"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>4:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi4"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>5:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi5"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>6:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi6"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>7:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi7"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>8:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi8"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>9:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi9"></textarea>
-                                    </mat-form-field>
+<ng-template #addespecificacion let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title" id="modal-basic-titlee">
+            Agregar especificación al articulo
+        </h1>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="box-body">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="col">
+                        <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>1:</mat-label>
+                                <textarea matInput placeholder=" " name="especi1"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>2:</mat-label>
+                                <textarea matInput placeholder=" " name="especi2"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>3:</mat-label>
+                                <textarea matInput placeholder=" " name="especi3"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>4:</mat-label>
+                                <textarea matInput placeholder=" " name="especi4"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>5:</mat-label>
+                                <textarea matInput placeholder=" " name="especi5"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>6:</mat-label>
+                                <textarea matInput placeholder=" " name="especi6"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>7:</mat-label>
+                                <textarea matInput placeholder=" " name="especi7"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>8:</mat-label>
+                                <textarea matInput placeholder=" " name="especi8"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>9:</mat-label>
+                                <textarea matInput placeholder=" " name="especi9"></textarea>
+                            </mat-form-field>
 
-                                    <div class="example-full-width" cellspacing="0">
-                                        <tr>
-                                            <td>
-                                                <mat-form-field class="example-full-width">
-                                                    <mat-label>Código cliente</mat-label>
-                                                    <input matInput placeholder="" name="especi10" />
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                    </div>
-                                </div>
+                            <div class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Código cliente</mat-label>
+                                            <input matInput placeholder="" name="especi10" />
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">
-          Guardar
-          <span class="material-icons"> save </span>
-        </button>
-            </div>
-        </ng-template>
+        </div>
     </div>
-</div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">
+      Guardar
+      <span class="material-icons"> save </span>
+    </button>
+    </div>
+</ng-template>

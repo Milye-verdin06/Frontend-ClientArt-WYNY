@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { ColorRespons, ReqAcabados } from '../../models/articulo';
+import { trim } from 'jquery';
 
 interface Tambor {
   value: string;
@@ -62,6 +63,8 @@ export class AgregarArticulosComponent implements OnInit {
   public datos_color: ReqColores[] = [];
   public datos_acabados: ReqAcabados[] = [];
   nomCliente: any;
+  unidadSelecc: any;
+  divisaSelecc: any;
 
   articuloForm: FormGroup;
   emailFormControl = new FormControl('', [
@@ -164,6 +167,12 @@ export class AgregarArticulosComponent implements OnInit {
     this.aprobationService.getNombreCliente().subscribe((d) => {
       this.nomCliente = d;
     });
+    this.aprobationService.getUnidadMedidda().subscribe((d) => {
+      this.unidadSelecc = d;
+    });
+    this.aprobationService.getDivisa().subscribe((d) => {
+      this.divisaSelecc = d;
+    });
     this.ClienteService.getClientes;
 
     this.articuloService.getlinea().subscribe(
@@ -226,6 +235,8 @@ export class AgregarArticulosComponent implements OnInit {
         )
       )
     );
+    console.log('Unidad Medida seleccionada', this.unidadSelecc);
+    console.log('Divisa seleccionada', this.divisaSelecc);
   }
 
   public displayFnAcabados(acabado: ReqAcabados): string {
@@ -268,6 +279,9 @@ export class AgregarArticulosComponent implements OnInit {
       (u) => u.ft_tpiel == String(values).trim()
     );
     this.isDisabledTambor = false;
+    if (this.formatos.length < 1) {
+      this.formatoSeleccionado = undefined;
+    }
 
     this.tamanos = this.datos_tamano.filter(
       (u) => u.tm_tpiel == String(values).trim()
@@ -276,30 +290,51 @@ export class AgregarArticulosComponent implements OnInit {
     this.grosores = this.datos_grosor.filter(
       (u) => u.gl_linea == String(values).trim()
     );
+
+    this.mostrarInfo();
   }
+
   selectTamborChangue(values: any) {
     this.isDisabledFormato = false;
   }
+
+  infoCodi: string = '';
+  mostrarInfo() {
+    this.infoCodi =
+      String(this.selectedLinea).trim() + ' ' + this.formatoSeleccionado;
+  }
+
   formatoSeleccionado: any;
   selectFormatoChangue(values: any) {
     this.formatoSeleccionado = values;
+
+    console.log(String(this.selectedLinea).trim());
     console.log(this.formatoSeleccionado);
-    /*  this.formatoSeleccionado = values;
 
-    if (this.selectedFormato.ft_codi == 'P') {
-      console.log(this.selectedFormato);
-    }  else console.log('else', this.selectedFormato);
-
-    /* this.tamanos = this.datos_tamano.filter(
-      (u) =>
-        u.tm_sts == String(values).trim() &&
-        u.tm_tpiel == String(this.selectedLinea.tp_codi).trim()
-    ); */
+    if (
+      String(this.selectedLinea).trim() == 'SI' ||
+      String(this.selectedLinea).trim() == 'AZ'
+    )
+      if (this.formatoSeleccionado == 'P') {
+        this.tamanos = this.datos_tamano.filter(
+          (t) =>
+            t.tm_sts == 'B' && t.tm_tpiel == String(this.selectedLinea).trim()
+        );
+      } else {
+        this.tamanos = [];
+      }
+    else {
+      this.tamanos = this.datos_tamano.filter(
+        (t) => String(t.tm_tpiel).trim() == String(this.selectedLinea).trim()
+      );
+    }
+    this.mostrarInfo();
 
     this.isDisabledTamano = false;
   }
   selectTamanoChangue(values: any) {
     this.isDisabledGrosor = false;
+    this.mostrarInfo();
   }
 
   selectGrosorChangue(values: any) {
