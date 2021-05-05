@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-sm">
                                     <div *ngFor="let control of myControls; let index = index">
-                                        <mat-form-field class=".example-litle-width_min">
+                                        <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteC">
                                             <mat-label>Buscar color</mat-label>
                                             <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
                                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="
@@ -136,7 +136,7 @@
                                         </div>
                                         <div class="col-sm-ml-2">
                                             <div *ngFor="let control of myControls; let index = index">
-                                                <mat-form-field class=".example-litle-width_min">
+                                                <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteA">
                                                     <mat-label>Buscar acabado</mat-label>
                                                     <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
                                                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="codSelected($event.option.value)">
@@ -163,18 +163,8 @@
 
                                 <div class="container-fluid mt-4">
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col-12">
                                             <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                                <div class="col-md-auto">
-                                                    <h3>
-                                                        Código:
-                                                        <input class="input-group-text" placeholder="{{ selectedLinea }}
-                                                        {{ selectedTambor }} {{
-                                selectedFormato
-                              }} {{ selectedTamano }} " />
-                                                    </h3>
-                                                </div>
-
                                                 <div class="col-md-auto">
                                                     <h3>
                                                         Descripción:
@@ -182,15 +172,30 @@
                                                         <!-- <input class="input-group-text" placeholder="{{selectedLinea}}{{selectedTambor.viewValue}}{{selectedFormato}} {{selectedTamano}}"> -->
                                                     </h3>
                                                 </div>
-                                                <div class="col-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                <div class="col-md-auto">
+                                                    <h3>
+                                                        Código:
+                                                        <input class="input-group-text" placeholder="{{ selectedLinea }}
+                                                      {{ selectedTambor }} {{
+                              selectedFormato
+                            }} {{ selectedTamano }} " />
+                                                    </h3>
+                                                </div>
+                                                <div class="col-sm-4">
                                                     <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" (click)="('Save click')">
-                            <mat-icon>save</mat-icon>
-                          </button>
+                          <mat-icon>save</mat-icon>
+                        </button>
                                                 </div>
                                                 <div>
                                                     <button mat-fab color="warn" matTooltip="Cancelar registro" matTooltipClass="example-tooltip-red" routerLink="/articulos-cliente">
-                            <mat-icon>close</mat-icon>
-                          </button>
+                          <mat-icon>close</mat-icon>
+                        </button>
                                                 </div>
                                             </div>
                                         </div>

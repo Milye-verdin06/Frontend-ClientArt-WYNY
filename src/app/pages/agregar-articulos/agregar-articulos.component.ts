@@ -52,7 +52,8 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
-  isDisabledButton = false; //deshabilitar el select de colores y acabados
+  isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
+  isDisabledAutoCompleteA = false; //deshabilitar el autocomplete de acabados
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
@@ -308,7 +309,21 @@ export class AgregarArticulosComponent implements OnInit {
   selectClasificadoChangue(values: any) {
     this.isDisabledAcabado = false;
   }
-  selectAcabadoChangue(values: any) {}
+  selectAcabadoChangue(values: any) {
+    this.selectedAcabado = values;
+    if (values === 'T') {
+      this.isDisabledAutoCompleteC = true;
+      this.isDisabledAutoCompleteA = false;
+    } else {
+      if (values == 'A') {
+        this.isDisabledAutoCompleteC = true;
+        this.isDisabledAutoCompleteA = true;
+      } else {
+        (this.isDisabledAutoCompleteA = false),
+          (this.isDisabledAutoCompleteC = false);
+      }
+    }
+  }
 
   onChange() {}
   public useDefault = false;
