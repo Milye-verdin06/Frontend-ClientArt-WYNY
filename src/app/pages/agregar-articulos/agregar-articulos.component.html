@@ -16,7 +16,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Linea</mat-label>
                                             <mat-select [(value)]="selectedLinea" [(ngModel)]="selectedLinea" (ngModelChange)="selectedLineaNChange($event)">
-                                                <mat-option *ngFor="let linea of datos_linea" [value]="linea.tp_codi">
+                                                <mat-option *ngFor="let linea of datos_linea" [value]="linea">
                                                     {{ linea.tp_desc.substr(2) }}
                                                 </mat-option>
                                             </mat-select>
@@ -30,7 +30,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Tambor</mat-label>
                                             <mat-select [(value)]="selectedTambor" [(ngModel)]="selectedTambor" [disabled]="isDisabledTambor" (ngModelChange)="selectTamborChangue($event)">
-                                                <mat-option *ngFor="let tambor of tambor" [value]="tambor.viewValue">
+                                                <mat-option *ngFor="let tambor of tambor" [value]="tambor">
                                                     {{ tambor.viewValue }}
                                                 </mat-option>
                                             </mat-select>
@@ -43,7 +43,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Formato</mat-label>
                                             <mat-select [(value)]="selectedFormato" [(ngModel)]="selectedFormato" [disabled]="isDisabledFormato" (ngModelChange)="selectFormatoChangue($event)">
-                                                <mat-option *ngFor="let formato of formatos" [value]="formato.ft_codi">
+                                                <mat-option *ngFor="let formato of formatos" [value]="formato">
                                                     {{ formato.ft_desc }}
                                                 </mat-option>
                                             </mat-select>
@@ -57,7 +57,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Tamaño</mat-label>
                                             <mat-select [(value)]="selectedTamano" [disabled]="isDisabledTamano" [(ngModel)]="selectedTamano" (ngModelChange)="selectTamanoChangue($event)">
-                                                <mat-option *ngFor="let tamano of tamanos" [value]="tamano.tm_sts">
+                                                <mat-option *ngFor="let tamano of tamanos" [value]="tamano">
                                                     {{ tamano.tm_desc }}
                                                 </mat-option>
                                             </mat-select>
@@ -71,7 +71,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Grosor</mat-label>
                                             <mat-select [(value)]="selectedGrosor" [disabled]="isDisabledGrosor" [(ngModel)]="selectedGrosor" (ngModelChange)="selectGrosorChangue($event)">
-                                                <mat-option *ngFor="let grosor of grosores" [value]="grosor.gl_linea">
+                                                <mat-option *ngFor="let grosor of grosores" [value]="grosor">
                                                     {{ grosor.gl_desc }}
                                                 </mat-option>
                                             </mat-select>
@@ -110,9 +110,14 @@
                                     <div *ngFor="let control of myControls; let index = index">
                                         <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteC">
                                             <mat-label>Buscar color</mat-label>
-                                            <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
+                                            <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
                                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="
-                          codSelectedColores($event.option.value)
+                          codSelectedColores(
+                            $event.option.value,
+                            trigger,
+                            auto,
+                            index
+                          )
                         ">
                                                 <mat-option *ngFor="
                             let option of filteredOptionsColores[index] | async

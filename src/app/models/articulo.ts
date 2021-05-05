@@ -50,7 +50,7 @@ export interface ReqFormatos {
   ft_codi: string;
   ft_desc: string;
   ft_desci: string;
-  ft_sts: FtStsFormatos;
+  ft_sts: string;
 }
 
 export enum FtStsFormatos {
@@ -64,10 +64,10 @@ export interface TamanoRespons {
 }
 
 export interface ReqTamanos {
-  tm_tpiel: TmTpielFormatos;
+  tm_tpiel: string;
   tm_codi: string;
   tm_desc: string;
-  tm_sts: TmStsFormatos;
+  tm_sts: string;
 }
 
 export enum TmStsFormatos {
