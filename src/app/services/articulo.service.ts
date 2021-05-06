@@ -108,4 +108,12 @@ export class ArticuloService {
       })
     );
   }
+  postArticulos(body: any): Observable<articuloRespons> {
+    return this.peticion.postQuery('articulos', 'post', body).pipe(
+      map((response) => {
+        console.log(response);
+        return response;
+      })
+    );
+  }
 }

@@ -28,4 +28,12 @@ export class EspecificacionService {
       })
     );
   }
+  postEspecificacion(body: any): Observable<especificacionRespons> {
+    return this.peticion.postQuery('especificaciones', 'post', body).pipe(
+      map((response) => {
+        console.log(response);
+        return response;
+      })
+    );
+  }
 }

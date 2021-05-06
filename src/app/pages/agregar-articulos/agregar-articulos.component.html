@@ -128,96 +128,100 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
+                                <form [formGroup]="articuloForm" (ngSubmit)="submitArticulo()">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                    <mat-form-field class=".example-litle-width">
+                                                        <mat-label>Precio de venta</mat-label>
+                                                        <input matInput type="number" [(ngModel)]="AddTarifa" formControlName="tarifa" id="agregartarifa" name="addTarifa" min="0" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
 
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm">
-                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                                <mat-form-field class=".example-litle-width">
-                                                    <mat-label>Precio de venta</mat-label>
-                                                    <input matInput type="number" id="agregartarifa" name="agregartarifa" min="0" required />
-                                                </mat-form-field>
+                                            <div class="col-sm-ml-6">
+                                                <div *ngFor="let control of myControls; let index = index">
+                                                    <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteA">
+                                                        <mat-label>Buscar acabado</mat-label>
+                                                        <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
+                                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="
+                                codSelected($event.option.value)
+                              ">
+                                                            <mat-option *ngFor="
+                                  let option of filteredOptionsAcabados[index]
+                                    | async
+                                " [value]="option">
+                                                                {{ option.ac_desce }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-8 mt-4">
+                                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                    <button mat-raised-button (click)="open(addespecificacion)">
+                            Especificación
+                          </button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-ml-2">
-                                            <div *ngFor="let control of myControls; let index = index">
-                                                <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteA">
-                                                    <mat-label>Buscar acabado</mat-label>
-                                                    <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
-                                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="codSelected($event.option.value)">
-                                                        <mat-option *ngFor="
-                                let option of filteredOptionsAcabados[index]
-                                  | async
-                              " [value]="option">
-                                                            {{ option.ac_desce }}
-                                                        </mat-option>
-                                                    </mat-autocomplete>
-                                                </mat-form-field>
+                                    </div>
+
+                                    <div class="container-fluid mt-4">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                    <div class="col-md-auto">
+                                                        <h2>Descripción:</h2>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-8 mt-4">
-                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                                <button mat-raised-button (click)="open(addespecificacion)">
-                          Especificación
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                    <div class="col-md-auto">
+                                                        <h3>
+                                                            {{ infoDesc }}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                    <div class="col-md-auto">
+                                                        <h2>Código:</h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                                    <div class="col-md-auto">
+                                                        <h3>
+                                                            {{ infoCodi }}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" type="submit" (click)="submitArticulo()">
+                          <mat-icon>save</mat-icon>
+                        </button>
+                                            </div>
+                                            <div>
+                                                <button mat-fab color="warn" matTooltip="Cancelar registro" matTooltipClass="example-tooltip-red" type="button" (click)="opensweetalertCancelaRegistroArticulo()">
+                          <mat-icon>close</mat-icon>
                         </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="container-fluid mt-4">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                                <div class="col-md-auto">
-                                                    <h2>Descripción:</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                                <div class="col-md-auto">
-                                                    <h3>
-                                                        {{ infoDesc }}
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                                <div class="col-md-auto">
-                                                    <h2>Código:</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                                <div class="col-md-auto">
-                                                    <h3>
-                                                        {{ infoCodi }}
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" (click)="('Save click')">
-                        <mat-icon>save</mat-icon>
-                      </button>
-                                        </div>
-                                        <div>
-                                            <button mat-fab color="warn" matTooltip="Cancelar registro" matTooltipClass="example-tooltip-red" routerLink="/articulos-cliente">
-                        <mat-icon>close</mat-icon>
-                      </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -228,10 +232,10 @@
 </div>
 
 <ng-template #addespecificacion let-modal>
-    <div class="modal-header">
-        <h1 class="modal-title" id="modal-basic-titlee">
-            Agregar especificación al articulo
-        </h1>
+    <div class="modal-header" style="background-color: #ced7e0">
+        <div type="text" class="form-control">
+            <h1>Especificaciones del articulo: {{ infoDesc }}</h1>
+        </div>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
     </button>
@@ -244,39 +248,39 @@
                         <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                             <mat-form-field class="example-full-width">
                                 <mat-label>1:</mat-label>
-                                <textarea matInput placeholder=" " name="especi1"></textarea>
+                                <textarea matInput placeholder=" " name="especi1" [(ngModel)]="Addespeci1"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>2:</mat-label>
-                                <textarea matInput placeholder=" " name="especi2"></textarea>
+                                <textarea matInput placeholder=" " name="especi2" [(ngModel)]="Addespeci2"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>3:</mat-label>
-                                <textarea matInput placeholder=" " name="especi3"></textarea>
+                                <textarea matInput placeholder=" " name="especi3" [(ngModel)]="Addespeci3"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>4:</mat-label>
-                                <textarea matInput placeholder=" " name="especi4"></textarea>
+                                <textarea matInput placeholder=" " name="especi4" [(ngModel)]="Addespeci4"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>5:</mat-label>
-                                <textarea matInput placeholder=" " name="especi5"></textarea>
+                                <textarea matInput placeholder=" " name="especi5" [(ngModel)]="Addespeci5"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>6:</mat-label>
-                                <textarea matInput placeholder=" " name="especi6"></textarea>
+                                <textarea matInput placeholder=" " name="especi6" [(ngModel)]="Addespeci6"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>7:</mat-label>
-                                <textarea matInput placeholder=" " name="especi7"></textarea>
+                                <textarea matInput placeholder=" " name="especi7" [(ngModel)]="Addespeci7"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>8:</mat-label>
-                                <textarea matInput placeholder=" " name="especi8"></textarea>
+                                <textarea matInput placeholder=" " name="especi8" [(ngModel)]="Addespeci8"></textarea>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                                 <mat-label>9:</mat-label>
-                                <textarea matInput placeholder=" " name="especi9"></textarea>
+                                <textarea matInput placeholder=" " name="especi9" [(ngModel)]="Addespeci9"></textarea>
                             </mat-form-field>
 
                             <div class="example-full-width" cellspacing="0">
@@ -284,7 +288,7 @@
                                     <td>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>Código cliente</mat-label>
-                                            <input matInput placeholder="" name="especi10" />
+                                            <input matInput placeholder="" name="especi10" [(ngModel)]="Addespeci10" />
                                         </mat-form-field>
                                     </td>
                                 </tr>
@@ -297,7 +301,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">
+        <button type="button" class="btn btn-outline-success" type="button" (click)="BottonAddEspecificacion()">
       Guardar
       <span class="material-icons"> save </span>
     </button>

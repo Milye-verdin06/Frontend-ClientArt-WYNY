@@ -187,8 +187,8 @@
 </div>
 
 <ng-template #mymodaleditarArt let-modal>
-    <div class="modal-header">
-        <div type="text" class="form-control" style="background-color: #adb5bd">
+    <div class="modal-header" style="background-color: #ced7e0">
+        <div type="text" class="form-control">
             <h1>Editar artículo: {{ renglonSelected.ar_descripcion }}</h1>
         </div>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -265,17 +265,16 @@
 </ng-template>
 
 <ng-template #mymodalgetEsp let-modal>
-    <div class="modal-header">
-        <div class="form-group">
-            <div class="col">
-                <div type="text" class="form-control" style="background-color: #adb5bd">
-                    <h2>Artículo: {{ renglonSelected.ar_descripcion }}</h2>
-                </div>
-                <div type="text" class="form-control" style="background-color: #adb5bd">
-                    <h2>Código: {{ renglonSelected.ar_codigo }}</h2>
-                </div>
+    <div class="modal-header" style="background-color: #ced7e0">
+        <div class="col">
+            <div type="text" class="form-control">
+                <h2>Artículo: {{ renglonSelected.ar_descripcion }}</h2>
+            </div>
+            <div type="text" class="form-control">
+                <h2>Código: {{ renglonSelected.ar_codigo }}</h2>
             </div>
         </div>
+
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss((isDisabled = true))">
       <span aria-hidden="true">×</span>
     </button>

@@ -26,6 +26,8 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
+import Swal from 'sweetalert2';
+import { ArticulosClienteComponent } from '../articulos-cliente/articulos-cliente.component';
 
 interface Tambor {
   value: string;
@@ -53,7 +55,7 @@ export class AgregarArticulosComponent implements OnInit {
   myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
-  isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
+  isDisabledFormato = false; //deshabilitar el select de formato hasta que seleccionen el tambor
   isDisabledTamano = false; //deshabilitar el select de tamano hasta que seleccionen el formato
   isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
@@ -78,15 +80,15 @@ export class AgregarArticulosComponent implements OnInit {
   ]);
 
   tambor: Tambor[] = [
-    { value: 'L', viewValue: 'Liso' },
-    { value: 'T', viewValue: 'Tamboreado' },
-    { value: 'M', viewValue: 'Muy tamboreado' },
+    { value: 'L', viewValue: 'LISO' },
+    { value: 'T', viewValue: 'TAMBOREADO' },
+    { value: 'M', viewValue: 'MUY TAMBOREADO' },
   ];
 
   acabado: Acabado[] = [
-    { value: 'N', viewValue: 'Natural' },
-    { value: 'T', viewValue: 'Tenido' },
-    { value: 'A', viewValue: 'Acabado' },
+    { value: 'NA', viewValue: 'NATURAL' },
+    { value: 'TE', viewValue: 'TENIDO' },
+    { value: 'AC', viewValue: 'ACABADO' },
   ];
   formatos: ReqFormatos[] = [];
 
@@ -108,7 +110,7 @@ export class AgregarArticulosComponent implements OnInit {
   optionsColores: ReqColores[] = [];
   public filteredOptionsColores: Observable<ReqColores[]>[] = [];
 
-  public selectedAcabados: string;
+  public selectedAcabadosCodi: string;
   public selectedAcabadoName: string;
   public selectedColores: string;
   public selectedColorName: string;
@@ -140,7 +142,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedClasificado = this.clasificado[1];
     this.selectedGrosor = this.datos_grosor[1];
     this.selectedAcabado = this.acabado[1];
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.selectedAcabadoName = '';
     this.Acabados = [];
     this.selectedColores = '';
@@ -157,7 +159,7 @@ export class AgregarArticulosComponent implements OnInit {
       color: ['', Validators.required],
       acabado: ['', Validators.required],
       tarifa: ['', Validators.required],
-      listar: ['', Validators.required],
+      //listar: ['', Validators.required],
     });
   }
 
@@ -257,9 +259,10 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   codSelected(codigoA: ReqAcabados) {
-    this.selectedAcabados = codigoA.ac_codi;
-
-    this.selectedAcabadoName = codigoA.ac_codi;
+    this.selectedAcabadosCodi = codigoA.ac_codi;
+    this.selectedAcabadoName = codigoA.ac_desce;
+    this.mostrarInfo();
+    this.mostrarCodigo();
   }
   public displayFnColores(color: ReqColores): string {
     return color && color.co_desce ? color.co_desce : '';
@@ -280,7 +283,9 @@ export class AgregarArticulosComponent implements OnInit {
   ) {
     this.selectedColores = codigo.co_codi;
 
-    this.selectedColorName = codigo.co_codi;
+    this.selectedColorName = codigo.co_desce;
+    this.mostrarInfo();
+    this.mostrarCodigo();
 
     /* setTimeout((x) => {
       auto.options.forEach((item) => {
@@ -338,7 +343,7 @@ export class AgregarArticulosComponent implements OnInit {
       viewValue: '',
     };
     this.selectedColores = '';
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -372,7 +377,7 @@ export class AgregarArticulosComponent implements OnInit {
       viewValue: '',
     };
     this.selectedColores = '';
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -385,7 +390,10 @@ export class AgregarArticulosComponent implements OnInit {
   infoTamano: string = '';
   infoGrosor: string = '';
   infoClasificado: string = '';
-  infoAcabado: string = '';
+  infoAcabadoselect: any;
+  infoColor: string = '';
+  infoAcabadofilter: string = '';
+
   mostrarInfo() {
     this.infoLinea = this.selectedLinea
       ? String(this.selectedLinea.tp_desc)
@@ -407,21 +415,56 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoClasificado = this.selectedClasificado
       ? String(this.selectedClasificado.value).trim()
       : '';
-    this.infoDesc =
-      this.infoLinea +
-      ' ' +
-      this.infoTambor +
-      ' ' +
-      this.infoFormato +
-      ' ' +
-      this.infoTamano +
-      ' ' +
-      this.infoGrosor +
-      ' ' +
-      this.infoClasificado;
+    this.infoAcabadoselect = this.selectedAcabado
+      ? String(this.selectedAcabado.viewValue).trim()
+      : '';
+    this.infoAcabadofilter = this.selectedAcabadoName
+      ? String(this.selectedAcabadoName).trim()
+      : '';
+    this.infoColor = this.selectedColorName
+      ? String(this.selectedColorName).trim()
+      : '';
+
+    if (this.selectedAcabado.value == 'AC') {
+      this.infoDesc =
+        this.infoLinea +
+        '  ' +
+        this.infoTambor +
+        '  ' +
+        this.infoFormato +
+        '  ' +
+        this.infoTamano +
+        '  ' +
+        this.infoGrosor +
+        '  ' +
+        this.infoClasificado +
+        ' ' +
+        this.infoAcabadofilter +
+        ' ' +
+        this.infoColor;
+    } else
+      this.infoDesc =
+        this.infoLinea +
+        ' ' +
+        this.infoTambor +
+        ' ' +
+        this.infoFormato +
+        ' ' +
+        this.infoTamano +
+        ' ' +
+        this.infoGrosor +
+        ' ' +
+        this.infoClasificado +
+        ' ' +
+        this.infoAcabadoselect +
+        ' ' +
+        this.infoColor;
   }
 
   mostrarCodigo() {
+    /* if (this.selectedAcabado.value == 'AC') {
+      this.infoAcabados = this.selectedAcabados;
+    } */
     this.infoLinea = this.selectedLinea
       ? String(this.selectedLinea.tp_desc).trim().substr(-20, 1)
       : '';
@@ -440,19 +483,50 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoClasificado = this.selectedClasificado
       ? String(this.selectedClasificado.value).trim()
       : '';
+    this.infoAcabadoselect = this.selectedAcabado
+      ? String(this.selectedAcabado.value).trim()
+      : '';
+    this.infoAcabadofilter = this.selectedAcabadosCodi
+      ? String(this.selectedAcabadosCodi).trim()
+      : '';
+    this.infoColor = this.selectedColores
+      ? String(this.selectedColores).trim()
+      : '';
 
-    this.infoCodi =
-      this.infoLinea +
-      '' +
-      this.infoTambor +
-      '' +
-      this.infoFormato +
-      '' +
-      this.infoTamano +
-      ' ' +
-      this.infoGrosor +
-      ' ' +
-      this.infoClasificado;
+    if (this.selectedAcabado.value == 'AC') {
+      this.infoCodi =
+        this.infoLinea +
+        '' +
+        this.infoTambor +
+        '' +
+        this.infoFormato +
+        '' +
+        this.infoTamano +
+        ' ' +
+        this.infoGrosor +
+        ' ' +
+        this.infoClasificado +
+        ' ' +
+        this.infoAcabadofilter +
+        ' ' +
+        this.infoColor;
+    } else
+      this.infoCodi =
+        this.infoLinea +
+        '' +
+        this.infoTambor +
+        '' +
+        this.infoFormato +
+        '' +
+        this.infoTamano +
+        ' ' +
+        this.infoGrosor +
+        ' ' +
+        this.infoClasificado +
+        ' ' +
+        this.infoAcabadoselect +
+        ' ' +
+        this.infoColor;
   }
   formatoSeleccionado: any;
   selectFormatoChangue(values: ReqFormatos) {
@@ -496,7 +570,7 @@ export class AgregarArticulosComponent implements OnInit {
       viewValue: '',
     };
     this.selectedColores = '';
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.mostrarInfo();
     this.mostrarCodigo();
 
@@ -518,8 +592,9 @@ export class AgregarArticulosComponent implements OnInit {
       viewValue: '',
     };
     this.selectedColores = '';
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.isDisabledGrosor = false;
+
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -535,7 +610,7 @@ export class AgregarArticulosComponent implements OnInit {
       viewValue: '',
     };
     this.selectedColores = '';
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.isDisabledGrosor = false;
     this.mostrarInfo();
     this.mostrarCodigo();
@@ -549,18 +624,17 @@ export class AgregarArticulosComponent implements OnInit {
       viewValue: '',
     };
     this.selectedColores = '';
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.isDisabledGrosor = false;
     this.mostrarInfo();
     this.mostrarCodigo();
   }
   selectAcabadoChangue(values: any) {
-    this.selectedAcabado = values;
-    if (values === 'T') {
+    if (this.selectedAcabado.value === 'TE') {
       this.isDisabledAutoCompleteC = true;
       this.isDisabledAutoCompleteA = false;
     } else {
-      if (values == 'A') {
+      if (this.selectedAcabado.value === 'AC') {
         this.isDisabledAutoCompleteC = true;
         this.isDisabledAutoCompleteA = true;
       } else {
@@ -570,8 +644,10 @@ export class AgregarArticulosComponent implements OnInit {
     }
 
     this.selectedColores = '';
-    this.selectedAcabados = '';
+    this.selectedAcabadosCodi = '';
     this.isDisabledGrosor = false;
+    this.mostrarInfo();
+    this.mostrarCodigo();
   }
 
   onChange() {}
@@ -580,4 +656,65 @@ export class AgregarArticulosComponent implements OnInit {
     console.log('Toggle fired');
     this.useDefault = event.checked;
   }
+  AddTarifa: any;
+  submitArticulo() {
+    if (this.AddTarifa == null) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Añadir campos requeridos',
+        showConfirmButton: false,
+        timer: 1700,
+      });
+    } else
+      Swal.fire({
+        title: 'Confirmar registro del articulo',
+        showDenyButton: true,
+        icon: 'success',
+        showCancelButton: false,
+        confirmButtonText: `Confirmar`,
+        denyButtonText: `No confirmar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //añadir codigo del postArticulo
+          Swal.fire('Articulo registrado correctamente', '', 'success');
+        } else if (result.isDenied) {
+          Swal.fire('Operación interrumpida', '', 'info');
+        }
+      });
+  }
+
+  opensweetalertCancelaRegistroArticulo(selectedItem?: any) {
+    Swal.fire({
+      title: 'Cancelar alta del articulo',
+
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+    }).then((result) => {
+      if (result.isDismissed) {
+        Swal.fire(
+          'Operación interrumpida',
+          'Continuar con el registro',
+          'info'
+        );
+      } else result.isConfirmed;
+      {
+        ArticulosClienteComponent;
+      }
+    });
+  }
+  Addespeci1: any;
+  Addespeci2: any;
+  Addespeci3: any;
+  Addespeci4: any;
+  Addespeci5: any;
+  Addespeci6: any;
+  Addespeci7: any;
+  Addespeci8: any;
+  Addespeci9: any;
+  Addespeci10: any;
+
+  BottonAddEspecificacion() {}
 }
