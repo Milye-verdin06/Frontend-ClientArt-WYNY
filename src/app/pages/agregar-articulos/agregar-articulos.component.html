@@ -85,7 +85,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Clasificado</mat-label>
                                             <mat-select [(value)]="selectedClasificado" [disabled]="isDisabledClasificado" [(ngModel)]="selectedClasificado" (ngModelChange)="selectClasificadoChangue($event)">
-                                                <mat-option *ngFor="let clasificado of clasificado" [value]="clasificado.value">
+                                                <mat-option *ngFor="let clasificado of clasificado" [value]="clasificado">
                                                     {{ clasificado.value }}
                                                 </mat-option>
                                             </mat-select>
@@ -98,7 +98,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Acabado</mat-label>
                                             <mat-select [(value)]="selectedAcabado" [(ngModel)]="selectedAcabado" [disabled]="isDisabledAcabado" (ngModelChange)="selectAcabadoChangue($event)">
-                                                <mat-option *ngFor="let acabado of acabado" [value]="acabado.value">
+                                                <mat-option *ngFor="let acabado of acabado" [value]="acabado">
                                                     {{ acabado.viewValue }}
                                                 </mat-option>
                                             </mat-select>
@@ -181,7 +181,7 @@
                                             <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                                 <div class="col-md-auto">
                                                     <h3>
-                                                        {{ infoCodi }}
+                                                        {{ infoDesc }}
                                                     </h3>
                                                 </div>
                                             </div>

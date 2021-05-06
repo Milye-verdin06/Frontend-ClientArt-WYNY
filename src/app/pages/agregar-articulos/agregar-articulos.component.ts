@@ -340,6 +340,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColores = '';
     this.selectedAcabados = '';
     this.mostrarInfo();
+    this.mostrarCodigo();
   }
 
   selectTamborChangue(values: Tambor) {
@@ -373,13 +374,18 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColores = '';
     this.selectedAcabados = '';
     this.mostrarInfo();
+    this.mostrarCodigo();
   }
 
   infoCodi: string = '';
+  infoDesc: string = '';
   infoLinea: string = '';
   infoTambor: string = '';
   infoFormato: string = '';
   infoTamano: string = '';
+  infoGrosor: string = '';
+  infoClasificado: string = '';
+  infoAcabado: string = '';
   mostrarInfo() {
     this.infoLinea = this.selectedLinea
       ? String(this.selectedLinea.tp_desc)
@@ -394,15 +400,59 @@ export class AgregarArticulosComponent implements OnInit {
       : 'X';
     this.infoTamano = this.selectedTamano
       ? String(this.selectedTamano.tm_desc).trim()
+      : 'X';
+    this.infoGrosor = this.selectedGrosor
+      ? String(this.selectedGrosor.gl_desc).trim()
       : '';
-    this.infoCodi =
+    this.infoClasificado = this.selectedClasificado
+      ? String(this.selectedClasificado.value).trim()
+      : '';
+    this.infoDesc =
       this.infoLinea +
       ' ' +
       this.infoTambor +
       ' ' +
       this.infoFormato +
       ' ' +
-      this.infoTamano;
+      this.infoTamano +
+      ' ' +
+      this.infoGrosor +
+      ' ' +
+      this.infoClasificado;
+  }
+
+  mostrarCodigo() {
+    this.infoLinea = this.selectedLinea
+      ? String(this.selectedLinea.tp_desc).trim().substr(-20, 1)
+      : '';
+    this.infoTambor = this.selectedTambor
+      ? String(this.selectedTambor.value).trim()
+      : '';
+    this.infoFormato = this.selectedFormato
+      ? String(this.selectedFormato.ft_codi).trim()
+      : 'X';
+    this.infoTamano = this.selectedTamano
+      ? String(this.selectedTamano.tm_codi).trim()
+      : 'X';
+    this.infoGrosor = this.selectedGrosor
+      ? String(this.selectedGrosor.gl_codi).trim()
+      : '';
+    this.infoClasificado = this.selectedClasificado
+      ? String(this.selectedClasificado.value).trim()
+      : '';
+
+    this.infoCodi =
+      this.infoLinea +
+      '' +
+      this.infoTambor +
+      '' +
+      this.infoFormato +
+      '' +
+      this.infoTamano +
+      ' ' +
+      this.infoGrosor +
+      ' ' +
+      this.infoClasificado;
   }
   formatoSeleccionado: any;
   selectFormatoChangue(values: ReqFormatos) {
@@ -448,6 +498,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColores = '';
     this.selectedAcabados = '';
     this.mostrarInfo();
+    this.mostrarCodigo();
 
     this.isDisabledTamano = false;
   }
@@ -470,6 +521,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedAcabados = '';
     this.isDisabledGrosor = false;
     this.mostrarInfo();
+    this.mostrarCodigo();
   }
 
   selectGrosorChangue(values: any) {
@@ -485,9 +537,11 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColores = '';
     this.selectedAcabados = '';
     this.isDisabledGrosor = false;
+    this.mostrarInfo();
+    this.mostrarCodigo();
   }
 
-  selectClasificadoChangue(values: any) {
+  selectClasificadoChangue(values: Clasificado) {
     this.isDisabledAcabado = false;
 
     this.selectedAcabado = {
@@ -497,6 +551,8 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColores = '';
     this.selectedAcabados = '';
     this.isDisabledGrosor = false;
+    this.mostrarInfo();
+    this.mostrarCodigo();
   }
   selectAcabadoChangue(values: any) {
     this.selectedAcabado = values;
