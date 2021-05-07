@@ -56,6 +56,7 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
+  datos_articulo: ReqArticulos[] = [];
   myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
@@ -678,6 +679,28 @@ export class AgregarArticulosComponent implements OnInit {
         denyButtonText: `No confirmar`,
       }).then((result) => {
         if (result.isConfirmed) {
+          /*  const body = {
+           ta_codi: 'C',
+            ta_clta: '',
+            ta_artic: '',
+            ta_gruix:  '',
+            ta_acaba: '',
+            ta_color:  '',
+            ta_clas:  '',
+            ta_unifa:  '',
+            ta_divis: '',
+            ta_tarif_001: '',
+            ta_tarif_002: 0,
+            ta_tarif_003: 0,
+            ta_tarif_004: 0,
+            ta_listar: 'S'
+          };
+          this.articuloService.postArticulos(body).subscribe(
+            (resp) => {
+              this.datos_articulo = resp.data;
+            },
+            (error) => console.log(error)
+          ); */
           //añadir codigo del postArticulo
           Swal.fire('Articulo registrado correctamente', '', 'success');
         } else if (result.isDenied) {

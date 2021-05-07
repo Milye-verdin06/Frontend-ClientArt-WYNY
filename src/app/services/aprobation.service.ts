@@ -5,12 +5,13 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AprobationService {
+  constructor() {}
+
   private nomCliente: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   public nomClientes: Observable<string> = this.nomCliente.asObservable();
 
-  constructor() {}
-  public setNombreClinte(nomCliente: string) {
+  public setNombreClinte(nomCliente: any) {
     this.nomCliente.next(nomCliente);
   }
 
@@ -40,5 +41,17 @@ export class AprobationService {
   }
   public getDivisa(): Observable<string> {
     return this.divisaSelecc.asObservable();
+  }
+
+  private unidadNSelecc: BehaviorSubject<string> = new BehaviorSubject<string>(
+    ''
+  );
+  public unidadNSeleccS: Observable<string> = this.unidadNSelecc.asObservable();
+
+  public setUnidadN(unidadNSelecc: any) {
+    this.unidadNSelecc.next(unidadNSelecc);
+  }
+  public getUnidadN(): Observable<string> {
+    return this.unidadNSelecc.asObservable();
   }
 }

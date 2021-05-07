@@ -15,6 +15,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
+import { LocalStorageService } from '../../services/localStorage.service';
 
 interface Food {
   value: string;
@@ -165,6 +166,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   nomCliente: any;
   unidadSelecc: any;
   divisaSelecc: any;
+  unidadNSelecc: any;
 
   constructor(
     private _ac: ActivatedRoute,
@@ -173,6 +175,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     private clienteService: ClienteService,
     private especificacionService: EspecificacionService,
     private aprobationService: AprobationService,
+    private LocalStorageService: LocalStorageService,
     private http: HttpClient,
     private router: Router
   ) {
@@ -242,17 +245,25 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('Unidad Medida seleccionada', this.unidadSelecc);
+    console.log('Divisa seleccionada', this.divisaSelecc);
+    console.log('UnidadN', this.unidadNSelecc);
+
     this.aprobationService.getNombreCliente().subscribe((d) => {
       this.nomCliente = d;
     });
+    this.aprobationService.setNombreClinte(this.nomCliente);
     this.aprobationService.getUnidadMedidda().subscribe((d) => {
       this.unidadSelecc = d;
     });
     this.aprobationService.getDivisa().subscribe((d) => {
       this.divisaSelecc = d;
     });
+    this.aprobationService.getUnidadN().subscribe((d) => {
+      this.unidadNSelecc = d;
+    });
+    this.clienteService.getClientes;
 
-    console.log(this.selectedUnidad.value);
     const fds = {
       fds: "'126', '125'",
     };
@@ -272,6 +283,23 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         name ? this._filterClientes(name) : this.optionsClientes.slice()
       )
     );
+    if (this.nomCliente) {
+      this.selectedCliente = this.nomCliente;
+    }
+    if (this.unidadNSelecc) {
+      this.selectedUnidadN = this.unidadNSelecc; //checar esta parte
+      this.isDisableunidadN = false;
+    }
+    if (this.unidadSelecc) {
+      this.selectedUnidad = this.unidadSelecc;
+      this.isDisableunidadM = false;
+      this.isDisableunidadN = false;
+    }
+    if (this.divisaSelecc) {
+      this.selectedValue = this.divisaSelecc;
+      this.isDisableDivis = false;
+      this.isDisabledButtonBuscar = false;
+    }
   }
 
   public displayFnClientes(cliente: listaCliente): string {
@@ -287,7 +315,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   botonbuscarArticulos() {
-    const body = {
+    const bodyB = {
       c_codi: this.selectedCliente,
       ta_unifa: this.selectedUnidad,
       ta_divis: this.selectedValue,
@@ -295,7 +323,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       ta_listar: this.selectedRadio ? 'S' : 'N',
     };
 
-    this.articuloService.getArticulos(body).subscribe(
+    this.articuloService.getArticulos(bodyB).subscribe(
       (resp) => {
         this.datos_articulo = resp.data;
       },
@@ -311,6 +339,18 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     } else this.alert = true;
     this.isDisabledRadioActivo = false;
     this.isDisabledRadioInactivo = false;
+
+    localStorage.setItem('registros', JSON.stringify(bodyB));
+  }
+  private NewGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        var r = (Math.random() * 16) | 0,
+          v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
   }
 
   closealert() {
