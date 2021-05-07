@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Pipe } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   ReqLineas,
@@ -11,23 +16,22 @@ import {
   ReqGrosores,
   ReqColores,
   AcabadosRespons,
+  ReqArticulos,
 } from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/aprobation.service';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { ColorRespons, ReqAcabados } from '../../models/articulo';
-import { trim } from 'jquery';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
-import { ArticulosClienteComponent } from '../articulos-cliente/articulos-cliente.component';
 
 interface Tambor {
   value: string;
@@ -69,6 +73,7 @@ export class AgregarArticulosComponent implements OnInit {
   public datos_grosor: ReqGrosores[] = [];
   public datos_color: ReqColores[] = [];
   public datos_acabados: ReqAcabados[] = [];
+
   nomCliente: any;
   unidadSelecc: any;
   divisaSelecc: any;
@@ -462,9 +467,6 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   mostrarCodigo() {
-    /* if (this.selectedAcabado.value == 'AC') {
-      this.infoAcabados = this.selectedAcabados;
-    } */
     this.infoLinea = this.selectedLinea
       ? String(this.selectedLinea.tp_desc).trim().substr(-20, 1)
       : '';
@@ -668,6 +670,7 @@ export class AgregarArticulosComponent implements OnInit {
     } else
       Swal.fire({
         title: 'Confirmar registro del articulo',
+        text: this.infoDesc,
         showDenyButton: true,
         icon: 'success',
         showCancelButton: false,
@@ -685,7 +688,7 @@ export class AgregarArticulosComponent implements OnInit {
 
   opensweetalertCancelaRegistroArticulo(selectedItem?: any) {
     Swal.fire({
-      title: 'Cancelar alta del articulo',
+      title: '¿Cancelar registro del articulo?',
 
       icon: 'warning',
       showCancelButton: true,
@@ -699,11 +702,15 @@ export class AgregarArticulosComponent implements OnInit {
           'Continuar con el registro',
           'info'
         );
-      } else result.isConfirmed;
-      {
-        ArticulosClienteComponent;
+      } else if (result.isConfirmed) {
+        Swal.fire('Registro de articulo cancelado', '', 'info');
+        this.isHomeRoute();
       }
     });
+  }
+
+  isHomeRoute() {
+    this.router.navigate(['/articulos-cliente']);
   }
   Addespeci1: any;
   Addespeci2: any;

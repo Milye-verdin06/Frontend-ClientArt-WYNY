@@ -12,7 +12,7 @@ import { EspecificacionService } from 'src/app/services/especificacion.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
@@ -47,8 +47,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
   isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
   isDisableunidadM = true; // deshabilitar la unidad de medida y habilitar hasta que seleccione la unidad de negocio
-  isDisableDivis = true;
+  isDisableDivis = true; //deshabilitar la divisa y habilitar hasta que selecciona la unidad de medida
   isDisabledButtonAdd = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros
+  isDisabledButtonBuscar = true; //deshabilitar el boton de buscar hasta que seleccione la divisa
+  isDisabledRadioActivo = true; //deshabilitar el radio hasta que de clic en buscar
+  isDisabledRadioInactivo = true; //deshabilitar el radio hasta que de clic en buscar
   alert = false;
   public pageActual: number = 1;
   renglonSelected: any;
@@ -164,6 +167,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   divisaSelecc: any;
 
   constructor(
+    private _ac: ActivatedRoute,
     private modalService: NgbModal,
     private articuloService: ArticuloService,
     private clienteService: ClienteService,
@@ -234,6 +238,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   selectedDivisChange(values: any) {
     this.isDisabledButtonAdd = false;
+    this.isDisabledButtonBuscar = false;
   }
 
   ngOnInit() {
@@ -304,6 +309,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     if (this.datos_articulo.length == 0) {
       this.alert = false;
     } else this.alert = true;
+    this.isDisabledRadioActivo = false;
+    this.isDisabledRadioInactivo = false;
   }
 
   closealert() {

@@ -11,7 +11,10 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      { path: 'articulos-cliente', component: ArticulosClienteComponent },
+      {
+        path: 'articulos-cliente',
+        component: ArticulosClienteComponent,
+      },
       { path: 'agregar-articulos', component: AgregarArticulosComponent },
       {
         path: 'agregar-especificacion',

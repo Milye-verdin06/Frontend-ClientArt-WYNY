@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                        <button class="btn btn-light float-end" id="buscarArticulos" (click)="botonbuscarArticulos()">
+                                        <button class="btn btn-light float-end" id="buscarArticulos" (click)="botonbuscarArticulos()" [disabled]="isDisabledButtonBuscar">
                       Buscar
                     </button>
                                     </div>
@@ -96,9 +96,9 @@
                         </div>
                         <div class="col-xs-6 col-md-8">
                             <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedRadio">
-                                <mat-radio-button [value]="true" (change)="mostrarInactivos($event)">Ver activos</mat-radio-button>
+                                <mat-radio-button [value]="true" (change)="mostrarInactivos($event)" [disabled]="isDisabledRadioInactivo">Ver activos</mat-radio-button>
 
-                                <mat-radio-button [value]="false" (change)="mostrarInactivos($event)">Ver inactivos</mat-radio-button>
+                                <mat-radio-button [value]="false" (change)="mostrarInactivos($event)" [disabled]="isDisabledRadioActivo">Ver inactivos</mat-radio-button>
                             </mat-radio-group>
                         </div>
                     </div>
