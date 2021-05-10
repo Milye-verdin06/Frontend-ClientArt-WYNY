@@ -220,6 +220,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   selectedUnidadNChange(values: any) {
+    this.selectedValue = {
+      value: '',
+      viewValue: '',
+    };
     this.selectedUnidadN = values;
     if (values === 'SI') {
       this.isDisabledButton = true;
@@ -238,6 +242,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setUnidadN(this.selectedUnidadN);
   }
   selectedUnidadMChange(values: Unidad) {
+    this.selectedValue = {
+      value: '',
+      viewValue: '',
+    };
     this.aprobationService.setUnidadN(this.selectedUnidadN);
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
@@ -385,6 +393,24 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.selectedClienteName = codigo.c_nom;
     this.aprobationService.setNombreClinte(this.selectedClienteName);
     this.aprobationService.setCodCliente(this.selectedCliente);
+    this.selectedUnidadN = {
+      value: '',
+      viewValue: '',
+    };
+    this.selectedUnidad = {
+      value: '',
+      viewValue: '',
+      unidadN: '',
+      unidadN2: '',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    };
+
+    this.selectedValue = {
+      value: '',
+      viewValue: '',
+    };
   }
 
   botonUpdateArticulo() {
