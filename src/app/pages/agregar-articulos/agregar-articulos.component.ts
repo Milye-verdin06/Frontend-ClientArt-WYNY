@@ -67,6 +67,7 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
   isDisabledAutoCompleteA = false; //deshabilitar el autocomplete de acabados
+
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
@@ -76,8 +77,10 @@ export class AgregarArticulosComponent implements OnInit {
   public datos_acabados: ReqAcabados[] = [];
 
   nomCliente: any;
+  codCliente: any;
   unidadSelecc: any;
   divisaSelecc: any;
+  unidadNSelecc: any;
 
   articuloForm: FormGroup;
   emailFormControl = new FormControl('', [
@@ -180,12 +183,22 @@ export class AgregarArticulosComponent implements OnInit {
     this.aprobationService.getNombreCliente().subscribe((d) => {
       this.nomCliente = d;
     });
-    this.aprobationService.getUnidadMedidda().subscribe((d) => {
+    this.aprobationService.getCodCliente().subscribe((d) => {
+      this.codCliente = d;
+    });
+
+    this.aprobationService.getUnidadMedida().subscribe((d) => {
       this.unidadSelecc = d;
     });
+
     this.aprobationService.getDivisa().subscribe((d) => {
       this.divisaSelecc = d;
     });
+
+    this.aprobationService.getUnidadN().subscribe((d) => {
+      this.unidadNSelecc = d;
+    });
+
     this.ClienteService.getClientes;
 
     this.articuloService.getlinea().subscribe(
@@ -248,8 +261,6 @@ export class AgregarArticulosComponent implements OnInit {
         )
       )
     );
-    console.log('Unidad Medida seleccionada', this.unidadSelecc);
-    console.log('Divisa seleccionada', this.divisaSelecc);
   }
 
   public displayFnAcabados(acabado: ReqAcabados): string {
@@ -661,6 +672,11 @@ export class AgregarArticulosComponent implements OnInit {
   }
   AddTarifa: any;
   submitArticulo() {
+    console.log('Unidad Medida seleccionada', this.unidadSelecc);
+    console.log('Divisa seleccionada', this.divisaSelecc);
+
+    console.log('cliente seleccionado', this.codCliente);
+
     if (this.AddTarifa == null) {
       Swal.fire({
         icon: 'warning',

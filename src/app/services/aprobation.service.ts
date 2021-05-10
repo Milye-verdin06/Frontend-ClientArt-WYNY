@@ -19,6 +19,18 @@ export class AprobationService {
     return this.nomCliente.asObservable();
   }
 
+  private codCliente: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  public codClientes: Observable<string> = this.codCliente.asObservable();
+
+  public setCodCliente(codCliente: any) {
+    this.codCliente.next(codCliente);
+  }
+
+  public getCodCliente(): Observable<string> {
+    return this.codCliente.asObservable();
+  }
+
   private unidadSelecc: BehaviorSubject<string> = new BehaviorSubject<string>(
     ''
   );
@@ -27,7 +39,7 @@ export class AprobationService {
   public setUnidadMedida(unidadSelecc: any) {
     this.unidadSelecc.next(unidadSelecc);
   }
-  public getUnidadMedidda(): Observable<string> {
+  public getUnidadMedida(): Observable<string> {
     return this.unidadSelecc.asObservable();
   }
 

@@ -164,6 +164,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   public filteredOptionsClientes: Observable<listaCliente[]> | undefined;
   nomCliente: any;
+  codCliente: any;
   unidadSelecc: any;
   divisaSelecc: any;
   unidadNSelecc: any;
@@ -234,36 +235,21 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
 
     this.isDisableunidadM = false;
+    this.aprobationService.setUnidadN(this.selectedUnidadN);
   }
-  selectedUnidadMChange(values: any) {
+  selectedUnidadMChange(values: Unidad) {
+    this.aprobationService.setUnidadN(this.selectedUnidadN);
+    this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
   }
 
   selectedDivisChange(values: any) {
+    this.aprobationService.setDivisa(this.selectedValue);
     this.isDisabledButtonAdd = false;
     this.isDisabledButtonBuscar = false;
   }
 
   ngOnInit() {
-    console.log('Unidad Medida seleccionada', this.unidadSelecc);
-    console.log('Divisa seleccionada', this.divisaSelecc);
-    console.log('UnidadN', this.unidadNSelecc);
-
-    this.aprobationService.getNombreCliente().subscribe((d) => {
-      this.nomCliente = d;
-    });
-    this.aprobationService.setNombreClinte(this.nomCliente);
-    this.aprobationService.getUnidadMedidda().subscribe((d) => {
-      this.unidadSelecc = d;
-    });
-    this.aprobationService.getDivisa().subscribe((d) => {
-      this.divisaSelecc = d;
-    });
-    this.aprobationService.getUnidadN().subscribe((d) => {
-      this.unidadNSelecc = d;
-    });
-    this.clienteService.getClientes;
-
     const fds = {
       fds: "'126', '125'",
     };
@@ -283,21 +269,51 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         name ? this._filterClientes(name) : this.optionsClientes.slice()
       )
     );
+    this.aprobationService.getCodCliente().subscribe((d) => {
+      this.codCliente = d;
+    });
+    this.aprobationService.getNombreCliente().subscribe((d) => {
+      this.nomCliente = d;
+    });
+
+    this.aprobationService.getUnidadMedida().subscribe((d) => {
+      this.unidadSelecc = d;
+    });
+
+    this.aprobationService.getDivisa().subscribe((d) => {
+      this.divisaSelecc = d;
+    });
+    this.aprobationService.getUnidadN().subscribe((d) => {
+      this.unidadNSelecc = d;
+    });
+
     if (this.nomCliente) {
       this.selectedCliente = this.nomCliente;
     }
     if (this.unidadNSelecc) {
       this.selectedUnidadN = this.unidadNSelecc; //checar esta parte
+
+      this.selectedUnidad = this.unidadSelecc;
       this.isDisableunidadN = false;
+      this.isDisableunidadM = false;
+      this.isDisabledButton = true;
+
+      this.unidadesF = this.unidades.filter(
+        (u) =>
+          u.unidadN == this.unidadNSelecc ||
+          u.unidadN2 == this.unidadNSelecc ||
+          u.unidadN3 == this.unidadNSelecc ||
+          u.unidadN4 == this.unidadNSelecc ||
+          u.unidadN5 == this.unidadNSelecc
+      );
     }
     if (this.unidadSelecc) {
       this.selectedUnidad = this.unidadSelecc;
-      this.isDisableunidadM = false;
-      this.isDisableunidadN = false;
     }
     if (this.divisaSelecc) {
       this.selectedValue = this.divisaSelecc;
       this.isDisableDivis = false;
+      this.isDisabledButtonAdd = false;
       this.isDisabledButtonBuscar = false;
     }
   }
@@ -315,6 +331,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   botonbuscarArticulos() {
+    console.log('Unidad Medida seleccionada', this.unidadSelecc);
+    console.log('Divisa seleccionada', this.divisaSelecc);
+    console.log('familia seleccionada', this.unidadNSelecc);
+    console.log('codigo cliente seleccionado', this.codCliente);
+    console.log('cliente seleccionado', this.nomCliente);
     const bodyB = {
       c_codi: this.selectedCliente,
       ta_unifa: this.selectedUnidad,
@@ -342,16 +363,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     localStorage.setItem('registros', JSON.stringify(bodyB));
   }
-  private NewGuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
-      /[xy]/g,
-      function (c) {
-        var r = (Math.random() * 16) | 0,
-          v = c == 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      }
-    );
-  }
 
   closealert() {
     this.alert = false;
@@ -373,6 +384,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.isDisableunidadN = false;
     this.selectedClienteName = codigo.c_nom;
     this.aprobationService.setNombreClinte(this.selectedClienteName);
+    this.aprobationService.setCodCliente(this.selectedCliente);
   }
 
   botonUpdateArticulo() {
@@ -463,6 +475,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   botonAddArticulo() {
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.aprobationService.setDivisa(this.selectedValue);
+    this.aprobationService.setCodCliente(this.selectedCliente);
     //codigo que necesita el servicio para agregar un articulo
   }
 
