@@ -295,8 +295,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.unidadNSelecc = d;
     });
 
-    if (this.nomCliente) {
-      this.selectedCliente = this.nomCliente;
+    if (this.codCliente) {
+      this.codCliente = this.selectedCliente;
     }
     if (this.unidadNSelecc) {
       this.selectedUnidadN = this.unidadNSelecc; //checar esta parte
@@ -342,8 +342,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     console.log('Unidad Medida seleccionada', this.unidadSelecc);
     console.log('Divisa seleccionada', this.divisaSelecc);
     console.log('familia seleccionada', this.unidadNSelecc);
-    console.log('codigo cliente seleccionado', this.codCliente);
+
     console.log('cliente seleccionado', this.nomCliente);
+
     const bodyB = {
       c_codi: this.selectedCliente,
       ta_unifa: this.selectedUnidad,
@@ -368,8 +369,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     } else this.alert = true;
     this.isDisabledRadioActivo = false;
     this.isDisabledRadioInactivo = false;
-
-    localStorage.setItem('registros', JSON.stringify(bodyB));
   }
 
   closealert() {
@@ -393,6 +392,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.selectedClienteName = codigo.c_nom;
     this.aprobationService.setNombreClinte(this.selectedClienteName);
     this.aprobationService.setCodCliente(this.selectedCliente);
+    if (this.codCliente) {
+      this.codCliente = this.selectedCliente;
+    }
+
     this.selectedUnidadN = {
       value: '',
       viewValue: '',
@@ -411,6 +414,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       value: '',
       viewValue: '',
     };
+    /*  this.isDisableunidadN = false;
+    this.isDisableunidadM = false;
+    this.isDisableDivis = false; */
   }
 
   botonUpdateArticulo() {

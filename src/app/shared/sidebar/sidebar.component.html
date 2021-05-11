@@ -1,9 +1,9 @@
 <nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
         <!-- Toggler -->
-        <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed" aria-controls="sidenav-collapse-main">
-   <span class="navbar-toggler-icon"></span>
- </button>
+        <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" aria-controls="sidenav-collapse-main">
+      <span class="navbar-toggler-icon"></span>
+    </button>
         <!-- Brand -->
         <a class="navbar-brand pt-4">
             <img src="../../../assets/img/brand/Wynysidebar.jpg" class="navbar-brand-img" alt="" />
@@ -28,7 +28,7 @@
                         <span class="avatar avatar-sm rounded-circle">
               <img
                 alt="Image placeholder"
-                src="../../../assets/img/theme/team-4-800x800.jpg"
+                src="../../../assets/img/brand/user.jpg"
               />
             </span>
                     </div>
@@ -85,11 +85,7 @@
                 <li *ngFor="let menuItem of menuItems" class="{{ menuItem.class }} nav-item">
                     <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
                         <i class="ni {{ menuItem.icon }}"></i> {{ menuItem.title }}
-
-
                     </a>
-
-
                 </li>
             </ul>
             <!-- Divider -->

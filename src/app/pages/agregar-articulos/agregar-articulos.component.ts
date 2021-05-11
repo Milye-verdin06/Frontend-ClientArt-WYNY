@@ -62,7 +62,7 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
   isDisabledFormato = false; //deshabilitar el select de formato hasta que seleccionen el tambor
   isDisabledTamano = false; //deshabilitar el select de tamano hasta que seleccionen el formato
-  isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
+  isDisabledGrosor = false; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
@@ -83,10 +83,6 @@ export class AgregarArticulosComponent implements OnInit {
   unidadNSelecc: any;
 
   articuloForm: FormGroup;
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
 
   tambor: Tambor[] = [
     { value: 'L', viewValue: 'LISO' },
@@ -168,7 +164,7 @@ export class AgregarArticulosComponent implements OnInit {
       color: ['', Validators.required],
       acabado: ['', Validators.required],
       tarifa: ['', Validators.required],
-      //listar: ['', Validators.required],
+      listar: ['', Validators.required],
     });
   }
 
@@ -261,6 +257,7 @@ export class AgregarArticulosComponent implements OnInit {
         )
       )
     );
+    console.log('codigo cliente seleccionado', this.codCliente);
   }
 
   public displayFnAcabados(acabado: ReqAcabados): string {
@@ -280,6 +277,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedAcabadoName = codigoA.ac_desce;
     this.mostrarInfo();
     this.mostrarCodigo();
+    this.selectedColores = '';
   }
   public displayFnColores(color: ReqColores): string {
     return color && color.co_desce ? color.co_desce : '';
@@ -303,6 +301,8 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColorName = codigo.co_desce;
     this.mostrarInfo();
     this.mostrarCodigo();
+    this.selectedColorName = '';
+    this.selectedAcabadosCodi = '';
 
     /* setTimeout((x) => {
       auto.options.forEach((item) => {
@@ -428,10 +428,10 @@ export class AgregarArticulosComponent implements OnInit {
       : 'X';
     this.infoGrosor = this.selectedGrosor
       ? String(this.selectedGrosor.gl_desc).trim()
-      : '';
+      : ' ';
     this.infoClasificado = this.selectedClasificado
       ? String(this.selectedClasificado.value).trim()
-      : '';
+      : ' ';
     this.infoAcabadoselect = this.selectedAcabado
       ? String(this.selectedAcabado.viewValue).trim()
       : '';
@@ -590,7 +590,7 @@ export class AgregarArticulosComponent implements OnInit {
 
     this.isDisabledTamano = false;
   }
-  selectTamanoChangue(values: Tambor) {
+  selectTamanoChangue(values: Tamano) {
     /* this.selectedTamano.tm_codi = values; */
 
     this.selectedGrosor = {
@@ -644,21 +644,29 @@ export class AgregarArticulosComponent implements OnInit {
     this.mostrarCodigo();
   }
   selectAcabadoChangue(values: any) {
+    this.selectedAcabadosCodi = '';
+    this.selectedColores = '';
+
     if (this.selectedAcabado.value === 'TE') {
       this.isDisabledAutoCompleteC = true;
       this.isDisabledAutoCompleteA = false;
+
+      this.selectedColores = '';
+      this.selectedAcabadosCodi = '';
     } else {
       if (this.selectedAcabado.value === 'AC') {
         this.isDisabledAutoCompleteC = true;
         this.isDisabledAutoCompleteA = true;
+        this.selectedColores = '';
       } else {
+        this.selectedColores = '';
+        this.selectedAcabadosCodi = '';
+
         (this.isDisabledAutoCompleteA = false),
           (this.isDisabledAutoCompleteC = false);
       }
     }
 
-    this.selectedColores = '';
-    this.selectedAcabadosCodi = '';
     this.isDisabledGrosor = false;
     this.mostrarInfo();
     this.mostrarCodigo();
@@ -674,9 +682,9 @@ export class AgregarArticulosComponent implements OnInit {
   submitArticulo() {
     console.log('Unidad Medida seleccionada', this.unidadSelecc);
     console.log('Divisa seleccionada', this.divisaSelecc);
-
-    console.log('cliente seleccionado', this.codCliente);
-
+    console.log('familia seleccionada', this.unidadNSelecc);
+    console.log('codigo cliente seleccionado', this.codCliente);
+    console.log('cliente seleccionado', this.nomCliente);
     if (this.AddTarifa == null) {
       Swal.fire({
         icon: 'warning',

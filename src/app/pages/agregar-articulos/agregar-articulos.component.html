@@ -124,7 +124,7 @@
 
                                 <div class="container">
                                     <div class="row">
-                                        <form [formGroup]="articuloForm" (ngSubmit)="submitArticulo()">
+                                        <form [formGroup]="articuloForm" (ngSubmit)="submitArticulo()" #f="ngForm">
                                             <div class="col">
                                                 <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
                                                     <mat-form-field class=".example-litle-width">
@@ -212,6 +212,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-sm-4">
                                             <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" type="submit" (click)="submitArticulo()">
                         <mat-icon>save</mat-icon>
@@ -229,83 +230,83 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <ng-template #addespecificacion let-modal>
-            <div class="modal-header" style="background-color: #ced7e0">
-                <div type="text" class="form-control">
-                    <h1>Especificaciones del articulo: {{ infoDesc }}</h1>
+            <ng-template #addespecificacion let-modal>
+                <div class="modal-header" style="background-color: #ced7e0">
+                    <div type="text" class="form-control">
+                        <h1>Especificaciones del articulo: {{ infoDesc }}</h1>
+                    </div>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
                 </div>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">×</span>
-        </button>
-            </div>
-            <div class="modal-body">
-                <div class="box-body">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="col">
-                                <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>1:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi1" [(ngModel)]="Addespeci1"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>2:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi2" [(ngModel)]="Addespeci2"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>3:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi3" [(ngModel)]="Addespeci3"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>4:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi4" [(ngModel)]="Addespeci4"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>5:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi5" [(ngModel)]="Addespeci5"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>6:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi6" [(ngModel)]="Addespeci6"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>7:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi7" [(ngModel)]="Addespeci7"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>8:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi8" [(ngModel)]="Addespeci8"></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>9:</mat-label>
-                                        <textarea matInput placeholder=" " name="especi9" [(ngModel)]="Addespeci9"></textarea>
-                                    </mat-form-field>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="col">
+                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>1:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi1" [(ngModel)]="Addespeci1"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>2:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi2" [(ngModel)]="Addespeci2"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>3:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi3" [(ngModel)]="Addespeci3"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>4:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi4" [(ngModel)]="Addespeci4"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>5:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi5" [(ngModel)]="Addespeci5"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>6:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi6" [(ngModel)]="Addespeci6"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>7:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi7" [(ngModel)]="Addespeci7"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>8:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi8" [(ngModel)]="Addespeci8"></textarea>
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>9:</mat-label>
+                                            <textarea matInput placeholder=" " name="especi9" [(ngModel)]="Addespeci9"></textarea>
+                                        </mat-form-field>
 
-                                    <div class="example-full-width" cellspacing="0">
-                                        <tr>
-                                            <td>
-                                                <mat-form-field class="example-full-width">
-                                                    <mat-label>Código cliente</mat-label>
-                                                    <input matInput placeholder="" name="especi10" [(ngModel)]="Addespeci10" />
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
+                                        <div class="example-full-width" cellspacing="0">
+                                            <tr>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <mat-label>Código cliente</mat-label>
+                                                        <input matInput placeholder="" name="especi10" [(ngModel)]="Addespeci10" />
+                                                    </mat-form-field>
+                                                </td>
+                                            </tr>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success" type="button" (click)="BottonAddEspecificacion()">
-          Guardar
-          <span class="material-icons"> save </span>
-        </button>
-            </div>
-        </ng-template>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" type="button" (click)="BottonAddEspecificacion()">
+            Guardar
+            <span class="material-icons"> save </span>
+          </button>
+                </div>
+            </ng-template>
+        </div>
     </div>
 </div>
