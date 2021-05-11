@@ -657,7 +657,6 @@ export class AgregarArticulosComponent implements OnInit {
       if (this.selectedAcabado.value === 'AC') {
         this.isDisabledAutoCompleteC = true;
         this.isDisabledAutoCompleteA = true;
-        this.selectedColores = '';
       } else {
         this.selectedColores = '';
         this.selectedAcabadosCodi = '';

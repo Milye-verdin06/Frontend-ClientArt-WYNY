@@ -255,6 +255,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setDivisa(this.selectedValue);
     this.isDisabledButtonAdd = false;
     this.isDisabledButtonBuscar = false;
+    /* if (this.selectedValue.value === '') {
+      this.isDisabledButtonAdd = true;
+      this.isDisabledButtonBuscar = true;
+    } */
   }
 
   ngOnInit() {
@@ -345,7 +349,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     console.log('cliente seleccionado', this.nomCliente);
 
-    const bodyB = {
+    const body = {
       c_codi: this.selectedCliente,
       ta_unifa: this.selectedUnidad,
       ta_divis: this.selectedValue,
@@ -353,7 +357,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       ta_listar: this.selectedRadio ? 'S' : 'N',
     };
 
-    this.articuloService.getArticulos(bodyB).subscribe(
+    this.articuloService.getArticulos(body).subscribe(
       (resp) => {
         this.datos_articulo = resp.data;
       },
