@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { EspecificacionService } from 'src/app/services/especificacion.service';
 
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -45,7 +45,7 @@ interface UnidadNegocio {
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificaciones
   isDisabledButton = false; //deshabilitar el botton de agregar articulos
-  isDisabledadd = true; //deshabilitar el filtro de la descricion del articulo
+  isDisabledadd = true; //deshabilitar el filtro de la descripcion del articulo
   isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
   isDisableunidadM = true; // deshabilitar la unidad de medida y habilitar hasta que seleccione la unidad de negocio
   isDisableDivis = true; //deshabilitar la divisa y habilitar hasta que selecciona la unidad de medida
@@ -57,6 +57,12 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   public pageActual: number = 1;
   renglonSelected: any;
   radioButtonSelected: any;
+  createFormGroup() {
+    return new FormGroup({
+      Edittarifa: new FormControl('', [Validators.required]),
+    });
+  }
+  editTarifaForm: FormGroup;
 
   foods: Food[] = [
     //divisas
@@ -189,6 +195,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.Clientes = [];
     this.Especificacion = [];
     this.renglonSelected = null;
+    this.editTarifaForm = this.createFormGroup();
 
     /* this.grabar_localstorage(); */
   }
@@ -376,12 +383,15 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   closealert() {
-    this.alert = false;
+    this.alert = closed;
   }
 
   selectedRadio: boolean = true;
   mostrarInactivos(e: any) {
     this.selectedRadio = e.value;
+    if (this.datos_articulo.length == 0) {
+      this.isDisabledadd = false;
+    } else this.isDisabledadd = true;
     /* console.log(e);
     console.log(this.selectedRadio); */
     if (this.datos_articulo.length == 0) {
@@ -422,44 +432,75 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.isDisableunidadM = false;
     this.isDisableDivis = false; */
   }
-
-  botonUpdateArticulo() {
-    /* console.log(this.renglonSelected); */
-    const body = {
-      ta_codi: 'C',
-      ta_clta: this.renglonSelected.ta_clta,
-      ta_artic: this.renglonSelected.ta_artic,
-      ta_gruix: this.renglonSelected.ta_gruix,
-      ta_acaba: this.renglonSelected.ta_acaba,
-      ta_color: this.renglonSelected.ta_color,
-      ta_clas: this.renglonSelected.ta_clas,
-      ta_unifa: this.renglonSelected.ta_unifa,
-      ta_divis: this.renglonSelected.ta_divis,
-      ta_tarif_001: this.renglonSelected.ta_tarif_001,
-    };
-
-    this.articuloService.putArticulos(body).subscribe(
-      (resp) => {
-        console.log(resp);
+  cerrarModEditarTarif() {
+    if (this.renglonSelected.ta_tarif_001 === null) {
+      {
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Acción realizada',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      },
-      (error) => {
-        console.log(error);
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: 'Acción  no realizada',
+          icon: 'warning',
+          title: 'Introduccir precio de venta',
           showConfirmButton: false,
           timer: 1500,
         });
       }
-    );
+    } else {
+      {
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación interrumpida',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+      this.modalService.dismissAll();
+    }
+  }
+  botonUpdateArticulo() {
+    if (this.renglonSelected.ta_tarif_001 === null) {
+      {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Introduccir precio de venta',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } else {
+      /* console.log(this.renglonSelected); */
+      const body = {
+        ta_codi: 'C',
+        ta_clta: this.renglonSelected.ta_clta,
+        ta_artic: this.renglonSelected.ta_artic,
+        ta_gruix: this.renglonSelected.ta_gruix,
+        ta_acaba: this.renglonSelected.ta_acaba,
+        ta_color: this.renglonSelected.ta_color,
+        ta_clas: this.renglonSelected.ta_clas,
+        ta_unifa: this.renglonSelected.ta_unifa,
+        ta_divis: this.renglonSelected.ta_divis,
+        ta_tarif_001: this.renglonSelected.ta_tarif_001,
+      };
+
+      this.articuloService.putArticulos(body).subscribe(
+        (resp) => {
+          console.log(resp);
+          Swal.fire({
+            icon: 'success',
+            title: 'Acción realizada',
+            showConfirmButton: false,
+            timer: 1700,
+          });
+          this.modalService.dismissAll();
+        },
+        (error) => {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Acción  no realizada',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      );
+    }
   }
 
   botonUpdateEspecificacion() {
@@ -488,12 +529,12 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       (resp) => {
         console.log(resp);
         Swal.fire({
-          position: 'top-end',
           icon: 'success',
           title: 'Acción realizada',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1700,
         });
+        this.modalService.dismissAll();
       },
       (error) => {
         console.log(error);
@@ -507,7 +548,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /*  editTarifaChangue() {
+    this.botonUpdateArticulo();
+  } */
   botonAddArticulo() {
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.aprobationService.setDivisa(this.selectedValue);
@@ -552,7 +595,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
         Swal.fire('Eliminado', '', 'success');
       } else if (result.isDenied) {
-        Swal.fire('Operación no realizada', '', 'info');
+        Swal.fire('Operación interrumpida', '', 'info');
       }
     });
   }
@@ -592,22 +635,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
         Swal.fire('Activado', '', 'success');
       } else if (result.isDenied) {
-        Swal.fire('Operación no realizada', '', 'info');
+        Swal.fire('Operación interrumpida', '', 'info');
       }
     });
   }
-
-  /*
-  grabar_localstorage(selectedItem?: any) {
-    this.renglonSelected = selectedItem;
-
-    let articulo = {
-      c_codi: this.selectedCliente,
-      ta_unifa: this.selectedUnidad.value,
-      ta_divis: this.selectedValue.value,
-      ar_tpiel: this.selectedUnidadN.value,
-    };
-
-    localStorage.setItem('articulo', JSON.stringify(articulo));
-  } */
 }

@@ -19,6 +19,7 @@ import {
   ReqArticulos,
 } from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
+
 import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/aprobation.service';
 import { Location } from '@angular/common';
@@ -32,6 +33,8 @@ import {
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
+import { EspecificacionService } from 'src/app/services/especificacion.service';
+import { ReqEspecificaciones } from '../../models/especificacion';
 
 interface Tambor {
   value: string;
@@ -57,6 +60,7 @@ interface Clasificado {
 })
 export class AgregarArticulosComponent implements OnInit {
   datos_articulo: ReqArticulos[] = [];
+  datos_especificacion: ReqEspecificaciones[] = [];
   myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
@@ -67,6 +71,7 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
   isDisabledAutoCompleteA = false; //deshabilitar el autocomplete de acabados
+  isDisabledButtonEspe = false; //deshabilitar el botton de agregar especificaciones
 
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
@@ -146,6 +151,7 @@ export class AgregarArticulosComponent implements OnInit {
   constructor(
     private location: Location,
     private articuloService: ArticuloService,
+    private especificacionService: EspecificacionService,
     private ClienteService: ClienteService,
     private aprobationService: AprobationService,
     private modalService: NgbModal,
@@ -168,19 +174,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColorName = '';
     this.Colores = [];
 
-    this.articuloForm =
-      this.createFormGroup(/* {
-      linea: ['', Validators.required],
-      tambor: ['', Validators.required],
-      formato: ['', Validators.required],
-      tamaño: ['', Validators.required],
-      clasificado: ['', Validators.required],
-      grosor: ['', Validators.required],
-      color: ['', Validators.required],
-      acabado: ['', Validators.required],
-      tarifa: ['', Validators.required],
-      listar: ['', Validators.required],
-    } */);
+    this.articuloForm = this.createFormGroup();
   }
 
   open(content: any) {
@@ -688,6 +682,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.isDisabledGrosor = false;
     this.mostrarInfo();
     this.mostrarCodigo();
+    this.isDisabledButtonEspe = true;
   }
 
   onChange() {}
@@ -703,6 +698,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.articuloForm.reset();
   }
   submitArticulo() {
+    console.log('codigoo', this.infoCodi.substring(0, 4));
     console.log('Unidad Medida seleccionada', this.unidadSelecc);
     console.log('Divisa seleccionada', this.divisaSelecc);
     console.log('familia seleccionada', this.unidadNSelecc);
@@ -731,28 +727,50 @@ export class AgregarArticulosComponent implements OnInit {
         denyButtonText: `No confirmar`,
       }).then((result) => {
         if (result.isConfirmed) {
+          /*          if(this.selectedAcabado.value='NA'){
+ const body = {
+   ef_clta: this.codCliente,
+   ef_artic: this.infoCodi.substring(0, 4),
+   ef_gruix: this.selectedGrosor.gl_codi,
+   ef_acaba: 'NA',
+   ef_color: '009',
+   ef_clas: this.selectedClasificado.value,
+   ef_unifa: this.unidadSelecc,
+   ef_divis: this.divisaSelecc,
+   ef_espe1: this.Addespeci1,
+   ef_espe2: this.Addespeci2,
+   ef_espe3: this.Addespeci3,
+   ef_espe4: this.Addespeci4,
+   ef_espe5: this.Addespeci5,
+   ef_espe6: this.Addespeci6,
+   ef_espe7: this.Addespeci7,
+   ef_espe8: this.Addespeci8,
+   ef_espe9: this.Addespeci9,
+   ef_espe10: this.Addespeci10,
+ }; */
+
           /*  const body = {
-           ta_codi: 'C',
-            ta_clta: '',
-            ta_artic: '',
-            ta_gruix:  '',
-            ta_acaba: '',
-            ta_color:  '',
-            ta_clas:  '',
-            ta_unifa:  '',
-            ta_divis: '',
-            ta_tarif_001: '',
-            ta_tarif_002: 0,
-            ta_tarif_003: 0,
-            ta_tarif_004: 0,
-            ta_listar: 'S'
-          };
+             ta_codi: 'C',
+             ta_clta: this.codCliente,
+             ta_artic: this.infoCodi.substring(0, 4),
+             ta_gruix: this.selectedGrosor,
+             ta_acaba: '',
+             ta_color: '',
+             ta_clas: this.selectedClasificado,
+             ta_unifa: this.unidadSelecc,
+             ta_divis: this.divisaSelecc,
+             ta_tarif_001: this.AddTarifa,
+             ta_tarif_002: 0,
+             ta_tarif_003: 0,
+             ta_tarif_004: 0,
+             ta_listar: 'S',
+           };
           this.articuloService.postArticulos(body).subscribe(
             (resp) => {
               this.datos_articulo = resp.data;
             },
             (error) => console.log(error)
-          ); */
+          );  */
           //añadir codigo del postArticulo
           Swal.fire('Articulo registrado correctamente', '', 'success');
           this.onResetForm();
@@ -787,6 +805,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   isHomeRoute() {
+    //dirigirse al componente principal cuando cancelan el registro de un articulo.
     this.router.navigate(['/articulos-cliente']);
   }
   Addespeci1: any;
@@ -800,5 +819,32 @@ export class AgregarArticulosComponent implements OnInit {
   Addespeci9: any;
   Addespeci10: any;
 
-  BottonAddEspecificacion() {}
+  BottonAddEspecificacion() {
+    /*  const body = {
+      ef_clta: this.codCliente,
+      ef_artic: this.infoCodi.substring(0, 4),
+      ef_gruix: this.selectedGrosor.gl_codi,
+      ef_acaba: '',
+      ef_color: '',
+      ef_clas: this.selectedClasificado.value,
+      ef_unifa: this.unidadSelecc,
+      ef_divis: this.divisaSelecc,
+      ef_espe1: this.Addespeci1,
+      ef_espe2: this.Addespeci2,
+      ef_espe3: this.Addespeci3,
+      ef_espe4: this.Addespeci4,
+      ef_espe5: this.Addespeci5,
+      ef_espe6: this.Addespeci6,
+      ef_espe7: this.Addespeci7,
+      ef_espe8: this.Addespeci8,
+      ef_espe9: this.Addespeci9,
+      ef_espe10: this.Addespeci10,
+    }; */
+    /* this.especificacionService.postEspecificacion(body).subscribe(
+     (resp) => {
+       this.datos_especificacion = resp.data;
+     },
+     (error) => console.log(error)
+   );  */
+  }
 }

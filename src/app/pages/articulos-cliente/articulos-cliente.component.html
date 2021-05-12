@@ -7,7 +7,13 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-auto">
-                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
                                         <div class="form-group mb-0">
                                             <mat-form-field class="example-buscarcliente-width">
                                                 <mat-label>Buscar cliente</mat-label>
@@ -24,7 +30,13 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de negocio</mat-label>
                                             <mat-select [(value)]="selectedUnidadN" id="unidadNegocio" [disabled]="isDisableunidadN" [(ngModel)]="selectedUnidadN" (ngModelChange)="selectedUnidadNChange($event)">
@@ -36,7 +48,13 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Unidad de medida</mat-label>
                                             <mat-select [(value)]="selectedUnidad" id="unidadM" [disabled]="isDisableunidadM" [(ngModel)]="selectedUnidad" (ngModelChange)="selectedUnidadMChange($event)">
@@ -49,7 +67,13 @@
                                 </div>
 
                                 <div class="col">
-                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Divisa</mat-label>
                                             <mat-select [(value)]="selectedValue" id="divisaS" [disabled]="isDisableDivis" [(ngModel)]="selectedValue" (ngModelChange)="selectedDivisChange($event)">
@@ -61,7 +85,13 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
                                         <button class="btn btn-light float-end" id="buscarArticulos" (click)="botonbuscarArticulos()" [disabled]="isDisabledButtonBuscar">
                       Buscar
                     </button>
@@ -188,10 +218,10 @@
 
 <ng-template #mymodaleditarArt let-modal>
     <div class="modal-header" style="background-color: #ced7e0">
-        <div type="text" class="form-control">
+        <div type="text">
             <h1>Editar artículo: {{ renglonSelected.ar_descripcion }}</h1>
         </div>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="cerrarModEditarTarif()">
       <span aria-hidden="true">×</span>
     </button>
     </div>
@@ -249,7 +279,9 @@
 
                 <div class="col-md-4">
                     <div class="form-group has-success">
-                        <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="" [(value)]="renglonSelected.ta_tarif_001" [(ngModel)]="renglonSelected.ta_tarif_001" class="form-control is-valid" text="mm" required />
+                        <div class="form-container">
+                            <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="" [(value)]="renglonSelected.ta_tarif_001" [(ngModel)]="renglonSelected.ta_tarif_001" class="form-control is-valid" text="mm" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -257,7 +289,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" (click)="modal.dismiss(botonUpdateArticulo())">
+        <button type="button" class="btn btn-outline-success" (click)="botonUpdateArticulo()">
       Guardar
       <span class="material-icons"> save </span>
     </button>
@@ -267,10 +299,10 @@
 <ng-template #mymodalgetEsp let-modal>
     <div class="modal-header" style="background-color: #ced7e0">
         <div class="col">
-            <div type="text" class="form-control">
+            <div type="text">
                 <h2>Artículo: {{ renglonSelected.ar_descripcion }}</h2>
             </div>
-            <div type="text" class="form-control">
+            <div type="text">
                 <h2>Código: {{ renglonSelected.ar_codigo }}</h2>
             </div>
         </div>
@@ -336,7 +368,7 @@
       Editar
       <span class="material-icons"> mode_edit </span>
     </button>
-        <button type="button" class="btn btn-outline-success" (click)="modal.dismiss(botonUpdateEspecificacion())">
+        <button type="button" class="btn btn-outline-success" (click)="botonUpdateEspecificacion()">
       Guardar
       <span class="material-icons"> save </span>
     </button>

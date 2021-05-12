@@ -217,7 +217,7 @@
                           d-none d-md-flex
                           ml-lg-auto
                         ">
-                                                <button mat-raised-button (click)="open(addespecificacion)">
+                                                <button mat-raised-button (click)="open(addespecificacion)" *ngIf="isDisabledButtonEspe">
                           Especificación
                         </button>
                                             </div>
@@ -310,7 +310,7 @@
 
             <ng-template #addespecificacion let-modal>
                 <div class="modal-header" style="background-color: #ced7e0">
-                    <div type="text" class="form-control">
+                    <div type="text">
                         <h1>Especificaciones del articulo: {{ infoDesc }}</h1>
                     </div>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
