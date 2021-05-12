@@ -60,7 +60,7 @@ interface Clasificado {
 })
 export class AgregarArticulosComponent implements OnInit {
   datos_articulo: ReqArticulos[] = [];
-  datos_especificacion: ReqEspecificaciones[] = [];
+  datos_especificacion: any;
   myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
@@ -820,6 +820,7 @@ export class AgregarArticulosComponent implements OnInit {
   Addespeci10: any;
 
   BottonAddEspecificacion() {
+    console.log(this.Addespeci1, 'especificacions');
     /*  const body = {
       ef_clta: this.codCliente,
       ef_artic: this.infoCodi.substring(0, 4),
@@ -839,12 +840,21 @@ export class AgregarArticulosComponent implements OnInit {
       ef_espe8: this.Addespeci8,
       ef_espe9: this.Addespeci9,
       ef_espe10: this.Addespeci10,
-    }; */
-    /* this.especificacionService.postEspecificacion(body).subscribe(
+    };
+     this.especificacionService.postEspecificacion(body).subscribe(
      (resp) => {
-       this.datos_especificacion = resp.data;
-     },
+       this.datos_especificacion = resp.data; */
+    {
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro exitoso',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
+    /* },
      (error) => console.log(error)
-   );  */
+   ); */
   }
 }
