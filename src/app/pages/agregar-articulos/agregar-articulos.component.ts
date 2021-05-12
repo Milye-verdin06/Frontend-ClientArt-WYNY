@@ -22,7 +22,7 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/aprobation.service';
 import { Location } from '@angular/common';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { ColorRespons, ReqAcabados } from '../../models/articulo';
@@ -60,9 +60,9 @@ export class AgregarArticulosComponent implements OnInit {
   myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
-  isDisabledFormato = false; //deshabilitar el select de formato hasta que seleccionen el tambor
-  isDisabledTamano = false; //deshabilitar el select de tamano hasta que seleccionen el formato
-  isDisabledGrosor = false; //deshabilitar el select de grosor hasta que seleccionen el tamano
+  isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
+  isDisabledTamano = true; //deshabilitar el select de tamano hasta que seleccionen el formato
+  isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
@@ -82,6 +82,20 @@ export class AgregarArticulosComponent implements OnInit {
   divisaSelecc: any;
   unidadNSelecc: any;
 
+  createFormGroup() {
+    return new FormGroup({
+      /*  linea: new FormControl('', [Validators.required]),
+      tambor: new FormControl('', [Validators.required]),
+      formato: new FormControl('', [Validators.required]),
+      tamaño: new FormControl('', [Validators.required]),
+      clasificado: new FormControl('', [Validators.required]),
+      grosor: new FormControl('', [Validators.required]),
+      color: new FormControl('', [Validators.required]),
+      acabado: new FormControl('', [Validators.required]), */
+      tarifa: new FormControl('', [Validators.required]),
+      //listar: new FormControl('', [Validators.required]),
+    });
+  }
   articuloForm: FormGroup;
 
   tambor: Tambor[] = [
@@ -154,7 +168,8 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColorName = '';
     this.Colores = [];
 
-    this.articuloForm = this.fb.group({
+    this.articuloForm =
+      this.createFormGroup(/* {
       linea: ['', Validators.required],
       tambor: ['', Validators.required],
       formato: ['', Validators.required],
@@ -165,7 +180,7 @@ export class AgregarArticulosComponent implements OnInit {
       acabado: ['', Validators.required],
       tarifa: ['', Validators.required],
       listar: ['', Validators.required],
-    });
+    } */);
   }
 
   open(content: any) {
@@ -314,6 +329,9 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   selectedLineaNChange(values: ReqLineas) {
+    if (this.selectedLinea.tp_codi === 'LO') {
+      this.isDisabledTamano = false;
+    } else this.isDisabledTamano = true;
     this.formatos = this.datos_formato.filter(
       (u) => u.ft_tpiel == String(values.tp_codi).trim()
     );
@@ -397,6 +415,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedAcabadosCodi = '';
     this.mostrarInfo();
     this.mostrarCodigo();
+    console.log(this.selectedLinea.tp_codi);
   }
 
   infoCodi: string = '';
@@ -678,20 +697,30 @@ export class AgregarArticulosComponent implements OnInit {
     this.useDefault = event.checked;
   }
   AddTarifa: any;
+
+  onResetForm() {
+    //eliminar contenido del formulario
+    this.articuloForm.reset();
+  }
   submitArticulo() {
     console.log('Unidad Medida seleccionada', this.unidadSelecc);
     console.log('Divisa seleccionada', this.divisaSelecc);
     console.log('familia seleccionada', this.unidadNSelecc);
     console.log('codigo cliente seleccionado', this.codCliente);
     console.log('cliente seleccionado', this.nomCliente);
-    if (this.AddTarifa == null) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Añadir campos requeridos',
-        showConfirmButton: false,
-        timer: 1700,
-      });
-    } else
+
+    if (this.articuloForm.invalid) {
+      {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Introducir campos requeridos',
+          showConfirmButton: false,
+          timer: 1700,
+        });
+      }
+    } else {
+      console.log('form lleno');
+      console.log(this.AddTarifa);
       Swal.fire({
         title: 'Confirmar registro del articulo',
         text: this.infoDesc,
@@ -726,10 +755,12 @@ export class AgregarArticulosComponent implements OnInit {
           ); */
           //añadir codigo del postArticulo
           Swal.fire('Articulo registrado correctamente', '', 'success');
+          this.onResetForm();
         } else if (result.isDenied) {
           Swal.fire('Operación interrumpida', '', 'info');
         }
       });
+    }
   }
 
   opensweetalertCancelaRegistroArticulo(selectedItem?: any) {
