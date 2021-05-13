@@ -379,6 +379,7 @@ export class AgregarArticulosComponent implements OnInit {
     };
     this.selectedColores = '';
     this.selectedAcabadosCodi = '';
+
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -447,16 +448,24 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoTambor = this.selectedTambor
       ? String(this.selectedTambor.viewValue).trim()
       : '';
-    this.infoFormato = this.selectedFormato
-      ? String(this.selectedFormato.ft_desc).trim()
-      : '';
-    this.infoTamano = this.selectedTamano
-      ? String(this.selectedTamano.tm_desc).trim()
-      : 'X';
+    if (this.selectedLinea.tp_codi && this.selectedTambor.value) {
+      this.infoFormato = this.selectedFormato.ft_desci
+        ? String(this.selectedFormato.ft_desc).trim()
+        : 'X';
+    } else {
+      this.infoFormato = '';
+    }
+    if (this.selectedLinea.tp_codi && this.selectedTambor.value) {
+      this.infoTamano = this.selectedTamano.tm_desc
+        ? String(this.selectedTamano.tm_desc).trim()
+        : 'X';
+    } else {
+      this.infoTamano = '';
+    }
     this.infoGrosor = this.selectedGrosor
       ? String(this.selectedGrosor.gl_desc).trim()
       : ' ';
-    this.infoClasificado = this.selectedClasificado
+    this.infoClasificado = this.selectedClasificado //mostrar el valor del mat-selected NATURAL 'NA' TENIDO 'TC'
       ? String(this.selectedClasificado.value).trim()
       : ' ';
     this.infoAcabadoselect = this.selectedAcabado
@@ -481,11 +490,11 @@ export class AgregarArticulosComponent implements OnInit {
         '  ' +
         this.infoGrosor +
         '  ' +
-        this.infoClasificado +
-        ' ' +
         this.infoAcabadofilter +
         ' ' +
-        this.infoColor;
+        this.infoColor +
+        ' ' +
+        this.infoClasificado;
     } else
       this.infoDesc =
         this.infoLinea +
@@ -498,11 +507,11 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoGrosor +
         ' ' +
-        this.infoClasificado +
-        ' ' +
         this.infoAcabadoselect +
         ' ' +
-        this.infoColor;
+        this.infoColor +
+        ' ' +
+        this.infoClasificado;
   }
 
   mostrarCodigo() {
@@ -512,12 +521,20 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoTambor = this.selectedTambor
       ? String(this.selectedTambor.value).trim()
       : '';
-    this.infoFormato = this.selectedFormato.ft_codi
-      ? String(this.selectedFormato.ft_codi).trim()
-      : 'X';
-    this.infoTamano = this.selectedTamano.tm_codi
-      ? String(this.selectedTamano.tm_codi).trim()
-      : 'X';
+    if (this.selectedLinea.tp_codi && this.selectedTambor.value) {
+      this.infoFormato = this.selectedFormato.ft_codi
+        ? String(this.selectedFormato.ft_codi).trim()
+        : 'X';
+    } else {
+      this.infoFormato = '';
+    }
+    if (this.selectedLinea.tp_codi && this.selectedTambor.value) {
+      this.infoTamano = this.selectedTamano.tm_codi
+        ? String(this.selectedTamano.tm_codi).trim()
+        : 'X';
+    } else {
+      this.infoTamano = '';
+    }
     this.infoGrosor = this.selectedGrosor
       ? String(this.selectedGrosor.gl_codi).trim()
       : '';
@@ -534,7 +551,7 @@ export class AgregarArticulosComponent implements OnInit {
       ? String(this.selectedColores).trim()
       : '';
 
-    if (this.selectedAcabado.value == 'AC') {
+    if (this.selectedAcabado.value == 'NA') {
       this.infoCodi =
         this.infoLinea +
         '' +
@@ -546,11 +563,28 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoGrosor +
         ' ' +
-        this.infoClasificado +
+        this.infoAcabadoselect +
+        ' ' +
+        '0009' +
+        ' ' +
+        this.infoClasificado;
+    } else if (this.selectedAcabado.value == 'AC') {
+      this.infoCodi =
+        this.infoLinea +
+        '' +
+        this.infoTambor +
+        '' +
+        this.infoFormato +
+        '' +
+        this.infoTamano +
+        ' ' +
+        this.infoGrosor +
         ' ' +
         this.infoAcabadofilter +
         ' ' +
-        this.infoColor;
+        this.infoColor +
+        ' ' +
+        this.infoClasificado;
     } else
       this.infoCodi =
         this.infoLinea +
@@ -563,12 +597,13 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoGrosor +
         ' ' +
-        this.infoClasificado +
-        ' ' +
         this.infoAcabadoselect +
         ' ' +
-        this.infoColor;
+        this.infoColor +
+        ' ' +
+        this.infoClasificado;
   }
+
   formatoSeleccionado: any;
   selectFormatoChangue(values: ReqFormatos) {
     this.formatoSeleccionado = values.ft_codi;
