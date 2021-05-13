@@ -65,9 +65,9 @@ export class AgregarArticulosComponent implements OnInit {
   myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
-  isDisabledFormato = false; //deshabilitar el select de formato hasta que seleccionen el tambor
-  isDisabledTamano = false; //deshabilitar el select de tamano hasta que seleccionen el formato
-  isDisabledGrosor = false; //deshabilitar el select de grosor hasta que seleccionen el tamano
+  isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
+  isDisabledTamano = true; //deshabilitar el select de tamano hasta que seleccionen el formato
+  isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
@@ -271,7 +271,9 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   public displayFnAcabados(acabado: ReqAcabados): string {
-    return acabado && acabado.ac_desce ? acabado.ac_desce : '';
+    return acabado && String(acabado.ac_desce).trim()
+      ? String(acabado.ac_desce).trim()
+      : '';
   }
 
   private _filterAcabados(ac_desce: string): ReqAcabados[] {
@@ -290,7 +292,9 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColores = '';
   }
   public displayFnColores(color: ReqColores): string {
-    return color && color.co_desce ? color.co_desce : '';
+    return color && String(color.co_desce).trim()
+      ? String(color.co_desce).trim()
+      : '';
   }
 
   private _filterColores(co_desce: string): ReqColores[] {
@@ -412,7 +416,14 @@ export class AgregarArticulosComponent implements OnInit {
     this.mostrarInfo();
     this.mostrarCodigo();
 
-    console.log(this.selectedLinea.tp_codi);
+    console.log(this.formatos.length);
+    if (this.formatos.length == 0) {
+      this.isDisabledTamano = false;
+
+      if (this.tamanos.length == 0) {
+        this.isDisabledGrosor = false;
+      }
+    }
   }
 
   infoCodi: string = '';
@@ -501,10 +512,10 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoTambor = this.selectedTambor
       ? String(this.selectedTambor.value).trim()
       : '';
-    this.infoFormato = this.selectedFormato
+    this.infoFormato = this.selectedFormato.ft_codi
       ? String(this.selectedFormato.ft_codi).trim()
       : 'X';
-    this.infoTamano = this.selectedTamano
+    this.infoTamano = this.selectedTamano.tm_codi
       ? String(this.selectedTamano.tm_codi).trim()
       : 'X';
     this.infoGrosor = this.selectedGrosor
@@ -603,12 +614,14 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedAcabadosCodi = '';
     this.mostrarInfo();
     this.mostrarCodigo();
-
     this.isDisabledTamano = false;
+
+    console.log(this.tamanos.length);
+    if (this.tamanos.length == 0) {
+      this.isDisabledGrosor = false;
+    }
   }
   selectTamanoChangue(values: Tamano) {
-    /* this.selectedTamano.tm_codi = values; */
-
     this.selectedGrosor = {
       gl_linea: '',
       gl_codi: '',

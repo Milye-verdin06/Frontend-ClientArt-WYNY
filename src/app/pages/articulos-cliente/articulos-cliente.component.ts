@@ -16,6 +16,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
 import { LocalStorageService } from '../../services/localStorage.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 interface Food {
   value: string;
@@ -247,6 +248,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     this.isDisableunidadM = false;
     this.aprobationService.setUnidadN(this.selectedUnidadN);
+
+    /*    if (this.selectedUnidadN.value === '') {
+      this.isDisabledButtonBuscar = true;
+    } else this.isDisabledButtonBuscar = false; */
   }
   selectedUnidadMChange(values: Unidad) {
     this.selectedValue = {
@@ -256,16 +261,20 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setUnidadN(this.selectedUnidadN);
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
+    /* if ((this.selectedUnidad.value = '')) {
+      this.isDisabledButtonBuscar = true;
+    } else this.isDisabledButtonBuscar = false; */
   }
 
   selectedDivisChange(values: any) {
+    console.log(this.unidadesN.length);
     this.aprobationService.setDivisa(this.selectedValue);
     this.isDisabledButtonAdd = false;
     this.isDisabledButtonBuscar = false;
-    /* if (this.selectedValue.value === '') {
-      this.isDisabledButtonAdd = true;
+
+    /*  if ((this.selectedValue.value = '')) {
       this.isDisabledButtonBuscar = true;
-    } */
+    } else this.isDisabledButtonBuscar = false; */
   }
 
   ngOnInit() {
