@@ -35,6 +35,7 @@ import {
 import Swal from 'sweetalert2';
 import { EspecificacionService } from 'src/app/services/especificacion.service';
 import { ReqEspecificaciones } from '../../models/especificacion';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 interface Tambor {
   value: string;
@@ -64,9 +65,9 @@ export class AgregarArticulosComponent implements OnInit {
   myControls: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
-  isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
-  isDisabledTamano = true; //deshabilitar el select de tamano hasta que seleccionen el formato
-  isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
+  isDisabledFormato = false; //deshabilitar el select de formato hasta que seleccionen el tambor
+  isDisabledTamano = false; //deshabilitar el select de tamano hasta que seleccionen el formato
+  isDisabledGrosor = false; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
@@ -111,7 +112,7 @@ export class AgregarArticulosComponent implements OnInit {
 
   acabado: Acabado[] = [
     { value: 'NA', viewValue: 'NATURAL' },
-    { value: 'TE', viewValue: 'TENIDO' },
+    { value: 'TC', viewValue: 'TENIDO' },
     { value: 'AC', viewValue: 'ACABADO' },
   ];
   formatos: ReqFormatos[] = [];
@@ -134,9 +135,9 @@ export class AgregarArticulosComponent implements OnInit {
   optionsColores: ReqColores[] = [];
   public filteredOptionsColores: Observable<ReqColores[]>[] = [];
 
-  public selectedAcabadosCodi: string;
+  public selectedAcabadosCodi: any;
   public selectedAcabadoName: string;
-  public selectedColores: string;
+  public selectedColores: any;
   public selectedColorName: string;
 
   selectedLinea: ReqLineas;
@@ -323,9 +324,10 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   selectedLineaNChange(values: ReqLineas) {
-    if (this.selectedLinea.tp_codi === 'LO') {
+    if (this.selectedLinea.tp_codi === String('CS').trim()) {
       this.isDisabledTamano = false;
     } else this.isDisabledTamano = true;
+
     this.formatos = this.datos_formato.filter(
       (u) => u.ft_tpiel == String(values.tp_codi).trim()
     );
@@ -409,6 +411,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedAcabadosCodi = '';
     this.mostrarInfo();
     this.mostrarCodigo();
+
     console.log(this.selectedLinea.tp_codi);
   }
 
@@ -435,7 +438,7 @@ export class AgregarArticulosComponent implements OnInit {
       : '';
     this.infoFormato = this.selectedFormato
       ? String(this.selectedFormato.ft_desc).trim()
-      : 'X';
+      : '';
     this.infoTamano = this.selectedTamano
       ? String(this.selectedTamano.tm_desc).trim()
       : 'X';
@@ -660,7 +663,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedAcabadosCodi = '';
     this.selectedColores = '';
 
-    if (this.selectedAcabado.value === 'TE') {
+    if (this.selectedAcabado.value === 'TC') {
       this.isDisabledAutoCompleteC = true;
       this.isDisabledAutoCompleteA = false;
 
@@ -727,53 +730,114 @@ export class AgregarArticulosComponent implements OnInit {
         denyButtonText: `No confirmar`,
       }).then((result) => {
         if (result.isConfirmed) {
-          /*          if(this.selectedAcabado.value='NA'){
- const body = {
-   ef_clta: this.codCliente,
-   ef_artic: this.infoCodi.substring(0, 4),
-   ef_gruix: this.selectedGrosor.gl_codi,
-   ef_acaba: 'NA',
-   ef_color: '009',
-   ef_clas: this.selectedClasificado.value,
-   ef_unifa: this.unidadSelecc,
-   ef_divis: this.divisaSelecc,
-   ef_espe1: this.Addespeci1,
-   ef_espe2: this.Addespeci2,
-   ef_espe3: this.Addespeci3,
-   ef_espe4: this.Addespeci4,
-   ef_espe5: this.Addespeci5,
-   ef_espe6: this.Addespeci6,
-   ef_espe7: this.Addespeci7,
-   ef_espe8: this.Addespeci8,
-   ef_espe9: this.Addespeci9,
-   ef_espe10: this.Addespeci10,
- }; */
+          console.log(this.selectedAcabado.value);
 
-          /*  const body = {
-             ta_codi: 'C',
-             ta_clta: this.codCliente,
-             ta_artic: this.infoCodi.substring(0, 4),
-             ta_gruix: this.selectedGrosor,
-             ta_acaba: '',
-             ta_color: '',
-             ta_clas: this.selectedClasificado,
-             ta_unifa: this.unidadSelecc,
-             ta_divis: this.divisaSelecc,
-             ta_tarif_001: this.AddTarifa,
-             ta_tarif_002: 0,
-             ta_tarif_003: 0,
-             ta_tarif_004: 0,
-             ta_listar: 'S',
-           };
-          this.articuloService.postArticulos(body).subscribe(
-            (resp) => {
-              this.datos_articulo = resp.data;
-            },
-            (error) => console.log(error)
-          );  */
+          /*
+          if (this.selectedAcabado.value == 'NA') {
+            const body = {
+              ta_codi: 'C',
+              ta_clta: this.codCliente,
+              ta_artic: this.infoCodi.substring(0, 4),
+              ta_gruix: this.selectedGrosor.gl_codi,
+              ta_acaba: 'NA',
+              ta_color: '0009',
+              ta_clas: this.selectedClasificado.value,
+              ta_unifa: this.unidadSelecc,
+              ta_divis: this.divisaSelecc,
+              ta_tarif_001: this.AddTarifa,
+              ta_tarif_002: '',
+              ta_tarif_003: '',
+              ta_tarif_004: '',
+              ta_listar: 'S',
+            };
+            this.articuloService.postArticulos(body).subscribe(
+              (resp) => {
+                this.datos_articulo = resp.data;
+                {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Registro exitoso',
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+              },
+              (error) => console.log(error)
+            );
+          } //termina primer if NATURAL
+
+          //else del primer if
+          else {
+            if (this.selectedAcabado.value == 'TC') {
+              const body = {
+                ta_codi: 'C',
+                ta_clta: this.codCliente,
+                ta_artic: this.infoCodi.substring(0, 4),
+                ta_gruix: this.selectedGrosor.gl_codi,
+                ta_acaba: 'TC',
+                ta_color: this.selectedColores,
+                ta_clas: this.selectedClasificado.value,
+                ta_unifa: this.unidadSelecc,
+                ta_divis: this.divisaSelecc,
+                ta_tarif_001: this.AddTarifa,
+                ta_tarif_002: '',
+                ta_tarif_003: '',
+                ta_tarif_004: '',
+                ta_listar: 'S',
+              };
+              this.articuloService.postArticulos(body).subscribe(
+                (resp) => {
+                  this.datos_articulo = resp.data;
+                  {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Registro exitoso',
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                  }
+                },
+                (error) => console.log(error)
+              );
+            } else {
+              if (this.selectedAcabado.value == 'AC') {
+                const body = {
+                  ta_codi: 'C',
+                  ta_clta: this.codCliente,
+                  ta_artic: this.infoCodi.substring(0, 4),
+                  ta_gruix: this.selectedGrosor.gl_codi,
+                  ta_acaba: this.selectedAcabadosCodi,
+                  ta_color: this.selectedColores,
+                  ta_clas: this.selectedClasificado.value,
+                  ta_unifa: this.unidadSelecc,
+                  ta_divis: this.divisaSelecc,
+                  ta_tarif_001: this.AddTarifa,
+                  ta_tarif_002: '',
+                  ta_tarif_003: '',
+                  ta_tarif_004: '',
+                  ta_listar: 'S',
+                };
+                this.articuloService.postArticulos(body).subscribe(
+                  (resp) => {
+                    this.datos_articulo = resp.data;
+                    {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Registro exitoso',
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    }
+                  },
+                  (error) => console.log(error)
+                );
+              }
+            }
+          }
+
           //añadir codigo del postArticulo
           Swal.fire('Articulo registrado correctamente', '', 'success');
-          this.onResetForm();
+          this.onResetForm(); */
         } else if (result.isDenied) {
           Swal.fire('Operación interrumpida', '', 'info');
         }
@@ -852,6 +916,7 @@ export class AgregarArticulosComponent implements OnInit {
         timer: 1500,
       });
     }
+    // this.modalService.dismissAll(); checar si cerrarlo o asi dejarlo por un momento para corroborar lo que se guardo
 
     /* },
      (error) => console.log(error)

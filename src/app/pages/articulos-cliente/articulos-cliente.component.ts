@@ -269,6 +269,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('cliente service', this.codCliente);
+    console.log('init Unidad Medida seleccionada', this.unidadSelecc);
+    console.log('init Divisa seleccionada', this.divisaSelecc);
+    console.log('init familia seleccionada', this.unidadNSelecc);
+
     const fds = {
       fds: "'126', '125'",
     };
@@ -338,6 +343,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   public displayFnClientes(cliente: listaCliente): string {
+    /* if ((this.selectedClienteName = this.nomCliente)) {
+      return this.nomCliente;
+    } */
     return cliente && cliente.c_nom ? cliente.c_nom : '';
   }
 
@@ -354,7 +362,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     console.log('Divisa seleccionada', this.divisaSelecc);
     console.log('familia seleccionada', this.unidadNSelecc);
 
-    console.log('cliente seleccionado', this.nomCliente);
+    console.log('cliente seleccionado', this.codCliente);
 
     const body = {
       c_codi: this.selectedCliente,
@@ -402,13 +410,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   codSelected(codigo: listaCliente) {
     this.selectedCliente = codigo.c_codi;
-    this.isDisableunidadN = false;
     this.selectedClienteName = codigo.c_nom;
     this.aprobationService.setNombreClinte(this.selectedClienteName);
     this.aprobationService.setCodCliente(this.selectedCliente);
-    if (this.codCliente) {
-      this.codCliente = this.selectedCliente;
-    }
+    this.isDisableunidadN = false;
 
     this.selectedUnidadN = {
       value: '',
