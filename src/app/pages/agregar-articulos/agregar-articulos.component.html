@@ -179,16 +179,15 @@
                                             </div>
                                         </div>
                                         <div class="col col-lg-2 mt-2">
-                                            <div *ngFor="let control of myControls; let index = index">
+                                            <div *ngFor="let control of myControl2; let index = index">
                                                 <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteC">
                                                     <mat-label>Buscar color</mat-label>
-                                                    <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
+                                                    <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
                                                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="
                               codSelectedColores(
                                 $event.option.value,
                                 trigger,
-                                auto,
-                                index
+                                auto
                               )
                             ">
                                                         <mat-option *ngFor="
