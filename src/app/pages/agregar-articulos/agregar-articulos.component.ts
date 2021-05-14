@@ -97,8 +97,8 @@ export class AgregarArticulosComponent implements OnInit {
       tamaño: new FormControl('', [Validators.required]),
       clasificado: new FormControl('', [Validators.required]),
       grosor: new FormControl('', [Validators.required]), */
-      // color: new FormControl('', [Validators.required]),
-
+      color: new FormControl('', [Validators.required]),
+      acabado: new FormControl('', [Validators.required]),
       tarifa: new FormControl('', [Validators.required]),
       //listar: new FormControl('', [Validators.required]),
     });
