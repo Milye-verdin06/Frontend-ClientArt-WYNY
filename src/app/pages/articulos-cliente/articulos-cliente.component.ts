@@ -152,6 +152,10 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   selectedUnidadN: UnidadNegocio;
   public selectedCliente: string;
   public selectedClienteName: string;
+  public selectedClienteC: listaCliente = {
+    c_codi: '',
+    c_nom: '',
+  };
 
   public Articulos: any = [];
   datos_articulo: ReqArticulos[] = [];
@@ -278,11 +282,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('cliente service', this.codCliente);
-    console.log('init Unidad Medida seleccionada', this.unidadSelecc);
-    console.log('init Divisa seleccionada', this.divisaSelecc);
-    console.log('init familia seleccionada', this.unidadNSelecc);
-
     const fds = {
       fds: "'126', '125'",
     };
@@ -302,23 +301,14 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         name ? this._filterClientes(name) : this.optionsClientes.slice()
       )
     );
-    this.aprobationService.getCodCliente().subscribe((d) => {
-      this.codCliente = d;
-    });
-    this.aprobationService.getNombreCliente().subscribe((d) => {
-      this.nomCliente = d;
-    });
 
-    this.aprobationService.getUnidadMedida().subscribe((d) => {
-      this.unidadSelecc = d;
-    });
+    this._servicetoVar();
 
-    this.aprobationService.getDivisa().subscribe((d) => {
-      this.divisaSelecc = d;
-    });
-    this.aprobationService.getUnidadN().subscribe((d) => {
-      this.unidadNSelecc = d;
-    });
+    this.selectedClienteC = {
+      c_codi: this.codCliente,
+      c_nom: this.nomCliente,
+    };
+    this.myControl.setValue(this.selectedClienteC);
 
     if (this.codCliente) {
       this.codCliente = this.selectedCliente;
@@ -351,6 +341,32 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     }
   }
 
+  private _servicetoVar() {
+    this.aprobationService.getCodCliente().subscribe((d) => {
+      this.codCliente = d;
+    });
+    this.aprobationService.getNombreCliente().subscribe((d) => {
+      this.nomCliente = d;
+    });
+
+    this.aprobationService.getUnidadMedida().subscribe((d) => {
+      this.unidadSelecc = d;
+    });
+
+    this.aprobationService.getDivisa().subscribe((d) => {
+      this.divisaSelecc = d;
+    });
+    this.aprobationService.getUnidadN().subscribe((d) => {
+      this.unidadNSelecc = d;
+    });
+
+    console.log('cod cliente: [' + this.codCliente + ']');
+    console.log('nom cliente: [' + this.nomCliente + ']');
+    console.log('unidad Medida: [' + this.unidadSelecc + ']');
+    console.log('Divisa: [' + this.divisaSelecc + ']');
+    console.log('familia: [' + this.unidadNSelecc + ']');
+  }
+
   public displayFnClientes(cliente: listaCliente): string {
     /* if ((this.selectedClienteName = this.nomCliente)) {
       return this.nomCliente;
@@ -367,17 +383,13 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   botonbuscarArticulos() {
-    console.log('Unidad Medida seleccionada', this.unidadSelecc);
-    console.log('Divisa seleccionada', this.divisaSelecc);
-    console.log('familia seleccionada', this.unidadNSelecc);
-
-    console.log('cliente seleccionado', this.codCliente);
+    this._servicetoVar();
 
     const body = {
-      c_codi: this.selectedCliente,
-      ta_unifa: this.selectedUnidad,
-      ta_divis: this.selectedValue,
-      ar_tpiel: this.selectedUnidadN,
+      c_codi: this.codCliente,
+      ta_unifa: this.unidadSelecc,
+      ta_divis: this.divisaSelecc,
+      ar_tpiel: this.unidadNSelecc,
       ta_listar: this.selectedRadio ? 'S' : 'N',
     };
 
@@ -515,6 +527,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         }
       );
     }
+    this._servicetoVar();
   }
 
   botonUpdateEspecificacion() {
