@@ -381,6 +381,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       (option) => option.c_nom.toLowerCase().indexOf(filterValue) === 0
     );
   }
+  closealert() {
+    this.alert = closed;
+  }
 
   botonbuscarArticulos() {
     this._servicetoVar();
@@ -409,10 +412,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     } else this.alert = true;
     this.isDisabledRadioActivo = false;
     this.isDisabledRadioInactivo = false;
-  }
 
-  closealert() {
-    this.alert = closed;
+    this.isDisabledRadioActivo = false;
+    this.isDisabledRadioInactivo = false;
+
+    console.log('Datos-articulo', this.datos_articulo.length);
   }
 
   selectedRadio: boolean = true;
@@ -579,9 +583,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.botonUpdateArticulo();
   } */
   botonAddArticulo() {
-    this.aprobationService.setUnidadMedida(this.selectedUnidad);
+    /*     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.aprobationService.setDivisa(this.selectedValue);
-    this.aprobationService.setCodCliente(this.selectedCliente);
+    this.aprobationService.setCodCliente(this.selectedCliente); */
     //codigo que necesita el servicio para agregar un articulo
   }
 

@@ -95,13 +95,14 @@ export class AgregarArticulosComponent implements OnInit {
       formato: new FormControl('', [Validators.required]),
       tamaño: new FormControl('', [Validators.required]),
       clasificado: new FormControl('', [Validators.required]),
-      grosor: new FormControl('', [Validators.required]),
-      color: new FormControl('', [Validators.required]),
-      acabado: new FormControl('', [Validators.required]), */
+      grosor: new FormControl('', [Validators.required]), */
+      // color: new FormControl('', [Validators.required]),
+
       tarifa: new FormControl('', [Validators.required]),
       //listar: new FormControl('', [Validators.required]),
     });
   }
+
   articuloForm: FormGroup;
 
   tambor: Tambor[] = [
@@ -287,9 +288,12 @@ export class AgregarArticulosComponent implements OnInit {
   codSelected(codigoA: ReqAcabados) {
     this.selectedAcabadosCodi = codigoA.ac_codi;
     this.selectedAcabadoName = codigoA.ac_desce;
+
     this.mostrarInfo();
     this.mostrarCodigo();
-    this.selectedColores = '';
+
+    console.log(this.selectedAcabadosCodi);
+    console.log(this.selectedAcabadoName);
   }
   public displayFnColores(color: ReqColores): string {
     return color && String(color.co_desce).trim()
@@ -313,10 +317,9 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColores = codigo.co_codi;
 
     this.selectedColorName = codigo.co_desce;
+
     this.mostrarInfo();
     this.mostrarCodigo();
-    this.selectedColorName = '';
-    this.selectedAcabadosCodi = '';
 
     /* setTimeout((x) => {
       auto.options.forEach((item) => {
@@ -465,9 +468,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoGrosor = this.selectedGrosor
       ? String(this.selectedGrosor.gl_desc).trim()
       : ' ';
-    this.infoClasificado = this.selectedClasificado //mostrar el valor del mat-selected NATURAL 'NA' TENIDO 'TC'
-      ? String(this.selectedClasificado.value).trim()
-      : ' ';
+
     this.infoAcabadoselect = this.selectedAcabado
       ? String(this.selectedAcabado.viewValue).trim()
       : '';
@@ -477,7 +478,9 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoColor = this.selectedColorName
       ? String(this.selectedColorName).trim()
       : '';
-
+    this.infoClasificado = this.selectedClasificado //mostrar el valor del mat-selected NATURAL 'NA' TENIDO 'TC'
+      ? String(this.selectedClasificado.value).trim()
+      : ' ';
     if (this.selectedAcabado.value == 'AC') {
       this.infoDesc =
         this.infoLinea +
@@ -538,9 +541,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoGrosor = this.selectedGrosor
       ? String(this.selectedGrosor.gl_codi).trim()
       : '';
-    this.infoClasificado = this.selectedClasificado
-      ? String(this.selectedClasificado.value).trim()
-      : '';
+
     this.infoAcabadoselect = this.selectedAcabado
       ? String(this.selectedAcabado.value).trim()
       : '';
@@ -550,25 +551,11 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoColor = this.selectedColores
       ? String(this.selectedColores).trim()
       : '';
+    this.infoClasificado = this.selectedClasificado
+      ? String(this.selectedClasificado.value).trim()
+      : '';
 
-    if (this.selectedAcabado.value == 'NA') {
-      this.infoCodi =
-        this.infoLinea +
-        '' +
-        this.infoTambor +
-        '' +
-        this.infoFormato +
-        '' +
-        this.infoTamano +
-        ' ' +
-        this.infoGrosor +
-        ' ' +
-        this.infoAcabadoselect +
-        ' ' +
-        '0009' +
-        ' ' +
-        this.infoClasificado;
-    } else if (this.selectedAcabado.value == 'AC') {
+    if (this.selectedAcabado.value == 'AC') {
       this.infoCodi =
         this.infoLinea +
         '' +
@@ -678,7 +665,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   selectGrosorChangue(values: any) {
-    this.isDisabledClasificado = false;
+    this.isDisabledAcabado = false;
 
     this.selectedClasificado = {
       value: '',
@@ -689,25 +676,13 @@ export class AgregarArticulosComponent implements OnInit {
     };
     this.selectedColores = '';
     this.selectedAcabadosCodi = '';
-    this.isDisabledGrosor = false;
+
     this.mostrarInfo();
     this.mostrarCodigo();
   }
 
-  selectClasificadoChangue(values: Clasificado) {
-    this.isDisabledAcabado = false;
-
-    this.selectedAcabado = {
-      value: '',
-      viewValue: '',
-    };
-    this.selectedColores = '';
-    this.selectedAcabadosCodi = '';
-    this.isDisabledGrosor = false;
-    this.mostrarInfo();
-    this.mostrarCodigo();
-  }
   selectAcabadoChangue(values: any) {
+    this.isDisabledClasificado = false;
     this.selectedAcabadosCodi = '';
     this.selectedColores = '';
 
@@ -731,6 +706,12 @@ export class AgregarArticulosComponent implements OnInit {
     }
 
     this.isDisabledGrosor = false;
+    this.mostrarInfo();
+    this.mostrarCodigo();
+    this.selectedColores = '';
+    this.selectedAcabadosCodi = '';
+  }
+  selectClasificadoChangue(values: Clasificado) {
     this.mostrarInfo();
     this.mostrarCodigo();
     this.isDisabledButtonEspe = true;
@@ -777,9 +758,8 @@ export class AgregarArticulosComponent implements OnInit {
         confirmButtonText: `Confirmar`,
         denyButtonText: `No confirmar`,
       }).then((result) => {
+        //codigo listo para addArticulo
         if (result.isConfirmed) {
-          console.log(this.selectedAcabado.value);
-
           /*
           if (this.selectedAcabado.value == 'NA') {
             const body = {
@@ -910,7 +890,15 @@ export class AgregarArticulosComponent implements OnInit {
           'info'
         );
       } else if (result.isConfirmed) {
-        Swal.fire('Registro de articulo cancelado', '', 'info');
+        {
+          Swal.fire({
+            icon: 'info',
+            title: 'Registro de articulo cancelado',
+            showConfirmButton: false,
+            timer: 1600,
+          });
+        }
+
         this.isHomeRoute();
       }
     });
