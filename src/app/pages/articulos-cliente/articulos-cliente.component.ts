@@ -383,7 +383,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   closealert() {
     this.alert = closed;
   }
-  Msweet = new Boolean(false);
 
   botonbuscarArticulos() {
     this._servicetoVar();
@@ -406,7 +405,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
             icon: 'info',
             title: 'No hay artículos en la busqueda',
             showConfirmButton: false,
-            timer: 1100,
+            timer: 1200,
           });
         } else {
           this.isDisabledadd = false;
@@ -509,7 +508,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     }
   }
   botonUpdateArticulo() {
-    /*  if (this.renglonSelected.ta_tarif_001 === null) {
+    if (this.renglonSelected.ta_tarif_001 === null) {
       {
         Swal.fire({
           icon: 'warning',
@@ -519,7 +518,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         });
       }
     } else {
-
       const body = {
         ta_codi: 'C',
         ta_clta: this.renglonSelected.ta_clta,
@@ -540,7 +538,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
             icon: 'success',
             title: 'Acción realizada',
             showConfirmButton: false,
-            timer: 1700,
+            timer: 1600,
           });
           this.modalService.dismissAll();
         },
@@ -555,7 +553,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         }
       );
     }
-    this._servicetoVar(); */
+    this._servicetoVar();
   }
 
   botonUpdateEspecificacion() {
@@ -603,9 +601,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       }
     );
   }
-  /*  editTarifaChangue() {
-    this.botonUpdateArticulo();
-  } */
+
   botonAddArticulo() {
     /*     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.aprobationService.setDivisa(this.selectedValue);
