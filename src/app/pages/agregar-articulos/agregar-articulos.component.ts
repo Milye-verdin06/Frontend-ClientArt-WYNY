@@ -808,7 +808,7 @@ export class AgregarArticulosComponent implements OnInit {
           timer: 1700,
         });
       }
-    } else {
+    } /* else {
       console.log('form lleno');
       console.log(this.AddTarifa);
       Swal.fire({
@@ -819,10 +819,10 @@ export class AgregarArticulosComponent implements OnInit {
         showCancelButton: false,
         confirmButtonText: `Confirmar`,
         denyButtonText: `No confirmar`,
-      }).then((result) => {
-        //codigo listo para addArticulo
-        if (result.isConfirmed) {
-          /*  if (this.selectedAcabado.value == 'NA') {
+      }).then((result) => { */
+    //codigo listo para addArticulo
+    /* if (result.isConfirmed) {
+          if (this.selectedAcabado.value == 'NA') {
             const body = {
               ta_codi: 'C',
               ta_clta: this.codCliente,
@@ -841,16 +841,14 @@ export class AgregarArticulosComponent implements OnInit {
             };
             this.articuloService.postArticulos(body).subscribe(
               (resp) => {
-                this.datos_articulo = resp.data; */
+                this.datos_articulo = resp.data;
 
-          Swal.fire({
-            icon: 'success',
-            title: '¡Registro exitoso!',
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Registro exitoso!',
 
-            timer: 1500,
-          });
-
-          /*
+                  timer: 1500,
+                });
               },
               (error) => console.log(error)
             );
@@ -859,45 +857,21 @@ export class AgregarArticulosComponent implements OnInit {
           //else del primer if
           else {
             if (this.selectedAcabado.value == 'TC') {
-              const body = {
-                ta_codi: 'C',
-                ta_clta: this.codCliente,
-                ta_artic: this.infoCodi.substring(0, 4),
-                ta_gruix: this.selectedGrosor.gl_codi,
-                ta_acaba: 'TC',
-                ta_color: this.selectedColores,
-                ta_clas: this.selectedClasificado.value,
-                ta_unifa: this.unidadSelecc,
-                ta_divis: this.divisaSelecc,
-                ta_tarif_001: this.AddTarifa,
-                ta_tarif_002: '',
-                ta_tarif_003: '',
-                ta_tarif_004: '',
-                ta_listar: 'S',
-              };
-              this.articuloService.postArticulos(body).subscribe(
-                (resp) => {
-                  this.datos_articulo = resp.data;
-                  {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Registro exitoso',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    });
-                  }
-                },
-                (error) => console.log(error)
-              );
-            } else {
-              if (this.selectedAcabado.value == 'UI') {
+              if (this.selectedColores.co_codi == '') {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Introducir el color',
+
+                  timer: 1500,
+                });
+              } else {
                 const body = {
                   ta_codi: 'C',
                   ta_clta: this.codCliente,
                   ta_artic: this.infoCodi.substring(0, 4),
                   ta_gruix: this.selectedGrosor.gl_codi,
-                  ta_acaba: this.selectedAcabadosCodi,
-                  ta_color: this.selectedColores,
+                  ta_acaba: 'TC',
+                  ta_color: this.selectedColores.co_codi,
                   ta_clas: this.selectedClasificado.value,
                   ta_unifa: this.unidadSelecc,
                   ta_divis: this.divisaSelecc,
@@ -922,20 +896,63 @@ export class AgregarArticulosComponent implements OnInit {
                   (error) => console.log(error)
                 );
               }
+            } else {
+              if (this.selectedAcabado.value == 'UI') {
+                if (
+                  (this.selectedColores.co_codi == '',
+                  (this.selectedColores.co_codi = ''))
+                ) {
+                  Swal.fire({
+                    icon: 'warning',
+                    title: 'Introducir acabado y color',
+
+                    timer: 1500,
+                  });
+                } else {
+                  const body = {
+                    ta_codi: 'C',
+                    ta_clta: this.codCliente,
+                    ta_artic: this.infoCodi.substring(0, 4),
+                    ta_gruix: this.selectedGrosor.gl_codi,
+                    ta_acaba: this.selectedColores.co_codi,
+                    ta_color: this.selectedColores.co_codi,
+                    ta_clas: this.selectedClasificado.value,
+                    ta_unifa: this.unidadSelecc,
+                    ta_divis: this.divisaSelecc,
+                    ta_tarif_001: this.AddTarifa,
+                    ta_tarif_002: '',
+                    ta_tarif_003: '',
+                    ta_tarif_004: '',
+                    ta_listar: 'S',
+                  };
+                  this.articuloService.postArticulos(body).subscribe(
+                    (resp) => {
+                      this.datos_articulo = resp.data;
+                      {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Registro exitoso',
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+                      }
+                    },
+                    (error) => console.log(error)
+                  );
+                }
+              }
             }
+
+            //añadir codigo del postArticulo
+            Swal.fire('Articulo registrado correctamente', '', 'success');
+            this.onResetForm();
+            this.isHomeRoute();
           }
-
-          //añadir codigo del postArticulo
-          Swal.fire('Articulo registrado correctamente', '', 'success');
-          this.onResetForm();
-           this.isHomeRoute();
-
-          */
         } else if (result.isDenied) {
-          Swal.fire('Operación interrumpida', '', 'info');
+          Swal.fire('Registro cancelado', '', 'info');
         }
       });
-    }
+    } */
   }
 
   opensweetalertCancelaRegistroArticulo(selectedItem?: any) {
