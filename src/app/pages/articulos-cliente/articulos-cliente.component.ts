@@ -338,6 +338,17 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.isDisabledButtonAdd = false;
       this.isDisabledButtonBuscar = false;
     }
+
+    if (
+      (this.codCliente == '',
+      this.unidadNSelecc == '',
+      this.unidadSelecc == '',
+      this.divisaSelecc == '')
+    ) {
+      console.log('nada');
+    } else {
+      this.botonbuscarArticulos();
+    }
   }
 
   private _servicetoVar() {
