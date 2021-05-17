@@ -986,12 +986,15 @@ export class AgregarArticulosComponent implements OnInit {
 
   BottonAddEspecificacion() {
     console.log(this.Addespeci1, 'especificacions');
-    /*  const body = {
+
+    /* if (this.selectedAcabado.value == 'NA') {
+
+      const body = {
       ef_clta: this.codCliente,
       ef_artic: this.infoCodi.substring(0, 4),
       ef_gruix: this.selectedGrosor.gl_codi,
-      ef_acaba: '',
-      ef_color: '',
+      ef_acaba: 'NA',
+      ef_color: '9',
       ef_clas: this.selectedClasificado.value,
       ef_unifa: this.unidadSelecc,
       ef_divis: this.divisaSelecc,
@@ -1006,21 +1009,105 @@ export class AgregarArticulosComponent implements OnInit {
       ef_espe9: this.Addespeci9,
       ef_espe10: this.Addespeci10,
     };
-     this.especificacionService.postEspecificacion(body).subscribe(
+            this.especificacionService.postEspecificacion(body).subscribe(
      (resp) => {
-       this.datos_especificacion = resp.data; */
-    {
-      Swal.fire({
-        icon: 'success',
-        title: 'Registro exitoso',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-    // this.modalService.dismissAll(); checar si cerrarlo o asi dejarlo por un momento para corroborar lo que se guardo
+       this.datos_especificacion = resp.data;
 
-    /* },
-     (error) => console.log(error)
-   ); */
+    Swal.fire({
+      icon: 'success',
+      title: '¡Registro exitoso!',
+
+      timer: 1500,
+    });
+
+
+              },
+              (error) => console.log(error)
+            );
+          } //termina primer if NATURAL
+
+          //else del primer if
+          else {
+            if (this.selectedAcabado.value == 'TC') {
+
+               const body = {
+      ef_clta: this.codCliente,
+      ef_artic: this.infoCodi.substring(0, 4),
+      ef_gruix: this.selectedGrosor.gl_codi,
+      ef_acaba: 'TC',
+      ef_color: this.selectedColores.co_codi,
+      ef_clas: this.selectedClasificado.value,
+      ef_unifa: this.unidadSelecc,
+      ef_divis: this.divisaSelecc,
+      ef_espe1: this.Addespeci1,
+      ef_espe2: this.Addespeci2,
+      ef_espe3: this.Addespeci3,
+      ef_espe4: this.Addespeci4,
+      ef_espe5: this.Addespeci5,
+      ef_espe6: this.Addespeci6,
+      ef_espe7: this.Addespeci7,
+      ef_espe8: this.Addespeci8,
+      ef_espe9: this.Addespeci9,
+      ef_espe10: this.Addespeci10,
+    };
+
+
+
+               this.especificacionService.postEspecificacion(body).subscribe(
+     (resp) => {
+       this.datos_especificacion = resp.data;
+                  {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Registro exitoso',
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                  }
+                },
+                (error) => console.log(error)
+              );
+            } else {
+              if (this.selectedAcabado.value == 'UI') {
+                 const body = {
+      ef_clta: this.codCliente,
+      ef_artic: this.infoCodi.substring(0, 4),
+      ef_gruix: this.selectedGrosor.gl_codi,
+      ef_acaba: this.selectedAcabadosCodi.ac_codi,
+      ef_color: this.selectedColores.co_codi,
+      ef_clas: this.selectedClasificado.value,
+      ef_unifa: this.unidadSelecc,
+      ef_divis: this.divisaSelecc,
+      ef_espe1: this.Addespeci1,
+      ef_espe2: this.Addespeci2,
+      ef_espe3: this.Addespeci3,
+      ef_espe4: this.Addespeci4,
+      ef_espe5: this.Addespeci5,
+      ef_espe6: this.Addespeci6,
+      ef_espe7: this.Addespeci7,
+      ef_espe8: this.Addespeci8,
+      ef_espe9: this.Addespeci9,
+      ef_espe10: this.Addespeci10,
+    };
+
+                 this.especificacionService.postEspecificacion(body).subscribe(
+     (resp) => {
+       this.datos_especificacion = resp.data;
+                    {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Registro exitoso',
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    }
+                  },
+                  (error) => console.log(error)
+                );
+              }
+            }
+          }
+ */
+    // this.modalService.dismissAll(); checar si cerrarlo o asi dejarlo por un momento para corroborar lo que se guardo
   }
 }
