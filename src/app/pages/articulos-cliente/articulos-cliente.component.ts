@@ -271,7 +271,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   selectedDivisChange(values: any) {
-    console.log(this.unidadesN.length);
     this.aprobationService.setDivisa(this.selectedValue);
     this.isDisabledButtonAdd = false;
     this.isDisabledButtonBuscar = false;
@@ -384,6 +383,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   closealert() {
     this.alert = closed;
   }
+  Msweet = new Boolean(false);
 
   botonbuscarArticulos() {
     this._servicetoVar();
@@ -399,37 +399,48 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.articuloService.getArticulos(body).subscribe(
       (resp) => {
         this.datos_articulo = resp.data;
+        console.log('Datos-articulo finales', this.datos_articulo.length);
+        if (this.datos_articulo.length == 0) {
+          this.isDisabledadd = true;
+          Swal.fire({
+            icon: 'info',
+            title: 'No hay artículos en la busqueda',
+            showConfirmButton: false,
+            timer: 1100,
+          });
+        } else {
+          this.isDisabledadd = false;
+        }
       },
       (error) => console.log(error)
     );
+    //console.log('Datos-articulo finales', this.datos_articulo.length);
 
-    if (this.datos_articulo.length == 0) {
+    /* if (this.datos_articulo.length == 0) {
       this.isDisabledadd = false;
     } else this.isDisabledadd = true;
 
     if (this.datos_articulo.length == 0) {
       this.alert = false;
-    } else this.alert = true;
+    } else this.alert = true; */
     this.isDisabledRadioActivo = false;
     this.isDisabledRadioInactivo = false;
 
     this.isDisabledRadioActivo = false;
     this.isDisabledRadioInactivo = false;
-
-    console.log('Datos-articulo', this.datos_articulo.length);
   }
 
   selectedRadio: boolean = true;
   mostrarInactivos(e: any) {
     this.selectedRadio = e.value;
-    if (this.datos_articulo.length == 0) {
+
+    /* if (this.datos_articulo.length == 0) {
       this.isDisabledadd = false;
     } else this.isDisabledadd = true;
-    /* console.log(e);
-    console.log(this.selectedRadio); */
+
     if (this.datos_articulo.length == 0) {
       this.alert = false;
-    } else this.alert = true;
+    } else this.alert = true; */
     this.botonbuscarArticulos();
   }
 
@@ -463,6 +474,19 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.isDisableDivis = false; */
   }
   cerrarModEditarTarif() {
+    /*   Swal.fire({
+      title: 'Desea cance',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: `Guardar`,
+      denyButtonText: `No guardar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'info');
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    }); */
     if (this.renglonSelected.ta_tarif_001 === null) {
       {
         Swal.fire({
@@ -485,7 +509,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     }
   }
   botonUpdateArticulo() {
-    if (this.renglonSelected.ta_tarif_001 === null) {
+    /*  if (this.renglonSelected.ta_tarif_001 === null) {
       {
         Swal.fire({
           icon: 'warning',
@@ -495,7 +519,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         });
       }
     } else {
-      /* console.log(this.renglonSelected); */
+
       const body = {
         ta_codi: 'C',
         ta_clta: this.renglonSelected.ta_clta,
@@ -531,7 +555,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         }
       );
     }
-    this._servicetoVar();
+    this._servicetoVar(); */
   }
 
   botonUpdateEspecificacion() {
