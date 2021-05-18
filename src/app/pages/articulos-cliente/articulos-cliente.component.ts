@@ -208,6 +208,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
   open(content: any, selectedItem?: any) {
     this.renglonSelected = selectedItem;
+    this.VarAux = this.renglonSelected.ta_tarif_001;
     const body = {
       ta_clta: this.renglonSelected.ta_clta,
       ta_artic: this.renglonSelected.ta_artic,
@@ -484,40 +485,21 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.isDisableDivis = false; */
   }
   cerrarModEditarTarif() {
-    /*   Swal.fire({
-      title: 'Desea cance',
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: `Guardar`,
-      denyButtonText: `No guardar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'info');
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info');
-      }
-    }); */
-    if (this.renglonSelected.ta_tarif_001 === null) {
-      {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Introduccir precio de venta',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    } else {
-      {
-        Swal.fire({
-          icon: 'info',
-          title: 'Operación interrumpida',
-          showConfirmButton: false,
-          timer: 1000,
-        });
-      }
-      this.modalService.dismissAll();
+    if (this.renglonSelected.ta_tarif_001 == null) {
+      this.renglonSelected.ta_tarif_001 = this.VarAux;
     }
+
+    {
+      Swal.fire({
+        icon: 'info',
+        title: 'Operación interrumpida',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+    this.modalService.dismissAll();
   }
+
   botonUpdateArticulo() {
     if (this.renglonSelected.ta_tarif_001 === null) {
       {
@@ -529,43 +511,52 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         });
       }
     } else {
-      const body = {
-        ta_codi: 'C',
-        ta_clta: this.renglonSelected.ta_clta,
-        ta_artic: this.renglonSelected.ta_artic,
-        ta_gruix: this.renglonSelected.ta_gruix,
-        ta_acaba: this.renglonSelected.ta_acaba,
-        ta_color: this.renglonSelected.ta_color,
-        ta_clas: this.renglonSelected.ta_clas,
-        ta_unifa: this.renglonSelected.ta_unifa,
-        ta_divis: this.renglonSelected.ta_divis,
-        ta_tarif_001: this.renglonSelected.ta_tarif_001,
-      };
+      if (this.renglonSelected.ta_tarif_001 == this.VarAux) {
+        this.modalService.dismissAll();
+      } else {
+        const body = {
+          ta_codi: 'C',
+          ta_clta: this.renglonSelected.ta_clta,
+          ta_artic: this.renglonSelected.ta_artic,
+          ta_gruix: this.renglonSelected.ta_gruix,
+          ta_acaba: this.renglonSelected.ta_acaba,
+          ta_color: this.renglonSelected.ta_color,
+          ta_clas: this.renglonSelected.ta_clas,
+          ta_unifa: this.renglonSelected.ta_unifa,
+          ta_divis: this.renglonSelected.ta_divis,
+          ta_tarif_001: this.renglonSelected.ta_tarif_001,
+          ta_tarif_002: this.VarAux,
+        };
 
-      this.articuloService.putArticulos(body).subscribe(
-        (resp) => {
-          console.log(resp);
-          Swal.fire({
-            icon: 'success',
-            title: 'Acción realizada',
-            showConfirmButton: false,
-            timer: 1600,
-          });
-          this.modalService.dismissAll();
-        },
-        (error) => {
-          console.log(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Acción  no realizada',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      );
+        this.articuloService.putArticulos(body).subscribe(
+          (resp) => {
+            console.log(resp);
+            Swal.fire({
+              icon: 'success',
+              title: 'Acción realizada',
+              showConfirmButton: false,
+              timer: 1600,
+            });
+            this.modalService.dismissAll();
+          },
+          (error) => {
+            console.log(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Acción  no realizada',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        );
+      }
     }
     this._servicetoVar();
   }
+
+  ta_tarif_002: any;
+  VarAux: any;
+  updateTarifaChangue() {}
 
   botonUpdateEspecificacion() {
     this.isDisabled = true;
