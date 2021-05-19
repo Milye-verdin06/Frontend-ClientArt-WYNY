@@ -196,10 +196,16 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   open(content: any) {
-    this.modalService.open(content, { windowClass: 'mod-class' }).result.then(
-      (result) => {},
-      (reason) => {}
-    );
+    this.modalService
+      .open(content, {
+        windowClass: 'mod-class',
+        backdrop: 'static',
+        keyboard: false,
+      })
+      .result.then(
+        (result) => {},
+        (reason) => {}
+      );
   }
 
   ngOnInit() {

@@ -217,7 +217,7 @@
     </div>
 </div>
 
-<ng-template #mymodaleditarArt let-modal>
+<ng-template #mymodaleditarArt let-modal data-backdrop="static">
     <div class="modal-header" style="background-color: #ced7e0">
         <div type="text">
             <h1>Editar artículo: {{ renglonSelected.ar_descripcion }}</h1>
@@ -324,7 +324,7 @@
             </td>
         </tr>
         <mat-form-field class="example-full-width">
-            <mat-label>1: </mat-label>
+            <!--  <mat-label>Especificación 1</mat-label> -->
             <textarea matInput placeholder=" " name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
         </mat-form-field>
 

@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalOptions,
+  ModalDismissReasons,
+} from '@ng-bootstrap/ng-bootstrap';
 import { AprobationService } from 'src/app/services/aprobation.service';
 import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/articulo.service';
@@ -15,7 +19,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
-import { LocalStorageService } from '../../services/localStorage.service';
+
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 interface Food {
@@ -179,6 +183,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   unidadSelecc: any;
   divisaSelecc: any;
   unidadNSelecc: any;
+  modalOption: NgbModalOptions = {};
 
   constructor(
     private _ac: ActivatedRoute,
@@ -187,7 +192,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     private clienteService: ClienteService,
     private especificacionService: EspecificacionService,
     private aprobationService: AprobationService,
-    private LocalStorageService: LocalStorageService,
+
     private http: HttpClient,
     private router: Router
   ) {
@@ -226,10 +231,18 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     );
 
-    this.modalService.open(content, { windowClass: 'mod-class' }).result.then(
-      (result) => {},
-      (reason) => {}
-    );
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalService
+      .open(content, {
+        windowClass: 'mod-class',
+        backdrop: 'static',
+        keyboard: false,
+      })
+      .result.then(
+        (result) => {},
+        (reason) => {}
+      );
   }
 
   selectedUnidadNChange(values: any) {
@@ -417,7 +430,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
             icon: 'info',
             title: 'No hay artículos en la busqueda',
             showConfirmButton: false,
-            timer: 1200,
+            timer: 1100,
           });
         } else {
           this.isDisabledadd = false;
