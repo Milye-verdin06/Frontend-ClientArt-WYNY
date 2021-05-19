@@ -313,55 +313,53 @@
     </button>
     </div>
     <div class="modal-body">
-        <div class="container">
-            <h3 class="modal-title" id="modal-basic-titlee">Especificaciónes</h3>
-            <tr>
-                <td>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Código cliente</mat-label>
-                        <input matInput placeholder="" name="especi10" [(ngModel)]="datos_especificacion.ef_espe10" [disabled]="isDisabled" />
-                    </mat-form-field>
-                </td>
-            </tr>
-            <mat-form-field class="example-medium-width">
-                <!--  <mat-label>Especificación 1 </mat-label> -->
-                <textarea matInput placeholder=" " name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
+        <h1 class="modal-title" id="modal-basic-titlee">Especificaciones</h1>
 
-            <mat-form-field class="example-medium-width">
-                <!--  <mat-label>Especificación 2</mat-label> -->
-                <textarea matInput placeholder=" " name="especi2" [(ngModel)]="datos_especificacion.ef_espe2" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-medium-width">
-                <!--  <mat-label>Especificación 3</mat-label> -->
-                <textarea matInput placeholder=" " name="especi3" [(ngModel)]="datos_especificacion.ef_espe3" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-medium-width">
-                <!--  <mat-label>Especificación 4</mat-label> -->
-                <textarea matInput placeholder=" " name="especi4" [(ngModel)]="datos_especificacion.ef_espe4" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-medium-width">
-                <!-- <mat-label>Especificación 5</mat-label> -->
-                <textarea matInput placeholder=" " name="especi5" [(ngModel)]="datos_especificacion.ef_espe5" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-medium-width">
-                <!--  <mat-label>Especificación 6</mat-label> -->
-                <textarea matInput placeholder=" " name="especi6" [(ngModel)]="datos_especificacion.ef_espe6" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-medium-width">
-                <!-- <mat-label>Especificación 7</mat-label> -->
-                <textarea matInput placeholder=" " name="especi7" [(ngModel)]="datos_especificacion.ef_espe7" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-medium-width">
-                <!-- <mat-label>Especificación 8</mat-label> -->
-                <textarea matInput placeholder=" " name="especi8" [(ngModel)]="datos_especificacion.ef_espe8" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-medium-width">
-                <!--  <mat-label>Especificación 9</mat-label> -->
-                <textarea matInput placeholder=" " name="especi9" [(ngModel)]="datos_especificacion.ef_espe9" [disabled]="isDisabled"></textarea>
-            </mat-form-field>
-            <div class="example-full-width" cellspacing="0"></div>
-        </div>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Código cliente:</mat-label>
+                    <input matInput placeholder="" name="especi10" [(ngModel)]="datos_especificacion.ef_espe10" [disabled]="isDisabled" />
+                </mat-form-field>
+            </td>
+        </tr>
+        <mat-form-field class="example-full-width">
+            <mat-label>1: </mat-label>
+            <textarea matInput placeholder=" " name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <!--  <mat-label>Especificación 2</mat-label> -->
+            <textarea matInput placeholder=" " name="especi2" [(ngModel)]="datos_especificacion.ef_espe2" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <!--  <mat-label>Especificación 3</mat-label> -->
+            <textarea matInput placeholder=" " name="especi3" [(ngModel)]="datos_especificacion.ef_espe3" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <!--  <mat-label>Especificación 4</mat-label> -->
+            <textarea matInput placeholder=" " name="especi4" [(ngModel)]="datos_especificacion.ef_espe4" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <!-- <mat-label>Especificación 5</mat-label> -->
+            <textarea matInput placeholder=" " name="especi5" [(ngModel)]="datos_especificacion.ef_espe5" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <!--  <mat-label>Especificación 6</mat-label> -->
+            <textarea matInput placeholder=" " name="especi6" [(ngModel)]="datos_especificacion.ef_espe6" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <!-- <mat-label>Especificación 7</mat-label> -->
+            <textarea matInput placeholder=" " name="especi7" [(ngModel)]="datos_especificacion.ef_espe7" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <!-- <mat-label>Especificación 8</mat-label> -->
+            <textarea matInput placeholder=" " name="especi8" [(ngModel)]="datos_especificacion.ef_espe8" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <!--  <mat-label>Especificación 9</mat-label> -->
+            <textarea matInput placeholder=" " name="especi9" [(ngModel)]="datos_especificacion.ef_espe9" [disabled]="isDisabled"></textarea>
+        </mat-form-field>
     </div>
 
     <div class="modal-footer">
