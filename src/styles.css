@@ -61,7 +61,7 @@ body {
 }
 
 .high {
-    color: red;
+    color: rgb(187, 57, 57);
 }
 
 .example-buscarcliente-width {
@@ -85,4 +85,43 @@ body {
 
 ::-webkit-scrollbar-button {
     display: none;
+}
+
+.buttonadd {
+    border-radius: 4px;
+    background-color: #adb5bd;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 15px;
+    padding: 7px;
+    width: 160px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.buttonadd span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.buttonadd span:after {
+    content: "\00bb";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.buttonadd:hover span {
+    padding-right: 15px;
+}
+
+.buttonadd:hover span:after {
+    opacity: 1;
+    right: 0;
 }

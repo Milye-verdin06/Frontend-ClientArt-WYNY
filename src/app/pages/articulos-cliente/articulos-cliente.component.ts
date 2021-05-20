@@ -278,6 +278,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setUnidadN(this.selectedUnidadN);
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
+
     /* if ((this.selectedUnidad.value = '')) {
       this.isDisabledButtonBuscar = true;
     } else this.isDisabledButtonBuscar = false; */
@@ -292,7 +293,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.isDisabledButtonBuscar = true;
     } else this.isDisabledButtonBuscar = false; */
   }
-  encapsulation: ViewEncapsulation.None | undefined;
+
   ngOnInit() {
     const fds = {
       fds: "'126', '125'",
@@ -451,6 +452,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     this.isDisabledRadioActivo = false;
     this.isDisabledRadioInactivo = false;
+    console.log('unidadm', this.unidadSelecc);
+    console.log('divisaa', this.divisaSelecc);
   }
 
   selectedRadio: boolean = true;

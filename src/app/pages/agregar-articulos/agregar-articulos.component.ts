@@ -821,6 +821,8 @@ export class AgregarArticulosComponent implements OnInit {
           icon: 'success',
           title: '¡Registro exitoso!',
           showDenyButton: true,
+          confirmButtonColor: '#172b4d',
+          cancelButtonColor: '##BB3939',
           confirmButtonText: 'Agregar Especificación',
         }).then((result) => {
           if (result.isConfirmed) {
@@ -982,8 +984,8 @@ export class AgregarArticulosComponent implements OnInit {
 
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#172b4d',
+      cancelButtonColor: '#BB3939',
       confirmButtonText: 'Confirmar',
     }).then((result) => {
       if (result.isDismissed) {

@@ -3,6 +3,8 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTES } from '../sidebar/sidebar.component';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -35,5 +37,22 @@ export class NavbarComponent implements OnInit {
       }
     }
     return 'Dashboard';
+  }
+
+  cerrarSesion() {
+    Swal.fire({
+      title: 'Estas apunto de cerrar sesión',
+      icon: 'warning',
+      width: 300,
+
+      showCancelButton: true,
+      confirmButtonColor: '#172b4d',
+      cancelButtonColor: '#BB3939',
+      confirmButtonText: 'Salir',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace('http://wyny.com.mx:82/Views/wfLogin.aspx');
+      }
+    });
   }
 }

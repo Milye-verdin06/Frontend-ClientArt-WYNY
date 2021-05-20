@@ -114,8 +114,11 @@
                     <h1 class="display-4">
                         Listado de Articulos&nbsp;&nbsp;&nbsp;
 
-                        <button class="btn btn-light float-end" routerLink="/agregar-articulos" id="agregarArticulos" *ngIf="isDisabledButton" [disabled]="isDisabledButtonAdd" (click)="botonAddArticulo()">
-              Agregar artículo<i class="ni ni-fat-add"></i>
+                        <!-- <button class="buttonadd" routerLink="/agregar-articulos" id="agregarArticulos" *ngIf="isDisabledButton" [disabled]="isDisabledButtonAdd" (click)="botonAddArticulo()">
+              Agregar artículo
+            </button> -->
+                        <button class="buttonadd" routerLink="/agregar-articulos" id="agregarArticulos" *ngIf="isDisabledButton" [disabled]="isDisabledButtonAdd" (click)="botonAddArticulo()">
+              <span>Agregar artículo</span>
             </button>
                     </h1>
                     <div class="row">
