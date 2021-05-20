@@ -266,6 +266,16 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.isDisableunidadM = false;
     this.aprobationService.setUnidadN(this.selectedUnidadN);
 
+    this.selectedUnidad = {
+      value: '',
+      viewValue: '',
+      unidadN: '',
+      unidadN2: '',
+      unidadN3: '',
+      unidadN4: '',
+      unidadN5: '',
+    };
+
     /*    if (this.selectedUnidadN.value === '') {
       this.isDisabledButtonBuscar = true;
     } else this.isDisabledButtonBuscar = false; */
@@ -349,7 +359,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     if (this.divisaSelecc) {
       this.selectedValue = this.divisaSelecc;
       this.isDisableDivis = false;
-      this.isDisabledButtonAdd = false;
+      this.isDisabledButtonAdd = true;
       this.isDisabledButtonBuscar = false;
     }
 
@@ -359,9 +369,12 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.unidadSelecc == '',
       this.divisaSelecc == '')
     ) {
-      console.log('nada');
     } else {
       this.botonbuscarArticulos();
+    }
+
+    if ((this.divisaSelecc = this.divisaSelecc)) {
+      this.isDisabledButtonAdd = false;
     }
   }
 

@@ -799,8 +799,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   submitArticulo() {
-    /*  console.log('codigoo', this.infoCodi.substring(0, 4));
-    console.log('Unidad Medida seleccionada', this.unidadSelecc);
+    /* console.log('Unidad Medida seleccionada', this.unidadSelecc);
     console.log('Divisa seleccionada', this.divisaSelecc);
     console.log('familia seleccionada', this.unidadNSelecc);
     console.log('codigo cliente seleccionado', this.codCliente);
@@ -813,20 +812,6 @@ export class AgregarArticulosComponent implements OnInit {
           title: 'Introducir campos requeridos *',
           showConfirmButton: false,
           timer: 1700,
-        });
-      }
-    } else {
-      {
-        Swal.fire({
-          icon: 'success',
-          title: '¡Registro exitoso!',
-          showDenyButton: true,
-          confirmButtonColor: '#172b4d',
-          cancelButtonColor: '##BB3939',
-          confirmButtonText: 'Agregar Especificación',
-        }).then((result) => {
-          if (result.isConfirmed) {
-          }
         });
       }
     }

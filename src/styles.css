@@ -125,3 +125,15 @@ body {
     opacity: 1;
     right: 0;
 }
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: rgb(107, 105, 105) !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: brown !important;
+}
+
+.mat-radio-button .mat-radio-outer-circle {
+    border-color: brown !important;
+}
