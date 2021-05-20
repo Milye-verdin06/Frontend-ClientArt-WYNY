@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input, Pipe } from '@angular/core';
+import { Component, OnInit, Input, Pipe, ContentChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import {
@@ -8,7 +8,7 @@ import {
   Resolve,
   Router,
 } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {
   ReqLineas,
   ReqFormatos,
@@ -36,6 +36,7 @@ import Swal from 'sweetalert2';
 import { EspecificacionService } from 'src/app/services/especificacion.service';
 import { ReqEspecificaciones } from '../../models/especificacion';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 interface Tambor {
   value: string;
@@ -796,6 +797,7 @@ export class AgregarArticulosComponent implements OnInit {
     //eliminar contenido del formulario
     this.articuloForm.reset();
   }
+
   submitArticulo() {
     /*  console.log('codigoo', this.infoCodi.substring(0, 4));
     console.log('Unidad Medida seleccionada', this.unidadSelecc);
@@ -805,7 +807,6 @@ export class AgregarArticulosComponent implements OnInit {
     console.log('cliente seleccionado', this.nomCliente); */
 
     if (this.articuloForm.invalid) {
-      console.log(this.articuloForm);
       {
         Swal.fire({
           icon: 'warning',
@@ -814,7 +815,21 @@ export class AgregarArticulosComponent implements OnInit {
           timer: 1700,
         });
       }
-    } /* else {
+    } else {
+      {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro exitoso!',
+          showDenyButton: true,
+          confirmButtonText: 'Agregar Especificación',
+        }).then((result) => {
+          if (result.isConfirmed) {
+          }
+        });
+      }
+    }
+
+    /* else {
       console.log('form lleno');
       console.log(this.AddTarifa);
       Swal.fire({

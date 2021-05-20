@@ -9,15 +9,17 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
-  constructor(private peticion: PeticionesService) {}
+export class authenticationService {
+  private frase: Usuario = {
+    username: 'VTA126',
+    password: 'FloUli126',
+    clv: 'password',
+  };
+  private Url = 'http://192.168.39.238:86/login'; // URL to web api
 
-  getUsuarios(body: any): Observable<Usuario> {
-    return this.peticion.postQuery('usuarios', 'getall', body).pipe(
-      map((response) => {
-        console.log(response);
-        return response;
-      })
-    );
+  constructor(private peticion: PeticionesService, private http: HttpClient) {}
+
+  public getFrase(): Observable<Usuario> {
+    return this.http.get<Usuario>(this.Url);
   }
 }

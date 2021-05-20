@@ -56,19 +56,33 @@ body {
     width: 40%;
 }
 
+.mat-radio-button~.mat-radio-button {
+    margin-left: 16px;
+}
+
+.high {
+    color: red;
+}
+
 .example-buscarcliente-width {
     width: 200%;
 }
 
-.Mily {
-    background: #e0e0e0;
-    margin: 0 0 1rem;
-    height: 10rem;
-    display: flex;
-    /* align-items por defecto tiene el valor `stretch` */
-    align-items: start;
+::-webkit-scrollbar {
+    background-color: #fff;
+    width: 16px;
 }
 
-.mat-radio-button~.mat-radio-button {
-    margin-left: 16px;
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #babac0;
+    border-radius: 16px;
+    border: 4px solid #fff;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
 }

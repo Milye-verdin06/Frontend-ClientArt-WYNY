@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   NgbModal,
   NgbModalOptions,
@@ -12,9 +12,9 @@ import { HttpClient } from '@angular/common/http';
 
 import { ClienteService } from 'src/app/services/cliente.service';
 import { EspecificacionService } from 'src/app/services/especificacion.service';
-
+import { authenticationService } from 'src/app/services/authentication.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -191,6 +191,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     private articuloService: ArticuloService,
     private clienteService: ClienteService,
     private especificacionService: EspecificacionService,
+    private authenticationService: authenticationService,
     private aprobationService: AprobationService,
 
     private http: HttpClient,
@@ -231,8 +232,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     );
 
-    this.modalOption.backdrop = 'static';
-    this.modalOption.keyboard = false;
     this.modalService
       .open(content, {
         windowClass: 'mod-class',
@@ -293,7 +292,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.isDisabledButtonBuscar = true;
     } else this.isDisabledButtonBuscar = false; */
   }
-
+  encapsulation: ViewEncapsulation.None | undefined;
   ngOnInit() {
     const fds = {
       fds: "'126', '125'",
