@@ -275,19 +275,17 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN4: '',
       unidadN5: '',
     };
-
-    /*    if (this.selectedUnidadN.value === '') {
-      this.isDisabledButtonBuscar = true;
-    } else this.isDisabledButtonBuscar = false; */
   }
   selectedUnidadMChange(values: Unidad) {
     this.selectedValue = {
       value: '',
       viewValue: '',
     };
+
     this.aprobationService.setUnidadN(this.selectedUnidadN);
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
+    this.isDisabledButtonAdd = true;
 
     /* if ((this.selectedUnidad.value = '')) {
       this.isDisabledButtonBuscar = true;
@@ -373,7 +371,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.botonbuscarArticulos();
     }
 
-    if ((this.divisaSelecc = this.divisaSelecc)) {
+    if (this.divisaSelecc == this.divisaSelecc) {
       this.isDisabledButtonAdd = false;
     }
   }
