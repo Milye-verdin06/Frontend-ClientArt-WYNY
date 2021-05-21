@@ -75,6 +75,7 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
   isDisabledAutoCompleteA = false; //deshabilitar el autocomplete de acabados
   isDisabledButtonEspe = false; //deshabilitar el botton de agregar especificaciones
+  isDisabledTarif = true; //deshabilitar la tarifa
 
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
@@ -350,6 +351,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   selectedLineaNChange(values: ReqLineas) {
+    this.AddTarifa = '';
     if (this.selectedLinea.tp_codi === String('CS').trim()) {
       this.isDisabledTamano = false;
     } else this.isDisabledTamano = true;
@@ -358,6 +360,12 @@ export class AgregarArticulosComponent implements OnInit {
       (u) => u.ft_tpiel == String(values.tp_codi).trim()
     );
     this.isDisabledTambor = false;
+    this.isDisabledFormato = true;
+    this.isDisabledTamano = true;
+    this.isDisabledAcabado = true;
+    this.isDisabledClasificado = true;
+    this.isDisabledGrosor = true;
+
     if (this.formatos.length < 1) {
       this.formatoSeleccionado = undefined;
     }
@@ -414,6 +422,11 @@ export class AgregarArticulosComponent implements OnInit {
 
   selectTamborChangue(values: Tambor) {
     this.isDisabledFormato = false;
+
+    this.isDisabledTamano = true;
+    this.isDisabledAcabado = true;
+    this.isDisabledClasificado = true;
+    this.isDisabledGrosor = true;
 
     this.selectedFormato = {
       ft_tpiel: '',
@@ -513,6 +526,10 @@ export class AgregarArticulosComponent implements OnInit {
     this.mostrarCodigo();
     this.isDisabledTamano = false;
 
+    this.isDisabledAcabado = true;
+    this.isDisabledClasificado = true;
+    this.isDisabledGrosor = true;
+
     if (this.tamanos.length == 0) {
       this.isDisabledGrosor = false;
     }
@@ -540,6 +557,8 @@ export class AgregarArticulosComponent implements OnInit {
     };
     this.isDisabledGrosor = false;
 
+    this.isDisabledClasificado = true;
+
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -562,7 +581,9 @@ export class AgregarArticulosComponent implements OnInit {
       ac_codi: '',
       ac_desce: '',
     };
-
+    this.isDisabledClasificado = true;
+    this.isDisabledAutoCompleteA = false;
+    this.isDisabledAutoCompleteC = false;
     this.mostrarInfo();
     this.mostrarCodigo();
   }

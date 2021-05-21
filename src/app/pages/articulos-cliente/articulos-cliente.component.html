@@ -287,6 +287,11 @@
                             <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="" [(value)]="renglonSelected.ta_tarif_001" [(ngModel)]="renglonSelected.ta_tarif_001" (ngModelChange)="updateTarifaChangue()" class="form-control is-valid" />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <h3 type="text" class="form-control" id="cod_color">
+                            Precio anterior: {{ renglonSelected.ta_tarif_002 }}
+                        </h3>
+                    </div>
                 </div>
             </div>
         </form>
