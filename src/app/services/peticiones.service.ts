@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class PeticionesService {
   private baseUrl: string = environment.apiUrl;
+  private baseUrlBase: string = environment.apiUrlBase;
 
   constructor(private http: HttpClient) {}
 
@@ -37,6 +38,21 @@ export class PeticionesService {
     }
 
     return this.http.get<any>(url, { headers });
+  }
+
+  getLogin(usr: string, psw: string): Observable<any> {
+    const body = new HttpParams()
+      .set('username', usr)
+      .set('password', psw)
+      .set('grant_type', 'password');
+
+    let url = `${this.baseUrlBase}/login`;
+    return this.http.post<any>(url, body.toString(), {
+      headers: new HttpHeaders().set(
+        'Content-Type',
+        'application/x-www-form-urlencoded'
+      ),
+    });
   }
 
   putQuery(

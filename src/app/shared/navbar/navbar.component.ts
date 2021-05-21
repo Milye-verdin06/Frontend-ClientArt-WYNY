@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../sidebar/sidebar.component';
 
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ export class NavbarComponent implements OnInit {
   public focus = false;
   public listTitles: any[] = [];
   public location: Location;
+  public nombre: string = '';
   constructor(
     location: Location,
     private element: ElementRef,
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.listTitles = ROUTES.filter((listTitle) => listTitle);
+    this.nombre = environment.nom;
   }
   getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());

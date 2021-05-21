@@ -1,5 +1,8 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { authenticationService } from '../../services/authentication.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,12 @@ export class LoginComponent implements OnInit {
   test: Date = new Date();
   public isCollapsed = true;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authServ: authenticationService,
+    private route: ActivatedRoute,
+    private authenticationService: authenticationService
+  ) {}
 
   ngOnInit() {
     var html = document.getElementsByTagName('html')[0];
@@ -19,6 +27,37 @@ export class LoginComponent implements OnInit {
     body.classList.add('bg-default');
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
+    });
+
+    let s_usr: string = '';
+    let s_psw: string = '';
+    let s_clv: string = '';
+    this.route.queryParams.subscribe((p) => {
+      s_usr = p['mUsr'];
+      s_psw = p['mPsw'];
+      s_clv = p['mClv'];
+      console.log(s_usr);
+
+      this.authenticationService.login(s_usr, s_psw).subscribe(
+        (resp) => {
+          environment.token = resp.access_token;
+          let bodyU = {
+            usr: s_usr,
+            psw: s_psw,
+            clv: s_clv,
+          };
+          this.authenticationService.loginUsuario(bodyU).subscribe(
+            (r2) => {
+              environment.usr = r2.usr;
+              environment.fds = r2.fds;
+              environment.nom = r2.nom;
+              this.router.navigate(['/articulos-cliente']);
+            },
+            (er2) => console.log(er2)
+          );
+        },
+        (error) => console.log(error)
+      );
     });
   }
 

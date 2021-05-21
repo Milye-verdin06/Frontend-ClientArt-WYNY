@@ -1,15 +1,14 @@
-export class Usuario{
-    username: string;
-    password: string;
-    clv: string;
+export interface Usuario {
+  username: string;
+  password: string;
+  clv: string;
+  usr: string;
+  fds: string;
+  nom: string;
+}
 
-
-    constructor(username:string, password:string, clv:string){
-        this.username = username,
-        this.password = password,
-        this.clv = clv
-
-    }
-
-
+export interface UsuarioRespons {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
 }

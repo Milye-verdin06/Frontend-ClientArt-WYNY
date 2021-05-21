@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Usuario } from 'src/app/models/Usuario';
+import { Observable, throwError } from 'rxjs';
+import { Usuario, UsuarioRespons } from 'src/app/models/Usuario';
 import { PeticionesService } from './peticiones.service';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class authenticationService {
-  private frase: Usuario = {
-    username: 'VTA126',
-    password: 'FloUli126',
-    clv: 'password',
-  };
-  private Url = 'http://192.168.39.238:86/login'; // URL to web api
-
   constructor(private peticion: PeticionesService, private http: HttpClient) {}
 
-  public getFrase(): Observable<Usuario> {
-    return this.http.get<Usuario>(this.Url);
+  login(usr: string, psw: string): Observable<UsuarioRespons> {
+    return this.peticion.getLogin(usr, psw).pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
+
+  loginUsuario(body: any): Observable<Usuario> {
+    return this.peticion.postQuery('usuarios', 'login', body).pipe(
+      map((response) => {
+        console.log(response);
+        return response.data;
+      })
+    );
   }
 }
