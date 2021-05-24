@@ -582,8 +582,8 @@ export class AgregarArticulosComponent implements OnInit {
       ac_desce: '',
     };
     this.isDisabledClasificado = true;
-    this.isDisabledAutoCompleteA = false;
-    this.isDisabledAutoCompleteC = false;
+    this.isDisabledAutoCompleteA = true;
+    this.isDisabledAutoCompleteC = true;
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -603,8 +603,8 @@ export class AgregarArticulosComponent implements OnInit {
     this, this.myControls[0].setValue(this.selectedAcabadosCodi);
 
     if (this.selectedAcabado.value === 'TC') {
-      this.isDisabledAutoCompleteC = true;
-      this.isDisabledAutoCompleteA = false;
+      this.isDisabledAutoCompleteC = false;
+      this.isDisabledAutoCompleteA = true;
 
       this.selectedColores = {
         co_codi: '',
@@ -616,8 +616,8 @@ export class AgregarArticulosComponent implements OnInit {
       };
     } else {
       if (this.selectedAcabado.value === 'UI') {
-        this.isDisabledAutoCompleteC = true;
-        this.isDisabledAutoCompleteA = true;
+        this.isDisabledAutoCompleteC = false;
+        this.isDisabledAutoCompleteA = false;
       } else {
         this.selectedColores = {
           co_codi: '',
@@ -628,8 +628,8 @@ export class AgregarArticulosComponent implements OnInit {
           ac_desce: '',
         };
 
-        (this.isDisabledAutoCompleteA = false),
-          (this.isDisabledAutoCompleteC = false);
+        (this.isDisabledAutoCompleteA = true),
+          (this.isDisabledAutoCompleteC = true);
       }
     }
 

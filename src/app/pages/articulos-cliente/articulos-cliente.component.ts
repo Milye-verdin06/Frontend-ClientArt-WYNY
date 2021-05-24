@@ -246,6 +246,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   selectedUnidadNChange(values: any) {
+     this.isDisabledButtonAdd = true;
     this.selectedValue = {
       value: '',
       viewValue: '',

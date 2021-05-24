@@ -5,6 +5,7 @@ import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente
 import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
 import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
+import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
         component: AgregarEspecificacionesComponent,
       },
       { path: 'get-especificacion', component: EspecificacionesComponent },
+      { path: 'no-pagefound', component: NopagefoundComponent },
       { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },
     ],
   },
