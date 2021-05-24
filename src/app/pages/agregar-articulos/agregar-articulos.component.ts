@@ -72,8 +72,10 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
-  isDisabledAutoCompleteC = false; //deshabilitar el autocomplete de colores
-  isDisabledAutoCompleteA = false; //deshabilitar el autocomplete de acabados
+  isDisabledAutoCompleteC = true;
+  isDisabledAutoCompleteCo = true; //deshabilitar el autocomplete de colores
+  isDisabledAutoCompleteA = true;
+  isDisabledAutoCompleteAc = true; //deshabilitar el autocomplete de acabados
   isDisabledButtonEspe = false; //deshabilitar el botton de agregar especificaciones
   isDisabledTarif = true; //deshabilitar la tarifa
 
@@ -582,8 +584,8 @@ export class AgregarArticulosComponent implements OnInit {
       ac_desce: '',
     };
     this.isDisabledClasificado = true;
-    this.isDisabledAutoCompleteA = true;
-    this.isDisabledAutoCompleteC = true;
+    this.isDisabledAutoCompleteA = false;
+    this.isDisabledAutoCompleteC = false;
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -603,8 +605,8 @@ export class AgregarArticulosComponent implements OnInit {
     this, this.myControls[0].setValue(this.selectedAcabadosCodi);
 
     if (this.selectedAcabado.value === 'TC') {
-      this.isDisabledAutoCompleteC = false;
-      this.isDisabledAutoCompleteA = true;
+      this.isDisabledAutoCompleteC = true;
+      this.isDisabledAutoCompleteA = false;
 
       this.selectedColores = {
         co_codi: '',
@@ -616,8 +618,8 @@ export class AgregarArticulosComponent implements OnInit {
       };
     } else {
       if (this.selectedAcabado.value === 'UI') {
-        this.isDisabledAutoCompleteC = false;
-        this.isDisabledAutoCompleteA = false;
+        this.isDisabledAutoCompleteC = true;
+        this.isDisabledAutoCompleteA = true;
       } else {
         this.selectedColores = {
           co_codi: '',
@@ -628,8 +630,8 @@ export class AgregarArticulosComponent implements OnInit {
           ac_desce: '',
         };
 
-        (this.isDisabledAutoCompleteA = true),
-          (this.isDisabledAutoCompleteC = true);
+        (this.isDisabledAutoCompleteA = false),
+          (this.isDisabledAutoCompleteC = false);
       }
     }
 

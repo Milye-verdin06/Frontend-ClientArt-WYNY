@@ -271,7 +271,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <h3 type="text" class="form-control" id="cod_clasificacion">
                             Clasificacion: {{ renglonSelected.ta_clas }}
@@ -287,8 +287,10 @@
                             <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="" [(value)]="renglonSelected.ta_tarif_001" [(ngModel)]="renglonSelected.ta_tarif_001" (ngModelChange)="updateTarifaChangue()" class="form-control is-valid" />
                         </div>
                     </div>
+                </div>
+                <div class="col-md-3">
                     <div class="form-group">
-                        <h3 type="text" class="form-control" id="cod_color">
+                        <h3 type="text" class="form-control">
                             Precio anterior: {{ renglonSelected.ta_tarif_002 }}
                         </h3>
                     </div>

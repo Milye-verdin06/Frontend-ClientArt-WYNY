@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       { path: 'get-especificacion', component: EspecificacionesComponent },
       { path: 'no-pagefound', component: NopagefoundComponent },
-      { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },
+      { path: '', redirectTo: '/no-pagefound', pathMatch: 'full' },
     ],
   },
 ];

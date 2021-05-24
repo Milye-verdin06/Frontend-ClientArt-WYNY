@@ -27,6 +27,7 @@ import { EspecificacionesComponent } from './especificaciones/especificaciones.c
 import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
 import { PipeFilterPipe } from './pipes/pipe-filter.pipe';
 import { PeticionesService } from '../services/peticiones.service';
+import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PeticionesService } from '../services/peticiones.service';
     AgregarArticulosComponent,
     EspecificacionesComponent,
     AgregarEspecificacionesComponent,
+    NopagefoundComponent,
     PipeFilterPipe,
   ],
   imports: [
@@ -61,6 +63,11 @@ import { PeticionesService } from '../services/peticiones.service';
   ],
   providers: [PeticionesService],
 
-  exports: [PagesComponent, ArticulosClienteComponent, MatDialogModule],
+  exports: [
+    PagesComponent,
+    ArticulosClienteComponent,
+    MatDialogModule,
+    NopagefoundComponent,
+  ],
 })
 export class PagesModule {}
