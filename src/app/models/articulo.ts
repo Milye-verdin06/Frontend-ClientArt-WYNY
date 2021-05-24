@@ -26,6 +26,7 @@ export interface ReqArticulos {
   ar_tpiel: string;
   ar_codigo: string;
   ar_descripcion: string;
+  codigoTarifa: string;
 }
 
 export interface LineaRespons {

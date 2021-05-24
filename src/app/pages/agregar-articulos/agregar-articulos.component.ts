@@ -1,5 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input, Pipe, ContentChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Pipe,
+  ContentChild,
+  ElementRef,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import {
@@ -22,6 +29,7 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 
 import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/aprobation.service';
+import { Validacion_c_articService } from 'src/app/services/validacion_c_artic.service';
 import { Location } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -37,6 +45,8 @@ import { EspecificacionService } from 'src/app/services/especificacion.service';
 import { ReqEspecificaciones } from '../../models/especificacion';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { ReqcArtic } from 'src/app/models/cArtic';
+import { ViewChild } from '@angular/core';
 
 interface Tambor {
   value: string;
@@ -81,6 +91,7 @@ export class AgregarArticulosComponent implements OnInit {
 
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
+  public datos_artic: ReqcArtic[] = [];
   public datos_formato: ReqFormatos[] = [];
   public datos_tamano: ReqTamanos[] = [];
   public datos_grosor: ReqGrosores[] = [];
@@ -92,6 +103,9 @@ export class AgregarArticulosComponent implements OnInit {
   unidadSelecc: any;
   divisaSelecc: any;
   unidadNSelecc: any;
+
+  @ViewChild('addespecificacion')
+  addespecificacion!: ElementRef;
 
   createFormGroup() {
     return new FormGroup({
@@ -130,6 +144,7 @@ export class AgregarArticulosComponent implements OnInit {
   formatos: ReqFormatos[] = [];
 
   tamanos: ReqTamanos[] = [];
+  codigos: ReqcArtic[] = [];
 
   clasificado: Clasificado[] = [
     { value: 'A' },
@@ -166,6 +181,7 @@ export class AgregarArticulosComponent implements OnInit {
     private location: Location,
     private articuloService: ArticuloService,
     private especificacionService: EspecificacionService,
+    private Validacion_c_articService: Validacion_c_articService,
     private ClienteService: ClienteService,
     private aprobationService: AprobationService,
     private modalService: NgbModal,
@@ -296,6 +312,18 @@ export class AgregarArticulosComponent implements OnInit {
     );
 
     console.log('codigo cliente seleccionado', this.codCliente);
+
+    const bodyC = {
+      codigoTarifa: this.infoCodi.substring(0, 4),
+    };
+
+    this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
+      (resp) => {
+        this.datos_artic = resp.data;
+      },
+      (error) => console.log(error)
+    );
+    // console.log('articulos en c-artic', this.datos_artic.length);
   }
 
   public displayFnAcabados(acabado: ReqAcabados): string {
@@ -806,6 +834,9 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoClasificado;
     }
+
+    /*
+    } */
   }
 
   onChange() {}
