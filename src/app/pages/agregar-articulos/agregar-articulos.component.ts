@@ -310,20 +310,6 @@ export class AgregarArticulosComponent implements OnInit {
         )
       )
     );
-
-    console.log('codigo cliente seleccionado', this.codCliente);
-
-    const bodyC = {
-      codigoTarifa: this.infoCodi.substring(0, 4),
-    };
-
-    this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
-      (resp) => {
-        this.datos_artic = resp.data;
-      },
-      (error) => console.log(error)
-    );
-    // console.log('articulos en c-artic', this.datos_artic.length);
   }
 
   public displayFnAcabados(acabado: ReqAcabados): string {
@@ -501,6 +487,37 @@ export class AgregarArticulosComponent implements OnInit {
         this.isDisabledGrosor = false;
       }
     }
+    const bodyC = {
+      codigoTarifa: this.infoCodi.substring(0, 4),
+    };
+
+    if ((this.formatos.length == 0, this.tamanos.length == 0)) {
+      this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
+        (resp) => {
+          this.datos_artic = resp.data;
+          if (
+            (this.datos_artic.length == 1,
+            this.selectedFormato.ft_codi == this.selectedFormato.ft_codi)
+          ) {
+            this.isDisabledGrosor = false;
+            console.log('si existe el articulo en c_artic');
+          } else {
+            this.datos_artic.length == 0;
+            Swal.fire({
+              icon: 'warning',
+              title: 'Código incorrecto',
+              text: 'Verificar los datos, o ponerse en contacto con área de TI',
+
+              // timer: 1500,
+            });
+            this.isDisabledGrosor = true;
+          }
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      console.log('te faltan un caracteres por seleccionar');
+    }
   }
 
   formatoSeleccionado: any;
@@ -554,11 +571,41 @@ export class AgregarArticulosComponent implements OnInit {
     };
     this.mostrarInfo();
     this.mostrarCodigo();
+
     this.isDisabledTamano = false;
 
     this.isDisabledAcabado = true;
     this.isDisabledClasificado = true;
-    this.isDisabledGrosor = true;
+
+    const bodyC = {
+      codigoTarifa: this.infoCodi.substring(0, 4),
+    };
+
+    if (this.tamanos.length == 0) {
+      this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
+        (resp) => {
+          this.datos_artic = resp.data;
+          if (this.datos_artic.length == 1) {
+            this.isDisabledGrosor = false;
+            console.log('si existe el articulo en c_artic');
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Código incorrecto',
+              text: 'Verificar los datos, o ponerse en contacto con área de TI',
+
+              //timer: 1500,
+            });
+            this.isDisabledGrosor = true;
+          }
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      console.log('te falta un caracter por seleccionar');
+    }
+
+    //this.isDisabledGrosor = true;
 
     if (this.tamanos.length == 0) {
       this.isDisabledGrosor = false;
@@ -591,6 +638,34 @@ export class AgregarArticulosComponent implements OnInit {
 
     this.mostrarInfo();
     this.mostrarCodigo();
+
+    const bodyC = {
+      codigoTarifa: this.infoCodi.substring(0, 4),
+    };
+
+    if (this.tamanos.length >= 1) {
+      this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
+        (resp) => {
+          this.datos_artic = resp.data;
+          if (this.datos_artic.length == 1) {
+            this.isDisabledGrosor = false;
+            console.log('si existe el articulo en c_artic');
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Código incorrecto',
+              text: 'Verificar los datos, o ponerse en contacto con área de TI',
+
+              // timer: 1500,
+            });
+            this.isDisabledGrosor = true;
+          }
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      console.log('te falta un caracter por seleccionar');
+    }
   }
 
   selectGrosorChangue(values: any) {
@@ -612,8 +687,8 @@ export class AgregarArticulosComponent implements OnInit {
       ac_desce: '',
     };
     this.isDisabledClasificado = true;
-    this.isDisabledAutoCompleteA = false;
-    this.isDisabledAutoCompleteC = false;
+    //this.isDisabledAutoCompleteA = false;
+    //this.isDisabledAutoCompleteC = false;
     this.mostrarInfo();
     this.mostrarCodigo();
   }
