@@ -83,7 +83,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       viewValue: 'Pies cuadrados',
       unidadN: 'SI',
       unidadN2: 'PI',
-      unidadN3: '',
+      unidadN3: 'SU',
       unidadN4: '',
       unidadN5: '',
     },
@@ -246,7 +246,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   selectedUnidadNChange(values: any) {
-     this.isDisabledButtonAdd = true;
+    this.isDisabledButtonAdd = true;
     this.selectedValue = {
       value: '',
       viewValue: '',

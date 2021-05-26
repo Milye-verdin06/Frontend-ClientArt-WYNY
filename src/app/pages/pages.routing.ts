@@ -6,24 +6,30 @@ import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
 import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
 import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
+import { GuardsGuard } from '../auth/guards.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
+    canActivate: [GuardsGuard],
     children: [
       {
         path: 'articulos-cliente',
         component: ArticulosClienteComponent,
+        canActivate: [GuardsGuard],
       },
-      { path: 'agregar-articulos', component: AgregarArticulosComponent },
+      {
+        path: 'agregar-articulos',
+        component: AgregarArticulosComponent,
+      },
       {
         path: 'agregar-especificacion',
         component: AgregarEspecificacionesComponent,
       },
       { path: 'get-especificacion', component: EspecificacionesComponent },
       { path: 'no-pagefound', component: NopagefoundComponent },
-      { path: '', redirectTo: '/no-pagefound', pathMatch: 'full' },
+      { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },
     ],
   },
 ];

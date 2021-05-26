@@ -49,6 +49,7 @@ export class NavbarComponent implements OnInit {
       width: 300,
 
       showCancelButton: true,
+      cancelButtonText: 'cancelar',
       confirmButtonColor: '#172b4d',
       cancelButtonColor: '#BB3939',
       confirmButtonText: 'Salir',

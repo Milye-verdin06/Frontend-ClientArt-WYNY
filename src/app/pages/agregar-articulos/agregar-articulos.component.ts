@@ -33,7 +33,7 @@ import { Validacion_c_articService } from 'src/app/services/validacion_c_artic.s
 import { Location } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, windowToggle } from 'rxjs/operators';
 import { ColorRespons, ReqAcabados } from '../../models/articulo';
 
 import {
@@ -72,6 +72,7 @@ interface Clasificado {
 })
 export class AgregarArticulosComponent implements OnInit {
   datos_articulo: ReqArticulos[] = [];
+  datos_artic: ReqcArtic[] = [];
   datos_especificacion: any;
   myControls: FormControl[] = [new FormControl('')];
   myControl2: FormControl[] = [new FormControl('')];
@@ -83,15 +84,14 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
   isDisabledAutoCompleteC = true;
-  isDisabledAutoCompleteCo = true; //deshabilitar el autocomplete de colores
+
   isDisabledAutoCompleteA = true;
-  isDisabledAutoCompleteAc = true; //deshabilitar el autocomplete de acabados
+
   isDisabledButtonEspe = false; //deshabilitar el botton de agregar especificaciones
   isDisabledTarif = true; //deshabilitar la tarifa
 
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
-  public datos_artic: ReqcArtic[] = [];
   public datos_formato: ReqFormatos[] = [];
   public datos_tamano: ReqTamanos[] = [];
   public datos_grosor: ReqGrosores[] = [];
@@ -103,9 +103,6 @@ export class AgregarArticulosComponent implements OnInit {
   unidadSelecc: any;
   divisaSelecc: any;
   unidadNSelecc: any;
-
-  @ViewChild('addespecificacion')
-  addespecificacion!: ElementRef;
 
   createFormGroup() {
     return new FormGroup({
@@ -708,8 +705,8 @@ export class AgregarArticulosComponent implements OnInit {
     this, this.myControls[0].setValue(this.selectedAcabadosCodi);
 
     if (this.selectedAcabado.value === 'TC') {
-      this.isDisabledAutoCompleteC = true;
-      this.isDisabledAutoCompleteA = false;
+      /* this.isDisabledAutoCompleteC = true;
+      this.isDisabledAutoCompleteA = false; */
 
       this.selectedColores = {
         co_codi: '',
@@ -928,13 +925,18 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   submitArticulo() {
-    /* console.log('Unidad Medida seleccionada', this.unidadSelecc);
-    console.log('Divisa seleccionada', this.divisaSelecc);
-    console.log('familia seleccionada', this.unidadNSelecc);
-    console.log('codigo cliente seleccionado', this.codCliente);
-    console.log('cliente seleccionado', this.nomCliente); */
+    /*  const bodyC = {
+      codigoTarifa: this.infoCodi.substring(0, 4),
+    };
 
-    if (this.articuloForm.invalid) {
+    this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
+      (resp) => {
+        this.datos_artic = resp.data;
+      },
+      (error) => console.log(error)
+    );
+ */
+    /*  if (this.articuloForm.invalid) {
       {
         Swal.fire({
           icon: 'warning',
@@ -943,11 +945,12 @@ export class AgregarArticulosComponent implements OnInit {
           timer: 1700,
         });
       }
-    }
-
+    }  */
     /* else {
-      console.log('form lleno');
-      console.log(this.AddTarifa);
+      this.datos_artic.length == 1;
+      console.log('codigo del articulo', this.infoCodi.substring(0, 4));
+      console.log(this.datos_artic.map.toString);
+
       Swal.fire({
         title: 'Confirmar registro del articulo',
         text: this.infoDesc,
@@ -956,9 +959,9 @@ export class AgregarArticulosComponent implements OnInit {
         showCancelButton: false,
         confirmButtonText: `Confirmar`,
         denyButtonText: `No confirmar`,
-      }).then((result) => { */
-    //codigo listo para addArticulo
-    /* if (result.isConfirmed) {
+      }).then((result) => {
+        //codigo listo para addArticulo
+        if (result.isConfirmed) {
           if (this.selectedAcabado.value == 'NA') {
             const body = {
               ta_codi: 'C',
@@ -989,10 +992,10 @@ export class AgregarArticulosComponent implements OnInit {
               },
               (error) => console.log(error)
             );
-          } //termina primer if NATURAL
-
-          //else del primer if
-          else {
+          } */
+    //termina primer if NATURAL
+    //else del primer if
+    /*  else {
             if (this.selectedAcabado.value == 'TC') {
               if (this.selectedColores.co_codi == '') {
                 Swal.fire({
@@ -1080,8 +1083,9 @@ export class AgregarArticulosComponent implements OnInit {
               }
             }
 
-            //añadir codigo del postArticulo
             Swal.fire('Articulo registrado correctamente', '', 'success');
+
+
             this.onResetForm();
             this.isHomeRoute();
           }
@@ -1090,6 +1094,23 @@ export class AgregarArticulosComponent implements OnInit {
         }
       });
     } */
+
+    Swal.fire({
+      title: 'Articulo registrado correctamente',
+      text: 'Desea agregar especificaciones al artículo',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#172b4d',
+      cancelButtonColor: '#BB3939',
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //abrir el modal de agregar especificaciones
+
+        this.open('addespecificacion');
+      }
+    });
   }
 
   opensweetalertCancelaRegistroArticulo(selectedItem?: any) {

@@ -65,12 +65,16 @@ body {
 }
 
 .example-buscarcliente-width {
-    width: 200%;
+    width: 80%;
 }
 
 ::-webkit-scrollbar {
     background-color: #fff;
     width: 16px;
+}
+
+.cabecera {
+    height: 60px;
 }
 
 ::-webkit-scrollbar-track {

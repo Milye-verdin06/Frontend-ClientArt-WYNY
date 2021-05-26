@@ -6,7 +6,7 @@
                     <div class="col-lg-12 col-md-12 col-xs-12">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-auto">
+                                <div class=".col-sm-6.">
                                     <div class="
                       navbar-search
                       form-inline
@@ -26,10 +26,11 @@
                                                     </mat-option>
                                                 </mat-autocomplete>
                                             </mat-form-field>
+                                            <p>Código: {{ codCliente }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class=".col-sm-6.">
                                     <div class="
                       navbar-search
                       form-inline
@@ -47,7 +48,7 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class=".col-sm-6.">
                                     <div class="
                       navbar-search
                       form-inline
@@ -66,7 +67,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col">
+                                <div class=".col-sm-6.">
                                     <div class="
                       navbar-search
                       form-inline
@@ -84,7 +85,7 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class=".col-sm-6.">
                                     <div class="
                       navbar-search
                       form-inline
@@ -114,9 +115,6 @@
                     <h1 class="display-4">
                         Listado de Articulos&nbsp;&nbsp;&nbsp;
 
-                        <!-- <button class="buttonadd" routerLink="/agregar-articulos" id="agregarArticulos" *ngIf="isDisabledButton" [disabled]="isDisabledButtonAdd" (click)="botonAddArticulo()">
-              Agregar artículo
-            </button> -->
                         <button class="buttonadd" routerLink="/agregar-articulos" id="agregarArticulos" *ngIf="isDisabledButton" [disabled]="isDisabledButtonAdd" (click)="botonAddArticulo()">
               <span>Agregar artículo</span>
             </button>
@@ -141,7 +139,7 @@
                             <thead class="thead-white">
                                 <tr>
                                     <th scope="col">Código</th>
-                                    <th scope="col">Descripción Artículo</th>
+                                    <th scope="col">Descripción del Artículo</th>
                                     <!--  <th scope="col">Grosor</th>
                                     <th scope="col">Acabado</th>
                                     <th scope="col">Color</th>
@@ -307,8 +305,8 @@
     </div>
 </ng-template>
 
-<ng-template #mymodalgetEsp let-modal>
-    <div class="modal-header" style="background-color: #ced7e0">
+<ng-template #mymodalgetEsp let-modal data-backdrop="static">
+    <div style="height: auto" class="modal-header" style="background-color: #ced7e0">
         <div class="col">
             <div type="text">
                 <h2>Artículo: {{ renglonSelected.ar_descripcion }}</h2>
@@ -325,50 +323,47 @@
     <div class="modal-body">
         <h1 class="modal-title" id="modal-basic-titlee">Especificaciones</h1>
 
-        <tr>
-            <td>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Código cliente:</mat-label>
-                    <input matInput placeholder="" name="especi10" [(ngModel)]="datos_especificacion.ef_espe10" [disabled]="isDisabled" />
-                </mat-form-field>
-            </td>
-        </tr>
+        <mat-form-field class="example-full-width.Medit">
+            <mat-label>Código cliente:</mat-label>
+            <input matInput placeholder="" name="especi10" [(ngModel)]="datos_especificacion.ef_espe10" [disabled]="isDisabled" />
+        </mat-form-field>
+
         <mat-form-field class="example-full-width">
             <!--  <mat-label>Especificación 1</mat-label> -->
-            <textarea matInput placeholder=" " name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
             <!--  <mat-label>Especificación 2</mat-label> -->
-            <textarea matInput placeholder=" " name="especi2" [(ngModel)]="datos_especificacion.ef_espe2" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi2" [(ngModel)]="datos_especificacion.ef_espe2" [disabled]="isDisabled"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <!--  <mat-label>Especificación 3</mat-label> -->
-            <textarea matInput placeholder=" " name="especi3" [(ngModel)]="datos_especificacion.ef_espe3" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi3" [(ngModel)]="datos_especificacion.ef_espe3" [disabled]="isDisabled"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <!--  <mat-label>Especificación 4</mat-label> -->
-            <textarea matInput placeholder=" " name="especi4" [(ngModel)]="datos_especificacion.ef_espe4" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi4" [(ngModel)]="datos_especificacion.ef_espe4" [disabled]="isDisabled"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <!-- <mat-label>Especificación 5</mat-label> -->
-            <textarea matInput placeholder=" " name="especi5" [(ngModel)]="datos_especificacion.ef_espe5" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi5" [(ngModel)]="datos_especificacion.ef_espe5" [disabled]="isDisabled"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <!--  <mat-label>Especificación 6</mat-label> -->
-            <textarea matInput placeholder=" " name="especi6" [(ngModel)]="datos_especificacion.ef_espe6" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi6" [(ngModel)]="datos_especificacion.ef_espe6" [disabled]="isDisabled"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <!-- <mat-label>Especificación 7</mat-label> -->
-            <textarea matInput placeholder=" " name="especi7" [(ngModel)]="datos_especificacion.ef_espe7" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi7" [(ngModel)]="datos_especificacion.ef_espe7" [disabled]="isDisabled"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <!-- <mat-label>Especificación 8</mat-label> -->
-            <textarea matInput placeholder=" " name="especi8" [(ngModel)]="datos_especificacion.ef_espe8" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi8" [(ngModel)]="datos_especificacion.ef_espe8" [disabled]="isDisabled"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <!--  <mat-label>Especificación 9</mat-label> -->
-            <textarea matInput placeholder=" " name="especi9" [(ngModel)]="datos_especificacion.ef_espe9" [disabled]="isDisabled"></textarea>
+            <textarea matInput placeholder=" " rows="1" name="especi9" [(ngModel)]="datos_especificacion.ef_espe9" [disabled]="isDisabled"></textarea>
         </mat-form-field>
     </div>
 
