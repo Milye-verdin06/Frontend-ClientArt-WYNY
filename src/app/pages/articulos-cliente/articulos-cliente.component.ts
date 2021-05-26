@@ -584,7 +584,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   ta_tarif_002: any;
   VarAux: any;
-  updateTarifaChangue() {}
 
   botonUpdateEspecificacion() {
     this.isDisabled = true;
@@ -647,11 +646,13 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     Swal.fire({
       title: 'Dar de baja el artículo',
-
+      icon: 'question',
       showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: `Confirmar`,
-      denyButtonText: `No confirmar`,
+      showCancelButton: false,
+      confirmButtonColor: '#172b4d',
+      cancelButtonColor: '#BB3939',
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -689,9 +690,12 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       title: 'Reactivar el artículo',
 
       showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: `Confirmar`,
-      denyButtonText: `No confirmar`,
+      showCancelButton: false,
+      icon: 'question',
+      confirmButtonColor: '#172b4d',
+      cancelButtonColor: '#BB3939',
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {

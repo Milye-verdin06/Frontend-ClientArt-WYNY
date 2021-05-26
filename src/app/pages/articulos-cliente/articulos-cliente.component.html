@@ -282,7 +282,7 @@
                 <div class="col-md-4">
                     <div class="form-group has-success">
                         <div class="form-container">
-                            <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="" [(value)]="renglonSelected.ta_tarif_001" [(ngModel)]="renglonSelected.ta_tarif_001" (ngModelChange)="updateTarifaChangue()" class="form-control is-valid" />
+                            <input type="number" id="agregartarifa" name="agregartarifa" min="0" placeholder="" [(value)]="renglonSelected.ta_tarif_001" [(ngModel)]="renglonSelected.ta_tarif_001" class="form-control is-valid" />
                         </div>
                     </div>
                 </div>
@@ -372,7 +372,7 @@
       Editar
       <span class="material-icons"> mode_edit </span>
     </button>
-        <button type="button" class="btn btn-outline-success" (click)="botonUpdateEspecificacion()">
+        <button type="button" class="btn btn-outline-success" (click)="botonUpdateEspecificacion()" [disabled]="isDisabled">
       Guardar
       <span class="material-icons"> save </span>
     </button>

@@ -129,13 +129,13 @@
                                 </div>
                                 <div class="col-sm mt-2">
                                     <div *ngFor="let control of myControls; let index = index">
-                                        <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteA">
+                                        <mat-form-field class=".example-litle-width_min">
                                             <mat-label>Buscar acabado</mat-label>
-                                            <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" required="required" />
+                                            <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" />
                                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="codSelected($event.option.value)">
                                                 <mat-option *ngFor="
                             let option of filteredOptionsAcabados[index] | async
-                          " [value]="option">
+                          " [value]="option" [disabled]="isDisabledseleAcabado">
                                                     {{ option.ac_desce }}
                                                 </mat-option>
                                             </mat-autocomplete>
@@ -144,15 +144,15 @@
                                 </div>
                                 <div class="col mt-2">
                                     <div *ngFor="let control of myControl2; let index = index">
-                                        <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledAutoCompleteC">
+                                        <mat-form-field class=".example-litle-width_min">
                                             <mat-label>Buscar color</mat-label>
-                                            <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" required="required" />
+                                            <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
                                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="
                           codSelectedColores($event.option.value, trigger, auto)
                         ">
                                                 <mat-option *ngFor="
                             let option of filteredOptionsColores[index] | async
-                          " [value]="option">
+                          " [value]="option" [disabled]="isDisabledseleColor">
                                                     {{ option.co_desce }}
                                                 </mat-option>
                                             </mat-autocomplete>
@@ -183,7 +183,7 @@
                                         <form [formGroup]="articuloForm">
                                             <mat-form-field class=".example-litle-width">
                                                 <mat-label>Precio de venta</mat-label>
-                                                <input matInput type="number" [(ngModel)]="AddTarifa" formControlName="tarifa" [disabled]="isDisabledTarif" id="agregartarifa" name="addTarifa" min="0" required="required" />
+                                                <input matInput type="number" [(ngModel)]="AddTarifa" formControlName="tarifa" id="agregartarifa" name="addTarifa" min="0" required="required" />
                                             </mat-form-field>
                                         </form>
 
@@ -281,7 +281,7 @@
             <ng-template #addespecificacion let-modal>
                 <div class="modal-header" style="background-color: #ced7e0">
                     <div type="text">
-                        <h1>Agregar especificaciones al articulo: {{ infoDesc }}</h1>
+                        <h1>Agregar especificaciones articulo: {{ infoDesc }}</h1>
                     </div>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">X</span>

@@ -83,12 +83,14 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledGrosor = true; //deshabilitar el select de grosor hasta que seleccionen el tamano
   isDisabledClasificado = true; //deshabilitar el select de clasificado hasta que seleccionen el grosor
   isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el clasificado
-  isDisabledAutoCompleteC = true;
+  isDisabledAutoCompleteC = true; //no mostrar el auto-complete de Colores
 
-  isDisabledAutoCompleteA = true;
+  isDisabledAutoCompleteA = true; //no mostrar el auto-complete de Acabados
 
   isDisabledButtonEspe = false; //deshabilitar el botton de agregar especificaciones
-  isDisabledTarif = true; //deshabilitar la tarifa
+
+  isDisabledseleAcabado = true; //no seleccionar ningun acabado en el mat-input de Acabados
+  isDisabledseleColor = true; //no seleccionar ningun color en el mat-input de Colores
 
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
@@ -705,6 +707,8 @@ export class AgregarArticulosComponent implements OnInit {
     this, this.myControls[0].setValue(this.selectedAcabadosCodi);
 
     if (this.selectedAcabado.value === 'TC') {
+      this.isDisabledseleAcabado = true;
+      this.isDisabledseleColor = false;
       /* this.isDisabledAutoCompleteC = true;
       this.isDisabledAutoCompleteA = false; */
 
@@ -718,8 +722,10 @@ export class AgregarArticulosComponent implements OnInit {
       };
     } else {
       if (this.selectedAcabado.value === 'UI') {
-        this.isDisabledAutoCompleteC = true;
-        this.isDisabledAutoCompleteA = true;
+        this.isDisabledseleAcabado = false;
+        this.isDisabledseleColor = false;
+        //this.isDisabledAutoCompleteC = true;
+        //this.isDisabledAutoCompleteA = true;
       } else {
         this.selectedColores = {
           co_codi: '',
@@ -729,9 +735,10 @@ export class AgregarArticulosComponent implements OnInit {
           ac_codi: '',
           ac_desce: '',
         };
-
-        (this.isDisabledAutoCompleteA = false),
-          (this.isDisabledAutoCompleteC = false);
+        this.isDisabledseleAcabado = true;
+        this.isDisabledseleColor = true;
+        //  (this.isDisabledAutoCompleteA = false),
+        // (this.isDisabledAutoCompleteC = false);
       }
     }
 
@@ -936,7 +943,7 @@ export class AgregarArticulosComponent implements OnInit {
       (error) => console.log(error)
     );
  */
-    /*  if (this.articuloForm.invalid) {
+    /*  if (this.articuloForm.invalid, this.selectedClasificado.value== '') {
       {
         Swal.fire({
           icon: 'warning',
@@ -1110,6 +1117,8 @@ export class AgregarArticulosComponent implements OnInit {
 
         this.open('addespecificacion');
       }
+      this.onResetForm();
+      this.isHomeRoute();
     });
   }
 
