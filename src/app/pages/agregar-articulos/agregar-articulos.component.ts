@@ -1,21 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  OnInit,
-  Input,
-  Pipe,
-  ContentChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Resolve,
-  Router,
-} from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   ReqLineas,
   ReqFormatos,
@@ -31,9 +19,9 @@ import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/aprobation.service';
 import { Validacion_c_articService } from 'src/app/services/validacion_c_artic.service';
 import { Location } from '@angular/common';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { map, startWith, windowToggle } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { ColorRespons, ReqAcabados } from '../../models/articulo';
 
 import {
@@ -42,9 +30,7 @@ import {
 } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
 import { EspecificacionService } from 'src/app/services/especificacion.service';
-import { ReqEspecificaciones } from '../../models/especificacion';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
+
 import { ReqcArtic } from 'src/app/models/cArtic';
 import { ViewChild } from '@angular/core';
 
@@ -71,6 +57,8 @@ interface Clasificado {
   templateUrl: './agregar-articulos.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
+  @ViewChild('addespecificacion') modalContent: any;
+
   datos_articulo: ReqArticulos[] = [];
   datos_artic: ReqcArtic[] = [];
   datos_especificacion: any;
@@ -187,7 +175,8 @@ export class AgregarArticulosComponent implements OnInit {
     private fb: FormBuilder,
     private aRouter: ActivatedRoute,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {
     this.selectedLinea = this.datos_linea[1];
     this.selectedTambor = this.tambor[1];
@@ -1114,11 +1103,15 @@ export class AgregarArticulosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //abrir el modal de agregar especificaciones
+        //this.open('addespecificacion');
+        //this.modalService.open('addespecificacion');
+        // open('addespecificacion'); abre otra pestaña
 
-        this.open('addespecificacion');
+        this.open(this.modalContent);
+      } else {
+        this.onResetForm();
+        this.isHomeRoute();
       }
-      this.onResetForm();
-      this.isHomeRoute();
     });
   }
 
@@ -1169,7 +1162,20 @@ export class AgregarArticulosComponent implements OnInit {
   Addespeci10: any;
 
   BottonAddEspecificacion() {
-    console.log(this.Addespeci1, 'especificacions');
+    /*   console.log(this.Addespeci1, 'especificacions');
+    console.log(
+      this.codCliente,
+      this.infoCodi.substring(0, 4),
+      this.selectedGrosor.gl_codi,
+
+      this.selectedClasificado.value,
+
+      this.unidadSelecc,
+      this.divisaSelecc
+    ); */
+
+    this.modalService.dismissAll();
+    this.isHomeRoute();
 
     /* if (this.selectedAcabado.value == 'NA') {
 
@@ -1201,8 +1207,9 @@ export class AgregarArticulosComponent implements OnInit {
       icon: 'success',
       title: '¡Registro exitoso!',
 
-      timer: 1500,
     });
+    //  this.modalService.dismissAll();
+    // this.isHomeRoute();
 
 
               },
@@ -1244,10 +1251,12 @@ export class AgregarArticulosComponent implements OnInit {
                     Swal.fire({
                       icon: 'success',
                       title: 'Registro exitoso',
-                      showConfirmButton: false,
-                      timer: 1500,
+
+
                     });
                   }
+                  //  this.modalService.dismissAll();
+                   // this.isHomeRoute();
                 },
                 (error) => console.log(error)
               );
@@ -1281,10 +1290,13 @@ export class AgregarArticulosComponent implements OnInit {
                       Swal.fire({
                         icon: 'success',
                         title: 'Registro exitoso',
-                        showConfirmButton: false,
-                        timer: 1500,
+
+
                       });
                     }
+                    //  this.modalService.dismissAll();
+                     // this.isHomeRoute();
+
                   },
                   (error) => console.log(error)
                 );
@@ -1292,6 +1304,6 @@ export class AgregarArticulosComponent implements OnInit {
             }
           }
  */
-    // this.modalService.dismissAll(); checar si cerrarlo o asi dejarlo por un momento para corroborar lo que se guardo
+    //  this.modalService.dismissAll(); checar si cerrarlo o asi dejarlo por un momento para corroborar lo que se guardo
   }
 }

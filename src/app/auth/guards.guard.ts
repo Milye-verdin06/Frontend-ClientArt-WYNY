@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { PeticionesService } from '../services/peticiones.service';
 import { authenticationService } from '../services/authentication.service';
-import { PipeFilterPipe } from '../pages/pipes/pipe-filter.pipe';
+
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 
@@ -32,11 +32,25 @@ export class GuardsGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authenticationService.loginUsuario(state.url)) {
+    return true;
+  }
+}
+
+/*  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    if (environment.token) {
+      console.log(environment.token);
+
       return true;
     } else {
+      console.log(environment.token);
       this.router.navigate(['/no-pagefound']);
       return false;
     }
-  }
-}
+  } */

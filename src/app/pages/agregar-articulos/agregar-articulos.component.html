@@ -187,11 +187,11 @@
                                             </mat-form-field>
                                         </form>
 
-                                        <div class="col mt-2">
-                                            <button mat-raised-button id="openModalButtonAddespecificacion " (click)="open(addespecificacion)" matTooltip="Agregar especificación al artículo" *ngIf="isDisabledButtonEspe">
+                                        <!-- <div class="col mt-2">
+                                            <button mat-raised-button id="openModalButtonAddespecificacion " #fileInput hidden (click)="open(addespecificacion)" matTooltip="Agregar especificación al artículo" *ngIf="isDisabledButtonEspe">
                         Especificación
                       </button>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -281,7 +281,7 @@
             <ng-template #addespecificacion let-modal>
                 <div class="modal-header" style="background-color: #ced7e0">
                     <div type="text">
-                        <h1>Agregar especificaciones articulo: {{ infoDesc }}</h1>
+                        <h1>Especificaciones del articulo: {{ infoDesc }}</h1>
                     </div>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">X</span>
