@@ -511,6 +511,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     /*  this.isDisableunidadN = false;
     this.isDisableunidadM = false;
     this.isDisableDivis = false; */
+    this.datos_articulo = [];
   }
   cerrarModEditarTarif() {
     if (this.renglonSelected.ta_tarif_001 == null) {

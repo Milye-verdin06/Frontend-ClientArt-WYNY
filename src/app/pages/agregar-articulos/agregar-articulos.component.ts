@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, enableProdMode } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -698,6 +698,12 @@ export class AgregarArticulosComponent implements OnInit {
     if (this.selectedAcabado.value === 'TC') {
       this.isDisabledseleAcabado = true;
       this.isDisabledseleColor = false;
+
+      /*
+    if (this.selectedAcabado.value === 'TC') {
+      this.isDisabledseleAcabado = true;
+      this.isDisabledseleColor = false;
+       */
       /* this.isDisabledAutoCompleteC = true;
       this.isDisabledAutoCompleteA = false; */
 

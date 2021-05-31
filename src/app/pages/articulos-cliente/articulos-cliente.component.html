@@ -134,7 +134,6 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <!--  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-items-center table-flush"> -->
                         <table class="table align-items-center table-dark table-flush">
                             <thead class="thead-white">
                                 <tr>
@@ -152,28 +151,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--   <tr *ngFor="
-                    let articulo of datos_articulo
-                      | paginate: { itemsPerPage: 5, currentPage: pageActual }
-                  " style="
-                    color: rgb(0, 0, 0);
-                    background-color: rgb(255, 255, 255);
-                  "> -->
-                                <tr *ngFor="
+                                <tr rows="1" *ngFor="
                     let articulo of datos_articulo
                       | pipeFilter: filterArticulo
                       | paginate: { itemsPerPage: 7, currentPage: pageActual }
                   ">
-                                    <td>{{ articulo.ar_codigo }}</td>
-                                    <td>{{ articulo.ar_descripcion }}</td>
-                                    <!--  <td>{{ articulo.ta_gruix }}</td>
-                                    <td>{{ articulo.ta_acaba }}</td>
-                                    <td>{{ articulo.ta_color }}</td>
-                                    <td>{{ articulo.ta_clas }}</td>  -->
-                                    <td>{{ articulo.ta_tarif_001 }}</td>
-                                    <td>{{ articulo.ar_tpiel }}</td>
-                                    <td>{{ articulo.ta_listar }}</td>
-                                    <td>
+                                    <td style="height: 15px">{{ articulo.ar_codigo }}</td>
+                                    <td style="height: 15px">{{ articulo.ar_descripcion }}</td>
+                                    <td style="height: 15px">{{ articulo.ta_tarif_001 }}</td>
+                                    <td style="height: 15px">{{ articulo.ar_tpiel }}</td>
+                                    <td style="height: 15px">{{ articulo.ta_listar }}</td>
+                                    <td style="height: 15px">
                                         <button mat-icon-button [matMenuTriggerFor]="menu">
                       <mat-icon>more_vert</mat-icon>
                     </button>
@@ -207,13 +195,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div *ngIf="alert" class="alert alert-light alert-dismissible fade show" role="alert">
-                <strong>Info</strong> no se encontraron articulos con esos datos.
-
-                <button (click)="closealert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-            </div> -->
         </div>
     </div>
 </div>

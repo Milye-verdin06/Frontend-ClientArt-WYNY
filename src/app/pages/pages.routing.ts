@@ -1,3 +1,4 @@
+import { GuardsGuard } from '../auth/guards.guard';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
@@ -6,7 +7,6 @@ import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
 import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
 import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
-import { GuardsGuard } from '../auth/guards.guard';
 
 const routes: Routes = [
   {
@@ -17,7 +17,6 @@ const routes: Routes = [
       {
         path: 'articulos-cliente',
         component: ArticulosClienteComponent,
-        canActivate: [GuardsGuard],
       },
       {
         path: 'agregar-articulos',
