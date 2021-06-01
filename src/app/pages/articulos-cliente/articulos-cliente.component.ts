@@ -514,11 +514,17 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.datos_articulo = [];
   }
   cerrarModEditarTarif() {
-    if (this.renglonSelected.ta_tarif_001 == null) {
-      this.renglonSelected.ta_tarif_001 = this.VarAux;
-    }
-
-    {
+    if ((this.renglonSelected.ta_tarif_001 = this.VarAux)) {
+      {
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación interrumpida',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+      this.modalService.dismissAll();
+    } else {
       Swal.fire({
         icon: 'info',
         title: 'Operación interrumpida',
