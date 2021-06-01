@@ -151,17 +151,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr rows="1" *ngFor="
+                                <tr rows="0" *ngFor="
                     let articulo of datos_articulo
                       | pipeFilter: filterArticulo
                       | paginate: { itemsPerPage: 7, currentPage: pageActual }
                   ">
-                                    <td style="height: 15px">{{ articulo.ar_codigo }}</td>
-                                    <td style="height: 15px">{{ articulo.ar_descripcion }}</td>
-                                    <td style="height: 15px">{{ articulo.ta_tarif_001 }}</td>
-                                    <td style="height: 15px">{{ articulo.ar_tpiel }}</td>
-                                    <td style="height: 15px">{{ articulo.ta_listar }}</td>
-                                    <td style="height: 15px">
+                                    <td style="border-collapse: collapse; padding: 5px">
+                                        {{ articulo.ar_codigo }}
+                                    </td>
+                                    <td style="border-collapse: collapse; padding: 5px">
+                                        {{ articulo.ar_descripcion }}
+                                    </td>
+                                    <td style="border-collapse: collapse; padding: 5px">
+                                        {{ articulo.ta_tarif_001 }}
+                                    </td>
+                                    <td style="border-collapse: collapse; padding: 5px">
+                                        {{ articulo.ar_tpiel }}
+                                    </td>
+                                    <td style="border-collapse: collapse; padding: 5px">
+                                        {{ articulo.ta_listar }}
+                                    </td>
+                                    <td style="border-collapse: collapse; padding: 5px">
                                         <button mat-icon-button [matMenuTriggerFor]="menu">
                       <mat-icon>more_vert</mat-icon>
                     </button>
