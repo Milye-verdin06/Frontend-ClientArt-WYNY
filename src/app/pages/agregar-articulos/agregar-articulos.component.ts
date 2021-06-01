@@ -927,7 +927,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   submitArticulo() {
-    /*  const bodyC = {
+    const bodyC = {
       codigoTarifa: this.infoCodi.substring(0, 4),
     };
 
@@ -937,17 +937,15 @@ export class AgregarArticulosComponent implements OnInit {
       },
       (error) => console.log(error)
     );
- */
-    /*  if (this.articuloForm.invalid, this.selectedClasificado.value== '') {
-      {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Introducir campos requeridos *',
-          showConfirmButton: false,
-          timer: 1700,
-        });
-      }
-    }  */
+
+    if (this.AddTarifa == '' || this.selectedClasificado.value == '') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Introducir campos requeridos *',
+        showConfirmButton: false,
+        timer: 1700,
+      });
+    }
     /* else {
       this.datos_artic.length == 1;
       console.log('codigo del articulo', this.infoCodi.substring(0, 4));
@@ -986,11 +984,67 @@ export class AgregarArticulosComponent implements OnInit {
                 this.datos_articulo = resp.data;
 
                 Swal.fire({
-                  icon: 'success',
-                  title: '¡Registro exitoso!',
+      title: 'Articulo registrado correctamente',
+      text: 'Desea agregar especificaciones al artículo',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#172b4d',
+      cancelButtonColor: '#BB3939',
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si',
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-                  timer: 1500,
-                });
+        this.open(this.modalContent);
+      } else {
+         this.selectedLinea = {
+          tp_codi: '',
+          tp_desc: '',
+        };
+        this.selectedTambor = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedFormato = {
+          ft_tpiel: '',
+          ft_codi: '',
+          ft_desc: '',
+          ft_desci: '',
+          ft_sts: '',
+        };
+        this.selectedTamano = {
+          tm_tpiel: '',
+          tm_codi: '',
+          tm_desc: '',
+          tm_sts: '',
+        };
+        this.selectedGrosor = {
+          gl_linea: '',
+          gl_codi: '',
+          gl_desc: '',
+        };
+        this.selectedClasificado = {
+          value: '',
+        };
+        this.selectedAcabado = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedColores = {
+          co_codi: '',
+          co_desce: '',
+        };
+        this.selectedAcabadosCodi = {
+          ac_codi: '',
+          ac_desce: '',
+        };
+        this.AddTarifa = '';
+        this, this.myControl2[0].setValue(this.selectedColores);
+        this, this.myControls[0].setValue(this.selectedAcabadosCodi);
+        this.infoCodi = '';
+        this.infoDesc = '';
+      }
+    });
               },
               (error) => console.log(error)
             );
@@ -1027,12 +1081,68 @@ export class AgregarArticulosComponent implements OnInit {
                   (resp) => {
                     this.datos_articulo = resp.data;
                     {
-                      Swal.fire({
-                        icon: 'success',
-                        title: 'Registro exitoso',
-                        showConfirmButton: false,
-                        timer: 1500,
-                      });
+                     Swal.fire({
+      title: 'Articulo registrado correctamente',
+      text: 'Desea agregar especificaciones al artículo',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#172b4d',
+      cancelButtonColor: '#BB3939',
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si',
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.open(this.modalContent);
+      } else {
+         this.selectedLinea = {
+          tp_codi: '',
+          tp_desc: '',
+        };
+        this.selectedTambor = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedFormato = {
+          ft_tpiel: '',
+          ft_codi: '',
+          ft_desc: '',
+          ft_desci: '',
+          ft_sts: '',
+        };
+        this.selectedTamano = {
+          tm_tpiel: '',
+          tm_codi: '',
+          tm_desc: '',
+          tm_sts: '',
+        };
+        this.selectedGrosor = {
+          gl_linea: '',
+          gl_codi: '',
+          gl_desc: '',
+        };
+        this.selectedClasificado = {
+          value: '',
+        };
+        this.selectedAcabado = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedColores = {
+          co_codi: '',
+          co_desce: '',
+        };
+        this.selectedAcabadosCodi = {
+          ac_codi: '',
+          ac_desce: '',
+        };
+        this.AddTarifa = '';
+        this, this.myControl2[0].setValue(this.selectedColores);
+        this, this.myControls[0].setValue(this.selectedAcabadosCodi);
+        this.infoCodi = '';
+        this.infoDesc = '';
+      }
+    });
                     }
                   },
                   (error) => console.log(error)
@@ -1071,33 +1181,7 @@ export class AgregarArticulosComponent implements OnInit {
                     (resp) => {
                       this.datos_articulo = resp.data;
                       {
-                        Swal.fire({
-                          icon: 'success',
-                          title: 'Registro exitoso',
-                          showConfirmButton: false,
-                          timer: 1500,
-                        });
-                      }
-                    },
-                    (error) => console.log(error)
-                  );
-                }
-              }
-            }
-
-            Swal.fire('Articulo registrado correctamente', '', 'success');
-
-
-            this.onResetForm();
-            this.isHomeRoute();
-          }
-        } else if (result.isDenied) {
-          Swal.fire('Registro cancelado', '', 'info');
-        }
-      });
-    } */
-
-    Swal.fire({
+                       Swal.fire({
       title: 'Articulo registrado correctamente',
       text: 'Desea agregar especificaciones al artículo',
       icon: 'success',
@@ -1108,17 +1192,74 @@ export class AgregarArticulosComponent implements OnInit {
       confirmButtonText: 'Si',
     }).then((result) => {
       if (result.isConfirmed) {
-        //abrir el modal de agregar especificaciones
-        //this.open('addespecificacion');
-        //this.modalService.open('addespecificacion');
-        // open('addespecificacion'); abre otra pestaña
 
         this.open(this.modalContent);
       } else {
-        this.onResetForm();
-        this.isHomeRoute();
+          this.selectedLinea = {
+          tp_codi: '',
+          tp_desc: '',
+        };
+        this.selectedTambor = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedFormato = {
+          ft_tpiel: '',
+          ft_codi: '',
+          ft_desc: '',
+          ft_desci: '',
+          ft_sts: '',
+        };
+        this.selectedTamano = {
+          tm_tpiel: '',
+          tm_codi: '',
+          tm_desc: '',
+          tm_sts: '',
+        };
+        this.selectedGrosor = {
+          gl_linea: '',
+          gl_codi: '',
+          gl_desc: '',
+        };
+        this.selectedClasificado = {
+          value: '',
+        };
+        this.selectedAcabado = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedColores = {
+          co_codi: '',
+          co_desce: '',
+        };
+        this.selectedAcabadosCodi = {
+          ac_codi: '',
+          ac_desce: '',
+        };
+        this.AddTarifa = '';
+        this, this.myControl2[0].setValue(this.selectedColores);
+        this, this.myControls[0].setValue(this.selectedAcabadosCodi);
+        this.infoCodi = '';
+        this.infoDesc = '';
       }
     });
+                      }
+                    },
+                    (error) => console.log(error)
+                  );
+                }
+              }
+            }
+
+            //Swal.fire('Articulo registrado correctamente', '', 'success');
+             // this.onResetForm();
+           // this.isHomeRoute();
+          }
+        } else if (result.isDenied) {
+          Swal.fire('Registro cancelado', '', 'info');
+        }
+      });
+    } */
   }
 
   opensweetalertCancelaRegistroArticulo(selectedItem?: any) {
