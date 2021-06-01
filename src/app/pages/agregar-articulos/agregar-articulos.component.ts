@@ -1206,14 +1206,63 @@ export class AgregarArticulosComponent implements OnInit {
      (resp) => {
        this.datos_especificacion = resp.data;
 
-    Swal.fire({
+      Swal.fire({
+      title: 'Registro exitoso',
+      text: 'Especificaciones agregadas',
       icon: 'success',
-      title: '¡Registro exitoso!',
-
+      confirmButtonColor: '#172b4d',
+      confirmButtonText: 'Confirmar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.selectedLinea = {
+          tp_codi: '',
+          tp_desc: '',
+        };
+        this.selectedTambor = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedFormato = {
+          ft_tpiel: '',
+          ft_codi: '',
+          ft_desc: '',
+          ft_desci: '',
+          ft_sts: '',
+        };
+        this.selectedTamano = {
+          tm_tpiel: '',
+          tm_codi: '',
+          tm_desc: '',
+          tm_sts: '',
+        };
+        this.selectedGrosor = {
+          gl_linea: '',
+          gl_codi: '',
+          gl_desc: '',
+        };
+        this.selectedClasificado = {
+          value: '',
+        };
+        this.selectedAcabado = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedColores = {
+          co_codi: '',
+          co_desce: '',
+        };
+        this.selectedAcabadosCodi = {
+          ac_codi: '',
+          ac_desce: '',
+        };
+        this.AddTarifa = '';
+        this, this.myControl2[0].setValue(this.selectedColores);
+        this, this.myControls[0].setValue(this.selectedAcabadosCodi);
+        this.infoCodi = '';
+        this.infoDesc = '';
+        this.modalService.dismissAll();
+      }
     });
-    //  this.modalService.dismissAll();
-
-
 
               },
               (error) => console.log(error)
@@ -1250,15 +1299,63 @@ export class AgregarArticulosComponent implements OnInit {
                this.especificacionService.postEspecificacion(body).subscribe(
      (resp) => {
        this.datos_especificacion = resp.data;
-                  {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Registro exitoso',
-
-
-                    });
-                  }
-                  //  this.modalService.dismissAll();
+                 Swal.fire({
+      title: 'Registro exitoso',
+      text: 'Especificaciones agregadas',
+      icon: 'success',
+      confirmButtonColor: '#172b4d',
+      confirmButtonText: 'Confirmar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.selectedLinea = {
+          tp_codi: '',
+          tp_desc: '',
+        };
+        this.selectedTambor = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedFormato = {
+          ft_tpiel: '',
+          ft_codi: '',
+          ft_desc: '',
+          ft_desci: '',
+          ft_sts: '',
+        };
+        this.selectedTamano = {
+          tm_tpiel: '',
+          tm_codi: '',
+          tm_desc: '',
+          tm_sts: '',
+        };
+        this.selectedGrosor = {
+          gl_linea: '',
+          gl_codi: '',
+          gl_desc: '',
+        };
+        this.selectedClasificado = {
+          value: '',
+        };
+        this.selectedAcabado = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedColores = {
+          co_codi: '',
+          co_desce: '',
+        };
+        this.selectedAcabadosCodi = {
+          ac_codi: '',
+          ac_desce: '',
+        };
+        this.AddTarifa = '';
+        this, this.myControl2[0].setValue(this.selectedColores);
+        this, this.myControls[0].setValue(this.selectedAcabadosCodi);
+        this.infoCodi = '';
+        this.infoDesc = '';
+        this.modalService.dismissAll();
+      }
+    });
 
                 },
                 (error) => console.log(error)
@@ -1289,17 +1386,63 @@ export class AgregarArticulosComponent implements OnInit {
                  this.especificacionService.postEspecificacion(body).subscribe(
      (resp) => {
        this.datos_especificacion = resp.data;
-                    {
-                      Swal.fire({
-                        icon: 'success',
-                        title: 'Registro exitoso',
-
-
-                      });
-                    }
-                    //  this.modalService.dismissAll();
-
-
+                     Swal.fire({
+      title: 'Registro exitoso',
+      text: 'Especificaciones agregadas',
+      icon: 'success',
+      confirmButtonColor: '#172b4d',
+      confirmButtonText: 'Confirmar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.selectedLinea = {
+          tp_codi: '',
+          tp_desc: '',
+        };
+        this.selectedTambor = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedFormato = {
+          ft_tpiel: '',
+          ft_codi: '',
+          ft_desc: '',
+          ft_desci: '',
+          ft_sts: '',
+        };
+        this.selectedTamano = {
+          tm_tpiel: '',
+          tm_codi: '',
+          tm_desc: '',
+          tm_sts: '',
+        };
+        this.selectedGrosor = {
+          gl_linea: '',
+          gl_codi: '',
+          gl_desc: '',
+        };
+        this.selectedClasificado = {
+          value: '',
+        };
+        this.selectedAcabado = {
+          value: '',
+          viewValue: '',
+        };
+        this.selectedColores = {
+          co_codi: '',
+          co_desce: '',
+        };
+        this.selectedAcabadosCodi = {
+          ac_codi: '',
+          ac_desce: '',
+        };
+        this.AddTarifa = '';
+        this, this.myControl2[0].setValue(this.selectedColores);
+        this, this.myControls[0].setValue(this.selectedAcabadosCodi);
+        this.infoCodi = '';
+        this.infoDesc = '';
+        this.modalService.dismissAll();
+      }
+    });
                   },
                   (error) => console.log(error)
                 );

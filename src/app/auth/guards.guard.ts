@@ -22,10 +22,9 @@ export class GuardsGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    /*  if (environment.usr.length > 1) {
+    if (environment.usr.length > 1) {
       return true;
-    } else return false;
-  } */
-    return true;
+    } else this.router.navigate(['**']);
+    return false;
   }
 }
