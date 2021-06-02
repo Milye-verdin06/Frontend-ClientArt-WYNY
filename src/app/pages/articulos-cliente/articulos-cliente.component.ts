@@ -638,12 +638,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
   }
 
-  botonAddArticulo() {
-    /*     this.aprobationService.setUnidadMedida(this.selectedUnidad);
-    this.aprobationService.setDivisa(this.selectedValue);
-    this.aprobationService.setCodCliente(this.selectedCliente); */
-    //codigo que necesita el servicio para agregar un articulo
-  }
+  botonAddArticulo() {}
 
   filterArticulo = '';
 

@@ -55,9 +55,7 @@ export class NavbarComponent implements OnInit {
       confirmButtonText: 'Salir',
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.replace(
-          'http://localhost:29944/(S(0z2vafyxw3esalxngavijjdc))/Views/wfLogin.aspx'
-        );
+        window.location.replace('http://192.168.39.202:8083/');
       }
     });
   }
