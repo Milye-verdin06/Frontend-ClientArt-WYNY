@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Renderer2, enableProdMode } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -33,6 +33,8 @@ import { EspecificacionService } from 'src/app/services/especificacion.service';
 
 import { ReqcArtic } from 'src/app/models/cArtic';
 import { ViewChild } from '@angular/core';
+import { CorreoService } from '../../services/correo.service';
+import { ReqCorreo } from 'src/app/models/Correo';
 
 interface Tambor {
   value: string;
@@ -87,6 +89,7 @@ export class AgregarArticulosComponent implements OnInit {
   public datos_grosor: ReqGrosores[] = [];
   public datos_color: ReqColores[] = [];
   public datos_acabados: ReqAcabados[] = [];
+  public datos_correo: ReqCorreo[] = [];
 
   nomCliente: any;
   codCliente: any;
@@ -171,6 +174,7 @@ export class AgregarArticulosComponent implements OnInit {
     private Validacion_c_articService: Validacion_c_articService,
     private ClienteService: ClienteService,
     private aprobationService: AprobationService,
+    private correoService: CorreoService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private aRouter: ActivatedRoute,
@@ -1673,5 +1677,24 @@ export class AgregarArticulosComponent implements OnInit {
         }
       }
     }
+  }
+
+  sendEmail() {
+    console.log('send email');
+
+    let noPedido = 'xf';
+    const body = {
+      to: 'framirez.ics@gmail.com',
+      subject: 'Prueba desde frontend',
+      message: `<h1>Pedido ${noPedido} ha sido actualizado</h1>` + `<br/>`,
+      cc: 'mili_verdin@wyny.com.mx, francisco.rf@purisima.tecnm.mx, milagros.espinosa.verdin@gmail.com',
+    };
+
+    this.correoService.postCorreos(body).subscribe(
+      (resp) => {
+        this.datos_correo = resp.data;
+      },
+      (error) => console.log(error)
+    );
   }
 }
