@@ -20,7 +20,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { environment } from '../../../environments/environment';
 
 interface Food {

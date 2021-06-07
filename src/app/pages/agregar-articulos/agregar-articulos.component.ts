@@ -35,6 +35,7 @@ import { ReqcArtic } from 'src/app/models/cArtic';
 import { ViewChild } from '@angular/core';
 import { CorreoService } from '../../services/correo.service';
 import { ReqCorreo } from 'src/app/models/Correo';
+import { environment } from 'src/environments/environment';
 
 interface Tambor {
   value: string;
@@ -132,7 +133,9 @@ export class AgregarArticulosComponent implements OnInit {
     { value: 'UI', viewValue: 'ACABADO' },
   ];
   formatos: ReqFormatos[] = [];
-
+  aintarifa: number[] = [];
+  ainfoDesc: string[] = [];
+  ainfoCodigo: string[] = [];
   tamanos: ReqTamanos[] = [];
   codigos: ReqcArtic[] = [];
 
@@ -166,6 +169,7 @@ export class AgregarArticulosComponent implements OnInit {
   selectedClasificado: Clasificado;
 
   selectedAcabado: Acabado;
+  public nombreVendedor: string = '';
 
   constructor(
     private location: Location,
@@ -221,6 +225,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.nombreVendedor = environment.nom;
     this.aprobationService.getNombreCliente().subscribe((d) => {
       this.nomCliente = d;
     });
@@ -990,6 +995,9 @@ export class AgregarArticulosComponent implements OnInit {
           }).then((result) => {
             if (result.isConfirmed) {
               if (this.selectedAcabado.value == 'NA') {
+                this.ainfoDesc.push(this.infoDesc);
+                this.ainfoCodigo.push(this.infoCodi);
+                this.aintarifa.push(this.AddTarifa);
                 const body = {
                   ta_codi: 'C',
                   ta_clta: this.codCliente,
@@ -1109,6 +1117,9 @@ export class AgregarArticulosComponent implements OnInit {
                 );
               }
               if (this.selectedAcabado.value == 'TC') {
+                this.ainfoDesc.push(this.infoDesc);
+                this.ainfoCodigo.push(this.infoCodi);
+                this.aintarifa.push(this.AddTarifa);
                 const body = {
                   ta_codi: 'C',
                   ta_clta: this.codCliente,
@@ -1231,6 +1242,9 @@ export class AgregarArticulosComponent implements OnInit {
               }
 
               if (this.selectedAcabado.value == 'UI') {
+                this.ainfoDesc.push(this.infoDesc);
+                this.ainfoCodigo.push(this.infoCodi);
+                this.aintarifa.push(this.AddTarifa);
                 const body = {
                   ta_codi: 'C',
                   ta_clta: this.codCliente,
@@ -1369,7 +1383,7 @@ export class AgregarArticulosComponent implements OnInit {
 
   opensweetalertCancelaRegistroArticulo(selectedItem?: any) {
     Swal.fire({
-      title: '¿Cancelar registro del articulo?',
+      title: '¿Finalizar registro del articulo?',
 
       icon: 'warning',
       showCancelButton: true,
@@ -1387,10 +1401,14 @@ export class AgregarArticulosComponent implements OnInit {
         {
           Swal.fire({
             icon: 'info',
-            title: 'Registro de articulo cancelado',
+            title: 'Registro de articulo finalizado',
             showConfirmButton: false,
             timer: 1600,
           });
+          if (this.ainfoDesc.length == 0 && this.ainfoCodigo.length == 0) {
+          } else {
+            this.sendEmail();
+          }
         }
 
         this.isHomeRoute();
@@ -1679,15 +1697,51 @@ export class AgregarArticulosComponent implements OnInit {
     }
   }
 
+  messageTable: string = '';
   sendEmail() {
     console.log('send email');
 
-    let noPedido = 'xf';
+    for (let i = 0; i < this.ainfoDesc.length; i++) {
+      this.messageTable =
+        this.messageTable +
+        `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
+    }
     const body = {
-      to: 'framirez.ics@gmail.com',
-      subject: 'Prueba desde frontend',
-      message: `<h1>Pedido ${noPedido} ha sido actualizado</h1>` + `<br/>`,
-      cc: 'mili_verdin@wyny.com.mx, francisco.rf@purisima.tecnm.mx, milagros.espinosa.verdin@gmail.com',
+      to: 'milagros.espinosa.verdin@gmail.com',
+      subject: 'Alta artículo-cliente',
+
+      message: `<div>
+      <h1 style="font-family: Arial">&nbsp;&nbsp;Registro de artículo </h1>
+                    <a>
+                    <img src="https://i.mkt.lu/dl/thumb/7444781040/7188581810.jpg" width="150" height="150" border="0" alt="" style="float:left">
+                    </a>
+
+
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendedor: ${this.nombreVendedor}</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente: ${this.nomCliente}</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Código cliente: ${this.codCliente}</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de negocio: Marroquineria, Unidad de medida:${this.unidadSelecc} </h5>
+                  <br>
+
+              </div>
+
+            <table class="table table-striped" align="center" border="1" cellpadding="0" cellspacing="0" width="950">
+              <thead bgcolor="#3b5e9b">
+                  <tr>
+
+                    <th scope="col" width="550" style="font-family: Arial">Artículo</th>
+                    <th scope="col" style="font-family: Arial">Código</th>
+                    <th scope="col" style="font-family: Arial">Precio de venta</th>
+
+                  </tr>
+              </thead>
+                <tbody>
+                  ${this.messageTable}
+
+                </tbody>
+          </table>`,
+
+      cc: 'lrs17110086@purisima.tecnm.mx,mili_verdin@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(
