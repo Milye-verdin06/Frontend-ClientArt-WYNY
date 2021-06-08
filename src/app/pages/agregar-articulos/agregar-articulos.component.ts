@@ -95,6 +95,7 @@ export class AgregarArticulosComponent implements OnInit {
   nomCliente: any;
   codCliente: any;
   unidadSelecc: any;
+
   divisaSelecc: any;
   unidadNSelecc: any;
 
@@ -1707,11 +1708,11 @@ export class AgregarArticulosComponent implements OnInit {
         `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
     }
     const body = {
-      to: 'milagros.espinosa.verdin@gmail.com',
-      subject: 'Alta artículo-cliente',
+      to: 'mili_verdin@wyny.com.mx',
+      subject: `Alta artículo - ${this.nomCliente}`,
 
       message: `<div>
-      <h1 style="font-family: Arial">&nbsp;&nbsp;Registro de artículo </h1>
+      <h1 style="font-family: Arial">&nbsp;&nbsp;Registro de nuevo articulo </h1>
                     <a>
                     <img src="https://i.mkt.lu/dl/thumb/7444781040/7188581810.jpg" width="150" height="150" border="0" alt="" style="float:left">
                     </a>
@@ -1720,10 +1721,11 @@ export class AgregarArticulosComponent implements OnInit {
               <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendedor: ${this.nombreVendedor}</h5>
               <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente: ${this.nomCliente}</h5>
               <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Código cliente: ${this.codCliente}</h5>
-              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de negocio: Marroquineria, Unidad de medida:${this.unidadSelecc} </h5>
-                  <br>
-
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de negocio: Marroquineria </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de medida: ${this.unidadSelecc} </h5>
               </div>
+              <br>
+              <br>
 
             <table class="table table-striped" align="center" border="1" cellpadding="0" cellspacing="0" width="950">
               <thead bgcolor="#3b5e9b">
@@ -1741,7 +1743,7 @@ export class AgregarArticulosComponent implements OnInit {
                 </tbody>
           </table>`,
 
-      cc: 'lrs17110086@purisima.tecnm.mx,mili_verdin@wyny.com.mx',
+      cc: 'milagros.espinosa.verdin@gmail.com',
     };
 
     this.correoService.postCorreos(body).subscribe(

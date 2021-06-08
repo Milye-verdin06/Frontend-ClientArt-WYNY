@@ -183,6 +183,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   unidadSelecc: any;
   divisaSelecc: any;
   unidadNSelecc: any;
+  nomUnidad: any;
   modalOption: NgbModalOptions = {};
 
   constructor(
