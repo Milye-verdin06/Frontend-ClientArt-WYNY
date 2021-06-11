@@ -24,7 +24,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
-import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
+import { SaldosClienteComponent } from './saldos-cliente/saldos-cliente.component';
 import { PipeFilterPipe } from './pipes/pipe-filter.pipe';
 import { PeticionesService } from '../services/peticiones.service';
 import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
@@ -35,7 +35,9 @@ import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
     ArticulosClienteComponent,
     AgregarArticulosComponent,
     EspecificacionesComponent,
-    AgregarEspecificacionesComponent,
+
+    SaldosClienteComponent,
+
     NopagefoundComponent,
     PipeFilterPipe,
   ],

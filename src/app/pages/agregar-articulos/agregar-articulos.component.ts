@@ -1708,7 +1708,7 @@ export class AgregarArticulosComponent implements OnInit {
         `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
     }
     const body = {
-      to: 'mili_verdin@wyny.com.mx',
+      to: 'elias_jimenez@wyny.com.mx',
       subject: `Alta artículo - ${this.nomCliente}`,
 
       message: `<div>
@@ -1743,7 +1743,7 @@ export class AgregarArticulosComponent implements OnInit {
                 </tbody>
           </table>`,
 
-      cc: 'milagros.espinosa.verdin@gmail.com',
+      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(

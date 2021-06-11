@@ -5,7 +5,7 @@ import { PagesComponent } from './pages.component';
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
 import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
 import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
-import { AgregarEspecificacionesComponent } from './agregar-especificaciones/agregar-especificaciones.component';
+import { SaldosClienteComponent } from './saldos-cliente/saldos-cliente.component';
 import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
 
 const routes: Routes = [
@@ -23,9 +23,10 @@ const routes: Routes = [
         component: AgregarArticulosComponent,
       },
       {
-        path: 'agregar-especificacion',
-        component: AgregarEspecificacionesComponent,
+        path: 'saldos-cliente',
+        component: SaldosClienteComponent,
       },
+
       { path: 'get-especificacion', component: EspecificacionesComponent },
       { path: 'no-pagefound', component: NopagefoundComponent },
       { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },

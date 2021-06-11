@@ -15,10 +15,10 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
 
-  /* {
-    path: '/agregar-especificacion',
-    title: 'Especificaciones',
-    icon: 'ni-single-copy-04 text-dark',
+  /*  {
+    path: '/saldos-cliente',
+    title: 'Saldos Cliente',
+    icon: 'ni ni-money-coins text-dark',
     class: '',
   }, */
 
