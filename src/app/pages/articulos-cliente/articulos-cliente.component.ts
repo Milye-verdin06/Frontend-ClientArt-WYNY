@@ -486,6 +486,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   codSelected(codigo: listaCliente) {
     this.selectedCliente = codigo.c_codi;
     this.selectedClienteName = codigo.c_nom;
+
     this.aprobationService.setNombreClinte(this.selectedClienteName);
     this.aprobationService.setCodCliente(this.selectedCliente);
     this.isDisableunidadN = false;
@@ -647,7 +648,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     /* console.log(this.renglonSelected); */
 
     Swal.fire({
-      title: 'Dar de baja el artículo',
+      title: 'Confirmar para desactivar el artículo',
       icon: 'question',
       showDenyButton: true,
       showCancelButton: false,
@@ -677,7 +678,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
           (error) => console.log(error)
         );
 
-        Swal.fire('Eliminado', '', 'success');
+        Swal.fire('Artículo desactivado correctamente', '', 'success');
       } else if (result.isDenied) {
         Swal.fire('Operación interrumpida', '', 'info');
       }
@@ -689,7 +690,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     /* console.log(this.renglonSelected); */
 
     Swal.fire({
-      title: 'Reactivar el artículo',
+      title: 'Confirmar para reactivar el artículo',
 
       showDenyButton: true,
       showCancelButton: false,
@@ -720,7 +721,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
           (error) => console.log(error)
         );
 
-        Swal.fire('Activado', '', 'success');
+        Swal.fire('Artículo activado correctamente', '', 'success');
       } else if (result.isDenied) {
         Swal.fire('Operación interrumpida', '', 'info');
       }

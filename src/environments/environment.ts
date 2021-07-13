@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.39.202:8085/marroquineria',
-  apiUrlBase: 'http://192.168.39.202:8085',
+  apiUrl: 'http://189.194.236.252:8085/marroquineria',
+  apiUrlBase: 'http://189.194.236.252:8085',
   token: '',
   usr: '',
   fds: '',
@@ -17,3 +17,6 @@ export const environment = {
 
 // apiUrl: 'http://192.168.39.238:8085/marroquineria',
 // apiUrlBase: 'http://192.168.39.238:8085',
+
+// apiUrl: 'http://192.168.39.202:8085/marroquineria'',
+//   apiUrlBase: 'http://192.168.39.202:8085',

@@ -1743,7 +1743,7 @@ export class AgregarArticulosComponent implements OnInit {
                 </tbody>
           </table>`,
 
-      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.com.mx',
+      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.com.mx, ramon_hernandez@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(
