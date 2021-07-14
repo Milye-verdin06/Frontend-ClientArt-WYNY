@@ -397,11 +397,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.unidadNSelecc = d;
     });
 
-    console.log('cod cliente: [' + this.codCliente + ']');
-    console.log('nom cliente: [' + this.nomCliente + ']');
-    console.log('unidad Medida: [' + this.unidadSelecc + ']');
-    console.log('Divisa: [' + this.divisaSelecc + ']');
-    console.log('familia: [' + this.unidadNSelecc + ']');
+    // console.log('cod cliente: [' + this.codCliente + ']');
+    //console.log('nom cliente: [' + this.nomCliente + ']');
+    //console.log('unidad Medida: [' + this.unidadSelecc + ']');
+    //console.log('Divisa: [' + this.divisaSelecc + ']');
+    //console.log('familia: [' + this.unidadNSelecc + ']');
   }
 
   public displayFnClientes(cliente: listaCliente): string {
@@ -436,7 +436,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.articuloService.getArticulos(body).subscribe(
       (resp) => {
         this.datos_articulo = resp.data;
-        console.log('Datos-articulo finales', this.datos_articulo.length);
+        //console.log('Datos-articulo finales', this.datos_articulo.length);
         if (this.datos_articulo.length == 0) {
           this.isDisabledadd = true;
           Swal.fire({
@@ -465,8 +465,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     this.isDisabledRadioActivo = false;
     this.isDisabledRadioInactivo = false;
-    console.log('unidadm', this.unidadSelecc);
-    console.log('divisaa', this.divisaSelecc);
+    //console.log('unidadm', this.unidadSelecc);
+    //console.log('divisaa', this.divisaSelecc);
   }
 
   selectedRadio: boolean = true;

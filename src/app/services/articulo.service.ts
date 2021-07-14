@@ -24,7 +24,7 @@ export class ArticuloService {
   getArticulos(body: any): Observable<articuloRespons> {
     return this.peticion.postQuery('articulos', 'getall', body).pipe(
       map((response) => {
-        console.log(response);
+        //console.log(response);
         return response;
       })
     );
@@ -33,7 +33,7 @@ export class ArticuloService {
   putArticulos(body: any): Observable<articuloRespons> {
     return this.peticion.putQuery('articulos', 'put', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -42,7 +42,7 @@ export class ArticuloService {
   getlinea(): Observable<LineaRespons> {
     return this.peticion.getQuery('lineas', 'getall').pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -51,7 +51,7 @@ export class ArticuloService {
   getformato(): Observable<FormatoRespons> {
     return this.peticion.getQuery('formatos', 'getall').pipe(
       map((response) => {
-        console.log(response);
+        //console.log(response);
         return response;
       })
     );
@@ -60,7 +60,7 @@ export class ArticuloService {
   gettamano(): Observable<TamanoRespons> {
     return this.peticion.getQuery('tamanos', 'getall').pipe(
       map((response) => {
-        console.log(response);
+        //console.log(response);
         return response;
       })
     );
@@ -69,7 +69,7 @@ export class ArticuloService {
   getgrosor(): Observable<GrosorRespons> {
     return this.peticion.getQuery('grosores', 'getall').pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -78,7 +78,7 @@ export class ArticuloService {
   getcolor(): Observable<ColorRespons> {
     return this.peticion.getQuery('colores', 'getall').pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -86,7 +86,7 @@ export class ArticuloService {
   getAcabado(): Observable<AcabadosRespons> {
     return this.peticion.getQuery('acabados', 'getall').pipe(
       map((response) => {
-        console.log(response);
+        //  console.log(response);
         return response;
       })
     );
@@ -94,7 +94,7 @@ export class ArticuloService {
   putInactivarArticulos(body: any): Observable<articuloRespons> {
     return this.peticion.putQuery('articulos', 'delete', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -103,7 +103,7 @@ export class ArticuloService {
   putActivarctivarArticulos(body: any): Observable<articuloRespons> {
     return this.peticion.putQuery('articulos', 'activararticulo', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -111,7 +111,7 @@ export class ArticuloService {
   postArticulos(body: any): Observable<articuloRespons> {
     return this.peticion.postQuery('articulos', 'post', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );

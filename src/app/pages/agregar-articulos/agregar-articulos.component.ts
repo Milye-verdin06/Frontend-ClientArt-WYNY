@@ -333,7 +333,7 @@ export class AgregarArticulosComponent implements OnInit {
 
     this.mostrarInfo();
     this.mostrarCodigo();
-    console.log(this.selectedAcabadosCodi.ac_codi);
+    //console.log(this.selectedAcabadosCodi.ac_codi);
   }
   public displayFnColores(color: ReqColores): string {
     return color && String(color.co_desce).trim()
@@ -498,7 +498,7 @@ export class AgregarArticulosComponent implements OnInit {
             this.selectedFormato.ft_codi == this.selectedFormato.ft_codi)
           ) {
             this.isDisabledGrosor = false;
-            console.log('si existe el articulo en c_artic');
+            console.log('si existe el artículo en c_artic');
           } else {
             this.datos_artic.length == 0;
             Swal.fire({
@@ -514,7 +514,7 @@ export class AgregarArticulosComponent implements OnInit {
         (error) => console.log(error)
       );
     } else {
-      console.log('te faltan un caracteres por seleccionar');
+      console.log('te faltan un carácter por seleccionar');
     }
   }
 
@@ -585,7 +585,7 @@ export class AgregarArticulosComponent implements OnInit {
           this.datos_artic = resp.data;
           if (this.datos_artic.length == 1) {
             this.isDisabledGrosor = false;
-            console.log('si existe el articulo en c_artic');
+            console.log('si existe el artículo en c_artic');
           } else {
             Swal.fire({
               icon: 'warning',
@@ -600,7 +600,7 @@ export class AgregarArticulosComponent implements OnInit {
         (error) => console.log(error)
       );
     } else {
-      console.log('te falta un caracter por seleccionar');
+      console.log('te falta un carácter por seleccionar');
     }
 
     //this.isDisabledGrosor = true;
@@ -647,7 +647,7 @@ export class AgregarArticulosComponent implements OnInit {
           this.datos_artic = resp.data;
           if (this.datos_artic.length == 1) {
             this.isDisabledGrosor = false;
-            console.log('si existe el articulo en c_artic');
+            console.log('si existe el artículo en c_artic');
           } else {
             Swal.fire({
               icon: 'warning',
@@ -662,7 +662,7 @@ export class AgregarArticulosComponent implements OnInit {
         (error) => console.log(error)
       );
     } else {
-      console.log('te falta un caracter por seleccionar');
+      console.log('te falta un carácter por seleccionar');
     }
   }
 
@@ -926,7 +926,7 @@ export class AgregarArticulosComponent implements OnInit {
   onChange() {}
   public useDefault = false;
   toggle(event: MatSlideToggleChange) {
-    console.log('Toggle fired');
+    //console.log('Toggle fired');
     this.useDefault = event.checked;
   }
   AddTarifa: any;
@@ -937,7 +937,6 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   submitArticulo() {
-    console.log(this.selectedAcabadosCodi.ac_codi, 'acabasoss');
     const bodyC = {
       codigoTarifa: this.infoCodi.substring(0, 4),
     };
@@ -1741,9 +1740,12 @@ export class AgregarArticulosComponent implements OnInit {
                   ${this.messageTable}
 
                 </tbody>
-          </table>`,
+          </table>
+           <h6 style="font-family: Arial" align="center"> Este mensaje se envió de manera automática, favor de NO responder,
+           en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
+           </h6> `,
 
-      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.com.mx, ramon_hernandez@wyny.com.mx',
+      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(

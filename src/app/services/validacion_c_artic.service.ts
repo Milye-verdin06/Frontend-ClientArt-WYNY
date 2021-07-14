@@ -13,7 +13,7 @@ export class Validacion_c_articService {
   getArticulosC_artic(body: any): Observable<articuloCRespons> {
     return this.peticion.postQuery('articulos', 'getallinC_artic', body).pipe(
       map((response) => {
-        console.log(response);
+        //console.log(response);
         return response;
       })
     );

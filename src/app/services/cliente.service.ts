@@ -5,23 +5,18 @@ import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { PeticionesService } from './peticiones.service';
 import { map } from 'rxjs/operators';
 
-
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClienteService {
+  constructor(private peticion: PeticionesService) {}
 
-  constructor(private peticion: PeticionesService) { }
-
-  getClientes(fds:any): Observable<clientRespons>{
-    return this.peticion.postQuery('clientes','getall',fds)
-    .pipe(
-      map(response=>{
-        console.log(response);
+  getClientes(fds: any): Observable<clientRespons> {
+    return this.peticion.postQuery('clientes', 'getall', fds).pipe(
+      map((response) => {
+        // console.log(response);
         return response;
       })
-    )
+    );
   }
 }

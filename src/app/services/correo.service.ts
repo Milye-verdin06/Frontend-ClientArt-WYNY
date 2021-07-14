@@ -14,7 +14,7 @@ export class CorreoService {
   postCorreos(body: any): Observable<correoRespons> {
     return this.peticion.postQuery('usuarios', 'correo', body).pipe(
       map((response) => {
-        console.log(response);
+        //console.log(response);
         return response;
       })
     );

@@ -14,7 +14,7 @@ export class EspecificacionService {
   getEspecificacion(body: any): Observable<especificacionRespons> {
     return this.peticion.postQuery('especificaciones', 'getall', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -23,7 +23,7 @@ export class EspecificacionService {
   putEspecificion(body: any): Observable<especificacionRespons> {
     return this.peticion.putQuery('especificaciones', 'put', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );
@@ -31,7 +31,7 @@ export class EspecificacionService {
   postEspecificacion(body: any): Observable<especificacionRespons> {
     return this.peticion.postQuery('especificaciones', 'post', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response;
       })
     );

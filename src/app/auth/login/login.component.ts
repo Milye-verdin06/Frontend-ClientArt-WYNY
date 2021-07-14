@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       s_usr = p['mUsr'];
       s_psw = p['mPsw'];
       s_clv = p['mClv'];
-      console.log(s_usr);
+      //console.log(s_usr);
 
       this.authenticationService.login(s_usr, s_psw).subscribe(
         (resp) => {

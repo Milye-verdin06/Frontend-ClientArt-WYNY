@@ -23,7 +23,7 @@ export class authenticationService {
   loginUsuario(body: any): Observable<Usuario> {
     return this.peticion.postQuery('usuarios', 'login', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
         return response.data;
       })
     );
