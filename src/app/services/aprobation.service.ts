@@ -43,6 +43,18 @@ export class AprobationService {
     return this.unidadSelecc.asObservable();
   }
 
+  private nomDivisa: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  public nomDivisas: Observable<string> = this.nomDivisa.asObservable();
+
+  public setNombreDivisa(nomDivisa: any) {
+    this.nomDivisa.next(nomDivisa);
+  }
+
+  public getNombreDivisa(): Observable<string> {
+    return this.nomDivisa.asObservable();
+  }
+
   private divisaSelecc: BehaviorSubject<string> = new BehaviorSubject<string>(
     ''
   );

@@ -182,6 +182,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   codCliente: any;
   unidadSelecc: any;
   divisaSelecc: any;
+  nomDivisa: any;
   unidadNSelecc: any;
   nomUnidad: any;
   modalOption: NgbModalOptions = {};
@@ -296,6 +297,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   selectedDivisChange(values: any) {
     this.aprobationService.setDivisa(this.selectedValue);
+    this.aprobationService.setNombreDivisa(this.selectedValue.viewValue);
     this.isDisabledButtonAdd = false;
     this.isDisabledButtonBuscar = false;
 
@@ -358,6 +360,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     }
     if (this.divisaSelecc) {
       this.selectedValue = this.divisaSelecc;
+
       this.isDisableDivis = false;
       this.isDisabledButtonAdd = true;
       this.isDisabledButtonBuscar = false;
@@ -393,6 +396,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.getDivisa().subscribe((d) => {
       this.divisaSelecc = d;
     });
+
+    this.aprobationService.getNombreDivisa().subscribe((d) => {
+      this.nomDivisa = d;
+    });
+
     this.aprobationService.getUnidadN().subscribe((d) => {
       this.unidadNSelecc = d;
     });
@@ -484,6 +492,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   codSelected(codigo: listaCliente) {
+    this.isDisabledButton = false;
     this.selectedCliente = codigo.c_codi;
     this.selectedClienteName = codigo.c_nom;
 
@@ -648,7 +657,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     /* console.log(this.renglonSelected); */
 
     Swal.fire({
-      title: 'Confirmar para desactivar el artículo',
+      title: 'Confirmar para inactivar el artículo',
       icon: 'question',
       showDenyButton: true,
       showCancelButton: false,
@@ -678,7 +687,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
           (error) => console.log(error)
         );
 
-        Swal.fire('Artículo desactivado correctamente', '', 'success');
+        Swal.fire('Artículo inactivado correctamente', '', 'success');
       } else if (result.isDenied) {
         Swal.fire('Operación interrumpida', '', 'info');
       }

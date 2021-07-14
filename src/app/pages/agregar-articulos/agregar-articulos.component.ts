@@ -97,6 +97,7 @@ export class AgregarArticulosComponent implements OnInit {
   unidadSelecc: any;
 
   divisaSelecc: any;
+  nomDivisa: any;
   unidadNSelecc: any;
 
   createFormGroup() {
@@ -240,6 +241,10 @@ export class AgregarArticulosComponent implements OnInit {
 
     this.aprobationService.getDivisa().subscribe((d) => {
       this.divisaSelecc = d;
+    });
+
+    this.aprobationService.getNombreDivisa().subscribe((d) => {
+      this.nomDivisa = d;
     });
 
     this.aprobationService.getUnidadN().subscribe((d) => {
@@ -1722,10 +1727,11 @@ export class AgregarArticulosComponent implements OnInit {
               <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Código cliente: ${this.codCliente}</h5>
               <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de negocio: Marroquineria </h5>
               <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de medida: ${this.unidadSelecc} </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Divisa: ${this.divisaSelecc} </h5>
               </div>
               <br>
               <br>
-
+              <br>
             <table class="table table-striped" align="center" border="1" cellpadding="0" cellspacing="0" width="950">
               <thead bgcolor="#3b5e9b">
                   <tr>
