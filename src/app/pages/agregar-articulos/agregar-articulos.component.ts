@@ -1713,6 +1713,7 @@ export class AgregarArticulosComponent implements OnInit {
     }
     const body = {
       to: 'elias_jimenez@wyny.com.mx',
+
       subject: `Alta artículo - ${this.nomCliente}`,
 
       message: `<div>
