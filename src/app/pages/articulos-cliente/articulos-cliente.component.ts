@@ -687,9 +687,19 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
           (error) => console.log(error)
         );
 
-        Swal.fire('Artículo inactivado correctamente', '', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Artículo inactivado correctamente',
+          showConfirmButton: false,
+          timer: 1700,
+        });
       } else if (result.isDenied) {
-        Swal.fire('Operación interrumpida', '', 'info');
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación interrumpida',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   }
@@ -730,9 +740,19 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
           (error) => console.log(error)
         );
 
-        Swal.fire('Artículo activado correctamente', '', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Artículo activado correctamente',
+          showConfirmButton: false,
+          timer: 1700,
+        });
       } else if (result.isDenied) {
-        Swal.fire('Operación interrumpida', '', 'info');
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación interrumpida',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   }

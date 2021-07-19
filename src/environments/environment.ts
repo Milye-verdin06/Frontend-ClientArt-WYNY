@@ -15,8 +15,13 @@ export const environment = {
 // apiUrl: 'http://localhost:15222/marroquineria',
 //   apiUrlBase: 'http://localhost:15222',
 
+//con IP local
 // apiUrl: 'http://192.168.39.238:8085/marroquineria',
 // apiUrlBase: 'http://192.168.39.238:8085',
 
 // apiUrl: 'http://192.168.39.202:8085/marroquineria'',
 //   apiUrlBase: 'http://192.168.39.202:8085',
+
+//con salida a internet
+//'http://189.194.236.252:8085/marroquineria',
+// 'http://189.194.236.252:8085',

@@ -12,6 +12,7 @@ import {
   ReqColores,
   AcabadosRespons,
   ReqArticulos,
+  ReqArticulosExistentes,
 } from 'src/app/models/articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
 
@@ -63,6 +64,7 @@ export class AgregarArticulosComponent implements OnInit {
   @ViewChild('addespecificacion') modalContent: any;
 
   datos_articulo: ReqArticulos[] = [];
+  datos_articuloenTarifa: ReqArticulosExistentes[] = [];
   datos_artic: ReqcArtic[] = [];
   datos_especificacion: any;
   myControls: FormControl[] = [new FormControl('')];
@@ -971,7 +973,8 @@ export class AgregarArticulosComponent implements OnInit {
       ) {
         Swal.fire({
           icon: 'question',
-          title: 'Seleccionar color',
+          title: 'Verificar',
+          text: 'Seleccionar color',
           showConfirmButton: false,
           timer: 1900,
         });
@@ -997,387 +1000,486 @@ export class AgregarArticulosComponent implements OnInit {
             showCancelButton: false,
             confirmButtonText: `Confirmar`,
             denyButtonText: `No confirmar`,
+            confirmButtonColor: '#172b4d',
           }).then((result) => {
             if (result.isConfirmed) {
-              if (this.selectedAcabado.value == 'NA') {
-                this.ainfoDesc.push(this.infoDesc);
-                this.ainfoCodigo.push(this.infoCodi);
-                this.aintarifa.push(this.AddTarifa);
-                const body = {
-                  ta_codi: 'C',
-                  ta_clta: this.codCliente,
-                  ta_artic: this.infoCodi.substring(0, 4),
-                  ta_gruix: this.selectedGrosor.gl_codi,
-                  ta_acaba: 'NA',
-                  ta_color: '9',
-                  ta_clas: this.selectedClasificado.value,
-                  ta_unifa: this.unidadSelecc,
-                  ta_divis: this.divisaSelecc,
-                  ta_tarif_001: this.AddTarifa,
-                  ta_tarif_002: '',
-                  ta_tarif_003: '',
-                  ta_tarif_004: '',
-                  ta_listar: 'S',
-                };
-                this.articuloService.postArticulos(body).subscribe(
-                  (resp) => {
-                    this.datos_articulo = resp.data;
+              const body = {
+                ta_clta: this.codCliente,
+                ta_artic: this.infoCodi.substring(0, 4),
+                ta_gruix: this.selectedGrosor.gl_codi,
+                ta_acaba: 'NA',
+                ta_color: '9',
+                ta_clas: this.selectedClasificado.value,
+                ta_unifa: this.unidadSelecc,
+                ta_divis: this.divisaSelecc,
+                ta_tarif_001: this.AddTarifa,
+                ta_tarif_002: '',
+              };
 
+              this.articuloService.getArticulosinTarifa(body).subscribe(
+                (resp) => {
+                  this.datos_articuloenTarifa = resp.data;
+                  if (this.datos_articuloenTarifa.length >= 1) {
                     Swal.fire({
-                      title: 'Articulo registrado correctamente',
-                      text: 'Desea agregar especificaciones al artículo',
-                      icon: 'success',
-                      showCancelButton: true,
+                      icon: 'warning',
+                      title: 'El artículo ya existe',
+                      text: 'Favor de verificar la información',
+                      showConfirmButton: true,
                       confirmButtonColor: '#172b4d',
-                      cancelButtonColor: '#BB3939',
-                      cancelButtonText: 'No',
-                      confirmButtonText: 'Si',
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        this.open(this.modalContent);
-                      } else {
-                        const bodyN = {
-                          ef_clta: this.codCliente,
-                          ef_artic: this.infoCodi.substring(0, 4),
-                          ef_gruix: this.selectedGrosor.gl_codi,
-                          ef_acaba: 'NA',
-                          ef_color: '9',
-                          ef_clas: this.selectedClasificado.value,
-                          ef_unifa: this.unidadSelecc,
-                          ef_divis: this.divisaSelecc,
-                          ef_espe1: '',
-                          ef_espe2: '',
-                          ef_espe3: '',
-                          ef_espe4: '',
-                          ef_espe5: '',
-                          ef_espe6: '',
-                          ef_espe7: '',
-                          ef_espe8: '',
-                          ef_espe9: '',
-                          ef_espe10: '',
-                        };
-
-                        this.especificacionService
-                          .postEspecificacion(bodyN)
-                          .subscribe(
-                            (resp) => {
-                              console.log(resp);
-                            },
-                            (error) => console.log(error)
-                          );
-
-                        this.selectedLinea = {
-                          tp_codi: '',
-                          tp_desc: '',
-                        };
-                        this.selectedTambor = {
-                          value: '',
-                          viewValue: '',
-                        };
-                        this.selectedFormato = {
-                          ft_tpiel: '',
-                          ft_codi: '',
-                          ft_desc: '',
-                          ft_desci: '',
-                          ft_sts: '',
-                        };
-                        this.selectedTamano = {
-                          tm_tpiel: '',
-                          tm_codi: '',
-                          tm_desc: '',
-                          tm_sts: '',
-                        };
-                        this.selectedGrosor = {
-                          gl_linea: '',
-                          gl_codi: '',
-                          gl_desc: '',
-                        };
-                        this.selectedClasificado = {
-                          value: '',
-                        };
-                        this.selectedAcabado = {
-                          value: '',
-                          viewValue: '',
-                        };
-                        this.selectedColores = {
-                          co_codi: '',
-                          co_desce: '',
-                        };
-                        this.selectedAcabadosCodi = {
-                          ac_codi: '',
-                          ac_desce: '',
-                        };
-                        this.AddTarifa = '';
-                        this, this.myControl2[0].setValue(this.selectedColores);
-                        this,
-                          this.myControls[0].setValue(
-                            this.selectedAcabadosCodi
-                          );
-                        this.infoCodi = '';
-                        this.infoDesc = '';
-                      }
+                      confirmButtonText: `Verificar`,
                     });
-                  },
-                  (error) => console.log(error)
-                );
-              }
-              if (this.selectedAcabado.value == 'TC') {
-                this.ainfoDesc.push(this.infoDesc);
-                this.ainfoCodigo.push(this.infoCodi);
-                this.aintarifa.push(this.AddTarifa);
-                const body = {
-                  ta_codi: 'C',
-                  ta_clta: this.codCliente,
-                  ta_artic: this.infoCodi.substring(0, 4),
-                  ta_gruix: this.selectedGrosor.gl_codi,
-                  ta_acaba: 'TC',
-                  ta_color: this.selectedColores.co_codi,
-                  ta_clas: this.selectedClasificado.value,
-                  ta_unifa: this.unidadSelecc,
-                  ta_divis: this.divisaSelecc,
-                  ta_tarif_001: this.AddTarifa,
-                  ta_tarif_002: '',
-                  ta_tarif_003: '',
-                  ta_tarif_004: '',
-                  ta_listar: 'S',
-                };
-                this.articuloService.postArticulos(body).subscribe(
-                  (resp) => {
-                    this.datos_articulo = resp.data;
-                    {
-                      Swal.fire({
-                        title: 'Articulo registrado correctamente',
-                        text: 'Desea agregar especificaciones al artículo',
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#172b4d',
-                        cancelButtonColor: '#BB3939',
-                        cancelButtonText: 'No',
-                        confirmButtonText: 'Si',
-                      }).then((result) => {
-                        if (result.isConfirmed) {
-                          this.open(this.modalContent);
-                        } else {
-                          const bodyT = {
-                            ef_clta: this.codCliente,
-                            ef_artic: this.infoCodi.substring(0, 4),
-                            ef_gruix: this.selectedGrosor.gl_codi,
-                            ef_acaba: 'TC',
-                            ef_color: this.selectedColores.co_codi,
-                            ef_clas: this.selectedClasificado.value,
-                            ef_unifa: this.unidadSelecc,
-                            ef_divis: this.divisaSelecc,
-                            ef_espe1: '',
-                            ef_espe2: '',
-                            ef_espe3: '',
-                            ef_espe4: '',
-                            ef_espe5: '',
-                            ef_espe6: '',
-                            ef_espe7: '',
-                            ef_espe8: '',
-                            ef_espe9: '',
-                            ef_espe10: '',
-                          };
+                  } else {
+                    if (this.selectedAcabado.value == 'NA') {
+                      this.ainfoDesc.push(this.infoDesc);
+                      this.ainfoCodigo.push(this.infoCodi);
+                      this.aintarifa.push(this.AddTarifa);
+                      const bodyNAA = {
+                        ta_codi: 'C',
+                        ta_clta: this.codCliente,
+                        ta_artic: this.infoCodi.substring(0, 4),
+                        ta_gruix: this.selectedGrosor.gl_codi,
+                        ta_acaba: 'NA',
+                        ta_color: '9',
+                        ta_clas: this.selectedClasificado.value,
+                        ta_unifa: this.unidadSelecc,
+                        ta_divis: this.divisaSelecc,
+                        ta_tarif_001: this.AddTarifa,
+                        ta_tarif_002: '',
+                        ta_tarif_003: '',
+                        ta_tarif_004: '',
+                        ta_listar: 'S',
+                      };
+                      this.articuloService.postArticulos(bodyNAA).subscribe(
+                        (resp) => {
+                          this.datos_articulo = resp.data;
 
-                          this.especificacionService
-                            .postEspecificacion(bodyT)
-                            .subscribe(
-                              (resp) => {
-                                console.log(resp);
-                              },
-                              (error) => console.log(error)
-                            );
+                          Swal.fire({
+                            title: 'Articulo registrado correctamente',
+                            text: 'Desea agregar especificaciones al artículo',
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#172b4d',
+                            cancelButtonColor: '#BB3939',
+                            cancelButtonText: 'No',
+                            confirmButtonText: 'Si',
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              this.open(this.modalContent);
+                            } else {
+                              const bodyNAT = {
+                                ef_clta: this.codCliente,
+                                ef_artic: this.infoCodi.substring(0, 4),
+                                ef_gruix: this.selectedGrosor.gl_codi,
+                                ef_acaba: 'NA',
+                                ef_color: '9',
+                                ef_clas: this.selectedClasificado.value,
+                                ef_unifa: this.unidadSelecc,
+                                ef_divis: this.divisaSelecc,
+                                ef_espe1: '',
+                                ef_espe2: '',
+                                ef_espe3: '',
+                                ef_espe4: '',
+                                ef_espe5: '',
+                                ef_espe6: '',
+                                ef_espe7: '',
+                                ef_espe8: '',
+                                ef_espe9: '',
+                                ef_espe10: '',
+                              };
 
-                          this.selectedLinea = {
-                            tp_codi: '',
-                            tp_desc: '',
-                          };
-                          this.selectedTambor = {
-                            value: '',
-                            viewValue: '',
-                          };
-                          this.selectedFormato = {
-                            ft_tpiel: '',
-                            ft_codi: '',
-                            ft_desc: '',
-                            ft_desci: '',
-                            ft_sts: '',
-                          };
-                          this.selectedTamano = {
-                            tm_tpiel: '',
-                            tm_codi: '',
-                            tm_desc: '',
-                            tm_sts: '',
-                          };
-                          this.selectedGrosor = {
-                            gl_linea: '',
-                            gl_codi: '',
-                            gl_desc: '',
-                          };
-                          this.selectedClasificado = {
-                            value: '',
-                          };
-                          this.selectedAcabado = {
-                            value: '',
-                            viewValue: '',
-                          };
-                          this.selectedColores = {
-                            co_codi: '',
-                            co_desce: '',
-                          };
-                          this.selectedAcabadosCodi = {
-                            ac_codi: '',
-                            ac_desce: '',
-                          };
-                          this.AddTarifa = '';
-                          this,
-                            this.myControl2[0].setValue(this.selectedColores);
-                          this,
-                            this.myControls[0].setValue(
-                              this.selectedAcabadosCodi
-                            );
-                          this.infoCodi = '';
-                          this.infoDesc = '';
-                        }
-                      });
+                              this.especificacionService
+                                .postEspecificacion(bodyNAT)
+                                .subscribe(
+                                  (resp) => {
+                                    console.log(resp);
+                                  },
+                                  (error) => console.log(error)
+                                );
+
+                              this.selectedLinea = {
+                                tp_codi: '',
+                                tp_desc: '',
+                              };
+                              this.selectedTambor = {
+                                value: '',
+                                viewValue: '',
+                              };
+                              this.selectedFormato = {
+                                ft_tpiel: '',
+                                ft_codi: '',
+                                ft_desc: '',
+                                ft_desci: '',
+                                ft_sts: '',
+                              };
+                              this.selectedTamano = {
+                                tm_tpiel: '',
+                                tm_codi: '',
+                                tm_desc: '',
+                                tm_sts: '',
+                              };
+                              this.selectedGrosor = {
+                                gl_linea: '',
+                                gl_codi: '',
+                                gl_desc: '',
+                              };
+                              this.selectedClasificado = {
+                                value: '',
+                              };
+                              this.selectedAcabado = {
+                                value: '',
+                                viewValue: '',
+                              };
+                              this.selectedColores = {
+                                co_codi: '',
+                                co_desce: '',
+                              };
+                              this.selectedAcabadosCodi = {
+                                ac_codi: '',
+                                ac_desce: '',
+                              };
+                              this.AddTarifa = '';
+                              this,
+                                this.myControl2[0].setValue(
+                                  this.selectedColores
+                                );
+                              this,
+                                this.myControls[0].setValue(
+                                  this.selectedAcabadosCodi
+                                );
+                              this.infoCodi = '';
+                              this.infoDesc = '';
+                            }
+                          });
+                        },
+                        (error) => console.log(error)
+                      );
                     }
-                  },
-                  (error) => console.log(error)
-                );
-              }
+                  }
+                },
+                (error) => console.log(error)
+              );
 
-              if (this.selectedAcabado.value == 'UI') {
-                this.ainfoDesc.push(this.infoDesc);
-                this.ainfoCodigo.push(this.infoCodi);
-                this.aintarifa.push(this.AddTarifa);
-                const body = {
-                  ta_codi: 'C',
-                  ta_clta: this.codCliente,
-                  ta_artic: this.infoCodi.substring(0, 4),
-                  ta_gruix: this.selectedGrosor.gl_codi,
-                  ta_acaba: this.selectedAcabadosCodi.ac_codi,
-                  ta_color: this.selectedColores.co_codi,
-                  ta_clas: this.selectedClasificado.value,
-                  ta_unifa: this.unidadSelecc,
-                  ta_divis: this.divisaSelecc,
-                  ta_tarif_001: this.AddTarifa,
-                  ta_tarif_002: '',
-                  ta_tarif_003: '',
-                  ta_tarif_004: '',
-                  ta_listar: 'S',
-                };
+              const bodyTE = {
+                ta_clta: this.codCliente,
+                ta_artic: this.infoCodi.substring(0, 4),
+                ta_gruix: this.selectedGrosor.gl_codi,
+                ta_acaba: 'TC',
+                ta_color: this.selectedColores.co_codi,
+                ta_clas: this.selectedClasificado.value,
+                ta_unifa: this.unidadSelecc,
+                ta_divis: this.divisaSelecc,
+                ta_tarif_001: this.AddTarifa,
+                ta_tarif_002: '',
+              };
 
-                this.articuloService.postArticulos(body).subscribe(
-                  (resp) => {
-                    this.datos_articulo = resp.data;
-                    {
-                      Swal.fire({
-                        title: 'Articulo registrado correctamente',
-                        text: 'Desea agregar especificaciones al artículo',
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#172b4d',
-                        cancelButtonColor: '#BB3939',
-                        cancelButtonText: 'No',
-                        confirmButtonText: 'Si',
-                      }).then((result) => {
-                        if (result.isConfirmed) {
-                          this.open(this.modalContent);
-                        } else {
-                          const bodyA = {
-                            ef_clta: this.codCliente,
-                            ef_artic: this.infoCodi.substring(0, 4),
-                            ef_gruix: this.selectedGrosor.gl_codi,
-                            ef_acaba: this.selectedAcabadosCodi.ac_codi,
-                            ef_color: this.selectedColores.co_codi,
-                            ef_clas: this.selectedClasificado.value,
-                            ef_unifa: this.unidadSelecc,
-                            ef_divis: this.divisaSelecc,
-                            ef_espe1: '',
-                            ef_espe2: '',
-                            ef_espe3: '',
-                            ef_espe4: '',
-                            ef_espe5: '',
-                            ef_espe6: '',
-                            ef_espe7: '',
-                            ef_espe8: '',
-                            ef_espe9: '',
-                            ef_espe10: '',
-                          };
+              this.articuloService.getArticulosinTarifa(bodyTE).subscribe(
+                (resp) => {
+                  this.datos_articuloenTarifa = resp.data;
+                  if (this.datos_articuloenTarifa.length >= 1) {
+                    Swal.fire({
+                      icon: 'warning',
+                      title: 'El artículo ya existe',
+                      text: 'Favor de verificar la información',
+                      showConfirmButton: true,
+                      confirmButtonColor: '#172b4d',
+                      confirmButtonText: `Verificar`,
+                    });
+                  } else {
+                    if (this.selectedAcabado.value == 'TC') {
+                      this.ainfoDesc.push(this.infoDesc);
+                      this.ainfoCodigo.push(this.infoCodi);
+                      this.aintarifa.push(this.AddTarifa);
+                      const bodyTC = {
+                        ta_codi: 'C',
+                        ta_clta: this.codCliente,
+                        ta_artic: this.infoCodi.substring(0, 4),
+                        ta_gruix: this.selectedGrosor.gl_codi,
+                        ta_acaba: 'TC',
+                        ta_color: this.selectedColores.co_codi,
+                        ta_clas: this.selectedClasificado.value,
+                        ta_unifa: this.unidadSelecc,
+                        ta_divis: this.divisaSelecc,
+                        ta_tarif_001: this.AddTarifa,
+                        ta_tarif_002: '',
+                        ta_tarif_003: '',
+                        ta_tarif_004: '',
+                        ta_listar: 'S',
+                      };
+                      this.articuloService.postArticulos(bodyTC).subscribe(
+                        (resp) => {
+                          this.datos_articulo = resp.data;
+                          {
+                            Swal.fire({
+                              title: 'Articulo registrado correctamente',
+                              text: 'Desea agregar especificaciones al artículo',
+                              icon: 'success',
+                              showCancelButton: true,
+                              confirmButtonColor: '#172b4d',
+                              cancelButtonColor: '#BB3939',
+                              cancelButtonText: 'No',
+                              confirmButtonText: 'Si',
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                this.open(this.modalContent);
+                              } else {
+                                const bodyTEN = {
+                                  ef_clta: this.codCliente,
+                                  ef_artic: this.infoCodi.substring(0, 4),
+                                  ef_gruix: this.selectedGrosor.gl_codi,
+                                  ef_acaba: 'TC',
+                                  ef_color: this.selectedColores.co_codi,
+                                  ef_clas: this.selectedClasificado.value,
+                                  ef_unifa: this.unidadSelecc,
+                                  ef_divis: this.divisaSelecc,
+                                  ef_espe1: '',
+                                  ef_espe2: '',
+                                  ef_espe3: '',
+                                  ef_espe4: '',
+                                  ef_espe5: '',
+                                  ef_espe6: '',
+                                  ef_espe7: '',
+                                  ef_espe8: '',
+                                  ef_espe9: '',
+                                  ef_espe10: '',
+                                };
 
-                          this.especificacionService
-                            .postEspecificacion(bodyA)
-                            .subscribe(
-                              (resp) => {
-                                console.log(resp);
-                              },
-                              (error) => console.log(error)
-                            );
+                                this.especificacionService
+                                  .postEspecificacion(bodyTEN)
+                                  .subscribe(
+                                    (resp) => {
+                                      console.log(resp);
+                                    },
+                                    (error) => console.log(error)
+                                  );
 
-                          this.selectedLinea = {
-                            tp_codi: '',
-                            tp_desc: '',
-                          };
-                          this.selectedTambor = {
-                            value: '',
-                            viewValue: '',
-                          };
-                          this.selectedFormato = {
-                            ft_tpiel: '',
-                            ft_codi: '',
-                            ft_desc: '',
-                            ft_desci: '',
-                            ft_sts: '',
-                          };
-                          this.selectedTamano = {
-                            tm_tpiel: '',
-                            tm_codi: '',
-                            tm_desc: '',
-                            tm_sts: '',
-                          };
-                          this.selectedGrosor = {
-                            gl_linea: '',
-                            gl_codi: '',
-                            gl_desc: '',
-                          };
-                          this.selectedClasificado = {
-                            value: '',
-                          };
-                          this.selectedAcabado = {
-                            value: '',
-                            viewValue: '',
-                          };
-                          this.selectedColores = {
-                            co_codi: '',
-                            co_desce: '',
-                          };
-                          this.selectedAcabadosCodi = {
-                            ac_codi: '',
-                            ac_desce: '',
-                          };
-                          this.AddTarifa = '';
-                          this,
-                            this.myControl2[0].setValue(this.selectedColores);
-                          this,
-                            this.myControls[0].setValue(
-                              this.selectedAcabadosCodi
-                            );
-                          this.infoCodi = '';
-                          this.infoDesc = '';
-                        }
-                      });
+                                this.selectedLinea = {
+                                  tp_codi: '',
+                                  tp_desc: '',
+                                };
+                                this.selectedTambor = {
+                                  value: '',
+                                  viewValue: '',
+                                };
+                                this.selectedFormato = {
+                                  ft_tpiel: '',
+                                  ft_codi: '',
+                                  ft_desc: '',
+                                  ft_desci: '',
+                                  ft_sts: '',
+                                };
+                                this.selectedTamano = {
+                                  tm_tpiel: '',
+                                  tm_codi: '',
+                                  tm_desc: '',
+                                  tm_sts: '',
+                                };
+                                this.selectedGrosor = {
+                                  gl_linea: '',
+                                  gl_codi: '',
+                                  gl_desc: '',
+                                };
+                                this.selectedClasificado = {
+                                  value: '',
+                                };
+                                this.selectedAcabado = {
+                                  value: '',
+                                  viewValue: '',
+                                };
+                                this.selectedColores = {
+                                  co_codi: '',
+                                  co_desce: '',
+                                };
+                                this.selectedAcabadosCodi = {
+                                  ac_codi: '',
+                                  ac_desce: '',
+                                };
+                                this.AddTarifa = '';
+                                this,
+                                  this.myControl2[0].setValue(
+                                    this.selectedColores
+                                  );
+                                this,
+                                  this.myControls[0].setValue(
+                                    this.selectedAcabadosCodi
+                                  );
+                                this.infoCodi = '';
+                                this.infoDesc = '';
+                              }
+                            });
+                          }
+                        },
+                        (error) => console.log(error)
+                      );
                     }
-                  },
-                  (error) => console.log(error)
-                );
-              }
+                  }
+                },
+                (error) => console.log(error)
+              );
+
+              const bodyACA = {
+                ta_clta: this.codCliente,
+                ta_artic: this.infoCodi.substring(0, 4),
+                ta_gruix: this.selectedGrosor.gl_codi,
+                ta_acaba: this.selectedAcabadosCodi.ac_codi,
+                ta_color: this.selectedColores.co_codi,
+                ta_clas: this.selectedClasificado.value,
+                ta_unifa: this.unidadSelecc,
+                ta_divis: this.divisaSelecc,
+                ta_tarif_001: this.AddTarifa,
+                ta_tarif_002: '',
+              };
+
+              this.articuloService.getArticulosinTarifa(bodyACA).subscribe(
+                (resp) => {
+                  this.datos_articuloenTarifa = resp.data;
+                  if (this.datos_articuloenTarifa.length >= 1) {
+                    Swal.fire({
+                      icon: 'warning',
+                      title: 'El artículo ya existe',
+                      text: 'Favor de verificar la información',
+                      showConfirmButton: true,
+                      confirmButtonColor: '#172b4d',
+                      confirmButtonText: `Verificar`,
+                    });
+                  } else {
+                    if (this.selectedAcabado.value == 'UI') {
+                      this.ainfoDesc.push(this.infoDesc);
+                      this.ainfoCodigo.push(this.infoCodi);
+                      this.aintarifa.push(this.AddTarifa);
+                      const bodyUI = {
+                        ta_codi: 'C',
+                        ta_clta: this.codCliente,
+                        ta_artic: this.infoCodi.substring(0, 4),
+                        ta_gruix: this.selectedGrosor.gl_codi,
+                        ta_acaba: this.selectedAcabadosCodi.ac_codi,
+                        ta_color: this.selectedColores.co_codi,
+                        ta_clas: this.selectedClasificado.value,
+                        ta_unifa: this.unidadSelecc,
+                        ta_divis: this.divisaSelecc,
+                        ta_tarif_001: this.AddTarifa,
+                        ta_tarif_002: '',
+                        ta_tarif_003: '',
+                        ta_tarif_004: '',
+                        ta_listar: 'S',
+                      };
+
+                      this.articuloService.postArticulos(bodyUI).subscribe(
+                        (resp) => {
+                          this.datos_articulo = resp.data;
+                          {
+                            Swal.fire({
+                              title: 'Articulo registrado correctamente',
+                              text: 'Desea agregar especificaciones al artículo',
+                              icon: 'success',
+                              showCancelButton: true,
+                              confirmButtonColor: '#172b4d',
+                              cancelButtonColor: '#BB3939',
+                              cancelButtonText: 'No',
+                              confirmButtonText: 'Si',
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                this.open(this.modalContent);
+                              } else {
+                                const bodyACC = {
+                                  ef_clta: this.codCliente,
+                                  ef_artic: this.infoCodi.substring(0, 4),
+                                  ef_gruix: this.selectedGrosor.gl_codi,
+                                  ef_acaba: this.selectedAcabadosCodi.ac_codi,
+                                  ef_color: this.selectedColores.co_codi,
+                                  ef_clas: this.selectedClasificado.value,
+                                  ef_unifa: this.unidadSelecc,
+                                  ef_divis: this.divisaSelecc,
+                                  ef_espe1: '',
+                                  ef_espe2: '',
+                                  ef_espe3: '',
+                                  ef_espe4: '',
+                                  ef_espe5: '',
+                                  ef_espe6: '',
+                                  ef_espe7: '',
+                                  ef_espe8: '',
+                                  ef_espe9: '',
+                                  ef_espe10: '',
+                                };
+
+                                this.especificacionService
+                                  .postEspecificacion(bodyACC)
+                                  .subscribe(
+                                    (resp) => {
+                                      console.log(resp);
+                                    },
+                                    (error) => console.log(error)
+                                  );
+
+                                this.selectedLinea = {
+                                  tp_codi: '',
+                                  tp_desc: '',
+                                };
+                                this.selectedTambor = {
+                                  value: '',
+                                  viewValue: '',
+                                };
+                                this.selectedFormato = {
+                                  ft_tpiel: '',
+                                  ft_codi: '',
+                                  ft_desc: '',
+                                  ft_desci: '',
+                                  ft_sts: '',
+                                };
+                                this.selectedTamano = {
+                                  tm_tpiel: '',
+                                  tm_codi: '',
+                                  tm_desc: '',
+                                  tm_sts: '',
+                                };
+                                this.selectedGrosor = {
+                                  gl_linea: '',
+                                  gl_codi: '',
+                                  gl_desc: '',
+                                };
+                                this.selectedClasificado = {
+                                  value: '',
+                                };
+                                this.selectedAcabado = {
+                                  value: '',
+                                  viewValue: '',
+                                };
+                                this.selectedColores = {
+                                  co_codi: '',
+                                  co_desce: '',
+                                };
+                                this.selectedAcabadosCodi = {
+                                  ac_codi: '',
+                                  ac_desce: '',
+                                };
+                                this.AddTarifa = '';
+                                this,
+                                  this.myControl2[0].setValue(
+                                    this.selectedColores
+                                  );
+                                this,
+                                  this.myControls[0].setValue(
+                                    this.selectedAcabadosCodi
+                                  );
+                                this.infoCodi = '';
+                                this.infoDesc = '';
+                              }
+                            });
+                          }
+                        },
+                        (error) => console.log(error)
+                      );
+                    }
+                  }
+                },
+                (error) => console.log(error)
+              );
             } else if (result.isDenied) {
               Swal.fire({
                 icon: 'warning',
                 title: 'Registro cancelado',
                 showConfirmButton: true,
                 confirmButtonColor: '#172b4d',
-                confirmButtonAriaLabel: 'Continuar',
+                confirmButtonText: `Continuar`,
               });
             }
           });
@@ -1388,13 +1490,14 @@ export class AgregarArticulosComponent implements OnInit {
 
   opensweetalertCancelaRegistroArticulo(selectedItem?: any) {
     Swal.fire({
-      title: '¿Finalizar registro del articulo?',
+      title: '¿Desea finalizar el registro del articulo?',
 
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#172b4d',
       cancelButtonColor: '#BB3939',
       confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isDismissed) {
         Swal.fire(
@@ -1405,7 +1508,7 @@ export class AgregarArticulosComponent implements OnInit {
       } else if (result.isConfirmed) {
         {
           Swal.fire({
-            icon: 'info',
+            icon: 'success',
             title: 'Registro de articulo finalizado',
             showConfirmButton: false,
             timer: 1600,

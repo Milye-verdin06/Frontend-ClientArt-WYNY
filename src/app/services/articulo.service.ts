@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   AcabadosRespons,
+  ArticuloExisteTarifa,
   articuloRespons,
   ColorRespons,
   FormatoRespons,
@@ -112,6 +113,15 @@ export class ArticuloService {
     return this.peticion.postQuery('articulos', 'post', body).pipe(
       map((response) => {
         // console.log(response);
+        return response;
+      })
+    );
+  }
+
+  getArticulosinTarifa(body: any): Observable<ArticuloExisteTarifa> {
+    return this.peticion.postQuery('articulos', 'searchTarifa', body).pipe(
+      map((response) => {
+        console.log(response);
         return response;
       })
     );
