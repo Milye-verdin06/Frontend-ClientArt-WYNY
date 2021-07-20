@@ -290,7 +290,7 @@
                     <div type="text">
                         <h1>Especificaciones del articulo: {{ infoDesc }}</h1>
                     </div>
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss(isHomeRoute)">
+                    <button type="button" class="close" aria-label="Close" (click)="cerrarAddEspeci()">
             <span aria-hidden="true">X</span>
           </button>
                 </div>
@@ -308,39 +308,39 @@
                     ">
                                         <mat-form-field class="example-full-width">
                                             <mat-label>1:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi1" [(ngModel)]="Addespeci1"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi1" [(ngModel)]="Addespeci1"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>2:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi2" [(ngModel)]="Addespeci2"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi2" [(ngModel)]="Addespeci2"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>3:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi3" [(ngModel)]="Addespeci3"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi3" [(ngModel)]="Addespeci3"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>4:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi4" [(ngModel)]="Addespeci4"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi4" [(ngModel)]="Addespeci4"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>5:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi5" [(ngModel)]="Addespeci5"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi5" [(ngModel)]="Addespeci5"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>6:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi6" [(ngModel)]="Addespeci6"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi6" [(ngModel)]="Addespeci6"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>7:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi7" [(ngModel)]="Addespeci7"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi7" [(ngModel)]="Addespeci7"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>8:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi8" [(ngModel)]="Addespeci8"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi8" [(ngModel)]="Addespeci8"></textarea>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                             <mat-label>9:</mat-label>
-                                            <textarea matInput placeholder=" " rows="1" name="especi9" [(ngModel)]="Addespeci9"></textarea>
+                                            <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi9" [(ngModel)]="Addespeci9"></textarea>
                                         </mat-form-field>
 
                                         <div class="example-full-width" cellspacing="0">
@@ -348,7 +348,7 @@
                                                 <td>
                                                     <mat-form-field class="example-full-width">
                                                         <mat-label>Código cliente</mat-label>
-                                                        <input matInput placeholder="" name="especi10" [(ngModel)]="Addespeci10" />
+                                                        <input matInput placeholder="" name="especi10" maxlength="60" [(ngModel)]="Addespeci10" />
                                                     </mat-form-field>
                                                 </td>
                                             </tr>

@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
 
   cerrarSesion() {
     Swal.fire({
-      title: 'Estas apunto de salir de la sesión',
+      title: 'Estas a punto de salir de la sesión',
       icon: 'warning',
       width: 300,
 

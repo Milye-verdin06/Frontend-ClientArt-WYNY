@@ -766,6 +766,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
   infoCodi: string = '';
   infoDesc: string = '';
+  infoEspeci: string = '';
   infoLinea: string = '';
   infoTambor: string = '';
   infoFormato: string = '';
@@ -776,6 +777,7 @@ export class AgregarArticulosComponent implements OnInit {
   infoColor: string = '';
   infoAcabadofilter: string = '';
 
+  guardarEspecis() {}
   mostrarInfo() {
     this.infoLinea = this.selectedLinea
       ? String(this.selectedLinea.tp_desc)
@@ -1057,6 +1059,8 @@ export class AgregarArticulosComponent implements OnInit {
                             title: 'Articulo registrado correctamente',
                             text: 'Desea agregar especificaciones al artículo',
                             icon: 'success',
+
+                            showConfirmButton: true,
                             showCancelButton: true,
                             confirmButtonColor: '#172b4d',
                             cancelButtonColor: '#BB3939',
@@ -1212,6 +1216,7 @@ export class AgregarArticulosComponent implements OnInit {
                             Swal.fire({
                               title: 'Articulo registrado correctamente',
                               text: 'Desea agregar especificaciones al artículo',
+                              showConfirmButton: true,
                               icon: 'success',
                               showCancelButton: true,
                               confirmButtonColor: '#172b4d',
@@ -1371,6 +1376,7 @@ export class AgregarArticulosComponent implements OnInit {
                               title: 'Articulo registrado correctamente',
                               text: 'Desea agregar especificaciones al artículo',
                               icon: 'success',
+                              showConfirmButton: true,
                               showCancelButton: true,
                               confirmButtonColor: '#172b4d',
                               cancelButtonColor: '#BB3939',
@@ -1523,7 +1529,20 @@ export class AgregarArticulosComponent implements OnInit {
       }
     });
   }
+  cerrarAddEspeci() {
+    {
+      Swal.fire({
+        width: 340,
+        icon: 'warning',
 
+        title: 'Incluir  especificaciones',
+        text: 'Favor de guardar el registro',
+        showConfirmButton: false,
+        timer: 1900,
+      });
+    }
+    // this.modalService.dismissAll();
+  }
   isHomeRoute() {
     //dirigirse al componente principal cuando cancelan el registro de un articulo.
     this.router.navigate(['/articulos-cliente']);
@@ -1573,6 +1592,16 @@ export class AgregarArticulosComponent implements OnInit {
             confirmButtonText: 'Confirmar',
           }).then((result) => {
             if (result.isConfirmed) {
+              this.Addespeci1 = '';
+              this.Addespeci2 = '';
+              this.Addespeci3 = '';
+              this.Addespeci4 = '';
+              this.Addespeci5 = '';
+              this.Addespeci6 = '';
+              this.Addespeci7 = '';
+              this.Addespeci8 = '';
+              this.Addespeci9 = '';
+              this.Addespeci10 = '';
               this.selectedLinea = {
                 tp_codi: '',
                 tp_desc: '',
@@ -1654,6 +1683,7 @@ export class AgregarArticulosComponent implements OnInit {
         this.especificacionService.postEspecificacion(body).subscribe(
           (resp) => {
             this.datos_especificacion = resp.data;
+
             Swal.fire({
               title: 'Registro exitoso',
               text: 'Especificaciones agregadas',
@@ -1662,6 +1692,16 @@ export class AgregarArticulosComponent implements OnInit {
               confirmButtonText: 'Confirmar',
             }).then((result) => {
               if (result.isConfirmed) {
+                this.Addespeci1 = '';
+                this.Addespeci2 = '';
+                this.Addespeci3 = '';
+                this.Addespeci4 = '';
+                this.Addespeci5 = '';
+                this.Addespeci6 = '';
+                this.Addespeci7 = '';
+                this.Addespeci8 = '';
+                this.Addespeci9 = '';
+                this.Addespeci10 = '';
                 this.selectedLinea = {
                   tp_codi: '',
                   tp_desc: '',
@@ -1740,6 +1780,7 @@ export class AgregarArticulosComponent implements OnInit {
           this.especificacionService.postEspecificacion(body).subscribe(
             (resp) => {
               this.datos_especificacion = resp.data;
+
               Swal.fire({
                 title: 'Registro exitoso',
                 text: 'Especificaciones agregadas',
@@ -1748,6 +1789,17 @@ export class AgregarArticulosComponent implements OnInit {
                 confirmButtonText: 'Confirmar',
               }).then((result) => {
                 if (result.isConfirmed) {
+                  this.Addespeci1 = '';
+                  this.Addespeci2 = '';
+                  this.Addespeci3 = '';
+                  this.Addespeci4 = '';
+                  this.Addespeci5 = '';
+                  this.Addespeci6 = '';
+                  this.Addespeci7 = '';
+                  this.Addespeci8 = '';
+                  this.Addespeci9 = '';
+                  this.Addespeci10 = '';
+
                   this.selectedLinea = {
                     tp_codi: '',
                     tp_desc: '',
@@ -1855,7 +1907,7 @@ export class AgregarArticulosComponent implements OnInit {
            en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
            </h6> `,
 
-      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx',
+      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx, mili_verdin@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(
