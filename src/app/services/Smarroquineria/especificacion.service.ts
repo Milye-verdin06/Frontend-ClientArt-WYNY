@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { especificacionRespons } from 'src/app/models/especificacion';
-import { PeticionesService } from './peticiones.service';
+import { especificacionRespons } from 'src/app/models/marroquineria/especificacion';
+import { PeticionesService } from '../peticiones.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({

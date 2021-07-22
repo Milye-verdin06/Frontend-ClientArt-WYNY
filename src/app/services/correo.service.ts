@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { correoRespons } from '../models/Correo';
+import { correoRespons } from '../models/marroquineria/Correo';
 import { PeticionesService } from './peticiones.service';
 
 @Injectable({

@@ -13,29 +13,29 @@ import {
   AcabadosRespons,
   ReqArticulos,
   ReqArticulosExistentes,
-} from 'src/app/models/articulo';
-import { ArticuloService } from 'src/app/services/articulo.service';
+} from 'src/app/models/marroquineria/articulo';
+import { ArticuloService } from 'src/app/services/Smarroquineria/articulo.service';
 
 import { ClienteService } from '../../services/cliente.service';
-import { AprobationService } from 'src/app/services/aprobation.service';
-import { Validacion_c_articService } from 'src/app/services/validacion_c_artic.service';
+import { AprobationService } from 'src/app/services/Smarroquineria/aprobation.service';
+import { Validacion_c_articService } from 'src/app/services/Smarroquineria/validacion_c_artic.service';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { ColorRespons, ReqAcabados } from '../../models/articulo';
+import { ColorRespons, ReqAcabados } from '../../models/marroquineria/articulo';
 
 import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
-import { EspecificacionService } from 'src/app/services/especificacion.service';
+import { EspecificacionService } from 'src/app/services/Smarroquineria/especificacion.service';
 
-import { ReqcArtic } from 'src/app/models/cArtic';
+import { ReqcArtic } from 'src/app/models/marroquineria/cArtic';
 import { ViewChild } from '@angular/core';
 import { CorreoService } from '../../services/correo.service';
-import { ReqCorreo } from 'src/app/models/Correo';
+import { ReqCorreo } from 'src/app/models/marroquineria/Correo';
 import { environment } from 'src/environments/environment';
 
 interface Tambor {
@@ -58,7 +58,7 @@ interface Clasificado {
 
 @Component({
   selector: 'app-agregar-articulos',
-  templateUrl: './agregar-articulos.component.html',
+  templateUrl: './agregar-articulos marroquineria.component.html',
 })
 export class AgregarArticulosComponent implements OnInit {
   @ViewChild('addespecificacion') modalContent: any;
@@ -1867,7 +1867,7 @@ export class AgregarArticulosComponent implements OnInit {
         `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
     }
     const body = {
-      to: 'elias_jimenez@wyny.com.mx',
+      to: 'mili_verdin@wyny.com.mx',
 
       subject: `Alta artículo - ${this.nomCliente}`,
 
@@ -1907,7 +1907,7 @@ export class AgregarArticulosComponent implements OnInit {
            en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
            </h6> `,
 
-      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx, mili_verdin@wyny.com.mx',
+      cc: ' mili_verdin@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(

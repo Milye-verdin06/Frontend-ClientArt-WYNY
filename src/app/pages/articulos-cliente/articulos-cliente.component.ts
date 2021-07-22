@@ -4,14 +4,17 @@ import {
   NgbModalOptions,
   ModalDismissReasons,
 } from '@ng-bootstrap/ng-bootstrap';
-import { AprobationService } from 'src/app/services/aprobation.service';
-import { clientRespons, listaCliente } from 'src/app/models/Cliente';
-import { ArticuloService } from '../../services/articulo.service';
-import { ReqArticulos, ReqLineas } from 'src/app/models/articulo';
+import { AprobationService } from 'src/app/services/Smarroquineria/aprobation.service';
+import {
+  clientRespons,
+  listaCliente,
+} from 'src/app/models/marroquineria/Cliente';
+import { ArticuloService } from '../../services/Smarroquineria/articulo.service';
+import { ReqArticulos, ReqLineas } from 'src/app/models/marroquineria/articulo';
 import { HttpClient } from '@angular/common/http';
 
 import { ClienteService } from 'src/app/services/cliente.service';
-import { EspecificacionService } from 'src/app/services/especificacion.service';
+import { EspecificacionService } from 'src/app/services/Smarroquineria/especificacion.service';
 import { authenticationService } from 'src/app/services/authentication.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { from, Observable, Subject } from 'rxjs';
@@ -49,12 +52,15 @@ interface UnidadNegocio {
 })
 export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabled = true; //deshabilitar TextArea de especificaciones
-  isDisabledButton = false; //deshabilitar el botton de agregar articulos
+  isDisabledButtonM = false; //ocultar el botton de agregar articulos marroquineria
+  isDisabledButtonAddM = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros marroquineria
+  isDisabledButtonS = false; //ocultar el botton de agregar articulos suela
+  isDisabledButtonAddS = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros suela
   isDisabledadd = true; //deshabilitar el filtro de la descripcion del articulo
   isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
   isDisableunidadM = true; // deshabilitar la unidad de medida y habilitar hasta que seleccione la unidad de negocio
   isDisableDivis = true; //deshabilitar la divisa y habilitar hasta que selecciona la unidad de medida
-  isDisabledButtonAdd = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros
+
   isDisabledButtonBuscar = true; //deshabilitar el boton de buscar hasta que seleccione la divisa
   isDisabledRadioActivo = true; //deshabilitar el radio hasta que de clic en buscar
   isDisabledRadioInactivo = true; //deshabilitar el radio hasta que de clic en buscar
@@ -247,15 +253,20 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   selectedUnidadNChange(values: any) {
-    this.isDisabledButtonAdd = true;
     this.selectedValue = {
       value: '',
       viewValue: '',
     };
     this.selectedUnidadN = values;
     if (values === 'SI') {
-      this.isDisabledButton = true;
-    } else this.isDisabledButton = false;
+      this.isDisabledButtonAddM = true; //mantener boton inactivado
+      this.isDisabledButtonM = true; //mostrar boton
+    } else this.isDisabledButtonM = false;
+
+    if (values === 'SU') {
+      this.isDisabledButtonAddS = false; //activar boton
+      this.isDisabledButtonS = true; //mostrar boton
+    } else this.isDisabledButtonS = false;
 
     this.unidadesF = this.unidades.filter(
       (u) =>
@@ -288,7 +299,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setUnidadN(this.selectedUnidadN);
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
-    this.isDisabledButtonAdd = true;
+    this.isDisabledButtonAddM = true;
 
     /* if ((this.selectedUnidad.value = '')) {
       this.isDisabledButtonBuscar = true;
@@ -298,7 +309,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   selectedDivisChange(values: any) {
     this.aprobationService.setDivisa(this.selectedValue);
     this.aprobationService.setNombreDivisa(this.selectedValue.viewValue);
-    this.isDisabledButtonAdd = false;
+    this.isDisabledButtonAddM = false;
     this.isDisabledButtonBuscar = false;
 
     /*  if ((this.selectedValue.value = '')) {
@@ -344,7 +355,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.selectedUnidad = this.unidadSelecc;
       this.isDisableunidadN = false;
       this.isDisableunidadM = false;
-      this.isDisabledButton = true;
+      this.isDisabledButtonM = true;
 
       this.unidadesF = this.unidades.filter(
         (u) =>
@@ -362,7 +373,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.selectedValue = this.divisaSelecc;
 
       this.isDisableDivis = false;
-      this.isDisabledButtonAdd = true;
+      this.isDisabledButtonAddM = true;
       this.isDisabledButtonBuscar = false;
     }
 
@@ -377,7 +388,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     }
 
     if (this.divisaSelecc == this.divisaSelecc) {
-      this.isDisabledButtonAdd = false;
+      this.isDisabledButtonAddM = false;
     }
   }
 
@@ -492,7 +503,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   }
 
   codSelected(codigo: listaCliente) {
-    this.isDisabledButton = false;
+    this.isDisabledButtonM = false;
+    this.isDisabledButtonS = false;
     this.selectedCliente = codigo.c_codi;
     this.selectedClienteName = codigo.c_nom;
 
@@ -648,7 +660,13 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     );
   }
 
-  botonAddArticulo() {}
+  botonAddArticuloM() {
+    this.router.navigateByUrl('add-articulos-marroquineria');
+  }
+
+  botonAddArticuloS() {
+    this.router.navigateByUrl('add-articulos-suela');
+  }
 
   filterArticulo = '';
 

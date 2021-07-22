@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
-import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
-import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
+import { AgregarArticulosComponent } from './agregar-articulos marroquineria/agregar-articulos marroquineria.component';
+import { AgregarArticulosSuelaComponent } from './agregar-articulos suela/agregar-articulos suela.component';
 import { SaldosClienteComponent } from './saldos-cliente/saldos-cliente.component';
 import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
 
@@ -19,7 +19,7 @@ const routes: Routes = [
         component: ArticulosClienteComponent,
       },
       {
-        path: 'agregar-articulos',
+        path: 'add-articulos-marroquineria',
         component: AgregarArticulosComponent,
       },
       {
@@ -27,7 +27,10 @@ const routes: Routes = [
         component: SaldosClienteComponent,
       },
 
-      { path: 'get-especificacion', component: EspecificacionesComponent },
+      {
+        path: 'add-articulos-suela',
+        component: AgregarArticulosSuelaComponent,
+      },
       { path: 'no-pagefound', component: NopagefoundComponent },
       { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },
     ],

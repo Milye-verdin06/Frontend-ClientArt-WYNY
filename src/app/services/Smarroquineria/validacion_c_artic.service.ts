@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { articuloCRespons, ReqcArtic } from '../models/cArtic';
-import { PeticionesService } from './peticiones.service';
+import { articuloCRespons, ReqcArtic } from '../../models/marroquineria/cArtic';
+import { PeticionesService } from '../peticiones.service';
 
 @Injectable({
   providedIn: 'root',

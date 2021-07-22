@@ -9,10 +9,10 @@ import {
   FormatoRespons,
   GrosorRespons,
   TamanoRespons,
-} from 'src/app/models/articulo';
-import { PeticionesService } from './peticiones.service';
+} from 'src/app/models/marroquineria/articulo';
+import { PeticionesService } from '../peticiones.service';
 import { map } from 'rxjs/operators';
-import { LineaRespons } from '../models/articulo';
+import { LineaRespons } from '../../models/marroquineria/articulo';
 
 //funciona
 

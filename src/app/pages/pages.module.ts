@@ -22,8 +22,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
-import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
-import { EspecificacionesComponent } from './especificaciones/especificaciones.component';
+import { AgregarArticulosComponent } from './agregar-articulos marroquineria/agregar-articulos marroquineria.component';
+import { AgregarArticulosSuelaComponent } from './agregar-articulos suela/agregar-articulos suela.component';
 import { SaldosClienteComponent } from './saldos-cliente/saldos-cliente.component';
 import { PipeFilterPipe } from './pipes/pipe-filter.pipe';
 import { PeticionesService } from '../services/peticiones.service';
@@ -34,10 +34,8 @@ import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
     PagesComponent,
     ArticulosClienteComponent,
     AgregarArticulosComponent,
-    EspecificacionesComponent,
-
+    AgregarArticulosSuelaComponent,
     SaldosClienteComponent,
-
     NopagefoundComponent,
     PipeFilterPipe,
   ],

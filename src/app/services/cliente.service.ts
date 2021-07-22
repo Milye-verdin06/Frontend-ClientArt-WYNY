@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { clientRespons, listaCliente } from 'src/app/models/Cliente';
+import {
+  clientRespons,
+  listaCliente,
+} from 'src/app/models/marroquineria/Cliente';
 import { PeticionesService } from './peticiones.service';
 import { map } from 'rxjs/operators';
 

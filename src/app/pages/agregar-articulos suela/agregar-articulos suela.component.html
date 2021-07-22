@@ -1,0 +1,25 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <h1>Agregar artí­culo a suela</h1>
+                        <h3>Cliente: {{ nomCliente }} &nbsp; Código: {{ codCliente }}</h3>
+
+                        <div class="col-sm-4">
+                            <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" (click)="submitArticulo()">
+                <mat-icon>save</mat-icon>
+              </button>
+                        </div>
+                        <div>
+                            <button mat-fab color="warn" matTooltip="Finalizar registro" matTooltipClass="example-tooltip-red" (click)="CancelaRegistroArticulo()">
+                <mat-icon>close</mat-icon>
+              </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

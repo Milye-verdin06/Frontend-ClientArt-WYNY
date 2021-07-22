@@ -1,6 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { authenticationService } from '../../services/authentication.service';
 import { environment } from '../../../environments/environment';
 
@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
       s_psw = p['mPsw'];
       s_clv = p['mClv'];
       //console.log(s_usr);
+
+      skipLocationChange: true;
 
       this.authenticationService.login(s_usr, s_psw).subscribe(
         (resp) => {
