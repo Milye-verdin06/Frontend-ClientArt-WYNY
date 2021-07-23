@@ -17,11 +17,11 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.aprobationService.getNombreCliente().subscribe((d) => {
-      this.nomCliente = d;
-    });
     this.aprobationService.getCodCliente().subscribe((d) => {
       this.codCliente = d;
+    });
+    this.aprobationService.getNombreCliente().subscribe((d) => {
+      this.nomCliente = d;
     });
   }
   isHomeRoute() {
@@ -29,6 +29,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     this.router.navigate(['/articulos-cliente']);
   }
   submitArticulo() {}
+
+  selectedLineaChange() {}
 
   CancelaRegistroArticulo(selectedItem?: any) {
     Swal.fire({

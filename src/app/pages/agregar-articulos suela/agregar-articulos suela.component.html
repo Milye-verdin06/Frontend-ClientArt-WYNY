@@ -4,18 +4,246 @@
             <div class="card">
                 <div class="card-body text-center">
                     <div class="col-lg-12 col-md-12 col-xs-12">
-                        <h1>Agregar artí­culo a suela</h1>
+                        <h1>Agregar artí­culo a Suela</h1>
                         <h3>Cliente: {{ nomCliente }} &nbsp; Código: {{ codCliente }}</h3>
 
-                        <div class="col-sm-4">
-                            <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" (click)="submitArticulo()">
-                <mat-icon>save</mat-icon>
-              </button>
-                        </div>
-                        <div>
-                            <button mat-fab color="warn" matTooltip="Finalizar registro" matTooltipClass="example-tooltip-red" (click)="CancelaRegistroArticulo()">
-                <mat-icon>close</mat-icon>
-              </button>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm mt-3">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <!--  <mat-form-field appearance="outline" >
+                                            <mat-label>Seleccionar Linea</mat-label>
+                                            <mat-select [(value)]="selectedLinea" [(ngModel)]="selectedLinea" (ngModelChange)="selectedLineaChange($event)">
+                                                <mat-option *ngFor="let linea of datos_linea" [value]="linea">
+                                                    {{ linea.tp_desc.substr(2) }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field> -->
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Seleccionar linea </mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm mt-3">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select tipo</mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm mt-3">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select tipo A</mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm mt-3">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select tipo B</mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm mt-4">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select tipo C</mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm mt-4">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select tipo D</mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm mt-4">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select tipo E</mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm mt-4">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select tipo F</mat-label>
+                                            <mat-select>
+                                                <mat-option value="one">First option</mat-option>
+                                                <mat-option value="two">Second option</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm mt-4">
+                                    <div class="
+                      navbar-search
+                      form-inline
+                      mr-3
+                      d-none d-md-flex
+                      ml-lg-auto
+                    ">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Precio</mat-label>
+                                            <input matInput type="number" id="agregartarifa" name="addTarifa" min="1" required="required" />
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="container mt-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="
+                          navbar-search
+                          form-inline
+                          mr-3
+                          d-none d-md-flex
+                          ml-lg-auto
+                        ">
+                                                <div class="col-md-auto">
+                                                    <h2>Descripción:</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="
+                          navbar-search
+                          form-inline
+                          mr-3
+                          d-none d-md-flex
+                          ml-lg-auto
+                        ">
+                                                <div class="col-md-auto">
+                                                    <h3>infoDesc</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="
+                          navbar-search
+                          form-inline
+                          mr-3
+                          d-none d-md-flex
+                          ml-lg-auto
+                        ">
+                                                <div class="col-md-auto">
+                                                    <h2>Código:</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="
+                          navbar-search
+                          form-inline
+                          mr-3
+                          d-none d-md-flex
+                          ml-lg-auto
+                        ">
+                                                <div class="col-md-auto">
+                                                    <h3>infoCodi</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <button mat-fab color="primary" id="guardararticulo" name="guardararticulo" (click)="submitArticulo()">
+                        <mat-icon>save</mat-icon>
+                      </button>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button mat-fab color="warn" matTooltip="Finalizar registro" matTooltipClass="example-tooltip-red" (click)="CancelaRegistroArticulo()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

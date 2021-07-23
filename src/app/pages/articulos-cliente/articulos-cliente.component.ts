@@ -261,11 +261,14 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     if (values === 'SI') {
       this.isDisabledButtonAddM = true; //mantener boton inactivado
       this.isDisabledButtonM = true; //mostrar boton
+      this.isDisableunidadM = false;
     } else this.isDisabledButtonM = false;
 
     if (values === 'SU') {
       this.isDisabledButtonAddS = false; //activar boton
       this.isDisabledButtonS = true; //mostrar boton
+      this.isDisableunidadM = true; //inhabilitar la unidad de medida
+      this.isDisableDivis = true; //inhabilitar la divisa
     } else this.isDisabledButtonS = false;
 
     this.unidadesF = this.unidades.filter(
@@ -277,7 +280,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         u.unidadN5 == values
     );
 
-    this.isDisableunidadM = false;
     this.aprobationService.setUnidadN(this.selectedUnidadN);
 
     this.selectedUnidad = {
