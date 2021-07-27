@@ -265,10 +265,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     } else this.isDisabledButtonM = false;
 
     if (values === 'SU') {
-      this.isDisabledButtonAddS = false; //activar boton
       this.isDisabledButtonS = true; //mostrar boton
-      this.isDisableunidadM = true; //inhabilitar la unidad de medida
-      this.isDisableDivis = true; //inhabilitar la divisa
+      this.isDisableunidadM = false; //habilitar la unidad de medida
+      //this.isDisableDivis = true; //inhabilitar la divisa
     } else this.isDisabledButtonS = false;
 
     this.unidadesF = this.unidades.filter(
@@ -311,7 +310,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   selectedDivisChange(values: any) {
     this.aprobationService.setDivisa(this.selectedValue);
     this.aprobationService.setNombreDivisa(this.selectedValue.viewValue);
-    this.isDisabledButtonAddM = false;
+    this.isDisabledButtonAddM = false; //activar boton agregar marroquineria
+    this.isDisabledButtonAddS = false; //activar boton agregar suela
     this.isDisabledButtonBuscar = false;
 
     /*  if ((this.selectedValue.value = '')) {

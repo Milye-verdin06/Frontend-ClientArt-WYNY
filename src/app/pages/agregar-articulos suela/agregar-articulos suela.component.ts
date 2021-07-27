@@ -17,6 +17,10 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this._servicetoVar();
+  }
+
+  private _servicetoVar() {
     this.aprobationService.getCodCliente().subscribe((d) => {
       this.codCliente = d;
     });
@@ -24,6 +28,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       this.nomCliente = d;
     });
   }
+
   isHomeRoute() {
     //dirigirse al componente principal cuando cancelan el registro de un articulo.
     this.router.navigate(['/articulos-cliente']);

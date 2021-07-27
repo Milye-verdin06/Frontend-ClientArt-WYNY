@@ -230,6 +230,7 @@ export class AgregarArticulosComponent implements OnInit {
 
   ngOnInit() {
     this.nombreVendedor = environment.nom;
+
     this.aprobationService.getNombreCliente().subscribe((d) => {
       this.nomCliente = d;
     });
