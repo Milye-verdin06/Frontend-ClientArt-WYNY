@@ -10,6 +10,11 @@ import { Router } from '@angular/router';
 export class AgregarArticulosSuelaComponent implements OnInit {
   nomCliente: any;
   codCliente: any;
+  unidadSelecc: any;
+
+  divisaSelecc: any;
+  nomDivisa: any;
+  unidadNSelecc: any;
 
   constructor(
     private aprobationService: AprobationService,
@@ -26,6 +31,21 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     });
     this.aprobationService.getNombreCliente().subscribe((d) => {
       this.nomCliente = d;
+    });
+    this.aprobationService.getUnidadMedida().subscribe((d) => {
+      this.unidadSelecc = d;
+    });
+
+    this.aprobationService.getDivisa().subscribe((d) => {
+      this.divisaSelecc = d;
+    });
+
+    this.aprobationService.getNombreDivisa().subscribe((d) => {
+      this.nomDivisa = d;
+    });
+
+    this.aprobationService.getUnidadN().subscribe((d) => {
+      this.unidadNSelecc = d;
     });
   }
 
