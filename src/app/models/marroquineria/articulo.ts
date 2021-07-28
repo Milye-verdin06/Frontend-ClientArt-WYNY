@@ -102,8 +102,9 @@ export interface ColorRespons {
 }
 
 export interface ReqColores {
-  co_codi: string;
-  co_desce: string;
+  cl_codi: string;
+  cl_desc: string;
+  cl_linea: string;
 }
 
 export interface AcabadosRespons {
@@ -123,6 +124,7 @@ export interface ArticuloExisteTarifa {
   data: ReqArticulosExistentes[];
 }
 
+//validar que ya existe en c_tarifa
 export interface ReqArticulosExistentes {
   ta_codi: string;
   ta_clta: number;
@@ -142,4 +144,29 @@ export interface ReqArticulosExistentes {
   ef_gruix: number;
   ef_color: number;
   ef_divis: number;
+}
+
+export interface TamborRespons {
+  status: boolean;
+  message: string;
+  data: ReqTambor[];
+}
+
+export interface ReqTambor {
+  tl_codi: string;
+  tl_desc: string;
+  tl_linea: string;
+  tl_sts: string;
+}
+
+export interface SeleccionRespons {
+  status: boolean;
+  message: string;
+  data: ReqSeleccion[];
+}
+
+export interface ReqSeleccion {
+  sl_codi: string;
+  sl_desc: string;
+  sl_linea: string;
 }

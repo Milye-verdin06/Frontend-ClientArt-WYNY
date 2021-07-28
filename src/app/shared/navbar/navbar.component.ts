@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit {
       confirmButtonText: 'Salir',
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.replace('http://189.194.236.252:82/');
+        window.location.replace('http://189.194.236.252:83/');
       }
     });
   }

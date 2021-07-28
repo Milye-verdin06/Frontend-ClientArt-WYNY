@@ -45,8 +45,8 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Tambor</mat-label>
                                             <mat-select [(value)]="selectedTambor" [(ngModel)]="selectedTambor" [disabled]="isDisabledTambor" (ngModelChange)="selectTamborChangue($event)">
-                                                <mat-option *ngFor="let tambor of tambor" [value]="tambor">
-                                                    {{ tambor.viewValue }}
+                                                <mat-option *ngFor="let tambor of tambores" [value]="tambor">
+                                                    {{ tambor.tl_desc }}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -156,7 +156,7 @@
                                                 <mat-option *ngFor="
                             let option of filteredOptionsColores[index] | async
                           " [value]="option" [disabled]="isDisabledseleColor">
-                                                    {{ option.co_desce }}
+                                                    {{ option.cl_desc }}
                                                 </mat-option>
                                             </mat-autocomplete>
                                         </mat-form-field>
@@ -174,8 +174,8 @@
                                             <mat-form-field appearance="fill">
                                                 <mat-label>Seleccionar Clasificado</mat-label>
                                                 <mat-select [(value)]="selectedClasificado" [disabled]="isDisabledClasificado" [(ngModel)]="selectedClasificado" (ngModelChange)="selectClasificadoChangue($event)">
-                                                    <mat-option *ngFor="let clasificado of clasificado" [value]="clasificado">
-                                                        {{ clasificado.value }}
+                                                    <mat-option *ngFor="let clasificado of clasificados" [value]="clasificado">
+                                                        {{ clasificado.sl_desc }}
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>

@@ -8,7 +8,9 @@ import {
   ColorRespons,
   FormatoRespons,
   GrosorRespons,
+  SeleccionRespons,
   TamanoRespons,
+  TamborRespons,
 } from 'src/app/models/marroquineria/articulo';
 import { PeticionesService } from '../peticiones.service';
 import { map } from 'rxjs/operators';
@@ -76,14 +78,15 @@ export class ArticuloService {
     );
   }
 
-  getcolor(): Observable<ColorRespons> {
-    return this.peticion.getQuery('colores', 'getall').pipe(
+  getcolor(body: any): Observable<ColorRespons> {
+    return this.peticion.postQuery('colores', 'getall', body).pipe(
       map((response) => {
         // console.log(response);
         return response;
       })
     );
   }
+
   getAcabado(): Observable<AcabadosRespons> {
     return this.peticion.getQuery('acabados', 'getall').pipe(
       map((response) => {
@@ -121,7 +124,25 @@ export class ArticuloService {
   getArticulosinTarifa(body: any): Observable<ArticuloExisteTarifa> {
     return this.peticion.postQuery('articulos', 'searchTarifa', body).pipe(
       map((response) => {
-        console.log(response);
+        // console.log(response);
+        return response;
+      })
+    );
+  }
+
+  gettambor(): Observable<TamborRespons> {
+    return this.peticion.getQuery('tambor', 'getall').pipe(
+      map((response) => {
+        //console.log(response);
+        return response;
+      })
+    );
+  }
+
+  getseleccion(): Observable<SeleccionRespons> {
+    return this.peticion.getQuery('seleccion', 'getall').pipe(
+      map((response) => {
+        //console.log(response);
         return response;
       })
     );
