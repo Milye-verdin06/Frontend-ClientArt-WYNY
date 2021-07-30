@@ -264,11 +264,11 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.isDisableunidadM = false;
     } else this.isDisabledButtonM = false;
 
-    //if (values === 'SU') {
-    //  this.isDisabledButtonS = true; //mostrar boton
-    // this.isDisableunidadM = false; //habilitar la unidad de medida
-    //this.isDisableDivis = true; //inhabilitar la divisa
-    // } else this.isDisabledButtonS = false;
+    if (values === 'SU') {
+      this.isDisabledButtonS = true; //mostrar boton
+      this.isDisableunidadM = false; //habilitar la unidad de medida
+      this.isDisableDivis = true; //inhabilitar la divisa
+    } else this.isDisabledButtonS = false;
 
     this.unidadesF = this.unidades.filter(
       (u) =>

@@ -145,9 +145,10 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
+
                                 <div class="col mt-4">
                                     <div *ngFor="let control of myControl2; let index = index">
-                                        <mat-form-field class=".example-litle-width_min">
+                                        <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledcolores">
                                             <mat-label>Buscar color</mat-label>
                                             <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
                                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColores" (optionSelected)="
@@ -161,7 +162,31 @@
                                             </mat-autocomplete>
                                         </mat-form-field>
                                     </div>
+
+                                    <div class="col mt-4">
+                                        <div *ngFor="let control of myControl3; let index = index">
+                                            <mat-form-field class=".example-litle-width_min" *ngIf="isDisabledcoloresAC">
+                                                <mat-label>Buscar colorAC</mat-label>
+                                                <input type="text" matInput [formControl]="myControl3[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
+                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColoresAC" (optionSelected)="
+                            codSelectedColoresAC(
+                              $event.option.value,
+                              trigger,
+                              auto
+                            )
+                          ">
+                                                    <mat-option *ngFor="
+                              let option of filteredOptionsColoresAC[index]
+                                | async
+                            " [value]="option" [disabled]="isDisabledseleColorAC">
+                                                        {{ option.co_desce }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-sm mt-4">
                                         <div class="
@@ -189,12 +214,6 @@
                                                 <input matInput type="number" [(ngModel)]="AddTarifa" formControlName="tarifa" id="agregartarifa" name="addTarifa" min="1" required="required" />
                                             </mat-form-field>
                                         </form>
-
-                                        <!-- <div class="col mt-2">
-                                            <button mat-raised-button id="openModalButtonAddespecificacion " #fileInput hidden (click)="open(addespecificacion)" matTooltip="Agregar especificación al artículo" *ngIf="isDisabledButtonEspe">
-                        Especificación
-                      </button>
-                                        </div> -->
                                     </div>
                                 </div>
 

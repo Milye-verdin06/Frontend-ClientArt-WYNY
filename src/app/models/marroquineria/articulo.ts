@@ -107,6 +107,17 @@ export interface ReqColores {
   cl_linea: string;
 }
 
+export interface ColorACRespons {
+  status: boolean;
+  message: string;
+  data: ReqColoresAC[];
+}
+
+export interface ReqColoresAC {
+  co_codi: string;
+  co_desce: string;
+}
+
 export interface AcabadosRespons {
   status: boolean;
   message: string;

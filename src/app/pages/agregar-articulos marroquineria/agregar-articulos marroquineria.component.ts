@@ -14,6 +14,8 @@ import {
   ReqArticulos,
   ReqArticulosExistentes,
   ReqTambor,
+  ReqColoresAC,
+  ColorACRespons,
 } from 'src/app/models/marroquineria/articulo';
 import { ArticuloService } from 'src/app/services/Smarroquineria/articulo.service';
 
@@ -66,6 +68,7 @@ export class AgregarArticulosComponent implements OnInit {
   datos_especificacion: any;
   myControls: FormControl[] = [new FormControl('')];
   myControl2: FormControl[] = [new FormControl('')];
+  myControl3: FormControl[] = [new FormControl('')];
 
   isDisabledTambor = true; //deshabilitar el select de tambor hasta que seleccionen la familia
   isDisabledFormato = true; //deshabilitar el select de formato hasta que seleccionen el tambor
@@ -81,7 +84,10 @@ export class AgregarArticulosComponent implements OnInit {
 
   isDisabledseleAcabado = true; //no seleccionar ningun acabado en el mat-input de Acabados
   isDisabledseleColor = true; //no seleccionar ningun color en el mat-input de Colores
+  isDisabledseleColorAC = true; //no seleccionar ningun color en el mat-input de Colores
 
+  isDisabledcolores = true; //ocultar  la opcion de seleccionar color en tenido
+  isDisabledcoloresAC = false; //ocultar la opcioin de seleccionar color en acabados
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
@@ -153,13 +159,21 @@ export class AgregarArticulosComponent implements OnInit {
 
   public Colores: ColorRespons[] = [];
   optionsColores: ReqColores[] = [];
+
+  public ColoresAC: ColorACRespons[] = [];
+  optionsColoresAC: ReqColoresAC[] = [];
   public filteredOptionsColores: Observable<ReqColores[]>[] = [];
   public filteredOptionsCOlores2: Observable<ReqColores> | undefined;
+
+  public filteredOptionsColoresAC: Observable<ReqColoresAC[]>[] = [];
+  public filteredOptionsCOloresAC2: Observable<ReqColoresAC> | undefined;
 
   public selectedAcabadosCodi: ReqAcabados;
   public selectedAcabadoName: string;
   public selectedColores: ReqColores;
   public selectedColorName: string;
+  public selectedColoresAC: ReqColoresAC;
+  public selectedColorNameAC: string;
 
   selectedLinea: ReqLineas;
   selectedTambor: ReqTambor;
@@ -209,6 +223,14 @@ export class AgregarArticulosComponent implements OnInit {
     this.selectedColorName = '';
     this.Colores = [];
 
+    this.selectedColoresAC = {
+      co_codi: '',
+      co_desce: '',
+    };
+    this.selectedColorNameAC = '';
+
+    this.ColoresAC = [];
+
     this.articuloForm = this.createFormGroup();
   }
 
@@ -226,6 +248,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.MostrarColoresAC();
     this.nombreVendedor = environment.nom;
 
     this.aprobationService.getNombreCliente().subscribe((d) => {
@@ -344,8 +367,8 @@ export class AgregarArticulosComponent implements OnInit {
       : '';
   }
 
-  private _filterColores(co_desce: string): ReqColores[] {
-    const filterValueC = co_desce.toLowerCase();
+  private _filterColores(cl_desc: string): ReqColores[] {
+    const filterValueC = cl_desc.toLowerCase();
 
     return this.optionsColores.filter(
       (option) => option.cl_desc.toLowerCase().indexOf(filterValueC) === 0
@@ -368,6 +391,35 @@ export class AgregarArticulosComponent implements OnInit {
     this.mostrarCodigo();
   }
 
+  public displayFnColoresAC(color: ReqColoresAC): string {
+    return color && String(color.co_desce).trim()
+      ? String(color.co_desce).trim()
+      : '';
+  }
+
+  private _filterColoresAC(co_desce: string): ReqColoresAC[] {
+    const filterValueC = co_desce.toLowerCase();
+
+    return this.optionsColoresAC.filter(
+      (option) => option.co_desce.toLowerCase().indexOf(filterValueC) === 0
+    );
+  }
+  codSelectedColoresAC(
+    codigo: ReqColoresAC,
+    trigger: MatAutocompleteTrigger,
+    auto: MatAutocomplete
+  ) {
+    this.selectedColoresAC = {
+      co_codi: codigo.co_codi,
+      co_desce: codigo.co_desce,
+    };
+
+    this.selectedColorNameAC = codigo.co_desce;
+
+    this.mostrarInfo();
+    this.mostrarCodigo();
+  }
+
   MostrarColores() {
     const body1 = {
       co_lin: this.selectedLinea.tp_codi,
@@ -384,6 +436,24 @@ export class AgregarArticulosComponent implements OnInit {
         map((value) => (typeof value === 'string' ? value : value.co_codi)),
         map((name) =>
           name ? this._filterColores(name) : this.optionsColores.slice()
+        )
+      )
+    );
+  }
+
+  MostrarColoresAC() {
+    this.articuloService.getColorAC().subscribe(
+      (resp) => {
+        this.optionsColoresAC = resp.data;
+      },
+      (error) => console.log(error)
+    );
+    this.filteredOptionsColoresAC.push(
+      this.myControl3[0].valueChanges.pipe(
+        startWith(''),
+        map((value) => (typeof value === 'string' ? value : value.co_codi)),
+        map((name) =>
+          name ? this._filterColoresAC(name) : this.optionsColoresAC.slice()
         )
       )
     );
@@ -466,6 +536,10 @@ export class AgregarArticulosComponent implements OnInit {
       cl_desc: '',
       cl_linea: '',
     };
+    this.selectedColoresAC = {
+      co_codi: '',
+      co_desce: '',
+    };
     this.selectedAcabadosCodi = {
       ac_codi: '',
       ac_desce: '',
@@ -475,6 +549,7 @@ export class AgregarArticulosComponent implements OnInit {
     this.mostrarCodigo();
     this, this.myControl2[0].setValue(this.selectedColores);
     this, this.myControls[0].setValue(this.selectedAcabadosCodi);
+    this, this.myControl3[0].setValue(this.selectedColoresAC);
   }
 
   tamborSeleccionado: any;
@@ -518,6 +593,10 @@ export class AgregarArticulosComponent implements OnInit {
       cl_codi: '',
       cl_desc: '',
       cl_linea: '',
+    };
+    this.selectedColoresAC = {
+      co_codi: '',
+      co_desce: '',
     };
     this.selectedAcabadosCodi = {
       ac_codi: '',
@@ -614,6 +693,10 @@ export class AgregarArticulosComponent implements OnInit {
       cl_desc: '',
       cl_linea: '',
     };
+    this.selectedColoresAC = {
+      co_codi: '',
+      co_desce: '',
+    };
     this.selectedAcabadosCodi = {
       ac_codi: '',
       ac_desce: '',
@@ -680,6 +763,10 @@ export class AgregarArticulosComponent implements OnInit {
       cl_desc: '',
       cl_linea: '',
     };
+    this.selectedColoresAC = {
+      co_codi: '',
+      co_desce: '',
+    };
     this.selectedAcabadosCodi = {
       ac_codi: '',
       ac_desce: '',
@@ -721,6 +808,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   selectGrosorChangue(values: any) {
+    console.log(this.optionsColoresAC);
     this.isDisabledAcabado = false;
 
     this.selectedClasificado = {
@@ -736,6 +824,10 @@ export class AgregarArticulosComponent implements OnInit {
       cl_codi: '',
       cl_desc: '',
       cl_linea: '',
+    };
+    this.selectedColoresAC = {
+      co_codi: '',
+      co_desce: '',
     };
     this.selectedAcabadosCodi = {
       ac_codi: '',
@@ -760,13 +852,21 @@ export class AgregarArticulosComponent implements OnInit {
       cl_desc: '',
       cl_linea: '',
     };
+    this.selectedColoresAC = {
+      co_codi: '',
+      co_desce: '',
+    };
 
     this, this.myControl2[0].setValue(this.selectedColores);
+    this, this.myControl3[0].setValue(this.selectedColoresAC);
     this, this.myControls[0].setValue(this.selectedAcabadosCodi);
 
     if (this.selectedAcabado.value === 'TC') {
-      this.isDisabledseleAcabado = true;
-      this.isDisabledseleColor = false;
+      this.isDisabledseleAcabado = true; //inhabilita seleccionar el acabado del cuadro
+      this.isDisabledseleColor = false; //habilita seleccionar el color del tenido
+      // this.isDisabledseleColorAC = true; //inhabilita seleccionar el colorAC
+      this.isDisabledcoloresAC = false; //oculta el cuadro para buscar el colorAC
+      this.isDisabledcolores = true; //muestra el cuadro para eleccionar el color del tenido
 
       this.selectedColores = {
         cl_codi: '',
@@ -777,10 +877,16 @@ export class AgregarArticulosComponent implements OnInit {
         ac_codi: '',
         ac_desce: '',
       };
+      this.selectedColoresAC = {
+        co_codi: '',
+        co_desce: '',
+      };
     } else {
       if (this.selectedAcabado.value === 'UI') {
-        this.isDisabledseleAcabado = false;
-        this.isDisabledseleColor = false;
+        this.isDisabledseleAcabado = false; //habilita seleccionar un acabado
+        this.isDisabledseleColorAC = false; //habilita seleccionar un colorACABADO
+        this.isDisabledcoloresAC = true; //muestra el cuadro para seleciconar el colorAC
+        this.isDisabledcolores = false; //oculta el cuadro de seleccion de colores del tenido
         //this.isDisabledAutoCompleteC = true;
         //this.isDisabledAutoCompleteA = true;
       } else {
@@ -789,12 +895,19 @@ export class AgregarArticulosComponent implements OnInit {
           cl_desc: '',
           cl_linea: '',
         };
+        this.selectedColoresAC = {
+          co_codi: '',
+          co_desce: '',
+        };
         this.selectedAcabadosCodi = {
           ac_codi: '',
           ac_desce: '',
         };
-        this.isDisabledseleAcabado = true;
-        this.isDisabledseleColor = true;
+        this.isDisabledseleAcabado = true; //inhabilita seleccionar acabado
+        this.isDisabledseleColor = true; //inhabilita seleccionar color tenido
+        // this.isDisabledseleColorAC = true; //inhabilita seleccionar colorAcabado
+        this.isDisabledcolores = true; //muestra el recuadro de seleccionar color tenido, pero no permite seleccionar ninguno
+        this.isDisabledcoloresAC = false; //oculta el cuadro de seleccionar colorAC
         //  (this.isDisabledAutoCompleteA = false),
         // (this.isDisabledAutoCompleteC = false);
       }
@@ -824,6 +937,7 @@ export class AgregarArticulosComponent implements OnInit {
   infoClasificado: string = '';
   infoAcabadoselect: string = '';
   infoColor: string = '';
+  infoColorAC: string = '';
   infoAcabadofilter: string = '';
 
   guardarEspecis() {}
@@ -862,6 +976,9 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoColor = this.selectedColores.cl_codi
       ? String(this.selectedColorName).trim()
       : '';
+    this.infoColorAC = this.selectedColoresAC.co_codi
+      ? String(this.selectedColorNameAC).trim()
+      : '';
     this.infoClasificado = this.selectedClasificado //mostrar el valor del mat-selected NATURAL 'NA' TENIDO 'TC'
       ? String(this.selectedClasificado.sl_codi).trim()
       : ' ';
@@ -880,7 +997,7 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoAcabadofilter +
         ' ' +
-        this.infoColor +
+        this.infoColorAC +
         ' ' +
         this.infoClasificado;
     } else {
@@ -937,6 +1054,9 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoColor = this.selectedColores.cl_codi
       ? String(this.selectedColores.cl_codi).trim()
       : '';
+    this.infoColorAC = this.selectedColoresAC.co_codi
+      ? String(this.selectedColoresAC.co_codi).trim()
+      : '';
     this.infoClasificado = this.selectedClasificado
       ? String(this.selectedClasificado.sl_codi).trim()
       : '';
@@ -955,7 +1075,7 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoAcabadofilter +
         ' ' +
-        this.infoColor +
+        this.infoColorAC +
         ' ' +
         this.infoClasificado;
     } else {
@@ -1032,7 +1152,7 @@ export class AgregarArticulosComponent implements OnInit {
       } else {
         if (
           this.selectedAcabado.value == 'UI' &&
-          (this.selectedColores.cl_codi == '' ||
+          (this.selectedColoresAC.co_codi == '' ||
             this.selectedAcabadosCodi.ac_codi == '')
         ) {
           Swal.fire({
@@ -1191,6 +1311,10 @@ export class AgregarArticulosComponent implements OnInit {
                                 cl_desc: '',
                                 cl_linea: '',
                               };
+                              this.selectedColoresAC = {
+                                co_codi: '',
+                                co_desce: '',
+                              };
                               this.selectedAcabadosCodi = {
                                 ac_codi: '',
                                 ac_desce: '',
@@ -1199,6 +1323,10 @@ export class AgregarArticulosComponent implements OnInit {
                               this,
                                 this.myControl2[0].setValue(
                                   this.selectedColores
+                                );
+                              this,
+                                this.myControl3[0].setValue(
+                                  this.selectedColoresAC
                                 );
                               this,
                                 this.myControls[0].setValue(
@@ -1353,6 +1481,10 @@ export class AgregarArticulosComponent implements OnInit {
                                   cl_desc: '',
                                   cl_linea: '',
                                 };
+                                this.selectedColoresAC = {
+                                  co_codi: '',
+                                  co_desce: '',
+                                };
                                 this.selectedAcabadosCodi = {
                                   ac_codi: '',
                                   ac_desce: '',
@@ -1361,6 +1493,10 @@ export class AgregarArticulosComponent implements OnInit {
                                 this,
                                   this.myControl2[0].setValue(
                                     this.selectedColores
+                                  );
+                                this,
+                                  this.myControl3[0].setValue(
+                                    this.selectedColoresAC
                                   );
                                 this,
                                   this.myControls[0].setValue(
@@ -1416,7 +1552,7 @@ export class AgregarArticulosComponent implements OnInit {
                         ta_artic: this.infoCodi.substring(0, 4),
                         ta_gruix: this.selectedGrosor.gl_codi,
                         ta_acaba: this.selectedAcabadosCodi.ac_codi,
-                        ta_color: this.selectedColores.cl_codi,
+                        ta_color: this.selectedColoresAC.co_codi,
                         ta_clas: this.selectedClasificado.sl_codi,
                         ta_unifa: this.unidadSelecc,
                         ta_divis: this.divisaSelecc,
@@ -1517,6 +1653,10 @@ export class AgregarArticulosComponent implements OnInit {
                                   cl_desc: '',
                                   cl_linea: '',
                                 };
+                                this.selectedColoresAC = {
+                                  co_codi: '',
+                                  co_desce: '',
+                                };
                                 this.selectedAcabadosCodi = {
                                   ac_codi: '',
                                   ac_desce: '',
@@ -1525,6 +1665,10 @@ export class AgregarArticulosComponent implements OnInit {
                                 this,
                                   this.myControl2[0].setValue(
                                     this.selectedColores
+                                  );
+                                this,
+                                  this.myControl3[0].setValue(
+                                    this.selectedColoresAC
                                   );
                                 this,
                                   this.myControls[0].setValue(
@@ -1708,12 +1852,17 @@ export class AgregarArticulosComponent implements OnInit {
                 cl_desc: '',
                 cl_linea: '',
               };
+              this.selectedColoresAC = {
+                co_codi: '',
+                co_desce: '',
+              };
               this.selectedAcabadosCodi = {
                 ac_codi: '',
                 ac_desce: '',
               };
               this.AddTarifa = '';
               this, this.myControl2[0].setValue(this.selectedColores);
+              this, this.myControl3[0].setValue(this.selectedColoresAC);
               this, this.myControls[0].setValue(this.selectedAcabadosCodi);
               this.infoCodi = '';
               this.infoDesc = '';
@@ -1813,12 +1962,17 @@ export class AgregarArticulosComponent implements OnInit {
                   cl_desc: '',
                   cl_linea: '',
                 };
+                this.selectedColoresAC = {
+                  co_codi: '',
+                  co_desce: '',
+                };
                 this.selectedAcabadosCodi = {
                   ac_codi: '',
                   ac_desce: '',
                 };
                 this.AddTarifa = '';
                 this, this.myControl2[0].setValue(this.selectedColores);
+                this, this.myControl3[0].setValue(this.selectedColoresAC);
                 this, this.myControls[0].setValue(this.selectedAcabadosCodi);
                 this.infoCodi = '';
                 this.infoDesc = '';
@@ -1835,7 +1989,7 @@ export class AgregarArticulosComponent implements OnInit {
             ef_artic: this.infoCodi.substring(0, 4),
             ef_gruix: this.selectedGrosor.gl_codi,
             ef_acaba: this.selectedAcabadosCodi.ac_codi,
-            ef_color: this.selectedColores.cl_codi,
+            ef_color: this.selectedColoresAC.co_codi,
             ef_clas: this.selectedClasificado.sl_codi,
             ef_unifa: this.unidadSelecc,
             ef_divis: this.divisaSelecc,
@@ -1916,12 +2070,17 @@ export class AgregarArticulosComponent implements OnInit {
                     cl_desc: '',
                     cl_linea: '',
                   };
+                  this.selectedColoresAC = {
+                    co_codi: '',
+                    co_desce: '',
+                  };
                   this.selectedAcabadosCodi = {
                     ac_codi: '',
                     ac_desce: '',
                   };
                   this.AddTarifa = '';
                   this, this.myControl2[0].setValue(this.selectedColores);
+                  this, this.myControl3[0].setValue(this.selectedColoresAC);
                   this, this.myControls[0].setValue(this.selectedAcabadosCodi);
                   this.infoCodi = '';
                   this.infoDesc = '';
@@ -1946,7 +2105,7 @@ export class AgregarArticulosComponent implements OnInit {
         `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
     }
     const body = {
-      to: 'elias_jimenez@wyny.com.mx',
+      to: ' mili_verdin@wyny.com.mx',
 
       subject: `Alta artículo - ${this.nomCliente}`,
 
@@ -1986,7 +2145,7 @@ export class AgregarArticulosComponent implements OnInit {
            en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
            </h6> `,
 
-      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx, mili_verdin@wyny.com.mx',
+      cc: ' mili_verdin@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(

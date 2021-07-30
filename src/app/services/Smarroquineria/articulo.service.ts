@@ -11,6 +11,7 @@ import {
   SeleccionRespons,
   TamanoRespons,
   TamborRespons,
+  ColorACRespons,
 } from 'src/app/models/marroquineria/articulo';
 import { PeticionesService } from '../peticiones.service';
 import { map } from 'rxjs/operators';
@@ -86,7 +87,14 @@ export class ArticuloService {
       })
     );
   }
-
+  getColorAC(): Observable<ColorACRespons> {
+    return this.peticion.getQuery('colores', 'getallAC').pipe(
+      map((response) => {
+        //  console.log(response);
+        return response;
+      })
+    );
+  }
   getAcabado(): Observable<AcabadosRespons> {
     return this.peticion.getQuery('acabados', 'getall').pipe(
       map((response) => {
