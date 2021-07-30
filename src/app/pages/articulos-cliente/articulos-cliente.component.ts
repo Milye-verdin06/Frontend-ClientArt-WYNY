@@ -264,6 +264,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.isDisableunidadM = false;
     } else this.isDisabledButtonM = false;
 
+    //area de boton para agregar en unidad de negocio SUELA
     if (values === 'SU') {
       this.isDisabledButtonS = true; //mostrar boton
       this.isDisableunidadM = false; //habilitar la unidad de medida

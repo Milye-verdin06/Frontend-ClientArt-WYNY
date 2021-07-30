@@ -3,11 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
+interface Acabado {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-agregar-articulosSuela',
   templateUrl: './agregar-articulos suela.component.html',
 })
 export class AgregarArticulosSuelaComponent implements OnInit {
+  isDisabledAcabado = false; //deshabilitar el select de acabado hasta que seleccionen el grosor
+  selectedAcabado: Acabado;
   nomCliente: any;
   codCliente: any;
   unidadSelecc: any;
@@ -16,14 +23,24 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   nomDivisa: any;
   unidadNSelecc: any;
 
+  acabado: Acabado[] = [
+    { value: 'NA', viewValue: 'NATURAL' },
+    { value: 'TC', viewValue: 'TENIDO' },
+    { value: 'UI', viewValue: 'ACABADO' },
+  ];
+
   constructor(
     private aprobationService: AprobationService,
     private router: Router
-  ) {}
+  ) {
+    this.selectedAcabado = this.acabado[1];
+  }
 
   ngOnInit() {
     this._servicetoVar();
   }
+
+  selectAcabadoChangue(values: any) {}
 
   private _servicetoVar() {
     this.aprobationService.getCodCliente().subscribe((d) => {
