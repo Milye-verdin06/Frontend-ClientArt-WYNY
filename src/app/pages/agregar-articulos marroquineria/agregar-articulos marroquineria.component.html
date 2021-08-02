@@ -24,7 +24,7 @@
                     ">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Seleccionar Linea</mat-label>
-                                            <mat-select [(value)]="selectedLinea" [(ngModel)]="selectedLinea" (ngModelChange)="selectedLineaNChange($event)">
+                                            <mat-select [(value)]="selectedLinea" [(ngModel)]="selectedLinea" (ngModelChange)="selectedLineaChange($event)">
                                                 <mat-option *ngFor="let linea of datos_linea" [value]="linea">
                                                     {{ linea.tp_desc.substr(2) }}
                                                 </mat-option>

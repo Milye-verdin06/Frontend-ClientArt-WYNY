@@ -2,6 +2,11 @@ import { AprobationService } from 'src/app/services/Smarroquineria/aprobation.se
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { ReqLineas } from 'src/app/models/suela/articuloS';
+import { ArticuloSuelaService } from 'src/app/services/Ssuela/articuloS.service';
+import { ReqPlanchado, ReqCombinacion } from '../../models/suela/articuloS';
 
 interface Acabado {
   value: string;
@@ -22,6 +27,16 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   divisaSelecc: any;
   nomDivisa: any;
   unidadNSelecc: any;
+  public datos_linea: ReqLineas[] = [];
+  public datos_planchado: ReqPlanchado[] = [];
+  public datos_combinacion: ReqCombinacion[] = [];
+  selectedLinea: ReqLineas;
+  selectedPlanchado: ReqPlanchado;
+  selectedCombinacion: ReqCombinacion;
+
+  myControls: FormControl[] = [new FormControl('')];
+  myControl2: FormControl[] = [new FormControl('')];
+  myControl3: FormControl[] = [new FormControl('')];
 
   acabado: Acabado[] = [
     { value: 'NA', viewValue: 'NATURAL' },
@@ -31,15 +46,56 @@ export class AgregarArticulosSuelaComponent implements OnInit {
 
   constructor(
     private aprobationService: AprobationService,
-    private router: Router
+    private router: Router,
+    private ArticuloSuelaService: ArticuloSuelaService
   ) {
     this.selectedAcabado = this.acabado[1];
+    this.selectedLinea = this.datos_linea[1];
+    this.selectedPlanchado = this.datos_planchado[1];
+    this.selectedCombinacion = this.datos_combinacion[1];
   }
 
   ngOnInit() {
+    this.ArticuloSuelaService.getlinea().subscribe(
+      (resp) => {
+        this.datos_linea = resp.data;
+      },
+      (error) => console.log(error)
+    );
     this._servicetoVar();
   }
 
+  mostrarPlanchado() {
+    const body = {
+      vLinea: this.selectedLinea.tp_codi,
+    };
+    this.ArticuloSuelaService.getplanchado(body).subscribe(
+      (resp) => {
+        this.datos_planchado = resp.data;
+      },
+      (error) => console.log(error)
+    );
+  }
+  mostrarGrosor() {
+    const body = {
+      vLinea: this.selectedLinea.tp_codi,
+      vTabla: 'G',
+    };
+    this.ArticuloSuelaService.getcombinacion(body).subscribe(
+      (resp) => {
+        this.datos_combinacion = resp.data;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  selectedLineaChange(values: ReqLineas) {
+    this.mostrarPlanchado();
+    this.mostrarGrosor();
+  }
+
+  selectedPlanchadoChange(values: ReqPlanchado) {}
+  selectedGrosorChange(values: ReqCombinacion) {}
   selectAcabadoChangue(values: any) {}
 
   private _servicetoVar() {
@@ -71,8 +127,6 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     this.router.navigate(['/articulos-cliente']);
   }
   submitArticulo() {}
-
-  selectedLineaChange() {}
 
   CancelaRegistroArticulo(selectedItem?: any) {
     Swal.fire({

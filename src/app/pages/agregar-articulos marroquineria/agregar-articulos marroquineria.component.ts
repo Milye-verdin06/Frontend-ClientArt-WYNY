@@ -39,10 +39,10 @@ import {
 import Swal from 'sweetalert2';
 import { EspecificacionService } from 'src/app/services/Smarroquineria/especificacion.service';
 
-import { ReqcArtic } from 'src/app/models/marroquineria/cArtic';
+import { ReqcArtic } from 'src/app/models/cArtic';
 import { ViewChild } from '@angular/core';
 import { CorreoService } from '../../services/correo.service';
-import { ReqCorreo } from 'src/app/models/marroquineria/Correo';
+import { ReqCorreo } from 'src/app/models/Correo';
 import { environment } from 'src/environments/environment';
 
 interface Acabado {
@@ -458,7 +458,7 @@ export class AgregarArticulosComponent implements OnInit {
       )
     );
   }
-  selectedLineaNChange(values: ReqLineas) {
+  selectedLineaChange(values: ReqLineas) {
     this.MostrarColores();
 
     this.AddTarifa = '';
@@ -550,6 +550,9 @@ export class AgregarArticulosComponent implements OnInit {
     this, this.myControl2[0].setValue(this.selectedColores);
     this, this.myControls[0].setValue(this.selectedAcabadosCodi);
     this, this.myControl3[0].setValue(this.selectedColoresAC);
+    this.isDisabledseleColor = true; //inhabilita seleccionar color tenido
+    this.isDisabledseleAcabado = true; //inhabilita seleccionar acabado
+    this.isDisabledseleColorAC = true; //inhabilita seleccionar color acabado
   }
 
   tamborSeleccionado: any;

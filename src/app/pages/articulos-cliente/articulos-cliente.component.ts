@@ -5,10 +5,7 @@ import {
   ModalDismissReasons,
 } from '@ng-bootstrap/ng-bootstrap';
 import { AprobationService } from 'src/app/services/Smarroquineria/aprobation.service';
-import {
-  clientRespons,
-  listaCliente,
-} from 'src/app/models/marroquineria/Cliente';
+import { clientRespons, listaCliente } from 'src/app/models/Cliente';
 import { ArticuloService } from '../../services/Smarroquineria/articulo.service';
 import { ReqArticulos, ReqLineas } from 'src/app/models/marroquineria/articulo';
 import { HttpClient } from '@angular/common/http';

@@ -31,9 +31,10 @@
 
                                         <mat-form-field appearance="outline">
                                             <mat-label>Seleccionar linea </mat-label>
-                                            <mat-select>
-                                                <mat-option value="one">First option</mat-option>
-                                                <mat-option value="two">Second option</mat-option>
+                                            <mat-select [(value)]="selectedLinea" [(ngModel)]="selectedLinea" (ngModelChange)="selectedLineaChange($event)">
+                                                <mat-option *ngFor="let linea of datos_linea" [value]="linea">
+                                                    {{ linea.tp_desc.substr(3) }}
+                                                </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -49,9 +50,10 @@
                     ">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Seleccionar planchado</mat-label>
-                                            <mat-select>
-                                                <mat-option value="one">First option</mat-option>
-                                                <mat-option value="two">Second option</mat-option>
+                                            <mat-select [(value)]="selectedPlanchado" [(ngModel)]="selectedPlanchado" (ngModelChange)="selectedPlanchadoChange($event)">
+                                                <mat-option *ngFor="let planchado of datos_planchado" [value]="planchado">
+                                                    {{ planchado.descripcion }}
+                                                </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -66,9 +68,10 @@
                     ">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Seleccionar grosor</mat-label>
-                                            <mat-select>
-                                                <mat-option value="one">First option</mat-option>
-                                                <mat-option value="two">Second option</mat-option>
+                                            <mat-select [(value)]="selectedCombinacion" [(ngModel)]="selectedCombinacion" (ngModelChange)="selectedGrosorChange($event)">
+                                                <mat-option *ngFor="let grosor of datos_combinacion" [value]="grosor">
+                                                    {{ grosor.descripcion }}
+                                                </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -132,13 +135,15 @@
                       d-none d-md-flex
                       ml-lg-auto
                     ">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Select tipo E</mat-label>
-                                            <mat-select>
-                                                <mat-option value="one">First option</mat-option>
-                                                <mat-option value="two">Second option</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
+                                        <div *ngFor="let control of myControl2; let index = index">
+                                            <mat-form-field appearance="outline" class=".example-litle-width_min">
+                                                <mat-label>Buscar ColorT</mat-label>
+                                                <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" />
+                                                <mat-autocomplete #auto="matAutocomplete">
+                                                    <mat-option> NAME </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm mt-4">
