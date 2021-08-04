@@ -4,22 +4,27 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { ReqLineas } from 'src/app/models/suela/articuloS';
-import { ArticuloSuelaService } from 'src/app/services/Ssuela/articuloS.service';
+import { CombinacionRespons, ReqLineas } from 'src/app/models/suela/articuloS';
+import { parametroSService } from 'src/app/services/Ssuela/parametroS.service';
 import { ReqPlanchado, ReqCombinacion } from '../../models/suela/articuloS';
-
-interface Acabado {
-  value: string;
-  viewValue: string;
-}
+import { map, startWith } from 'rxjs/operators';
+import {
+  MatAutocomplete,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-agregar-articulosSuela',
   templateUrl: './agregar-articulos suela.component.html',
 })
 export class AgregarArticulosSuelaComponent implements OnInit {
-  isDisabledAcabado = false; //deshabilitar el select de acabado hasta que seleccionen el grosor
-  selectedAcabado: Acabado;
+  isDisabledselePlanchado = true; //no permitir seleccionar el planchado, hasta seleccionar la linea
+  isDisabledseleGrosor = true; //no permitir seleccionar el grosor, hasta seleccionar el planchado
+  isDisabledseleColorAC = true; //no seleccionar ningun color en el mat-input de Colores
+
+  isDisabledAcabado = true; //deshabilitar el select de acabado hasta que seleccionen el grosor
+  isDisabledseleSeleccion = true; //deshabilitar la seleccion hasta que indicas si es tenido, acabado o natural
+
   nomCliente: any;
   codCliente: any;
   unidadSelecc: any;
@@ -27,36 +32,44 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   divisaSelecc: any;
   nomDivisa: any;
   unidadNSelecc: any;
+  public filteredOptionsColoresAC: Observable<ReqCombinacion[]>[] = [];
   public datos_linea: ReqLineas[] = [];
   public datos_planchado: ReqPlanchado[] = [];
-  public datos_combinacion: ReqCombinacion[] = [];
+  public datos_combinacionGR: ReqCombinacion[] = [];
+  public datos_combinacionCL: ReqCombinacion[] = [];
+  public datos_combinacionAC: ReqCombinacion[] = [];
+
   selectedLinea: ReqLineas;
   selectedPlanchado: ReqPlanchado;
-  selectedCombinacion: ReqCombinacion;
+  selectedCombinacionGR: ReqCombinacion;
+  selectedCombinacionCL: ReqCombinacion;
+  selectedAcabado: ReqCombinacion;
+  optionsColoresAC: ReqCombinacion[] = [];
+
+  public Colores: CombinacionRespons[] = [];
+  public selectedColorNameAC: string;
 
   myControls: FormControl[] = [new FormControl('')];
   myControl2: FormControl[] = [new FormControl('')];
   myControl3: FormControl[] = [new FormControl('')];
 
-  acabado: Acabado[] = [
-    { value: 'NA', viewValue: 'NATURAL' },
-    { value: 'TC', viewValue: 'TENIDO' },
-    { value: 'UI', viewValue: 'ACABADO' },
-  ];
-
   constructor(
     private aprobationService: AprobationService,
     private router: Router,
-    private ArticuloSuelaService: ArticuloSuelaService
+    private parametroSService: parametroSService
   ) {
-    this.selectedAcabado = this.acabado[1];
+    this.selectedAcabado = this.datos_combinacionAC[1];
     this.selectedLinea = this.datos_linea[1];
     this.selectedPlanchado = this.datos_planchado[1];
-    this.selectedCombinacion = this.datos_combinacion[1];
+    this.selectedCombinacionGR = this.datos_combinacionGR[1];
+    this.selectedCombinacionCL = this.datos_combinacionCL[1];
+
+    this.Colores = [];
+    this.selectedColorNameAC = '';
   }
 
   ngOnInit() {
-    this.ArticuloSuelaService.getlinea().subscribe(
+    this.parametroSService.getlinea().subscribe(
       (resp) => {
         this.datos_linea = resp.data;
       },
@@ -65,11 +78,39 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     this._servicetoVar();
   }
 
+  public displayFnColoresAC(color: ReqCombinacion): string {
+    return color && String(color.descripcion).trim()
+      ? String(color.descripcion).trim()
+      : '';
+  }
+  private _filterColoresAC(descripcion: string): ReqCombinacion[] {
+    const filterValueC = descripcion.toLowerCase();
+
+    return this.optionsColoresAC.filter(
+      (option) => option.descripcion.toLowerCase().indexOf(filterValueC) === 0
+    );
+  }
+
+  codSelectedColoresAC(
+    codigo: ReqCombinacion,
+    trigger: MatAutocompleteTrigger,
+    auto: MatAutocomplete
+  ) {
+    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
+    this.selectedCombinacionCL = {
+      linea: codigo.linea,
+      descripcionLinea: codigo.descripcionLinea,
+      codigo: codigo.codigo,
+      descripcion: codigo.descripcion,
+    };
+    this.selectedColorNameAC = codigo.descripcion;
+  }
+
   mostrarPlanchado() {
     const body = {
       vLinea: this.selectedLinea.tp_codi,
     };
-    this.ArticuloSuelaService.getplanchado(body).subscribe(
+    this.parametroSService.getplanchado(body).subscribe(
       (resp) => {
         this.datos_planchado = resp.data;
       },
@@ -81,22 +122,125 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       vLinea: this.selectedLinea.tp_codi,
       vTabla: 'G',
     };
-    this.ArticuloSuelaService.getcombinacion(body).subscribe(
+    this.parametroSService.getcombinacion(body).subscribe(
       (resp) => {
-        this.datos_combinacion = resp.data;
+        this.datos_combinacionGR = resp.data;
       },
       (error) => console.log(error)
     );
   }
 
-  selectedLineaChange(values: ReqLineas) {
-    this.mostrarPlanchado();
-    this.mostrarGrosor();
+  mostrarClasificacion() {
+    const body = {
+      vLinea: this.selectedLinea.tp_codi,
+      vTabla: 'S',
+    };
+    this.parametroSService.getcombinacion(body).subscribe(
+      (resp) => {
+        this.datos_combinacionCL = resp.data;
+      },
+      (error) => console.log(error)
+    );
   }
 
-  selectedPlanchadoChange(values: ReqPlanchado) {}
-  selectedGrosorChange(values: ReqCombinacion) {}
-  selectAcabadoChangue(values: any) {}
+  mostrarAcabado() {
+    const body = {
+      vLinea: this.selectedLinea.tp_codi,
+      vTabla: 'A',
+    };
+    this.parametroSService.getcombinacion(body).subscribe(
+      (resp) => {
+        this.datos_combinacionAC = resp.data;
+      },
+      (error) => console.log(error)
+    );
+  }
+  selectedLineaChange(values: ReqLineas) {
+    //llenar el mat-autocomplete de los colores
+    const body = {
+      vLinea: this.selectedLinea.tp_codi,
+      vTabla: 'C',
+    };
+    this.parametroSService.getcombinacion(body).subscribe(
+      (resp) => {
+        this.optionsColoresAC = resp.data;
+      },
+      (error) => console.log(error)
+    );
+    this.filteredOptionsColoresAC.push(
+      this.myControl2[0].valueChanges.pipe(
+        startWith(''),
+        map((value) => (typeof value === 'string' ? value : value.codigo)),
+        map((name) =>
+          name ? this._filterColoresAC(name) : this.optionsColoresAC.slice()
+        )
+      )
+    );
+    //aqui termina el llenado del mat-autocomplete de los colores
+
+    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
+    this.isDisabledseleColorAC = true;
+
+    this.mostrarPlanchado();
+    this.isDisabledselePlanchado = false;
+    this.mostrarGrosor();
+
+    this.mostrarClasificacion();
+    this.selectedAcabado = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.selectedCombinacionCL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+  }
+
+  selectedPlanchadoChange(values: ReqPlanchado) {
+    this.mostrarAcabado();
+    this.isDisabledseleGrosor = false;
+    this.selectedCombinacionCL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+  }
+  selectedGrosorChange(values: ReqCombinacion) {
+    this.isDisabledAcabado = false;
+
+    this.selectedCombinacionCL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+  }
+  selectAcabadoChangue(values: any) {
+    this.isDisabledseleSeleccion = false;
+    console.log(this.selectedAcabado.codigo);
+    if (this.selectedAcabado.codigo == 'TC') {
+      this.isDisabledseleColorAC = false; //no seleccionar ningun color en el mat-input de Colores
+    } else if (this.selectedAcabado.codigo == 'U1') {
+      this.isDisabledseleColorAC = false; //no seleccionar ningun color en el mat-input de Colores
+    } else {
+      this.isDisabledseleColorAC = true;
+    }
+
+    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
+    this.selectedCombinacionCL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    console.log(this.optionsColoresAC);
+  }
+  selectedClasificacionChange(values: ReqCombinacion) {}
 
   private _servicetoVar() {
     this.aprobationService.getCodCliente().subscribe((d) => {

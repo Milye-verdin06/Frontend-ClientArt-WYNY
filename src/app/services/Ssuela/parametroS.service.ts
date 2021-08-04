@@ -12,7 +12,7 @@ import { PeticionesService } from '../peticiones.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ArticuloSuelaService {
+export class parametroSService {
   constructor(private http: HttpClient, private peticion: PeticionesService) {}
 
   getlinea(): Observable<LineaRespons> {

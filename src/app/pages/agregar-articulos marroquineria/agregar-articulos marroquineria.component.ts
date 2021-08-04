@@ -18,7 +18,7 @@ import {
   ColorACRespons,
 } from 'src/app/models/marroquineria/articulo';
 import { ArticuloService } from 'src/app/services/Smarroquineria/articulo.service';
-
+import { parametroMService } from 'src/app/services/Smarroquineria/parametroM.service';
 import { ClienteService } from '../../services/cliente.service';
 import { AprobationService } from 'src/app/services/Smarroquineria/aprobation.service';
 import { Validacion_c_articService } from 'src/app/services/Smarroquineria/validacion_c_artic.service';
@@ -188,6 +188,7 @@ export class AgregarArticulosComponent implements OnInit {
   constructor(
     private location: Location,
     private articuloService: ArticuloService,
+    private parametroMService: parametroMService,
     private especificacionService: EspecificacionService,
     private Validacion_c_articService: Validacion_c_articService,
     private ClienteService: ClienteService,
@@ -276,49 +277,49 @@ export class AgregarArticulosComponent implements OnInit {
 
     this.ClienteService.getClientes;
 
-    this.articuloService.getlinea().subscribe(
+    this.parametroMService.getlinea().subscribe(
       (resp) => {
         this.datos_linea = resp.data;
       },
       (error) => console.log(error)
     );
 
-    this.articuloService.gettambor().subscribe(
+    this.parametroMService.gettambor().subscribe(
       (resp) => {
         this.datos_tambor = resp.data;
       },
       (error) => console.log(error)
     );
 
-    this.articuloService.getseleccion().subscribe(
+    this.parametroMService.getseleccion().subscribe(
       (resp) => {
         this.datos_seleccion = resp.data;
       },
       (error) => console.log(error)
     );
 
-    this.articuloService.getformato().subscribe(
+    this.parametroMService.getformato().subscribe(
       (resp) => {
         this.datos_formato = resp.data;
       },
       (error) => console.log(error)
     );
 
-    this.articuloService.gettamano().subscribe(
+    this.parametroMService.gettamano().subscribe(
       (resp) => {
         this.datos_tamano = resp.data;
       },
       (error) => console.log(error)
     );
 
-    this.articuloService.getgrosor().subscribe(
+    this.parametroMService.getgrosor().subscribe(
       (resp) => {
         this.datos_grosor = resp.data;
       },
       (error) => console.log(error)
     );
 
-    this.articuloService.getAcabado().subscribe(
+    this.parametroMService.getAcabado().subscribe(
       (resp) => {
         this.optionsAcabados = resp.data;
       },
@@ -424,7 +425,7 @@ export class AgregarArticulosComponent implements OnInit {
     const body1 = {
       co_lin: this.selectedLinea.tp_codi,
     };
-    this.articuloService.getcolor(body1).subscribe(
+    this.parametroMService.getcolor(body1).subscribe(
       (resp) => {
         this.optionsColores = resp.data;
       },
@@ -442,7 +443,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   MostrarColoresAC() {
-    this.articuloService.getColorAC().subscribe(
+    this.parametroMService.getColorAC().subscribe(
       (resp) => {
         this.optionsColoresAC = resp.data;
       },

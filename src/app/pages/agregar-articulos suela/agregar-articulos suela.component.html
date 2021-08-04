@@ -50,7 +50,7 @@
                     ">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Seleccionar planchado</mat-label>
-                                            <mat-select [(value)]="selectedPlanchado" [(ngModel)]="selectedPlanchado" (ngModelChange)="selectedPlanchadoChange($event)">
+                                            <mat-select [disabled]="isDisabledselePlanchado" [(value)]="selectedPlanchado" [(ngModel)]="selectedPlanchado" (ngModelChange)="selectedPlanchadoChange($event)">
                                                 <mat-option *ngFor="let planchado of datos_planchado" [value]="planchado">
                                                     {{ planchado.descripcion }}
                                                 </mat-option>
@@ -68,8 +68,8 @@
                     ">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Seleccionar grosor</mat-label>
-                                            <mat-select [(value)]="selectedCombinacion" [(ngModel)]="selectedCombinacion" (ngModelChange)="selectedGrosorChange($event)">
-                                                <mat-option *ngFor="let grosor of datos_combinacion" [value]="grosor">
+                                            <mat-select [disabled]="isDisabledseleGrosor" [(value)]="selectedCombinacionGR" [(ngModel)]="selectedCombinacionGR" (ngModelChange)="selectedGrosorChange($event)">
+                                                <mat-option *ngFor="let grosor of datos_combinacionGR" [value]="grosor">
                                                     {{ grosor.descripcion }}
                                                 </mat-option>
                                             </mat-select>
@@ -87,9 +87,9 @@
                     ">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Selecionar acabado</mat-label>
-                                            <mat-select [(value)]="selectedAcabado" [(ngModel)]="selectedAcabado" [disabled]="isDisabledAcabado" (ngModelChange)="selectAcabadoChangue($event)">
-                                                <mat-option *ngFor="let acabado of acabado" [value]="acabado">
-                                                    {{ acabado.viewValue }}
+                                            <mat-select [disabled]="isDisabledAcabado" [(value)]="selectedAcabado" [(ngModel)]="selectedAcabado" [disabled]="isDisabledAcabado" (ngModelChange)="selectAcabadoChangue($event)">
+                                                <mat-option *ngFor="let acabado of datos_combinacionAC" [value]="acabado">
+                                                    {{ acabado.descripcion }}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -105,10 +105,11 @@
                       ml-lg-auto
                     ">
                                         <mat-form-field appearance="outline">
-                                            <mat-label>Seleccionar Clasificado</mat-label>
-                                            <mat-select>
-                                                <mat-option value="one">First option</mat-option>
-                                                <mat-option value="two">Second option</mat-option>
+                                            <mat-label>Seleccionar clasificacion</mat-label>
+                                            <mat-select [disabled]="isDisabledseleSeleccion" [(value)]="selectedCombinacionCL" [(ngModel)]="selectedCombinacionCL" (ngModelChange)="selectedClasificacionChange($event)">
+                                                <mat-option *ngFor="let clasificacion of datos_combinacionCL" [value]="clasificacion">
+                                                    {{ clasificacion.descripcion }}
+                                                </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -135,31 +136,37 @@
                       d-none d-md-flex
                       ml-lg-auto
                     ">
-                                        <div *ngFor="let control of myControl2; let index = index">
+                                        <div *ngFor="let control of myControls; let index = index">
                                             <mat-form-field appearance="outline" class=".example-litle-width_min">
-                                                <mat-label>Buscar ColorT</mat-label>
-                                                <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" />
-                                                <mat-autocomplete #auto="matAutocomplete">
-                                                    <mat-option> NAME </mat-option>
+                                                <mat-label>Buscar Acabado</mat-label>
+                                                <input type="text" matInput [formControl]="myControls[index]" />
+                                                <mat-autocomplete>
+                                                    <mat-option> </mat-option>
                                                 </mat-autocomplete>
                                             </mat-form-field>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm mt-4">
-                                    <div class="
-                      navbar-search
-                      form-inline
-                      mr-3
-                      d-none d-md-flex
-                      ml-lg-auto
-                    ">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Select tipo F</mat-label>
-                                            <mat-select>
-                                                <mat-option value="one">First option</mat-option>
-                                                <mat-option value="two">Second option</mat-option>
-                                            </mat-select>
+
+                                <div class="col mt-4">
+                                    <div *ngFor="let control of myControl2; let index = index">
+                                        <mat-form-field class=".example-litle-width_min" appearance="outline">
+                                            <mat-label>Buscar color</mat-label>
+                                            <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" [disabled]="isDisabledseleColorAC" />
+                                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColoresAC" (optionSelected)="
+                          codSelectedColoresAC(
+                            $event.option.value,
+                            trigger,
+                            auto
+                          )
+                        ">
+                                                <mat-option *ngFor="
+                            let option of filteredOptionsColoresAC[index]
+                              | async
+                          " [value]="option" [disabled]="isDisabledseleColorAC">
+                                                    {{ option.descripcion }}
+                                                </mat-option>
+                                            </mat-autocomplete>
                                         </mat-form-field>
                                     </div>
                                 </div>
