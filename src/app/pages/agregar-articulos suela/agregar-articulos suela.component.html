@@ -88,8 +88,8 @@
                                         <mat-form-field appearance="outline">
                                             <mat-label>Selecionar acabado</mat-label>
                                             <mat-select [disabled]="isDisabledAcabado" [(value)]="selectedAcabado" [(ngModel)]="selectedAcabado" [disabled]="isDisabledAcabado" (ngModelChange)="selectAcabadoChangue($event)">
-                                                <mat-option *ngFor="let acabado of datos_combinacionAC" [value]="acabado">
-                                                    {{ acabado.descripcion }}
+                                                <mat-option *ngFor="let acabado of acabado" [value]="acabado">
+                                                    {{ acabado.viewValue }}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -139,9 +139,20 @@
                                         <div *ngFor="let control of myControls; let index = index">
                                             <mat-form-field appearance="outline" class=".example-litle-width_min">
                                                 <mat-label>Buscar Acabado</mat-label>
-                                                <input type="text" matInput [formControl]="myControls[index]" />
-                                                <mat-autocomplete>
-                                                    <mat-option> </mat-option>
+                                                <input type="text" matInput [formControl]="myControls[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
+                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnAcabados" (optionSelected)="
+                            codSelectedAcabados(
+                              $event.option.value,
+                              trigger,
+                              auto
+                            )
+                          ">
+                                                    <mat-option *ngFor="
+                              let option of filteredOptionsAcabados[index]
+                                | async
+                            " [value]="option" [disabled]="isDisabledseleAcabado">
+                                                        {{ option.descripcion }}
+                                                    </mat-option>
                                                 </mat-autocomplete>
                                             </mat-form-field>
                                         </div>
@@ -152,7 +163,7 @@
                                     <div *ngFor="let control of myControl2; let index = index">
                                         <mat-form-field class=".example-litle-width_min" appearance="outline">
                                             <mat-label>Buscar color</mat-label>
-                                            <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" [disabled]="isDisabledseleColorAC" />
+                                            <input type="text" matInput [formControl]="myControl2[index]" [matAutocomplete]="auto" #trigger="matAutocompleteTrigger" />
                                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnColoresAC" (optionSelected)="
                           codSelectedColoresAC(
                             $event.option.value,
