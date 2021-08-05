@@ -944,7 +944,6 @@ export class AgregarArticulosComponent implements OnInit {
   infoColorAC: string = '';
   infoAcabadofilter: string = '';
 
-  guardarEspecis() {}
   mostrarInfo() {
     this.infoLinea = this.selectedLinea
       ? String(this.selectedLinea.tp_desc)
@@ -1100,9 +1099,6 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoClasificado;
     }
-
-    /*
-    } */
   }
 
   onChange() {}

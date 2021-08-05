@@ -45,11 +45,13 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   public datos_combinacionGR: ReqCombinacion[] = [];
   public datos_combinacionCL: ReqCombinacion[] = [];
   public datos_combinacionAC: ReqCombinacion[] = [];
+  public datos_combinacionSEL: ReqCombinacion[] = [];
 
   selectedLinea: ReqLineas;
   selectedPlanchado: ReqPlanchado;
   selectedCombinacionGR: ReqCombinacion;
   selectedCombinacionCL: ReqCombinacion;
+  selectedCombinacionSEL: ReqCombinacion;
   selectedCombinacionACC: ReqCombinacion;
   selectedAcabado: Acabado;
   optionsColoresAC: ReqCombinacion[] = [];
@@ -57,6 +59,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
 
   public Colores: CombinacionRespons[] = [];
   public selectedColorNameAC: string;
+  public selectedAcabadoName: string;
 
   myControls: FormControl[] = [new FormControl('')];
   myControl2: FormControl[] = [new FormControl('')];
@@ -78,10 +81,12 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     this.selectedPlanchado = this.datos_planchado[1];
     this.selectedCombinacionGR = this.datos_combinacionGR[1];
     this.selectedCombinacionCL = this.datos_combinacionCL[1];
-    this.selectedCombinacionACC = this.datos_combinacionCL[1];
+    this.selectedCombinacionACC = this.datos_combinacionAC[1];
+    this.selectedCombinacionSEL = this.datos_combinacionSEL[1];
 
     this.Colores = [];
     this.selectedColorNameAC = '';
+    this.selectedAcabadoName = '';
   }
 
   ngOnInit() {
@@ -144,7 +149,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       codigo: codigo.codigo,
       descripcion: codigo.descripcion,
     };
-    this.selectedColorNameAC = codigo.descripcion;
+    this.selectedAcabadoName = codigo.descripcion;
     this, this.myControls[0].setValue(this.selectedCombinacionACC);
   }
 
@@ -179,7 +184,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     };
     this.parametroSService.getcombinacion(body).subscribe(
       (resp) => {
-        this.datos_combinacionCL = resp.data;
+        this.datos_combinacionSEL = resp.data;
       },
       (error) => console.log(error)
     );
@@ -228,17 +233,28 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     );
   }
   selectedLineaChange(values: ReqLineas) {
+    console.log('tamanaño de los planchados', this.datos_planchado.length);
     this.mostrarcolor();
     this.mostrarAcabado();
-
-    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
-    this, this.myControls[0].setValue(this.selectedCombinacionACC);
 
     this.mostrarPlanchado();
     this.isDisabledselePlanchado = false;
     this.mostrarGrosor();
 
     this.mostrarClasificacion();
+
+    this.selectedPlanchado = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.selectedCombinacionGR = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
     this.selectedAcabado = {
       value: '',
       viewValue: '',
@@ -255,26 +271,83 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       codigo: '',
       descripcion: '',
     };
+    this.selectedCombinacionSEL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+
+    this.mostrarInfo();
+    this.mostrarCodigo();
+    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
+    this, this.myControls[0].setValue(this.selectedCombinacionACC);
+    this.isDisabledseleGrosor = true;
+    this.isDisabledAcabado = true;
+    this.isDisabledseleSeleccion = true; //deshabilitar la seleccion hasta que indicas si es tenido, acabado o natural
   }
 
   selectedPlanchadoChange(values: ReqPlanchado) {
     this.isDisabledseleGrosor = false;
+
+    this.selectedCombinacionGR = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.selectedAcabado = {
+      value: '',
+      viewValue: '',
+    };
     this.selectedCombinacionCL = {
       linea: '',
       descripcionLinea: '',
       codigo: '',
       descripcion: '',
     };
+    this.selectedCombinacionACC = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.selectedCombinacionSEL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.mostrarInfo();
+    this.mostrarCodigo();
   }
   selectedGrosorChange(values: ReqCombinacion) {
     this.isDisabledAcabado = false;
 
+    this.selectedAcabado = {
+      value: '',
+      viewValue: '',
+    };
     this.selectedCombinacionCL = {
       linea: '',
       descripcionLinea: '',
       codigo: '',
       descripcion: '',
     };
+    this.selectedCombinacionACC = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.selectedCombinacionSEL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.mostrarInfo();
+    this.mostrarCodigo();
   }
   selectAcabadoChangue(values: any) {
     this.isDisabledseleSeleccion = false;
@@ -290,8 +363,6 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       this.isDisabledseleAcabado = true;
     }
 
-    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
-    this, this.myControls[0].setValue(this.selectedCombinacionACC);
     this.selectedCombinacionCL = {
       linea: '',
       descripcionLinea: '',
@@ -304,10 +375,23 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       codigo: '',
       descripcion: '',
     };
+    this.selectedCombinacionSEL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
+    this, this.myControls[0].setValue(this.selectedCombinacionACC);
     console.log(this.optionsColoresAC);
     console.log(this.optionsAcabados);
+    this.mostrarInfo();
+    this.mostrarCodigo();
   }
-  selectedClasificacionChange(values: ReqCombinacion) {}
+  selectedClasificacionChange(values: ReqCombinacion) {
+    this.mostrarInfo();
+    this.mostrarCodigo();
+  }
 
   private _servicetoVar() {
     this.aprobationService.getCodCliente().subscribe((d) => {
@@ -333,11 +417,150 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     });
   }
 
+  infoCodi: string = '';
+  infoDesc: string = '';
+  infoEspeci: string = '';
+  infoLinea: string = '';
+  infoplanchado: string = '';
+  infoGrosor: string = '';
+  infoSeleccion: string = '';
+  infoAcabadoselect: string = '';
+  infoColor: string = '';
+  infoAcabadofilter: string = '';
+  infoequis: string = 'X';
+
+  mostrarInfo() {
+    this.infoLinea = this.selectedLinea
+      ? String(this.selectedLinea.tp_desc)
+          .trim()
+          .substring(3, String(this.selectedLinea.tp_desc).trim().length)
+      : '';
+    this.infoplanchado = this.selectedPlanchado
+      ? String(this.selectedPlanchado.descripcion).trim()
+      : '';
+
+    this.infoGrosor = this.selectedCombinacionGR
+      ? String(this.selectedCombinacionGR.descripcion).trim()
+      : ' ';
+    this.infoAcabadofilter = this.selectedCombinacionACC.codigo
+      ? String(this.selectedAcabadoName).trim()
+      : '';
+    this.infoAcabadoselect = this.selectedAcabado.viewValue
+      ? String(this.selectedAcabado.viewValue).trim()
+      : '';
+    this.infoColor = this.selectedCombinacionCL.codigo
+      ? String(this.selectedColorNameAC).trim()
+      : '';
+
+    this.infoSeleccion = this.selectedCombinacionSEL.descripcion //mostrar el valor del mat-selected NATURAL 'NA' TENIDO 'TC'
+      ? String(this.selectedCombinacionSEL.descripcion).trim()
+      : ' ';
+
+    if (this.selectedAcabado.value === 'U1') {
+      this.infoDesc =
+        this.infoLinea +
+        ' ' +
+        this.infoplanchado +
+        ' ' +
+        this.infoGrosor +
+        ' ' +
+        this.infoAcabadofilter +
+        ' ' +
+        this.infoColor +
+        ' ' +
+        this.infoSeleccion;
+    } else {
+      this.infoDesc =
+        this.infoLinea +
+        ' ' +
+        this.infoplanchado +
+        ' ' +
+        this.infoGrosor +
+        ' ' +
+        this.infoAcabadoselect +
+        ' ' +
+        this.infoColor +
+        ' ' +
+        this.infoSeleccion;
+    }
+  }
+
+  mostrarCodigo() {
+    this.infoLinea = this.selectedLinea
+      ? String(this.selectedLinea.tp_desc).trim().substr(-22, 2)
+      : '';
+    this.infoplanchado = this.selectedPlanchado
+      ? String(this.selectedPlanchado.codigo).trim()
+      : '';
+
+    this.infoGrosor = this.selectedCombinacionGR
+      ? String(this.selectedCombinacionGR.codigo).trim()
+      : '';
+
+    this.infoAcabadoselect = this.selectedAcabado
+      ? String(this.selectedAcabado.value).trim()
+      : '';
+    this.infoAcabadofilter = this.selectedCombinacionACC
+      ? String(this.selectedCombinacionACC.codigo).trim()
+      : '';
+    this.infoColor = this.selectedCombinacionCL.codigo
+      ? String(this.selectedCombinacionCL.codigo).trim()
+      : '';
+    this.infoSeleccion = this.selectedCombinacionSEL
+      ? String(this.selectedCombinacionSEL.codigo).trim()
+      : '';
+
+    if (this.selectedAcabado.value === 'UI') {
+      this.infoCodi =
+        this.infoLinea +
+        '' +
+        this.infoplanchado +
+        '' +
+        this.infoequis +
+        ' ' +
+        this.infoGrosor +
+        ' ' +
+        this.infoAcabadofilter +
+        ' ' +
+        this.infoColor +
+        ' ' +
+        this.infoSeleccion;
+    } else {
+      this.infoCodi =
+        this.infoLinea +
+        '' +
+        this.infoplanchado +
+        '' +
+        this.infoequis +
+        ' ' +
+        this.infoGrosor +
+        ' ' +
+        this.infoAcabadoselect +
+        ' ' +
+        this.infoColor +
+        ' ' +
+        this.infoSeleccion;
+    }
+  }
+
+  submitArticulo() {}
   isHomeRoute() {
     //dirigirse al componente principal cuando cancelan el registro de un articulo.
     this.router.navigate(['/articulos-cliente']);
   }
-  submitArticulo() {}
+  Addespeci1: any;
+  Addespeci2: any;
+  Addespeci3: any;
+  Addespeci4: any;
+  Addespeci5: any;
+  Addespeci6: any;
+  Addespeci7: any;
+  Addespeci8: any;
+  Addespeci9: any;
+  Addespeci10: any;
+
+  BottonAddEspecificacion() {}
+  BotoncerrarAddEspeci() {}
 
   CancelaRegistroArticulo(selectedItem?: any) {
     Swal.fire({
