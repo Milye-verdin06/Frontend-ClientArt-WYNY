@@ -21,6 +21,9 @@ import {
   ReqArticulosExistentes,
 } from 'src/app/models/marroquineria/articulo';
 import { EspecificacionService } from 'src/app/services/Smarroquineria/especificacion.service';
+import { CorreoService } from 'src/app/services/correo.service';
+import { ReqCorreo } from 'src/app/models/Correo';
+import { environment } from 'src/environments/environment';
 
 interface Acabado {
   value: string;
@@ -57,6 +60,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   public datos_combinacionAC: ReqCombinacion[] = [];
   public datos_combinacionSEL: ReqCombinacion[] = [];
   public datos_cArtic: ReqcArtic[] = [];
+  public nombreVendedor: string = '';
 
   selectedLinea: ReqLineas;
   selectedPlanchado: ReqPlanchado;
@@ -75,6 +79,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   datos_especificacion: any;
 
   public Colores: CombinacionRespons[] = [];
+  public datos_correo: ReqCorreo[] = [];
   public selectedColorNameAC: string;
   public selectedAcabadoName: string;
 
@@ -95,7 +100,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     private parametroSService: parametroSService,
     private articuloService: ArticuloService,
     private modalService: NgbModal,
-    private especificacionService: EspecificacionService
+    private especificacionService: EspecificacionService,
+    private correoService: CorreoService
   ) {
     this.selectedAcabado = this.acabado[1];
     this.selectedLinea = this.datos_linea[1];
@@ -111,6 +117,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.nombreVendedor = environment.nom;
     this.parametroSService.getlinea().subscribe(
       (resp) => {
         this.datos_linea = resp.data;
@@ -1507,10 +1514,75 @@ export class AgregarArticulosSuelaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1600,
           });
+          if (this.ainfoDesc.length == 0 && this.ainfoCodigo.length == 0) {
+          } else {
+            this.sendEmail();
+          }
         }
 
         this.isHomeRoute();
       }
     });
+  }
+
+  messageTable: string = '';
+  sendEmail() {
+    console.log('send email');
+
+    for (let i = 0; i < this.ainfoDesc.length; i++) {
+      this.messageTable =
+        this.messageTable +
+        `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
+    }
+    const body = {
+      to: 'mili_verdin@wyny.com.mx',
+
+      subject: `Alta artículo - ${this.nomCliente}`,
+
+      message: `<div>
+      <h1 style="font-family: Arial">&nbsp;&nbsp;Registro de nuevo articulo </h1>
+                    <a>
+                    <img src="https://i.mkt.lu/dl/thumb/7444781040/7188581810.jpg" width="150" height="150" border="0" alt="" style="float:left">
+                    </a>
+
+
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendedor: ${this.nombreVendedor}</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente: ${this.nomCliente}</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Código cliente: ${this.codCliente}</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de negocio: Suela </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de medida: ${this.unidadSelecc} </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Divisa: ${this.divisaSelecc} </h5>
+              </div>
+              <br>
+              <br>
+              <br>
+            <table class="table table-striped" align="center" border="1" cellpadding="0" cellspacing="0" width="950">
+              <thead bgcolor="#3b5e9b">
+                  <tr>
+
+                    <th scope="col" width="550" style="font-family: Arial">Artículo</th>
+                    <th scope="col" style="font-family: Arial">Código</th>
+                    <th scope="col" style="font-family: Arial">Precio de venta</th>
+
+                  </tr>
+              </thead>
+                <tbody>
+                  ${this.messageTable}
+
+                </tbody>
+          </table>
+           <h6 style="font-family: Arial" align="center"> Este mensaje se envió de manera automática, favor de NO responder,
+           en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
+           </h6> `,
+
+      cc: 'mili_verdin@wyny.com.mx',
+    };
+
+    this.correoService.postCorreos(body).subscribe(
+      (resp) => {
+        this.datos_correo = resp.data;
+      },
+      (error) => console.log(error)
+    );
   }
 }

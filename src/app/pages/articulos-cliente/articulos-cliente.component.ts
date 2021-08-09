@@ -316,6 +316,9 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     /*  if ((this.selectedValue.value = '')) {
       this.isDisabledButtonBuscar = true;
     } else this.isDisabledButtonBuscar = false; */
+    if (this.unidadNSelecc == 'SU') {
+      this.isDisabledButtonAddS = false;
+    }
   }
 
   ngOnInit() {
