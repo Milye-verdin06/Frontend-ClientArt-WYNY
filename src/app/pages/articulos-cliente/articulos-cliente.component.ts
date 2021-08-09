@@ -299,6 +299,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
     this.isDisabledButtonAddM = true;
+    this.isDisabledButtonAddS = true;
 
     /* if ((this.selectedUnidad.value = '')) {
       this.isDisabledButtonBuscar = true;
@@ -373,7 +374,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.selectedValue = this.divisaSelecc;
 
       this.isDisableDivis = false;
-      this.isDisabledButtonAddM = true;
+      //this.isDisabledButtonAddM = true;
+      //this.isDisabledButtonAddS = true;
       this.isDisabledButtonBuscar = false;
     }
 
@@ -389,6 +391,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     if (this.divisaSelecc == this.divisaSelecc) {
       this.isDisabledButtonAddM = false;
+      //this.isDisabledButtonAddS = false; //funciona sin esto, al momento de regresarse a la pantalla principal te manda a la correspondiente al dar clic al boton
     }
   }
 
