@@ -35,6 +35,7 @@ interface Unidad {
   unidadN3: string;
   unidadN4: string;
   unidadN5: string;
+  unidadN6: string;
 }
 interface UnidadNegocio {
   value: string;
@@ -88,6 +89,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: 'SU',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     },
     {
       value: 'K',
@@ -97,15 +99,17 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: '',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     },
     {
       value: 'D',
       viewValue: 'Decimetros',
       unidadN: 'SI',
       unidadN2: 'PI',
-      unidadN3: '',
+      unidadN3: 'SU',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     },
     {
       value: 'L',
@@ -115,6 +119,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: '',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     },
     {
       value: 'P',
@@ -124,6 +129,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: '',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     },
     {
       value: 'U',
@@ -133,6 +139,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: 'CI',
       unidadN4: 'CT',
       unidadN5: 'SS',
+      unidadN6: 'SU',
     },
     {
       value: 'M',
@@ -142,6 +149,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: '',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     },
   ];
   unidadesF: Unidad[] = [];
@@ -274,7 +282,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
         u.unidadN2 == values ||
         u.unidadN3 == values ||
         u.unidadN4 == values ||
-        u.unidadN5 == values
+        u.unidadN5 == values ||
+        u.unidadN6 == values
     );
 
     this.aprobationService.setUnidadN(this.selectedUnidadN);
@@ -287,6 +296,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: '',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     };
   }
   selectedUnidadMChange(values: Unidad) {
@@ -298,8 +308,8 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setUnidadN(this.selectedUnidadN);
     this.aprobationService.setUnidadMedida(this.selectedUnidad);
     this.isDisableDivis = false;
-    this.isDisabledButtonAddM = true;
-    this.isDisabledButtonAddS = true;
+    //this.isDisabledButtonAddM = true;
+    //this.isDisabledButtonAddS = true;
 
     /* if ((this.selectedUnidad.value = '')) {
       this.isDisabledButtonBuscar = true;
@@ -309,16 +319,19 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   selectedDivisChange(values: any) {
     this.aprobationService.setDivisa(this.selectedValue);
     this.aprobationService.setNombreDivisa(this.selectedValue.viewValue);
-    this.isDisabledButtonAddM = false; //activar boton agregar marroquineria
-    this.isDisabledButtonAddS = false; //activar boton agregar suela
+
+    if (this.unidadNSelecc === 'SI') {
+      this.isDisabledButtonAddM = false; //activar boton agregar marroquineria 476 125 75 29
+    } else {
+      this.isDisabledButtonAddS = false; //activar boton agregar suela
+    }
+
+    //this.isDisabledButtonAddS = false; //activar boton agregar suela
     this.isDisabledButtonBuscar = false;
 
     /*  if ((this.selectedValue.value = '')) {
       this.isDisabledButtonBuscar = true;
     } else this.isDisabledButtonBuscar = false; */
-    if (this.unidadNSelecc == 'SU') {
-      this.isDisabledButtonAddS = false;
-    }
   }
 
   ngOnInit() {
@@ -392,9 +405,12 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.botonbuscarArticulos();
     }
 
-    if (this.divisaSelecc == this.divisaSelecc) {
+    if (this.divisaSelecc == this.divisaSelecc && this.unidadNSelecc === 'SI') {
       this.isDisabledButtonAddM = false;
-      //this.isDisabledButtonAddS = false; //funciona sin esto, al momento de regresarse a la pantalla principal te manda a la correspondiente al dar clic al boton
+    }
+
+    if (this.divisaSelecc == this.divisaSelecc && this.unidadNSelecc === 'SU') {
+      this.isDisabledButtonAddS = false;
     }
   }
 
@@ -530,6 +546,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       unidadN3: '',
       unidadN4: '',
       unidadN5: '',
+      unidadN6: '',
     };
 
     this.selectedValue = {
@@ -668,6 +685,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
   botonAddArticuloM() {
     this.router.navigateByUrl('add-articulos-marroquineria');
+    console.log('hola marroquineria');
   }
 
   botonAddArticuloS() {

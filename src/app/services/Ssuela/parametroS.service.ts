@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
+  ColorTenidoRespons,
   CombinacionRespons,
   LineaRespons,
   PlanchadoRespons,
@@ -15,10 +16,10 @@ import { PeticionesService } from '../peticiones.service';
 export class parametroSService {
   constructor(private http: HttpClient, private peticion: PeticionesService) {}
 
-  getlinea(): Observable<LineaRespons> {
-    return this.peticion.getQuery('lineaSuela', 'getall').pipe(
+  getlinea(body: any): Observable<LineaRespons> {
+    return this.peticion.postQuery('lineaSuela', 'getall', body).pipe(
       map((response) => {
-        // console.log(response);
+        //console.log(response);
         return response;
       })
     );
@@ -35,6 +36,15 @@ export class parametroSService {
 
   getcombinacion(body: any): Observable<CombinacionRespons> {
     return this.peticion.postQuery('combinacionS', 'getall', body).pipe(
+      map((response) => {
+        //console.log(response);
+        return response;
+      })
+    );
+  }
+
+  getcolorTenido(body: any): Observable<ColorTenidoRespons> {
+    return this.peticion.postQuery('ColorS', 'getall', body).pipe(
       map((response) => {
         //console.log(response);
         return response;

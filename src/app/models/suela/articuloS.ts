@@ -7,6 +7,10 @@ export interface LineaRespons {
 export interface ReqLineas {
   tp_codi: string;
   tp_desc: string;
+  tp_unidad: string;
+  un_unidad: string;
+  un_nombre: string;
+  tp_vl_un: string;
 }
 
 export interface PlanchadoRespons {
@@ -29,6 +33,19 @@ export interface CombinacionRespons {
 }
 
 export interface ReqCombinacion {
+  linea: string;
+  descripcionLinea: string;
+  codigo: string;
+  descripcion: string;
+}
+
+export interface ColorTenidoRespons {
+  status: boolean;
+  message: string;
+  data: ReqColorTenido[];
+}
+
+export interface ReqColorTenido {
   linea: string;
   descripcionLinea: string;
   codigo: string;
