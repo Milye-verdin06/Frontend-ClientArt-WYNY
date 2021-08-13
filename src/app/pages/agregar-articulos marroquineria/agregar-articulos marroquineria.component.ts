@@ -170,8 +170,10 @@ export class AgregarArticulosComponent implements OnInit {
 
   public selectedAcabadosCodi: ReqAcabados;
   public selectedAcabadoName: string;
+
   public selectedColores: ReqColores;
   public selectedColorName: string;
+
   public selectedColoresAC: ReqColoresAC;
   public selectedColorNameAC: string;
 
