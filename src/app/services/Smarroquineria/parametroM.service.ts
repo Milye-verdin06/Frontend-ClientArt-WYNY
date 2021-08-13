@@ -21,10 +21,10 @@ import { PeticionesService } from '../peticiones.service';
 export class parametroMService {
   constructor(private peticion: PeticionesService, private http: HttpClient) {}
 
-  getlinea(): Observable<LineaRespons> {
-    return this.peticion.getQuery('lineas', 'getall').pipe(
+  getlinea(body: any): Observable<LineaRespons> {
+    return this.peticion.postQuery('lineasMarroquineria', 'getall', body).pipe(
       map((response) => {
-        // console.log(response);
+        //console.log(response);
         return response;
       })
     );

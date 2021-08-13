@@ -38,6 +38,10 @@ export interface LineaRespons {
 export interface ReqLineas {
   tp_codi: string;
   tp_desc: string;
+  tp_unidad: string;
+  un_unidad: string;
+  un_nombre: string;
+  tp_vl_un: string;
 }
 
 export interface FormatoRespons {

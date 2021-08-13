@@ -372,7 +372,6 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.selectedUnidad = this.unidadSelecc;
       this.isDisableunidadN = false;
       this.isDisableunidadM = false;
-      this.isDisabledButtonM = true;
 
       this.unidadesF = this.unidades.filter(
         (u) =>
@@ -380,9 +379,22 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
           u.unidadN2 == this.unidadNSelecc ||
           u.unidadN3 == this.unidadNSelecc ||
           u.unidadN4 == this.unidadNSelecc ||
-          u.unidadN5 == this.unidadNSelecc
+          u.unidadN5 == this.unidadNSelecc ||
+          u.unidadN6 == this.unidadNSelecc
       );
+
+      if (this.unidadNSelecc == 'SI') {
+        this.isDisabledButtonM = true;
+        this.isDisabledButtonS = false;
+      } else {
+        this.unidadNSelecc == 'SU';
+        {
+          this.isDisabledButtonS = true;
+          this.isDisabledButtonM = false;
+        }
+      }
     }
+
     if (this.unidadSelecc) {
       this.selectedUnidad = this.unidadSelecc;
     }

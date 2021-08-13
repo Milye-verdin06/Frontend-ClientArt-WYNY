@@ -86,8 +86,9 @@ export class AgregarArticulosComponent implements OnInit {
   isDisabledseleColor = true; //no seleccionar ningun color en el mat-input de Colores
   isDisabledseleColorAC = true; //no seleccionar ningun color en el mat-input de Colores
 
-  isDisabledcolores = true; //ocultar  la opcion de seleccionar color en tenido
-  isDisabledcoloresAC = false; //ocultar la opcioin de seleccionar color en acabados
+  isDisabledcolores = false; //ocultar  el cuadro  de seleccionar color en tenido
+  isDisabledcoloresAC = false; //ocultar el cuadro de seleccionar color en acabados
+  isDisabledacabados = false; //ocultar el cuadro de seleccionar el acabado
   public Articulos: any = [];
   public datos_linea: ReqLineas[] = [];
   public datos_formato: ReqFormatos[] = [];
@@ -144,6 +145,7 @@ export class AgregarArticulosComponent implements OnInit {
 
   tambores: ReqTambor[] = [];
   formatos: ReqFormatos[] = [];
+
   aintarifa: number[] = [];
   ainfoDesc: string[] = [];
   ainfoCodigo: string[] = [];
@@ -278,10 +280,16 @@ export class AgregarArticulosComponent implements OnInit {
     });
 
     this.ClienteService.getClientes;
+    console.log(this.unidadSelecc);
 
-    this.parametroMService.getlinea().subscribe(
+    const bodyLM = {
+      tp_unidad: this.unidadSelecc,
+      tp_vl_un: '1',
+    };
+    this.parametroMService.getlinea(bodyLM).subscribe(
       (resp) => {
         this.datos_linea = resp.data;
+        this.validarLineas();
       },
       (error) => console.log(error)
     );
@@ -338,7 +346,21 @@ export class AgregarArticulosComponent implements OnInit {
       )
     );
   }
+  validarLineas() {
+    //validar que el tamaño de las lineas sea mayor a uno, esto depende de la unidad de medida que seleccionó afuera
+    if (this.datos_linea.length < 1) {
+      Swal.fire({
+        icon: 'info',
+        title:
+          'La unidad de negocio no cuenta con lineas relacionadas a unidad de medida seeleccionada',
+        text: 'Verificar los datos, o ponerse en contacto con área de TI.',
+        showCancelButton: false,
+        confirmButtonText: `Confirmar`,
 
+        confirmButtonColor: '#172b4d',
+      });
+    }
+  }
   public displayFnAcabados(acabado: ReqAcabados): string {
     return acabado && String(acabado.ac_desce).trim()
       ? String(acabado.ac_desce).trim()
@@ -873,6 +895,7 @@ export class AgregarArticulosComponent implements OnInit {
       // this.isDisabledseleColorAC = true; //inhabilita seleccionar el colorAC
       this.isDisabledcoloresAC = false; //oculta el cuadro para buscar el colorAC
       this.isDisabledcolores = true; //muestra el cuadro para eleccionar el color del tenido
+      this.isDisabledacabados = false; //oculta el cuadro para seleciconar el acabado
 
       this.selectedColores = {
         cl_codi: '',
@@ -891,8 +914,11 @@ export class AgregarArticulosComponent implements OnInit {
       if (this.selectedAcabado.value === 'UI') {
         this.isDisabledseleAcabado = false; //habilita seleccionar un acabado
         this.isDisabledseleColorAC = false; //habilita seleccionar un colorACABADO
+
         this.isDisabledcoloresAC = true; //muestra el cuadro para seleciconar el colorAC
+        this.isDisabledacabados = true; //muestra el cuadro para seleciconar el acabado
         this.isDisabledcolores = false; //oculta el cuadro de seleccion de colores del tenido
+
         //this.isDisabledAutoCompleteC = true;
         //this.isDisabledAutoCompleteA = true;
       } else {
@@ -914,8 +940,8 @@ export class AgregarArticulosComponent implements OnInit {
         // this.isDisabledseleColorAC = true; //inhabilita seleccionar colorAcabado
         this.isDisabledcolores = true; //muestra el recuadro de seleccionar color tenido, pero no permite seleccionar ninguno
         this.isDisabledcoloresAC = false; //oculta el cuadro de seleccionar colorAC
-        //  (this.isDisabledAutoCompleteA = false),
-        // (this.isDisabledAutoCompleteC = false);
+        this.isDisabledacabados = false; //oculta el cuadro de seleccionar acabado
+        this.isDisabledcolores = false; //oculta el cuadro de seleccionar color del teñido
       }
     }
 
@@ -1274,6 +1300,10 @@ export class AgregarArticulosComponent implements OnInit {
                               this.selectedLinea = {
                                 tp_codi: '',
                                 tp_desc: '',
+                                un_unidad: '',
+                                un_nombre: '',
+                                tp_vl_un: '',
+                                tp_unidad: '',
                               };
                               this.selectedTambor = {
                                 tl_codi: '',
@@ -1444,6 +1474,10 @@ export class AgregarArticulosComponent implements OnInit {
                                 this.selectedLinea = {
                                   tp_codi: '',
                                   tp_desc: '',
+                                  un_unidad: '',
+                                  un_nombre: '',
+                                  tp_vl_un: '',
+                                  tp_unidad: '',
                                 };
                                 this.selectedTambor = {
                                   tl_codi: '',
@@ -1616,6 +1650,10 @@ export class AgregarArticulosComponent implements OnInit {
                                 this.selectedLinea = {
                                   tp_codi: '',
                                   tp_desc: '',
+                                  un_unidad: '',
+                                  un_nombre: '',
+                                  tp_vl_un: '',
+                                  tp_unidad: '',
                                 };
                                 this.selectedTambor = {
                                   tl_codi: '',
@@ -1815,6 +1853,10 @@ export class AgregarArticulosComponent implements OnInit {
               this.selectedLinea = {
                 tp_codi: '',
                 tp_desc: '',
+                un_unidad: '',
+                un_nombre: '',
+                tp_vl_un: '',
+                tp_unidad: '',
               };
               this.selectedTambor = {
                 tl_codi: '',
@@ -1925,6 +1967,10 @@ export class AgregarArticulosComponent implements OnInit {
                 this.selectedLinea = {
                   tp_codi: '',
                   tp_desc: '',
+                  un_unidad: '',
+                  un_nombre: '',
+                  tp_vl_un: '',
+                  tp_unidad: '',
                 };
                 this.selectedTambor = {
                   tl_codi: '',
@@ -2033,6 +2079,10 @@ export class AgregarArticulosComponent implements OnInit {
                   this.selectedLinea = {
                     tp_codi: '',
                     tp_desc: '',
+                    un_unidad: '',
+                    un_nombre: '',
+                    tp_vl_un: '',
+                    tp_unidad: '',
                   };
                   this.selectedTambor = {
                     tl_codi: '',
@@ -2107,7 +2157,7 @@ export class AgregarArticulosComponent implements OnInit {
         `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
     }
     const body = {
-      to: 'mili_verdin@wyny.com.mx',
+      to: 'elias_jimenez@wyny.com.mx',
 
       subject: `Alta artículo - ${this.nomCliente}`,
 
@@ -2147,7 +2197,7 @@ export class AgregarArticulosComponent implements OnInit {
            en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
            </h6> `,
 
-      cc: 'mili_verdin@wyny.com.mx',
+      cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx, mili_verdin@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(

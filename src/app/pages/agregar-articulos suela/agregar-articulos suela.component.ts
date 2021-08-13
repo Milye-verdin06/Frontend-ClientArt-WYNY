@@ -151,11 +151,11 @@ export class AgregarArticulosSuelaComponent implements OnInit {
 
     this._servicetoVar();
 
-    const bodyL = {
+    const bodyLS = {
       tp_unidad: this.unidadSelecc,
       tp_vl_un: '2',
     };
-    this.parametroSService.getlinea(bodyL).subscribe(
+    this.parametroSService.getlinea(bodyLS).subscribe(
       (resp) => {
         this.datos_linea = resp.data;
       },
@@ -1703,7 +1703,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
         `<tr><td>${this.ainfoDesc[i]}</td> <td>${this.ainfoCodigo[i]}</td> <td>${this.aintarifa[i]}</td></tr>`;
     }
     const body = {
-      to: 'mili_verdin@wyny.com.mx',
+      to: 'jperez@wyny.com.mx',
 
       subject: `Alta artículo - ${this.nomCliente}`,
 
@@ -1743,7 +1743,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
            en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
            </h6> `,
 
-      cc: 'mili_verdin@wyny.com.mx',
+      cc: 'daniel_berger@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx, mili_verdin@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(
