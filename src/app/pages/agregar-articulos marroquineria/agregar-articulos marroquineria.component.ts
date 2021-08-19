@@ -352,12 +352,15 @@ export class AgregarArticulosComponent implements OnInit {
       Swal.fire({
         icon: 'info',
         title:
-          'La unidad de negocio no cuenta con lineas relacionadas a unidad de medida seeleccionada',
-        text: 'Verificar los datos, o ponerse en contacto con área de TI.',
+          'Esta unidad de negocio no tiene lineas relacionadas con la unidad de medida seleccionada',
+        text: 'Verificar los datos, o ponerse en contacto con el departamento de TI.',
         showCancelButton: false,
         confirmButtonText: `Confirmar`,
-
         confirmButtonColor: '#172b4d',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.isHomeRoute();
+        }
       });
     }
   }
@@ -509,6 +512,10 @@ export class AgregarArticulosComponent implements OnInit {
     this.isDisabledAcabado = true;
     this.isDisabledClasificado = true;
     this.isDisabledGrosor = true;
+
+    this.isDisabledcolores = false;
+    this.isDisabledcoloresAC = false; //ocultar el cuadro de seleccionar color en acabados
+    this.isDisabledacabados = false; //ocultar el cuadro de seleccionar el acabado
 
     if (this.formatos.length < 1) {
       this.formatoSeleccionado = undefined;

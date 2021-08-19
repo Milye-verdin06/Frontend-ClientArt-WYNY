@@ -26,6 +26,27 @@ export interface ReqPlanchado {
   descripcion: string;
 }
 
+export interface TipoGrosorRespons {
+  status: boolean;
+  message: string;
+  data: ReqTipoGrosor[];
+}
+
+export interface ReqTipoGrosor {
+  tg_tipo: string;
+  tg_nombre: string;
+}
+export interface GrosorRespons {
+  status: boolean;
+  message: string;
+  data: ReqGrosor[];
+}
+
+export interface ReqGrosor {
+  gr_codi: string;
+  gr_desce: string;
+}
+
 export interface CombinacionRespons {
   status: boolean;
   message: string;

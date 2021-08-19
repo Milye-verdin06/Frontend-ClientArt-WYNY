@@ -37,7 +37,7 @@
                       d-none d-md-flex
                       ml-lg-auto
                     ">
-                                        <mat-form-field appearance="fill" >
+                                        <mat-form-field appearance="fill">
                                             <mat-label>Unidad de negocio</mat-label>
                                             <mat-select [(value)]="selectedUnidadN" id="unidadNegocio" [disabled]="isDisableunidadN" [(ngModel)]="selectedUnidadN" (ngModelChange)="selectedUnidadNChange($event)">
                                                 <mat-option *ngFor="let unidadnegocio of unidadesN" [value]="unidadnegocio.value">
@@ -333,7 +333,7 @@
                     <mat-form-field class="example-full-width">
                         <!--  <mat-label>Especificación 1</mat-label> -->
                         <textarea matInput placeholder=" " rows="1" maxlength="60" name="especi1" [(ngModel)]="datos_especificacion.ef_espe1" id="especi1" [disabled]="isDisabled"></textarea>
-                          <mat-hint align ="end"> Máximo 60 caracteres </mat-hint> 
+                        <mat-hint align="end"> Máximo 60 caracteres </mat-hint>
                     </mat-form-field>
 
                     <mat-form-field class="example-full-width">

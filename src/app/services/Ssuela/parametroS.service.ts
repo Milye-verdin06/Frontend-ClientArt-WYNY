@@ -5,8 +5,10 @@ import { map } from 'rxjs/operators';
 import {
   ColorTenidoRespons,
   CombinacionRespons,
+  GrosorRespons,
   LineaRespons,
   PlanchadoRespons,
+  TipoGrosorRespons,
 } from 'src/app/models/suela/articuloS';
 import { PeticionesService } from '../peticiones.service';
 
@@ -27,6 +29,22 @@ export class parametroSService {
 
   getplanchado(body: any): Observable<PlanchadoRespons> {
     return this.peticion.postQuery('planchadoS', 'getall', body).pipe(
+      map((response) => {
+        //console.log(response);
+        return response;
+      })
+    );
+  }
+  getTipoGrosor(body: any): Observable<TipoGrosorRespons> {
+    return this.peticion.postQuery('tipoGrosorS', 'getall', body).pipe(
+      map((response) => {
+        //console.log(response);
+        return response;
+      })
+    );
+  }
+  getGrosor(body: any): Observable<GrosorRespons> {
+    return this.peticion.postQuery('GrosorSuela', 'getall', body).pipe(
       map((response) => {
         //console.log(response);
         return response;

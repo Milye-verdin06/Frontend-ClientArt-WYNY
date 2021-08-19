@@ -28,6 +28,8 @@ import { EspecificacionService } from 'src/app/services/Smarroquineria/especific
 import { CorreoService } from 'src/app/services/correo.service';
 import { ReqCorreo } from 'src/app/models/Correo';
 import { environment } from 'src/environments/environment';
+import { ReqGrosor, ReqTipoGrosor } from '../../models/suela/articuloS';
+import { ReqGrosores } from '../../models/marroquineria/articulo';
 
 interface Acabado {
   value: string;
@@ -41,6 +43,7 @@ interface Acabado {
 export class AgregarArticulosSuelaComponent implements OnInit {
   @ViewChild('addespecificacion') modalContent: any;
   isDisabledselePlanchado = true; //no permitir seleccionar el planchado, hasta seleccionar la linea
+  isDisableRadioTipoGrosor = true; //no permitir el radioBoton de los tipos de grosores hasta seleecionar el planchado
   isDisabledseleGrosor = true; //no permitir seleccionar el grosor, hasta seleccionar el planchado
   isDisabledseleColorAC = true; //no seleccionar ningun color en el mat-input de Colores
   isDisabledseleColorACABADO = true; //no seleccionar ningun color en el mat-input de Colores de acabados
@@ -67,7 +70,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
 
   public datos_linea: ReqLineas[] = [];
   public datos_planchado: ReqPlanchado[] = [];
-  public datos_combinacionGR: ReqCombinacion[] = [];
+  public datos_tipoGrosor: ReqTipoGrosor[] = [];
+  public datos_combinacionGR: ReqGrosor[] = [];
   public datos_combinacionCL: ReqColorTenido[] = [];
   public datos_combinacionColorA: ReqColorTenido[] = [];
   public datos_combinacionAC: ReqCombinacion[] = [];
@@ -77,7 +81,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
 
   selectedLinea: ReqLineas;
   selectedPlanchado: ReqPlanchado;
-  selectedCombinacionGR: ReqCombinacion;
+  selectedtipoGrosor: ReqTipoGrosor;
+  selectedCombinacionGR: ReqGrosor;
   selectedCombinacionSEL: ReqCombinacion;
   selectedCOLORESAC: ReqColorTenido;
 
@@ -123,6 +128,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     this.selectedAcabado = this.acabado[1];
     this.selectedLinea = this.datos_linea[1];
     this.selectedPlanchado = this.datos_planchado[1];
+    this.selectedtipoGrosor = this.datos_tipoGrosor[1];
     this.selectedCombinacionGR = this.datos_combinacionGR[1];
     this.selectedCombinacionCL = this.datos_combinacionCL[1];
     this.selectedCombinacionACC = this.datos_combinacionAC[1];
@@ -254,12 +260,23 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+  mostrarTipoGrosor() {
+    const body = {
+      vLinea: this.selectedLinea.tp_codi,
+    };
+    this.parametroSService.getTipoGrosor(body).subscribe(
+      (resp) => {
+        this.datos_tipoGrosor = resp.data;
+      },
+      (error) => console.log(error)
+    );
+  }
   mostrarGrosor() {
     const body = {
       vLinea: this.selectedLinea.tp_codi,
-      vTabla: 'G',
+      vTipo: this.selectedtipoGrosor.tg_tipo,
     };
-    this.parametroSService.getcombinacion(body).subscribe(
+    this.parametroSService.getGrosor(body).subscribe(
       (resp) => {
         this.datos_combinacionGR = resp.data;
       },
@@ -338,7 +355,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   selectedLineaChange(values: ReqLineas) {
     this.mostrarPlanchado();
     this.isDisabledselePlanchado = false;
-    this.mostrarGrosor();
+    this.mostrarTipoGrosor();
+
     this.mostrarAcabado();
     //this.mostrarcolor();
 
@@ -353,17 +371,26 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       codigo: '',
       descripcion: '',
     };
+
+    this.selectedtipoGrosor = {
+      tg_tipo: '',
+      tg_nombre: '',
+    };
     this.selectedCombinacionGR = {
-      linea: '',
-      descripcionLinea: '',
-      codigo: '',
-      descripcion: '',
+      gr_codi: '',
+      gr_desce: '',
     };
     this.selectedAcabado = {
       value: '',
       viewValue: '',
     };
     this.selectedCombinacionCL = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+    this.selectedCOLORESAC = {
       linea: '',
       descripcionLinea: '',
       codigo: '',
@@ -388,21 +415,27 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     this.mostrarCodigo();
     this, this.myControl2[0].setValue(this.selectedCombinacionCL);
     this, this.myControls[0].setValue(this.selectedCombinacionACC);
-
+    this.isDisableRadioTipoGrosor = true;
     this.isDisabledseleGrosor = true;
     this.isDisabledAcabado = true;
     this.isDisabledseleSeleccion = true; //deshabilitar la seleccion hasta que indicas si es tenido, acabado o natural
+    this.isDisabledcoloresNG = false; //ocultar  el select de seleccionar color *ngIf
+
+    this.isDisabledcoloresNGAC = false; //ocultar  el select de seleccionar color de los acabados *ngIf
+    this.isDisabledacabadosNG = false; //ocultar  el select de de seleccionar acabado *ngIf
   }
 
   selectedPlanchadoChange(values: ReqPlanchado) {
+    this.isDisableRadioTipoGrosor = false;
     this.mostrarcolor();
-    this.isDisabledseleGrosor = false;
 
+    this.selectedtipoGrosor = {
+      tg_tipo: '',
+      tg_nombre: '',
+    };
     this.selectedCombinacionGR = {
-      linea: '',
-      descripcionLinea: '',
-      codigo: '',
-      descripcion: '',
+      gr_codi: '',
+      gr_desce: '',
     };
     this.selectedAcabado = {
       value: '',
@@ -426,12 +459,19 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       codigo: '',
       descripcion: '',
     };
+
     this.selectedCombinacionSEL = {
       linea: '',
       descripcionLinea: '',
       codigo: '',
       descripcion: '',
     };
+    this.isDisabledcoloresNG = false; //ocultar  el select de seleccionar color *ngIf
+
+    this.isDisabledcoloresNGAC = false; //ocultar  el select de seleccionar color de los acabados *ngIf
+    this.isDisabledacabadosNG = false; //ocultar  el select de de seleccionar acabado *ngIf
+    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
+    this, this.myControls[0].setValue(this.selectedCombinacionACC);
     this.mostrarInfo();
     this.mostrarCodigo();
   }
@@ -446,24 +486,31 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       codigo: '',
       descripcion: '',
     };
-    this.selectedCombinacionACC = {
-      linea: '',
-      descripcionLinea: '',
-      codigo: '',
-      descripcion: '',
-    };
     this.selectedCOLORESAC = {
       linea: '',
       descripcionLinea: '',
       codigo: '',
       descripcion: '',
     };
+    this.selectedCombinacionACC = {
+      linea: '',
+      descripcionLinea: '',
+      codigo: '',
+      descripcion: '',
+    };
+
     this.selectedCombinacionSEL = {
       linea: '',
       descripcionLinea: '',
       codigo: '',
       descripcion: '',
     };
+    this.isDisabledcoloresNG = false; //ocultar  el select de seleccionar color *ngIf
+
+    this.isDisabledcoloresNGAC = false; //ocultar  el select de seleccionar color de los acabados *ngIf
+    this.isDisabledacabadosNG = false; //ocultar  el select de de seleccionar acabado *ngIf
+    this, this.myControl2[0].setValue(this.selectedCombinacionCL);
+    this, this.myControls[0].setValue(this.selectedCombinacionACC);
     this.mostrarInfo();
     this.mostrarCodigo();
     const bodyC = {
@@ -571,6 +618,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     this.mostrarInfo();
     this.mostrarCodigo();
   }
+  selectedtipogrosorChange() {}
 
   selectedColorAcabadoChange(values: ReqColorTenido) {
     this.mostrarInfo();
@@ -625,7 +673,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       : '';
 
     this.infoGrosor = this.selectedCombinacionGR
-      ? String(this.selectedCombinacionGR.descripcion).trim()
+      ? String(this.selectedCombinacionGR.gr_desce).trim()
       : ' ';
     this.infoAcabadofilter = this.selectedCombinacionACC.descripcion
       ? String(this.selectedAcabadoName).trim()
@@ -682,7 +730,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       : '';
 
     this.infoGrosor = this.selectedCombinacionGR
-      ? String(this.selectedCombinacionGR.codigo).trim()
+      ? String(this.selectedCombinacionGR.gr_codi).trim()
       : '';
 
     this.infoAcabadoselect = this.selectedAcabado
@@ -775,7 +823,6 @@ export class AgregarArticulosSuelaComponent implements OnInit {
             timer: 1900,
           });
         } else {
-          console.log('CONFIRMAR EL REGISTRO');
           Swal.fire({
             title: 'Confirmar registro del articulo',
             text: this.infoDesc,
@@ -790,7 +837,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
               const bodyE = {
                 ta_clta: this.codCliente,
                 ta_artic: this.infoCodi.substring(0, 4),
-                ta_gruix: this.selectedCombinacionGR.codigo,
+                ta_gruix: this.selectedCombinacionGR.gr_codi,
                 ta_acaba: 'NA',
                 ta_color: '9',
                 ta_clas: this.selectedCombinacionSEL.codigo,
@@ -820,7 +867,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                         ta_codi: 'C',
                         ta_clta: this.codCliente,
                         ta_artic: this.infoCodi.substring(0, 4),
-                        ta_gruix: this.selectedCombinacionGR.codigo,
+                        ta_gruix: this.selectedCombinacionGR.gr_codi,
                         ta_acaba: 'NA',
                         ta_color: '9',
                         ta_clas: this.selectedCombinacionSEL.codigo,
@@ -854,7 +901,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                               const bodyNAT = {
                                 ef_clta: this.codCliente,
                                 ef_artic: this.infoCodi.substring(0, 4),
-                                ef_gruix: this.selectedCombinacionGR.codigo,
+                                ef_gruix: this.selectedCombinacionGR.gr_codi,
                                 ef_acaba: 'NA',
                                 ef_color: '9',
                                 ef_clas: this.selectedCombinacionSEL.codigo,
@@ -897,10 +944,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                                 descripcion: '',
                               };
                               this.selectedCombinacionGR = {
-                                linea: '',
-                                descripcionLinea: '',
-                                codigo: '',
-                                descripcion: '',
+                                gr_codi: '',
+                                gr_desce: '',
                               };
                               this.selectedAcabado = {
                                 value: '',
@@ -956,7 +1001,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
               const bodyTE = {
                 ta_clta: this.codCliente,
                 ta_artic: this.infoCodi.substring(0, 4),
-                ta_gruix: this.selectedCombinacionGR.codigo,
+                ta_gruix: this.selectedCombinacionGR.gr_codi,
                 ta_acaba: 'TC',
                 ta_color: this.selectedCombinacionCL.codigo,
                 ta_clas: this.selectedCombinacionSEL.codigo,
@@ -986,7 +1031,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                         ta_codi: 'C',
                         ta_clta: this.codCliente,
                         ta_artic: this.infoCodi.substring(0, 4),
-                        ta_gruix: this.selectedCombinacionGR.codigo,
+                        ta_gruix: this.selectedCombinacionGR.gr_codi,
                         ta_acaba: 'TC',
                         ta_color: this.selectedCombinacionCL.codigo,
                         ta_clas: this.selectedCombinacionSEL.codigo,
@@ -1019,7 +1064,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                                 const bodyTEN = {
                                   ef_clta: this.codCliente,
                                   ef_artic: this.infoCodi.substring(0, 4),
-                                  ef_gruix: this.selectedCombinacionGR.codigo,
+                                  ef_gruix: this.selectedCombinacionGR.gr_codi,
                                   ef_acaba: 'TC',
                                   ef_color: this.selectedCombinacionCL.codigo,
                                   ef_clas: this.selectedCombinacionSEL.codigo,
@@ -1062,10 +1107,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                                   descripcion: '',
                                 };
                                 this.selectedCombinacionGR = {
-                                  linea: '',
-                                  descripcionLinea: '',
-                                  codigo: '',
-                                  descripcion: '',
+                                  gr_codi: '',
+                                  gr_desce: '',
                                 };
                                 this.selectedAcabado = {
                                   value: '',
@@ -1122,7 +1165,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
               const bodyACA = {
                 ta_clta: this.codCliente,
                 ta_artic: this.infoCodi.substring(0, 4),
-                ta_gruix: this.selectedCombinacionGR.codigo,
+                ta_gruix: this.selectedCombinacionGR.gr_codi,
                 ta_acaba: this.selectedCombinacionACC.codigo,
                 ta_color: this.selectedCombinacionCL.codigo,
                 ta_clas: this.selectedCombinacionSEL.codigo,
@@ -1153,7 +1196,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                         ta_codi: 'C',
                         ta_clta: this.codCliente,
                         ta_artic: this.infoCodi.substring(0, 4),
-                        ta_gruix: this.selectedCombinacionGR.codigo,
+                        ta_gruix: this.selectedCombinacionGR.gr_codi,
                         ta_acaba: this.selectedCombinacionACC.codigo,
                         ta_color: this.selectedCOLORESAC.codigo,
                         ta_clas: this.selectedCombinacionSEL.codigo,
@@ -1187,7 +1230,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                                 const bodyACC = {
                                   ef_clta: this.codCliente,
                                   ef_artic: this.infoCodi.substring(0, 4),
-                                  ef_gruix: this.selectedCombinacionGR.codigo,
+                                  ef_gruix: this.selectedCombinacionGR.gr_codi,
                                   ef_acaba: this.selectedCombinacionACC.codigo,
                                   ef_color: this.selectedCombinacionCL.codigo,
                                   ef_clas: this.selectedCombinacionSEL.codigo,
@@ -1230,10 +1273,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                                   descripcion: '',
                                 };
                                 this.selectedCombinacionGR = {
-                                  linea: '',
-                                  descripcionLinea: '',
-                                  codigo: '',
-                                  descripcion: '',
+                                  gr_codi: '',
+                                  gr_desce: '',
                                 };
                                 this.selectedAcabado = {
                                   value: '',
@@ -1320,7 +1361,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       const body = {
         ef_clta: this.codCliente,
         ef_artic: this.infoCodi.substring(0, 4),
-        ef_gruix: this.selectedCombinacionGR.codigo,
+        ef_gruix: this.selectedCombinacionGR.gr_codi,
         ef_acaba: 'NA',
         ef_color: '9',
         ef_clas: this.selectedCombinacionSEL.codigo,
@@ -1375,10 +1416,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                 descripcion: '',
               };
               this.selectedCombinacionGR = {
-                linea: '',
-                descripcionLinea: '',
-                codigo: '',
-                descripcion: '',
+                gr_codi: '',
+                gr_desce: '',
               };
               this.selectedAcabado = {
                 value: '',
@@ -1428,7 +1467,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
         const body = {
           ef_clta: this.codCliente,
           ef_artic: this.infoCodi.substring(0, 4),
-          ef_gruix: this.selectedCombinacionGR.codigo,
+          ef_gruix: this.selectedCombinacionGR.gr_codi,
           ef_acaba: 'TC',
           ef_color: this.selectedCombinacionCL.codigo,
           ef_clas: this.selectedCombinacionSEL.codigo,
@@ -1483,10 +1522,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                   descripcion: '',
                 };
                 this.selectedCombinacionGR = {
-                  linea: '',
-                  descripcionLinea: '',
-                  codigo: '',
-                  descripcion: '',
+                  gr_codi: '',
+                  gr_desce: '',
                 };
                 this.selectedAcabado = {
                   value: '',
@@ -1535,7 +1572,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
           const body = {
             ef_clta: this.codCliente,
             ef_artic: this.infoCodi.substring(0, 4),
-            ef_gruix: this.selectedCombinacionGR.codigo,
+            ef_gruix: this.selectedCombinacionGR.gr_codi,
             ef_acaba: this.selectedCombinacionACC.codigo,
             ef_color: this.selectedCOLORESAC.codigo,
             ef_clas: this.selectedCombinacionSEL.codigo,
@@ -1592,10 +1629,8 @@ export class AgregarArticulosSuelaComponent implements OnInit {
                     descripcion: '',
                   };
                   this.selectedCombinacionGR = {
-                    linea: '',
-                    descripcionLinea: '',
-                    codigo: '',
-                    descripcion: '',
+                    gr_codi: '',
+                    gr_desce: '',
                   };
                   this.selectedAcabado = {
                     value: '',
@@ -1752,5 +1787,19 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+  }
+
+  RadioTipoGrosorChange(values: ReqTipoGrosor) {
+    this.mostrarGrosor();
+    this.isDisabledseleGrosor = false;
+  }
+  selectedRadio: boolean = true;
+  mostrarTGrosoresRadio(e: any) {
+    //this.selectedRadio = e.value;
+    this.selectedCombinacionGR = {
+      gr_codi: '',
+      gr_desce: '',
+    };
+    //activar el disabled de grosores y mandar llamar el servicio para llenar el select
   }
 }
