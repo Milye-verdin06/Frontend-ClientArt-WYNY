@@ -145,7 +145,7 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       value: 'M',
       viewValue: 'Metros cuadrados',
       unidadN: 'SS',
-      unidadN2: '',
+      unidadN2: 'SU',
       unidadN3: '',
       unidadN4: '',
       unidadN5: '',

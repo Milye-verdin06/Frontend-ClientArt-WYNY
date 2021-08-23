@@ -129,117 +129,15 @@
                         (ngModelChange)="selectAcabadoChangue($event)"
                       >
                         <mat-option
-                          *ngFor="let acabado of acabado"
+                          *ngFor="let acabado of optionsAcabados"
                           [value]="acabado"
                         >
-                          {{ acabado.viewValue }}
+                          {{ acabado.descripcion }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
-
-                <div class="col-sm mt-4">
-                  <div
-                    class="
-                      navbar-search
-                      form-inline
-                      mr-3
-                      d-none d-md-flex
-                      ml-lg-auto
-                    "
-                  >
-                    <div *ngFor="let control of myControl2; let index = index">
-                      <mat-form-field
-                        class=".example-litle-width_min"
-                        appearance="outline"
-                        *ngIf="isDisabledcoloresNG"
-                      >
-                        <mat-label>Buscar color </mat-label>
-                        <input
-                          type="text"
-                          matInput
-                          [formControl]="myControl2[index]"
-                          [matAutocomplete]="auto"
-                          #trigger="matAutocompleteTrigger"
-                        />
-                        <mat-autocomplete
-                          #auto="matAutocomplete"
-                          [displayWith]="displayFnColoresAC"
-                          (optionSelected)="
-                            codSelectedColores(
-                              $event.option.value,
-                              trigger,
-                              auto
-                            )
-                          "
-                        >
-                          <mat-option
-                            *ngFor="
-                              let option of filteredOptionsColoresAC[index]
-                                | async
-                            "
-                            [value]="option"
-                            [disabled]="isDisabledseleColorAC"
-                          >
-                            {{ option.descripcion }}
-                          </mat-option>
-                        </mat-autocomplete>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm mt-4">
-                  <div
-                    class="
-                      navbar-search
-                      form-inline
-                      mr-3
-                      d-none d-md-flex
-                      ml-lg-auto
-                    "
-                  >
-                    <div *ngFor="let control of myControls; let index = index">
-                      <mat-form-field
-                        appearance="outline"
-                        class=".example-litle-width_min"
-                        *ngIf="isDisabledacabadosNG"
-                      >
-                        <mat-label>Buscar Acabado</mat-label>
-                        <input
-                          type="text"
-                          matInput
-                          [formControl]="myControls[index]"
-                          [matAutocomplete]="auto"
-                          #trigger="matAutocompleteTrigger"
-                        />
-                        <mat-autocomplete
-                          #auto="matAutocomplete"
-                          [displayWith]="displayFnAcabados"
-                          (optionSelected)="
-                            codSelectedAcabados(
-                              $event.option.value,
-                              trigger,
-                              auto
-                            )
-                          "
-                        >
-                          <mat-option
-                            *ngFor="
-                              let option of filteredOptionsAcabados[index]
-                                | async
-                            "
-                            [value]="option"
-                            [disabled]="isDisabledseleAcabado"
-                          >
-                            {{ option.descripcion }}
-                          </mat-option>
-                        </mat-autocomplete>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-
                 <div class="col-sm mt-4">
                   <div
                     class="
@@ -252,20 +150,20 @@
                   >
                     <mat-form-field
                       appearance="outline"
-                      *ngIf="isDisabledcoloresNGAC"
+                      *ngIf="isDisabledcoloresNG"
                     >
-                      <mat-label>Seleccionar Color </mat-label>
+                      <mat-label>Selecionar color</mat-label>
                       <mat-select
-                        [disabled]="isDisabledseleColorACABADO"
-                        [(value)]="selectedCOLORESAC"
-                        [(ngModel)]="selectedCOLORESAC"
-                        (ngModelChange)="selectedColorAcabadoChange($event)"
+                        [disabled]="isDisabledseleColor"
+                        [(value)]="selectedColores"
+                        [(ngModel)]="selectedColores"
+                        (ngModelChange)="selectColorChangue($event)"
                       >
                         <mat-option
-                          *ngFor="let coloresAcabado of datos_combinacionColorA"
-                          [value]="coloresAcabado"
+                          *ngFor="let color of optionsColores"
+                          [value]="color"
                         >
-                          {{ coloresAcabado.descripcion }}
+                          {{ color.descripcion }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
