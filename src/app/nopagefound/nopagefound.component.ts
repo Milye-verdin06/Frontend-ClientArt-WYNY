@@ -10,6 +10,6 @@ export class NopagefoundComponent implements OnInit {
 
   ngOnInit(): void {}
   volverInicio() {
-    window.location.replace('http://189.194.236.252:83/'); //redirigir al login
+    window.location.replace('http://192.168.39.202:83/'); //redirigir al login
   }
 }

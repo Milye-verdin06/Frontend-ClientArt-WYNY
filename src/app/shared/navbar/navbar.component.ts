@@ -54,8 +54,8 @@ export class NavbarComponent implements OnInit {
       cancelButtonColor: '#BB3939',
       confirmButtonText: 'Salir',
     }).then((result) => {
+      window.location.replace('http://192.168.39.202:83');
       if (result.isConfirmed) {
-        window.location.replace('http://189.194.236.252:83/');
       }
     });
   }

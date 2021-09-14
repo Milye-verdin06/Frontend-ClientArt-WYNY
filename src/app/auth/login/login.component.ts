@@ -32,10 +32,17 @@ export class LoginComponent implements OnInit {
     let s_usr: string = '';
     let s_psw: string = '';
     let s_clv: string = '';
+    let s_code: string = '';
     this.route.queryParams.subscribe((p) => {
-      s_usr = p['mUsr'];
+      /* s_usr = p['mUsr'];
       s_psw = p['mPsw'];
-      s_clv = p['mClv'];
+      s_clv = p['mClv']; */
+      s_code = p['code']; //retrieve param 'code'
+      s_code = atob(s_code); //decode 'code'
+      var code_splitted = s_code.split('&');
+      s_usr = code_splitted[0];
+      s_psw = code_splitted[1];
+      s_clv = code_splitted[2];
       //console.log(s_usr);
 
       skipLocationChange: true;
