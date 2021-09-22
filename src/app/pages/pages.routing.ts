@@ -5,6 +5,10 @@ import { PagesComponent } from './pages.component';
 import { ArticulosClienteComponent } from './articulos-cliente/articulos-cliente.component';
 import { AgregarArticulosComponent } from './agregar-articulos marroquineria/agregar-articulos marroquineria.component';
 import { AgregarArticulosSuelaComponent } from './agregar-articulos suela/agregar-articulos suela.component';
+import { AgregarArticulosCintosComponent } from './agregar-articulos cintos/agregar-articulos cintos.component';
+import { AgregarArticulosPielComponent } from './agregar-articulos piel/agregar-articulos piel.component';
+import { AgregarArticulosTirasComponent } from './agregar-articulos tiras/agregar-articulos tiras.component';
+import { AgregarArticulosSuajadoComponent } from './agregar-articulos suajado/agregar-articulos suajado.component';
 import { SaldosClienteComponent } from './saldos-cliente/saldos-cliente.component';
 import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
 
@@ -30,6 +34,22 @@ const routes: Routes = [
       {
         path: 'add-articulos-suela',
         component: AgregarArticulosSuelaComponent,
+      },
+      {
+        path: 'add-articulos-cintos',
+        component: AgregarArticulosCintosComponent,
+      },
+      {
+        path: 'add-articulos-piel',
+        component: AgregarArticulosPielComponent,
+      },
+      {
+        path: 'add-articulos-tiras',
+        component: AgregarArticulosTirasComponent,
+      },
+      {
+        path: 'add-articulos-suajado',
+        component: AgregarArticulosSuajadoComponent,
       },
       { path: 'no-pagefound', component: NopagefoundComponent },
       { path: '', redirectTo: '/articulos-cliente', pathMatch: 'full' },

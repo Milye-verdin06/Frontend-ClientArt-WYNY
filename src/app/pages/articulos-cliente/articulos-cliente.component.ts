@@ -53,7 +53,15 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
   isDisabledButtonM = false; //ocultar el botton de agregar articulos marroquineria
   isDisabledButtonAddM = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros marroquineria
   isDisabledButtonS = false; //ocultar el botton de agregar articulos suela
+  isDisabledButtonCintos = false; //ocultar el botton de agregar articulos cintos
+  isDisabledButtonPiel = false; //ocultar el botton de agregar articulos piel
+  isDisabledButtonTiras = false; //ocultar el botton de agregar articulos tiras
+  isDisabledButtonSuajado = false; //ocultar el botton de agregar articulos suajado
   isDisabledButtonAddS = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros suela
+  isDisabledButtonAddCintos = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros cintos
+  isDisabledButtonAddPiel = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros piel
+  isDisabledButtonAddTiras = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros tiras
+  isDisabledButtonAddSuajado = true; //deshabilitar boton para agregar articulo hasta que se llenen los parametros tiras
   isDisabledadd = true; //deshabilitar el filtro de la descripcion del articulo
   isDisableunidadN = true; // deshabilitar la unidad de negocio y activar hasta que seleccione el cliente
   isDisableunidadM = true; // deshabilitar la unidad de medida y habilitar hasta que seleccione la unidad de negocio
@@ -276,6 +284,34 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       this.isDisableDivis = true; //inhabilitar la divisa
     } else this.isDisabledButtonS = false;
 
+    //area de boton para agregar en unidad de negocio CINTOS
+    if (values === 'CT') {
+      this.isDisabledButtonCintos = true; //mostrar boton
+      this.isDisableunidadM = false; //habilitar la unidad de medida
+      this.isDisableDivis = true; //inhabilitar la divisa
+    } else this.isDisabledButtonCintos = false;
+
+    //area de boton para agregar en unidad de negocio PIEL
+    if (values === 'PI') {
+      this.isDisabledButtonPiel = true; //mostrar boton
+      this.isDisableunidadM = false; //habilitar la unidad de medida
+      this.isDisableDivis = true; //inhabilitar la divisa
+    } else this.isDisabledButtonPiel = false;
+
+    //area de boton para agregar en unidad de negocio TIRAS
+    if (values === 'CI') {
+      this.isDisabledButtonTiras = true; //mostrar boton
+      this.isDisableunidadM = false; //habilitar la unidad de medida
+      this.isDisableDivis = true; //inhabilitar la divisa
+    } else this.isDisabledButtonTiras = false;
+
+    //area de boton para agregar en unidad de negocio SUAJADO
+    if (values === 'SS') {
+      this.isDisabledButtonSuajado = true; //mostrar boton
+      this.isDisableunidadM = false; //habilitar la unidad de medida
+      this.isDisableDivis = true; //inhabilitar la divisa
+    } else this.isDisabledButtonSuajado = false;
+
     this.unidadesF = this.unidades.filter(
       (u) =>
         u.unidadN == values ||
@@ -321,12 +357,19 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.aprobationService.setNombreDivisa(this.selectedValue.viewValue);
 
     if (this.unidadNSelecc === 'SI') {
-      this.isDisabledButtonAddM = false; //activar boton agregar marroquineria 476 125 75 29
+      this.isDisabledButtonAddM = false; //activar boton agregar MARROQUINERIA
+    } else if (this.unidadNSelecc === 'SU') {
+      this.isDisabledButtonAddS = false; //activar boton agregar SUELA
+    } else if (this.unidadNSelecc === 'CT') {
+      this.isDisabledButtonAddCintos = false; //activar boton agregar CINTOS
+    } else if (this.unidadNSelecc === 'PI') {
+      this.isDisabledButtonAddPiel = false; //activar boton agregar PIEL
+    } else if (this.unidadNSelecc === 'CI') {
+      this.isDisabledButtonAddTiras = false; //activar boton agregar TIRAS
     } else {
-      this.isDisabledButtonAddS = false; //activar boton agregar suela
+      this.isDisabledButtonAddSuajado = false; //activar boton agregar SUAJADO
     }
 
-    //this.isDisabledButtonAddS = false; //activar boton agregar suela
     this.isDisabledButtonBuscar = false;
 
     /*  if ((this.selectedValue.value = '')) {
@@ -384,14 +427,53 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
       );
 
       if (this.unidadNSelecc == 'SI') {
+        //marroquinera
         this.isDisabledButtonM = true;
         this.isDisabledButtonS = false;
+        this.isDisabledButtonPiel = false;
+        this.isDisabledButtonTiras = false;
+        this.isDisabledButtonCintos = false;
+        this.isDisabledButtonSuajado = false;
+      } else if (this.unidadNSelecc == 'SU') {
+        //suela
+        this.isDisabledButtonS = true;
+        this.isDisabledButtonM = false;
+        this.isDisabledButtonPiel = false;
+        this.isDisabledButtonTiras = false;
+        this.isDisabledButtonCintos = false;
+        this.isDisabledButtonSuajado = false;
+      } else if (this.unidadNSelecc == 'PI') {
+        //piel
+        this.isDisabledButtonPiel = true;
+        this.isDisabledButtonM = false;
+        this.isDisabledButtonS = false;
+        this.isDisabledButtonTiras = false;
+        this.isDisabledButtonCintos = false;
+        this.isDisabledButtonSuajado = false;
+      } else if (this.unidadNSelecc == 'CI') {
+        //tiras
+        this.isDisabledButtonTiras = true;
+        this.isDisabledButtonPiel = false;
+        this.isDisabledButtonM = false;
+        this.isDisabledButtonS = false;
+        this.isDisabledButtonCintos = false;
+        this.isDisabledButtonSuajado = false;
+      } else if (this.unidadNSelecc == 'CI') {
+        //cintos
+        this.isDisabledButtonCintos = true;
+        this.isDisabledButtonTiras = false;
+        this.isDisabledButtonPiel = false;
+        this.isDisabledButtonM = false;
+        this.isDisabledButtonS = false;
+        this.isDisabledButtonSuajado = false;
       } else {
-        this.unidadNSelecc == 'SU';
-        {
-          this.isDisabledButtonS = true;
-          this.isDisabledButtonM = false;
-        }
+        //suajado
+        this.isDisabledButtonSuajado = true;
+        this.isDisabledButtonCintos = false;
+        this.isDisabledButtonTiras = false;
+        this.isDisabledButtonPiel = false;
+        this.isDisabledButtonM = false;
+        this.isDisabledButtonS = false;
       }
     }
 
@@ -423,6 +505,19 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
 
     if (this.divisaSelecc == this.divisaSelecc && this.unidadNSelecc === 'SU') {
       this.isDisabledButtonAddS = false;
+    }
+    if (this.divisaSelecc == this.divisaSelecc && this.unidadNSelecc === 'PI') {
+      this.isDisabledButtonAddPiel = false;
+    }
+    if (this.divisaSelecc == this.divisaSelecc && this.unidadNSelecc === 'CI') {
+      this.isDisabledButtonAddTiras = false;
+    }
+
+    if (this.divisaSelecc == this.divisaSelecc && this.unidadNSelecc === 'CT') {
+      this.isDisabledButtonAddCintos = false;
+    }
+    if (this.divisaSelecc == this.divisaSelecc && this.unidadNSelecc === 'SS') {
+      this.isDisabledButtonAddSuajado = false;
     }
   }
 
@@ -704,6 +799,19 @@ export class ArticulosClienteComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('add-articulos-suela');
   }
 
+  botonAddArticuloCintos() {
+    this.router.navigateByUrl('add-articulos-cintos');
+  }
+
+  botonAddArticuloPiel() {
+    this.router.navigateByUrl('add-articulos-piel');
+  }
+  botonAddArticuloTiras() {
+    this.router.navigateByUrl('add-articulos-tiras');
+  }
+  botonAddArticuloSuajado() {
+    this.router.navigateByUrl('add-articulos-suajado');
+  }
   filterArticulo = '';
 
   opensweetalertdeletArticulo(selectedItem?: any) {

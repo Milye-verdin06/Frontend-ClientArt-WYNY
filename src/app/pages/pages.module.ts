@@ -24,6 +24,10 @@ import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { AgregarArticulosComponent } from './agregar-articulos marroquineria/agregar-articulos marroquineria.component';
 import { AgregarArticulosSuelaComponent } from './agregar-articulos suela/agregar-articulos suela.component';
+import { AgregarArticulosCintosComponent } from './agregar-articulos cintos/agregar-articulos cintos.component';
+import { AgregarArticulosPielComponent } from './agregar-articulos piel/agregar-articulos piel.component';
+import { AgregarArticulosTirasComponent } from './agregar-articulos tiras/agregar-articulos tiras.component';
+import { AgregarArticulosSuajadoComponent } from './agregar-articulos suajado/agregar-articulos suajado.component';
 import { SaldosClienteComponent } from './saldos-cliente/saldos-cliente.component';
 import { PipeFilterPipe } from './pipes/pipe-filter.pipe';
 import { PeticionesService } from '../services/peticiones.service';
@@ -35,6 +39,10 @@ import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
     ArticulosClienteComponent,
     AgregarArticulosComponent,
     AgregarArticulosSuelaComponent,
+    AgregarArticulosCintosComponent,
+    AgregarArticulosPielComponent,
+    AgregarArticulosTirasComponent,
+    AgregarArticulosSuajadoComponent,
     SaldosClienteComponent,
     NopagefoundComponent,
     PipeFilterPipe,
