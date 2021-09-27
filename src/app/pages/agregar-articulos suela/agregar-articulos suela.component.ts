@@ -18,7 +18,7 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
-import { ReqcArtic } from 'src/app/models/cArtic';
+import { ReqArtic, ReqcArtic } from 'src/app/models/cArtic';
 import { ArticuloService } from 'src/app/services/Smarroquineria/articulo.service';
 import {
   ReqArticulos,
@@ -65,6 +65,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
   public datos_combinacionAC: ReqCombinacion[] = [];
   public datos_combinacionSEL: ReqCombinacion[] = [];
   public datos_cArtic: ReqcArtic[] = [];
+  datos_Addartic: ReqArtic[] = [];
   public nombreVendedor: string = '';
 
   selectedLinea: ReqLineas;
@@ -342,16 +343,23 @@ export class AgregarArticulosSuelaComponent implements OnInit {
         this.datos_cArtic = resp.data;
         if (this.datos_cArtic.length == 1) {
           this.isDisabledAcabado = false;
-        } else {
-          this.datos_cArtic.length == 0;
-          Swal.fire({
-            icon: 'warning',
-            title: 'Código incorrecto',
-            text: 'Verificar los datos, o ponerse en contacto con área de TI',
+        } else if (this.datos_cArtic.length == 0) {
+          const body = {
+            ar_artic: this.infoCodi.substring(0, 4),
+            ar_desce: this.infoDescC_ARTIC.trim(),
+            ar_desci: this.infoDescC_ARTIC.trim(),
 
-            // timer: 1500,
-          });
-          this.isDisabledAcabado = true;
+            ar_unid: this.unidadSelecc,
+            ar_tpiel: this.selectedLinea.tp_codi,
+            ar_fami: 1,
+          };
+
+          this.Validacion_c_articService.postArticuloscArtic(body).subscribe(
+            (resp) => {
+              this.datos_Addartic = resp.data;
+            },
+            (error) => console.log(error)
+          );
         }
       },
       (error) => console.log(error)
@@ -431,6 +439,7 @@ export class AgregarArticulosSuelaComponent implements OnInit {
     });
   }
 
+  infoDescC_ARTIC: string = '';
   infoCodi: string = '';
   infoDesc: string = '';
   infoEspeci: string = '';
@@ -479,6 +488,9 @@ export class AgregarArticulosSuelaComponent implements OnInit {
       this.infoColor +
       ' ' +
       this.infoSeleccion;
+
+    this.infoDescC_ARTIC =
+      this.infoLinea.trim() + ' ' + this.infoplanchado.trim();
   }
 
   mostrarCodigo() {
@@ -1190,6 +1202,56 @@ export class AgregarArticulosSuelaComponent implements OnInit {
            </h6> `,
 
       cc: 'daniel_berger@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx, mili_verdin@wyny.com.mx',
+    };
+
+    this.correoService.postCorreos(body).subscribe(
+      (resp) => {
+        this.datos_correo = resp.data;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  sendEmailc_artic() {
+    const body = {
+      to: 'mili_verdin@wyny.com.mx',
+
+      subject: `Registro nuevo en C_artic- ${this.nomCliente}`,
+
+      message: `<div>
+      <h1 style="font-family: Arial">&nbsp;&nbsp;Registro de articulo en C_ARTIC </h1>
+                    <a>
+                    <img src="https://i.mkt.lu/dl/thumb/7444781040/7188581810.jpg" width="150" height="150" border="0" alt="" style="float:left">
+                    </a>
+
+
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendedor: ${
+                this.nombreVendedor
+              }</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de negocio: Suela</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de medida: ${
+                this.unidadSelecc
+              } </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Divisa: ${
+                this.divisaSelecc
+              } </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Articulo: ${this.infoCodi.substring(
+                0,
+                4
+              )} </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripcion: ${
+                this.infoDescC_ARTIC
+              } </h5>
+              </div>
+              <br>
+              <br>
+              <br>
+
+           <h6 style="font-family: Arial" align="center"> Este mensaje se envió de manera automática, favor de NO responder,
+           en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
+           </h6> `,
+
+      cc: 'iracheta@wyny.mx, ramon_hernandez@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(

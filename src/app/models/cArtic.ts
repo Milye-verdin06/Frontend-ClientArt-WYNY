@@ -19,3 +19,18 @@ export interface ReqcArtic {
   ar_obso: string;
   codigoTarifa: string;
 }
+
+export interface articuloARTRespons {
+  status: boolean;
+  message: string;
+  data: ReqArtic[];
+}
+export interface ReqArtic {
+  ar_artic: string;
+  ar_desce: string;
+  ar_desci: string;
+
+  ar_unid: string;
+  ar_tpiel: string;
+  ar_fami: number;
+}

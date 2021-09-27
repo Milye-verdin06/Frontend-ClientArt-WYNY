@@ -39,7 +39,7 @@ import {
 import Swal from 'sweetalert2';
 import { EspecificacionService } from 'src/app/services/Smarroquineria/especificacion.service';
 
-import { ReqcArtic } from 'src/app/models/cArtic';
+import { ReqArtic, ReqcArtic } from 'src/app/models/cArtic';
 import { ViewChild } from '@angular/core';
 import { CorreoService } from '../../services/correo.service';
 import { ReqCorreo } from 'src/app/models/Correo';
@@ -65,6 +65,7 @@ export class AgregarArticulosComponent implements OnInit {
   datos_articulo: ReqArticulos[] = [];
   datos_articuloenTarifa: ReqArticulosExistentes[] = [];
   datos_artic: ReqcArtic[] = [];
+  datos_Addartic: ReqArtic[] = [];
   datos_especificacion: any;
   myControls: FormControl[] = [new FormControl('')];
   myControl2: FormControl[] = [new FormControl('')];
@@ -534,6 +535,7 @@ export class AgregarArticulosComponent implements OnInit {
       tl_desc: '',
       tl_linea: '',
       tl_sts: '',
+      tl_desCorta: '',
     };
     this.selectedFormato = {
       ft_tpiel: '',
@@ -661,16 +663,24 @@ export class AgregarArticulosComponent implements OnInit {
           ) {
             this.isDisabledGrosor = false;
             console.log('si existe el artículo en c_artic');
-          } else {
-            this.datos_artic.length == 0;
-            Swal.fire({
-              icon: 'warning',
-              title: 'Código incorrecto',
-              text: 'Verificar los datos, o ponerse en contacto con área de TI',
+          } else if (this.datos_artic.length == 0) {
+            const body = {
+              ar_artic: this.infoCodi.substring(0, 4),
+              ar_desce: this.infoDescC_ARTIC.trim(),
+              ar_desci: this.infoDescC_ARTIC.trim(),
 
-              // timer: 1500,
-            });
-            this.isDisabledGrosor = true;
+              ar_unid: this.unidadSelecc,
+              ar_tpiel: this.selectedLinea.tp_codi,
+              ar_fami: 4,
+            };
+
+            this.Validacion_c_articService.postArticuloscArtic(body).subscribe(
+              (resp) => {
+                this.datos_Addartic = resp.data;
+                this.sendEmailc_artic();
+              },
+              (error) => console.log(error)
+            );
           }
         },
         (error) => console.log(error)
@@ -752,18 +762,28 @@ export class AgregarArticulosComponent implements OnInit {
       this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
         (resp) => {
           this.datos_artic = resp.data;
+
           if (this.datos_artic.length == 1) {
             this.isDisabledGrosor = false;
             console.log('si existe el artículo en c_artic');
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              title: 'Código incorrecto',
-              text: 'Verificar los datos, o ponerse en contacto con área de TI',
+          } else if (this.datos_artic.length == 0) {
+            const body = {
+              ar_artic: this.infoCodi.substring(0, 4),
+              ar_desce: this.infoDescC_ARTIC.trim(),
+              ar_desci: this.infoDescC_ARTIC.trim(),
 
-              //timer: 1500,
-            });
-            this.isDisabledGrosor = true;
+              ar_unid: this.unidadSelecc,
+              ar_tpiel: this.selectedLinea.tp_codi,
+              ar_fami: 4,
+            };
+
+            this.Validacion_c_articService.postArticuloscArtic(body).subscribe(
+              (resp) => {
+                this.datos_Addartic = resp.data;
+                this.sendEmailc_artic();
+              },
+              (error) => console.log(error)
+            );
           }
         },
         (error) => console.log(error)
@@ -821,18 +841,28 @@ export class AgregarArticulosComponent implements OnInit {
       this.Validacion_c_articService.getArticulosC_artic(bodyC).subscribe(
         (resp) => {
           this.datos_artic = resp.data;
+
           if (this.datos_artic.length == 1) {
             this.isDisabledGrosor = false;
             console.log('si existe el artículo en c_artic');
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              title: 'Código incorrecto',
-              text: 'Verificar los datos, o ponerse en contacto con área de TI',
+          } else if (this.datos_artic.length == 0) {
+            const body = {
+              ar_artic: this.infoCodi.substring(0, 4),
+              ar_desce: this.infoDescC_ARTIC.trim(),
+              ar_desci: this.infoDescC_ARTIC.trim(),
 
-              // timer: 1500,
-            });
-            this.isDisabledGrosor = true;
+              ar_unid: this.unidadSelecc,
+              ar_tpiel: this.selectedLinea.tp_codi,
+              ar_fami: 4,
+            };
+
+            this.Validacion_c_articService.postArticuloscArtic(body).subscribe(
+              (resp) => {
+                this.datos_Addartic = resp.data;
+                this.sendEmailc_artic();
+              },
+              (error) => console.log(error)
+            );
           }
         },
         (error) => console.log(error)
@@ -843,7 +873,7 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   selectGrosorChangue(values: any) {
-    console.log(this.optionsColoresAC);
+    console.log(this.infoDescC_ARTIC);
     this.isDisabledAcabado = false;
 
     this.selectedClasificado = {
@@ -967,9 +997,11 @@ export class AgregarArticulosComponent implements OnInit {
   }
   infoCodi: string = '';
   infoDesc: string = '';
+  infoDescC_ARTIC: string = '';
   infoEspeci: string = '';
   infoLinea: string = '';
   infoTambor: string = '';
+  infoTamborC_ARTIC: string = '';
   infoFormato: string = '';
   infoTamano: string = '';
   infoGrosor: string = '';
@@ -988,6 +1020,9 @@ export class AgregarArticulosComponent implements OnInit {
     this.infoTambor = this.selectedTambor
       ? String(this.selectedTambor.tl_desc).trim()
       : '';
+    this.infoTamborC_ARTIC = this.selectedTambor
+      ? String(this.selectedTambor.tl_desCorta).trim()
+      : '';
     if (this.selectedLinea.tp_codi && this.selectedTambor.tl_codi) {
       this.infoFormato = this.selectedFormato.ft_desci
         ? String(this.selectedFormato.ft_desc).trim()
@@ -1002,6 +1037,7 @@ export class AgregarArticulosComponent implements OnInit {
     } else {
       this.infoTamano = '';
     }
+
     this.infoGrosor = this.selectedGrosor
       ? String(this.selectedGrosor.gl_desc).trim()
       : ' ';
@@ -1056,6 +1092,17 @@ export class AgregarArticulosComponent implements OnInit {
         ' ' +
         this.infoClasificado;
     }
+
+    this.infoDescC_ARTIC =
+      this.infoLinea.trim() +
+      ' ' +
+      this.infoTamborC_ARTIC.trim() +
+      ' ' +
+      this.infoFormato.trim() +
+      ' ' +
+      this.infoTamano.trim().substring(0, 2);
+
+    //
   }
 
   mostrarCodigo() {
@@ -1317,6 +1364,7 @@ export class AgregarArticulosComponent implements OnInit {
                                 tl_desc: '',
                                 tl_linea: '',
                                 tl_sts: '',
+                                tl_desCorta: '',
                               };
                               this.selectedFormato = {
                                 ft_tpiel: '',
@@ -1491,6 +1539,7 @@ export class AgregarArticulosComponent implements OnInit {
                                   tl_desc: '',
                                   tl_linea: '',
                                   tl_sts: '',
+                                  tl_desCorta: '',
                                 };
                                 this.selectedFormato = {
                                   ft_tpiel: '',
@@ -1667,6 +1716,7 @@ export class AgregarArticulosComponent implements OnInit {
                                   tl_desc: '',
                                   tl_linea: '',
                                   tl_sts: '',
+                                  tl_desCorta: '',
                                 };
                                 this.selectedFormato = {
                                   ft_tpiel: '',
@@ -1870,6 +1920,7 @@ export class AgregarArticulosComponent implements OnInit {
                 tl_desc: '',
                 tl_linea: '',
                 tl_sts: '',
+                tl_desCorta: '',
               };
               this.selectedFormato = {
                 ft_tpiel: '',
@@ -1984,6 +2035,7 @@ export class AgregarArticulosComponent implements OnInit {
                   tl_desc: '',
                   tl_linea: '',
                   tl_sts: '',
+                  tl_desCorta: '',
                 };
                 this.selectedFormato = {
                   ft_tpiel: '',
@@ -2096,6 +2148,7 @@ export class AgregarArticulosComponent implements OnInit {
                     tl_desc: '',
                     tl_linea: '',
                     tl_sts: '',
+                    tl_desCorta: '',
                   };
                   this.selectedFormato = {
                     ft_tpiel: '',
@@ -2205,6 +2258,56 @@ export class AgregarArticulosComponent implements OnInit {
            </h6> `,
 
       cc: 'erika_huerta@wyny.com.mx, iracheta@wyny.mx, ramon_hernandez@wyny.com.mx, mili_verdin@wyny.com.mx',
+    };
+
+    this.correoService.postCorreos(body).subscribe(
+      (resp) => {
+        this.datos_correo = resp.data;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  sendEmailc_artic() {
+    const body = {
+      to: 'mili_verdin@wyny.com.mx',
+
+      subject: `Registro nuevo en C_artic- ${this.nomCliente}`,
+
+      message: `<div>
+      <h1 style="font-family: Arial">&nbsp;&nbsp;Registro de articulo en C_ARTIC </h1>
+                    <a>
+                    <img src="https://i.mkt.lu/dl/thumb/7444781040/7188581810.jpg" width="150" height="150" border="0" alt="" style="float:left">
+                    </a>
+
+
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendedor: ${
+                this.nombreVendedor
+              }</h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de negocio: Marroquineria </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unidad de medida: ${
+                this.unidadSelecc
+              } </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Divisa: ${
+                this.divisaSelecc
+              } </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Articulo: ${this.infoCodi.substring(
+                0,
+                4
+              )} </h5>
+              <h5 style="font-family: Arial"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripcion: ${
+                this.infoDescC_ARTIC
+              } </h5>
+              </div>
+              <br>
+              <br>
+              <br>
+
+           <h6 style="font-family: Arial" align="center"> Este mensaje se envió de manera automática, favor de NO responder,
+           en caso de alguna aclaración favor de contactar con su ejecutivo de cuenta.
+           </h6> `,
+
+      cc: 'iracheta@wyny.mx, ramon_hernandez@wyny.com.mx',
     };
 
     this.correoService.postCorreos(body).subscribe(

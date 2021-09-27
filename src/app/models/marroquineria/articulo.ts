@@ -172,6 +172,7 @@ export interface ReqTambor {
   tl_desc: string;
   tl_linea: string;
   tl_sts: string;
+  tl_desCorta: string;
 }
 
 export interface SeleccionRespons {
